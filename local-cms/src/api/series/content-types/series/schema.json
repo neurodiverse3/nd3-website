@@ -3,7 +3,7 @@
   "collectionName": "series",
   "info": {
     "singularName": "series",
-    "pluralName": "series",
+    "pluralName": "series-list",
     "displayName": "Series",
     "description": ""
   },
