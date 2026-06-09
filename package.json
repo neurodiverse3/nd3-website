@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
-    "generate-demos": "node scripts/generate-spotlane-demos.js"
+    "generate-demos": "node scripts/generate-spotlane-demos.js",
+    "sync-notion": "node scripts/notion-sync.js"
   },
   "dependencies": {
     "@napi-rs/canvas": "^1.0.0",
@@ -16,6 +17,7 @@
     "@strapi/blocks-react-renderer": "^1.0.2",
     "@tailwindcss/postcss": "^4.3.0",
     "autoprefixer": "^10.5.0",
+    "cloudinary": "^2.10.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.14.0",
     "next": "^16.2.6",
@@ -33,11 +35,13 @@
     "@axe-core/react": "^4.11.3",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.2.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react-hooks": "^7.1.1",
-    "globals": "^17.5.0"
+    "globals": "^17.5.0",
+    "typescript": "^6.0.3"
   }
 }

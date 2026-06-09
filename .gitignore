@@ -39,3 +39,5 @@ src/data/*.json
 .env*.local
 .env
 
+
+.vercel

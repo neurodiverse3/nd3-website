@@ -46,6 +46,11 @@
   --grad-progress: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-meta: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
 
+  /* Store */
+  --nd3-void: #0a0a0b;
+  --nd3-card: #121214;
+  --nd3-pink: #ff2d8e;
+
   /* Fallbacks for Void */
   --surface: var(--bg);
   --link: var(--accent);
@@ -67,6 +72,11 @@
   --grad-hero: linear-gradient(135deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-progress: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-meta: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
+
+  /* Store */
+  --nd3-void: #0a0a0b;
+  --nd3-card: #121214;
+  --nd3-pink: #ff2d8e;
 
   /* Fallbacks for Void */
   --surface: var(--bg);
