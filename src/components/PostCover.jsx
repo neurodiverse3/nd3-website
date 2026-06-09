@@ -510,7 +510,7 @@ export const PostCover = ({
 
           <div className="mt-8 pt-4 border-t border-[#1F1F22] flex justify-between items-center text-[9px] font-mono text-text-muted">
             <span>TX_STATUS: OK</span>
-            <span className="font-display font-black text-white">neurodivers³</span>
+            <span className="font-display font-black text-white" aria-label="neurodivers three">neurodivers³</span>
           </div>
         </div>
       </div>

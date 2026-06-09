@@ -223,7 +223,7 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
       {/* Timeline Comments List */}
       <div className="space-y-8 mb-16">
         {comments.length === 0 ? (
-          <div className="p-8 border border-dashed border-border-rule/50 text-center text-text-muted/65 italic text-sm select-none">
+          <div className="p-8 border border-dashed border-border-rule/50 text-center text-text-muted italic text-sm select-none">
             No replies yet — be the first.
           </div>
         ) : (

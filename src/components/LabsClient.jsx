@@ -176,7 +176,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
   return (
     <div className="space-y-10">
       {/* Category Filter Tabs */}
-      <div className="flex flex-wrap gap-3 border-b border-[var(--rule)] pb-6 text-left">
+      <div className="flex flex-wrap gap-3 border-b border-border-rule pb-6 text-left">
         {categories.map((cat) => {
           const categoryId = cat.slug || cat.slug?.current || cat._id;
           const isActive = activeCategory === categoryId;
@@ -186,8 +186,8 @@ function LabsClientInner({ initialCategories, initialLabs }) {
               onClick={() => setActiveCategory(categoryId)}
               className={`px-4 py-2 text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer border rounded-none ${
                 isActive
-                  ? 'bg-[var(--accent)] text-[var(--bg)] border-[var(--accent)] shadow-[2px_2px_0px_var(--fg)]'
-                  : 'bg-transparent text-[var(--muted)] border-[var(--rule)] hover:border-[var(--muted)]/50 hover:text-[var(--fg)]'
+                  ? 'bg-accent text-bg-primary border-accent shadow-[2px_2px_0px_var(--fg)]'
+                  : 'bg-transparent text-text-muted border-border-rule hover:border-text-muted/50 hover:text-fg-primary'
               }`}
             >
               {cat.title}
@@ -197,7 +197,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
       </div>
 
       {/* Search + Metadata Bar */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-[var(--muted)] uppercase tracking-[0.12em] pb-4 border-b border-dashed border-[var(--rule)]/60 select-none">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-text-muted uppercase tracking-[0.12em] pb-4 border-b border-dashed border-border-rule/60 select-none">
         <span>
           FOUND {filteredLabs.length} PROTOTYPE{filteredLabs.length !== 1 && 'S'} MATCHING COMBO
         </span>
@@ -205,19 +205,19 @@ function LabsClientInner({ initialCategories, initialLabs }) {
           {activeCategory !== "all" && (
             <button
               onClick={() => setActiveCategory("all")}
-              className="text-[var(--accent)] hover:underline font-black cursor-pointer bg-transparent border-none text-[10px] uppercase font-mono tracking-wider"
+              className="text-accent hover:underline font-black cursor-pointer bg-transparent border-none text-[10px] uppercase font-mono tracking-wider"
             >
               RESET FILTER
             </button>
           )}
           <div className="relative flex-1 sm:w-56">
-            <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--muted)] pointer-events-none" />
+            <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search labs..."
-              className="w-full bg-black/40 border border-[var(--rule)] pl-8 pr-3 py-1.5 text-[10px] font-mono text-[var(--fg)] placeholder:text-[var(--muted)]/50 outline-none focus:border-[var(--accent)] transition-colors rounded-none uppercase tracking-wider"
+              className="w-full bg-bg-primary/40 border border-border-rule pl-8 pr-3 py-1.5 text-[10px] font-mono text-fg-primary placeholder:text-text-muted/50 outline-none focus:border-accent transition-colors rounded-none uppercase tracking-wider"
             />
           </div>
         </div>
@@ -241,24 +241,22 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 onMouseEnter={() => setHoveredCard(lab._id)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className={`group border transition-all duration-300 flex flex-col shadow-[4px_4px_0px_var(--rule)] bg-bg-primary/40 break-inside-avoid h-[380px] relative overflow-hidden ${
-                  isHovered
-                    ? 'border-[var(--accent)] shadow-[6px_6px_0px_var(--accent)] -translate-y-1'
-                    : 'hover:border-[var(--accent)]/50 hover:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-0.5'
+                className={`sidebar-card flex flex-col h-[400px] relative overflow-hidden transition-all duration-300 ${
+                  isHovered ? '-translate-y-1' : 'hover:-translate-y-0.5'
                 }`}
               >
                 {/* Preview Area */}
-                <div className="h-[160px] border-b border-[var(--rule)] bg-black/60 relative overflow-hidden">
+                <div className="h-[180px] border-b border-border-rule bg-black/60 relative overflow-hidden">
                   <LabPreview slug={getToolKey(lab)} isActive={isHovered} />
                   {/* Tag Badge */}
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-[var(--accent)] bg-black/70 border border-[var(--rule)] px-2 py-0.5">
+                    <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-accent bg-black/70 border border-border-rule px-2 py-0.5">
                       {lab.tag || "EXPERIMENT"}
                     </span>
                   </div>
                   {/* Hover Indicator */}
                   <div className={`absolute bottom-2 right-2 z-10 transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-                    <span className="text-[8px] font-mono text-[var(--accent)] uppercase tracking-wider animate-pulse">
+                    <span className="text-[8px] font-mono text-accent uppercase tracking-wider animate-pulse">
                       PREVIEW ACTIVE
                     </span>
                   </div>
@@ -267,18 +265,18 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                 {/* Content Area */}
                 <div className="flex-1 p-5 flex flex-col justify-between">
                   <div className="space-y-3">
-                    <h2 className="text-lg font-black uppercase text-[var(--fg)] tracking-tight leading-none group-hover:text-[var(--accent)] transition-colors">
+                    <h2 className="text-lg font-black uppercase text-fg-primary tracking-tight leading-none group-hover:text-accent transition-colors">
                       {lab.title}
                     </h2>
-                    <p className="text-xs text-[var(--muted)] font-sans leading-relaxed line-clamp-2">
+                    <p className="text-xs text-text-muted font-sans leading-relaxed line-clamp-2">
                       {lab.excerpt}
                     </p>
                   </div>
 
                   {/* Metadata Row */}
-                  <div className="flex flex-wrap gap-2 pt-3 border-t border-[var(--rule)]/40 mt-3">
+                  <div className="flex flex-wrap gap-2 pt-3 border-t border-border-rule/40 mt-3">
                     {lab.setupTime && (
-                      <span className="text-[8px] font-mono text-[var(--muted)] uppercase tracking-wider">
+                      <span className="text-[8px] font-mono text-text-muted uppercase tracking-wider">
                         {lab.setupTime} setup
                       </span>
                     )}
@@ -292,7 +290,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                   {/* CTA */}
                   <Link
                     href={`/labs/${labSlug}`}
-                    className="w-full mt-4 py-3 bg-transparent text-[var(--fg)] border border-[var(--rule)] group-hover:border-[var(--accent)] font-black uppercase text-[10px] tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer rounded-none hover:bg-[var(--accent)] hover:text-[var(--bg)] hover:border-[var(--accent)]"
+                    className="w-full mt-4 py-3 bg-transparent text-fg-primary border border-border-rule group-hover:border-accent font-black uppercase text-[10px] tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer rounded-none hover:bg-accent hover:text-bg-primary hover:border-accent"
                   >
                     OPEN LAB <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
@@ -305,14 +303,14 @@ function LabsClientInner({ initialCategories, initialLabs }) {
 
       {/* Empty State */}
       {filteredLabs.length === 0 && (
-        <div className="border border-[var(--rule)] bg-black/20 p-12 text-center space-y-4">
-          <Sparkles size={24} className="text-[var(--muted)] mx-auto" />
-          <p className="text-sm font-mono text-[var(--muted)] uppercase tracking-wider">
+        <div className="border border-border-rule bg-surface/20 p-12 text-center space-y-4 shadow-[4px_4px_0px_var(--rule)]">
+          <Sparkles size={24} className="text-text-muted mx-auto" />
+          <p className="text-sm font-mono text-text-muted uppercase tracking-wider">
             NO PROTOTYPES MATCH YOUR CURRENT COMBINATION
           </p>
           <button
             onClick={() => { setActiveCategory('all'); setSearchQuery(''); }}
-            className="px-6 py-2 bg-[var(--accent)] text-[var(--bg)] border border-[var(--accent)] font-black uppercase text-xs tracking-wider cursor-pointer hover:bg-transparent hover:text-[var(--accent)] transition-all rounded-none"
+            className="px-6 py-2 bg-accent text-bg-primary border border-accent font-black uppercase text-xs tracking-wider cursor-pointer hover:bg-transparent hover:text-accent transition-all rounded-none shadow-[2px_2px_0px_var(--fg)]"
           >
             RESET ALL FILTERS
           </button>

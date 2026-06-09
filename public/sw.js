@@ -42,6 +42,11 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
+  // Bypass service worker cache for Next.js API endpoints
+  if (e.request.url.includes('/api/')) {
+    return;
+  }
+
   e.respondWith(
     fetch(e.request)
       .then((response) => {

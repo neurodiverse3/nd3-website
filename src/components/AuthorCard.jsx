@@ -35,9 +35,9 @@ export default function AuthorCard({ author = {}, socials = {} }) {
             <span className="text-[9px] font-mono tracking-widest text-accent-pink uppercase block font-bold">
               TRANSMISSION SOURCE
             </span>
-            <h4 className="text-xl font-black uppercase text-fg-primary tracking-tight font-display mt-0.5">
+            <h3 className="text-xl font-black uppercase text-fg-primary tracking-tight font-display mt-0.5">
               Written by {name}
-            </h4>
+            </h3>
           </div>
           
           <p className="text-sm text-text-muted leading-relaxed font-sans font-light">

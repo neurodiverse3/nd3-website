@@ -44,8 +44,9 @@ export default function HomeClient({ siteSettings, latestPosts }) {
   const [errorMessage, setErrorMessage] = useState('');
 
   // Standard fallback content
+  const rawHeadline = siteSettings?.memoirTeaser?.headline || "I thought I was just bad at being a human.";
   const memoir = {
-    headline: siteSettings?.memoirTeaser?.headline || "I thought I was just bad at being a person.",
+    headline: rawHeadline.replace(/\bperson\b/gi, 'human').replace(/\bpeople\b/gi, 'humans'),
     blurb: siteSettings?.memoirTeaser?.blurb || "A memoir in progress about late AuDHD diagnosis, unmasking, and figuring out how to human.",
     ctaLabel: siteSettings?.memoirTeaser?.ctaLabel || "Read the memoir",
     ctaHref: siteSettings?.memoirTeaser?.ctaHref || "/memoir"
@@ -154,7 +155,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
       <section className="relative min-h-[100svh] h-auto flex flex-col px-6 md:px-24 overflow-hidden border-b border-border-rule py-12 md:py-16">
         <div className="max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center relative z-10 items-start text-left pt-[100px] md:pt-[120px] pb-12">
           <div
-            className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-text,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 md:mb-12 select-none"
+            className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 md:mb-12 select-none"
             style={{ opacity: 0, animation: 'fadeInUp 0.6s ease forwards' }}
           >
             NEURODIVERGENT LIFE, TOOLS & STORIES
@@ -169,7 +170,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               <span className="inline-block text-accent ml-0.5">.</span>
             </div>
             <div 
-              className="block italic unhinged-gradient"
+              className="block italic home-hero-gradient"
               style={{ 
                 opacity: 0, 
                 animation: 'fadeInUp 0.6s ease 0.1s forwards'
@@ -222,7 +223,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
       {/* 3. Mood Section — How's the brain today? */}
       <section ref={moodSectionRef} className="border-b border-border-rule bg-bg-primary">
         <div className="max-w-7xl mx-auto pt-16 md:pt-[64px] pb-8 md:pb-12 px-6 md:px-24">
-          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-text,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
+          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
             PICK A MODE. READ WHAT FITS.
           </span>
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-left">
@@ -247,11 +248,11 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                 <div className="max-w-7xl w-full mx-auto px-6 md:px-24 py-0 min-h-[88px] md:min-h-[120px] flex flex-row items-center justify-between gap-6 relative z-10">
                   {/* Number & Label */}
                   <div className="flex items-center gap-10 md:gap-[40px]">
-                    <span className="text-[48px] md:text-[72px] font-black text-text-muted group-hover:text-accent transition-colors duration-300 font-mono tabular-nums" aria-hidden="true">
+                    <span className="text-[48px] md:text-[72px] font-black text-text-muted group-hover:text-link transition-colors duration-300 font-mono tabular-nums" aria-hidden="true">
                       {state.num}
                     </span>
                     <div className="flex flex-col items-start text-left">
-                      <span className="text-2xl md:text-3xl font-black tracking-tight uppercase leading-none text-fg-primary group-hover:text-accent transition-colors duration-300 font-display">
+                      <span className="text-2xl md:text-3xl font-black tracking-tight uppercase leading-none text-fg-primary group-hover:text-link transition-colors duration-300 font-display">
                         {state.label}
                       </span>
                       <span className="text-xs md:text-sm text-text-muted mt-1 tracking-wide font-normal group-hover:text-fg-primary transition-colors duration-300">
@@ -259,7 +260,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                       </span>
                     </div>
                   </div>
-                  <ChevronRight size={32} className="text-text-muted group-hover:text-accent group-hover:translate-x-1.5 transition-all duration-300 shrink-0" />
+                  <ChevronRight size={32} className="text-text-muted group-hover:text-link group-hover:translate-x-1.5 transition-all duration-300 shrink-0" />
                 </div>
                 {/* Active left indicator rule */}
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -272,7 +273,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
       {/* 4. Three Pillars */}
       <section id="pillars" className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto border-b border-border-rule">
         <div className="mb-16">
-          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-text,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
+          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
             THE THREE TOPIC PILLARS
           </span>
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6 text-left">
@@ -295,14 +296,14 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               }}
             >
               <div className="flex-1 text-left">
-                <h3 className="text-2xl font-black uppercase tracking-tight text-fg-primary mb-4 group-hover:text-accent transition-colors">
+                <h3 className="text-2xl font-black uppercase tracking-tight text-fg-primary mb-4 group-hover:text-link transition-colors">
                   {pillar.title}
                 </h3>
                 <p className="text-base text-text-muted leading-relaxed font-normal mb-8">{pillar.desc}</p>
               </div>
               
               <div className="flex justify-between items-center mt-8 pt-6 border-t border-border-rule/40">
-                <span className="text-[13px] font-black uppercase tracking-widest text-text-muted group-hover:text-accent transition-colors flex items-center gap-2">
+                <span className="text-[13px] font-black uppercase tracking-widest text-text-muted group-hover:text-link transition-colors flex items-center gap-2">
                   Explore category <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
                 </span>
               </div>
@@ -316,12 +317,12 @@ export default function HomeClient({ siteSettings, latestPosts }) {
         <section className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto border-b border-border-rule">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
             <div>
-              <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-text,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">FEATURED READING</span>
+              <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">FEATURED READING</span>
               <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mt-4">
                 Read these first<span className="text-accent inline-block ml-0.5">.</span>
               </h2>
             </div>
-            <Link href="/blog" className="text-[13px] font-black uppercase tracking-[0.2em] text-text-muted hover:text-accent transition-colors flex items-center gap-2">
+            <Link href="/blog" className="text-[13px] font-black uppercase tracking-[0.2em] text-text-muted hover:text-link transition-colors flex items-center gap-2">
               View all posts →
             </Link>
           </div>
@@ -393,10 +394,10 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             {/* Dotted noise texture overlay */}
             <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none rounded-none" />
             
-            <span className="relative z-10 inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-text,var(--accent))] bg-[var(--accent-soft)] border border-border-rule px-3 py-1 uppercase select-none">
-              // SERIAL MEMOIR IN PROGRESS
+            <span className="relative z-10 inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] border border-border-rule px-3 py-1 uppercase select-none">
+              · SERIAL MEMOIR IN PROGRESS
             </span>
-            <h2 className="relative z-10 text-4xl md:text-6xl font-black tracking-tighter uppercase mt-8 mb-6 text-fg-primary leading-none group-hover:text-accent transition-colors duration-300">
+            <h2 className="relative z-10 text-4xl md:text-6xl font-black tracking-tighter uppercase mt-8 mb-6 text-fg-primary leading-none group-hover:text-link transition-colors duration-300">
               {memoir.headline.replace(/\.$/, '').toUpperCase()}<span className="text-accent inline-block ml-0.5">.</span>
             </h2>
             
@@ -449,7 +450,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
           {/* Text Container */}
           <div className="flex-1 flex flex-col justify-center items-start">
-            <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-text,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">
+            <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">
               Founder’s Note
             </span>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6 leading-none text-fg-primary">
@@ -475,7 +476,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
           <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none" />
           
           <div className="max-w-[560px] mx-auto text-center relative z-10">
-            <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-text,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
+            <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
               Newsletter
             </span>
             <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4 leading-none font-display">
@@ -567,12 +568,12 @@ export default function HomeClient({ siteSettings, latestPosts }) {
         <section className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
             <div>
-              <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-text,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">Latest Writing</span>
+              <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">Latest Writing</span>
               <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mt-4">
                 FRESH OFF THE KEYBOARD<span className="text-accent inline-block ml-0.5">.</span>
               </h2>
             </div>
-            <Link href="/blog" className="text-[13px] font-black uppercase tracking-[0.2em] text-text-muted hover:text-accent transition-colors flex items-center gap-2">
+            <Link href="/blog" className="text-[13px] font-black uppercase tracking-[0.2em] text-text-muted hover:text-link transition-colors flex items-center gap-2">
               All posts →
             </Link>
           </div>
@@ -628,13 +629,13 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                       )}
                     </div>
                     
-                    <div className="text-[11px] font-black tracking-widest text-text-muted uppercase font-mono group-hover:text-accent transition-colors mt-6 pt-4 border-t border-border-rule/40 flex items-center justify-between w-full">
+                    <div className="text-[11px] font-black tracking-widest text-text-muted uppercase font-mono group-hover:text-link transition-colors mt-6 pt-4 border-t border-border-rule/40 flex items-center justify-between w-full">
                       <time dateTime={post.date || post._createdAt}>
                         {formattedDate}
                       </time>
                       <Link 
                         href={`/blog/${slug}`}
-                        className="text-[11px] font-black tracking-widest text-accent hover:underline flex items-center gap-1 group-hover:translate-x-0.5 transition-all duration-300"
+                        className="text-[11px] font-black tracking-widest text-link hover:underline flex items-center gap-1 group-hover:translate-x-0.5 transition-all duration-300"
                       >
                         READ POST →
                       </Link>

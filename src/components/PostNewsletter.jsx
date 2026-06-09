@@ -59,7 +59,7 @@ export function PostNewsletter() {
       <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none" />
 
       <div className="relative z-10">
-        <span className="inline-block text-[10px] font-mono tracking-[0.25em] text-[var(--link,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none animate-pulse-slow">
+        <span className="inline-block text-[10px] font-mono tracking-[0.25em] text-[var(--link,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">
           NEWSLETTER
         </span>
 

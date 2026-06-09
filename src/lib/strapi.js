@@ -31,13 +31,19 @@ async function fetchStrapi(path, params = {}) {
     ...(STRAPI_TOKEN ? { Authorization: `Bearer ${STRAPI_TOKEN}` } : {}),
   };
 
+  // Add 6-second abort timeout to prevent fetch from hanging SSR indefinitely
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 6000);
+
   const requestOptions = {
     headers,
+    signal: controller.signal,
     ...(typeof window === 'undefined' ? { next: { revalidate: 60 } } : {}),
   };
 
   try {
     const res = await fetch(url, requestOptions);
+    clearTimeout(timeoutId);
     if (!res.ok) {
       if (res.status === 404) {
         console.warn(`[Strapi] ${path} endpoint returned 404. Returning empty response.`);
@@ -49,8 +55,9 @@ async function fetchStrapi(path, params = {}) {
 
     return await res.json();
   } catch (error) {
-    console.warn(`[Strapi] ${path} fetch failed. Returning empty response.`, error);
-    return { data: [] };
+    clearTimeout(timeoutId);
+    console.error(`[Strapi] ${path} fetch failed.`, error);
+    throw error;
   }
 }
 

@@ -1,0 +1,25 @@
+# neurodivers³
+
+> neurodivers³ is a serial memoir and practical toolkit platform about late-diagnosed ADHD/Autism (AuDHD) life, burnout, unmasking, and building gentle systems for everyday life.
+
+## Core Navigation & Routes
+
+- **Homepage (`/`)**: Main entry point featuring mode-based readings, topic pillars, and memoir highlights.
+- **Blog Archive (`/blog`)**: Full directory of posts filtering by pillar (Unmasked Life, Tools & Templates, Digital Life) or brain state.
+- **Memoir (`/memoir`)**: Episodic serial memoir about late-diagnosed neurodivergence and unmasking.
+- **Labs (`/labs`)**: Interactive, sensory-friendly experiments and web utilities (e.g., Acoustic Shield, Visual Snow Shield).
+- **Store (`/store`)**: Digital tools, ADHD menus, executive function dashboards, and sensory templates.
+- **About (`/about`)**: Ollie's story, founder bio, and the mission of neurodivers³.
+- **Contact (`/contact`)**: Secure email forms and channels to reach out.
+
+## Key Visual Themes
+Supports three real-time CSS custom-property color modes:
+1. **Void (Dark)**: Charcoal backgrounds (`#121212`) with bright pink accents (`#FF2E88`).
+2. **Parchment (Cream)**: Soft warm cream (`#ECE7DA`) with deep crimson text (`#B3104D` / `#BE1756`).
+3. **Incubation (Dark Green)**: Dark sage green (`#0B130F`) with light sage labels (`#72AC7A`).
+
+## Technology Stack
+- Next.js 16 (Turbopack)
+- React 19
+- Tailwind CSS 4
+- Strapi CMS (headless backend integration)

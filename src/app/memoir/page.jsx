@@ -17,13 +17,13 @@ export const metadata = {
     description: 'A serial memoir in progress about late-diagnosed AuDHD, masking, burnout, and figuring out how to human.',
     url: 'https://neurodivers3.co.uk/memoir',
     type: 'book',
-    images: ['https://neurodivers3.co.uk/api/og?title=I%20thought%20I%20was%20just%20bad%20at%20being%20a%20person.&pillar=unmasked-life'],
+    images: ['https://neurodivers3.co.uk/api/og?title=I%20thought%20I%20was%20just%20bad%20at%20being%20a%20human.&pillar=unmasked-life'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'The Memoir · neurodivers³',
     description: 'A serial memoir in progress about late-diagnosed AuDHD, masking, burnout, and figuring out how to human.',
-    images: ['https://neurodivers3.co.uk/api/og?title=I%20thought%20I%20was%20just%20bad%20at%20being%20a%20person.&pillar=unmasked-life'],
+    images: ['https://neurodivers3.co.uk/api/og?title=I%20thought%20I%20was%20just%20bad%20at%20being%20a%20human.&pillar=unmasked-life'],
   }
 };
 
@@ -68,7 +68,7 @@ export default async function MemoirPage() {
   const bookSchema = {
     '@context': 'https://schema.org',
     '@type': 'Book',
-    name: 'I Thought I Was Just Bad at Being a Person',
+    name: 'I Thought I Was Just Bad at Being a Human',
     author: {
       '@type': 'Person',
       name: 'Ollie Clews',
@@ -82,7 +82,7 @@ export default async function MemoirPage() {
     bookFormat: 'https://schema.org/EBook',
     workExample: {
       '@type': 'Book',
-      name: 'I Thought I Was Just Bad at Being a Person',
+      name: 'I Thought I Was Just Bad at Being a Human',
       bookFormat: 'https://schema.org/EBook',
       creativeWorkStatus: 'InProgress'
     }
@@ -149,7 +149,7 @@ export default async function MemoirPage() {
               SERIAL BOOK IN PROGRESS
             </div>
             <h1 className="text-5xl md:text-8xl font-black mt-4 uppercase tracking-tighter text-fg-primary leading-none font-display">
-              MEMOIR · <span className="italic font-light text-accent-pink">BAD AT BEING A PERSON</span><span className="text-accent-pink font-bold">.</span>
+              MEMOIR · <span className="italic font-light text-accent-pink">BAD AT BEING A HUMAN</span><span className="text-accent-pink font-bold">.</span>
             </h1>
             <p className="text-text-muted text-lg md:text-xl font-normal mt-6 max-w-4xl leading-relaxed">
               A serial memoir in progress about late-diagnosed AuDHD, masking, burnout, and figuring out how to human — published one chapter at a time.
@@ -189,7 +189,7 @@ export default async function MemoirPage() {
             {/* 5. Mid-page pink callout */}
             <div className="py-6 text-center select-none">
               <h2 className="text-3xl md:text-5xl font-black uppercase text-accent-pink font-display tracking-tighter leading-none">
-                I THOUGHT I WAS JUST BAD AT BEING A PERSON.
+                I THOUGHT I WAS JUST BAD AT BEING A HUMAN.
               </h2>
             </div>
 

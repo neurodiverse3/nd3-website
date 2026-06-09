@@ -198,7 +198,7 @@ export default function AccessibilityPanel({ mobile }) {
           }
           title="Open Sensory & Site Accessibility Controls"
           aria-expanded={isOpen}
-          aria-label="Sensory and Accessibility Settings"
+          aria-label="Preferences"
         >
           <Sliders size={mobile ? 22 : 16} className="group-hover:rotate-90 transition-transform" />
           {!mobile && <span className="text-[11px] font-black uppercase tracking-widest hidden xl:inline-block">PREFERENCES</span>}

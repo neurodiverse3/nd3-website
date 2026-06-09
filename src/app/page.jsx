@@ -22,11 +22,21 @@ export default async function Page() {
   const allPosts = await getPosts();
 
   const featuredIds = Array.isArray(siteSettings.featuredPosts)
-    ? siteSettings.featuredPosts.map((p) => p._id).filter(Boolean)
+    ? siteSettings.featuredPosts.map((p) => (p._id || p.id)?.toString()).filter(Boolean)
+    : [];
+
+  const featuredSlugs = Array.isArray(siteSettings.featuredPosts)
+    ? siteSettings.featuredPosts.map((p) => p.slug?.current || p.slug).filter(Boolean)
     : [];
 
   const latestPosts = (allPosts || [])
-    .filter((p) => !featuredIds.includes(p._id))
+    .filter((p) => {
+      const idStr = (p._id || p.id)?.toString();
+      const slugStr = p.slug?.current || p.slug;
+      if (idStr && featuredIds.includes(idStr)) return false;
+      if (slugStr && featuredSlugs.includes(slugStr)) return false;
+      return true;
+    })
     .sort((a, b) => new Date(b.date || b._createdAt || 0) - new Date(a.date || a._createdAt || 0))
     .slice(0, 6);
 

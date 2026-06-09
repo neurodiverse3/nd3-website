@@ -133,7 +133,7 @@ export default async function BlogPage(props) {
               <span className="inline-block text-accent ml-0.5">.</span>
             </div>
             <div 
-              className="block italic unhinged-gradient"
+              className="block italic text-accent"
               style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.1s forwards' }}
             >
               <span>TOOLS</span>

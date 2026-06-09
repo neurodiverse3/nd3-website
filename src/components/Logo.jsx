@@ -6,7 +6,8 @@ export const LogoWordmark = ({ className = "" }) => {
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 300 70" 
       className={`h-8 md:h-10 w-auto select-none ${className}`}
-      aria-label="neurodivers³ wordmark"
+      role="img"
+      aria-label="neurodivers three"
     >
       <text 
         x="0" 
@@ -39,7 +40,8 @@ export const LogoPrimaryFlat = ({ className = "" }) => {
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 360 80" 
       className={`h-12 w-auto select-none ${className}`}
-      aria-label="neurodivers³"
+      role="img"
+      aria-label="neurodivers three"
     >
       <text 
         x="0" 

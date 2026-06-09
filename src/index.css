@@ -42,6 +42,7 @@
   --fg: #F4F4F2;
   --muted: #A1A1AA;
   --accent: #FF2E88;
+  --accent-label: var(--accent);
   --grad-hero: linear-gradient(135deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-progress: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-meta: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
@@ -69,6 +70,7 @@
   --fg: #F4F4F2;
   --muted: #A1A1AA;
   --accent: #FF2E88;
+  --accent-label: var(--accent);
   --grad-hero: linear-gradient(135deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-progress: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-meta: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
@@ -95,6 +97,7 @@
   --fg: #F4F4F2;
   --muted: #839788;
   --accent: #5A8A60;
+  --accent-label: #72AC7A;
   --grad-hero: linear-gradient(135deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
   --grad-progress: linear-gradient(90deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
   --grad-meta: linear-gradient(90deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
@@ -118,6 +121,7 @@
   --fg: #221E1A;          /* warm ink */
   --muted: #585148;       /* passes 4.5:1 on cream (A11Y-4) */
   --accent: #FF2D87;      /* display/headline pink */
+  --accent-label: #B3104D;
   --link: #BE1756;        /* text + links (AA on cream) (A11Y-1) */
   --accent-text: #221E1A;  /* dark ink for text on the pink accent fill (A11Y-2) */
   --grad-hero: linear-gradient(135deg, #FF2D87 0%, #BE1756 100%);
@@ -265,6 +269,32 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Home Hero Gradient Accent - Pink-Purple gradient reserved for Home Hero only */
+.home-hero-gradient {
+  background: linear-gradient(135deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+:root[data-theme="incubation"] .home-hero-gradient {
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
+  color: var(--accent) !important;
+}
+
+/* Incubation (dark-green) can't carry the pink→purple gradient — fall back to flat accent */
+:root[data-theme="incubation"] .unhinged-gradient {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: var(--accent);
+  color: var(--accent);
 }
 
 /* Grain Overlay */
@@ -611,6 +641,7 @@ html.high-contrast-active [class*="bg-[#040405]"] {
 
 /* Remove low-contrast gradients and replace with solid backgrounds/colors */
 html.high-contrast-active .unhinged-gradient,
+html.high-contrast-active .home-hero-gradient,
 html.high-contrast-active [class*="bg-gradient-to-"] {
   background: var(--bg) !important;
   color: var(--fg) !important;

@@ -11,7 +11,7 @@ export default function BlogNotFound() {
     <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6 text-center select-none font-sans">
       <div className="max-w-xl flex flex-col gap-8">
         {/* Pulsating eyebrow */}
-        <div className="inline-block text-[11px] font-mono tracking-[0.25em] text-accent bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-2 select-none animate-pulse-slow self-center w-fit">
+        <div className="inline-block text-[11px] font-mono tracking-[0.25em] text-accent bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-2 select-none self-center w-fit">
           ERROR 404
         </div>
 
