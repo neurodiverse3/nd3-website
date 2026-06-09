@@ -1,0 +1,649 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-outfit), sans-serif;
+  
+  --color-bg: var(--bg);
+  --color-bg-primary: var(--bg);
+  
+  --color-surface: var(--surface, var(--bg));
+  
+  --color-fg: var(--fg);
+  --color-fg-primary: var(--fg);
+  
+  --color-muted: var(--muted);
+  --color-text-muted: var(--muted);
+  
+  --color-accent: var(--accent);
+  --color-accent-pink: var(--accent);
+  --color-accent-pink-soft: var(--accent-soft);
+  
+  --color-border-rule: var(--rule);
+  
+  --color-link: var(--link, var(--accent));
+  
+  --color-pillar-unmasked: var(--pillar-unmasked);
+  --color-pillar-tools: var(--pillar-tools);
+  --color-pillar-digital: var(--pillar-digital);
+  
+  --color-pillar-card-unmasked: var(--pillar-card-unmasked);
+  --color-pillar-card-tools: var(--pillar-card-tools);
+  --color-pillar-card-digital: var(--pillar-card-digital);
+
+  --background-image-grad-hero: var(--grad-hero);
+  --background-image-grad-progress: var(--grad-progress);
+  --background-image-grad-meta: var(--grad-meta);
+}
+
+/* Default dark theme = Void variables (Plain :root to prevent SSR FOUC) */
+:root {
+  --bg: #121212;          /* soft charcoal, not pure black */
+  --fg: #F4F4F2;
+  --muted: #A1A1AA;
+  --accent: #FF2E88;
+  --grad-hero: linear-gradient(135deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
+  --grad-progress: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
+  --grad-meta: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
+
+  /* Fallbacks for Void */
+  --surface: var(--bg);
+  --link: var(--accent);
+  --accent-soft: rgba(255, 46, 136, 0.12);
+  --rule: #1F1F22;
+
+  /* Pillar labels token set (default Void) */
+  --pillar-label-unmasked: #FF4D6D;
+  --pillar-label-tools:    #F4A93B;
+  --pillar-label-digital:  #22B8CF;
+}
+
+/* High Specificity Selectors (specificity 0,2,0) */
+:root[data-theme="void"] {
+  --bg: #121212;          /* soft charcoal, not pure black */
+  --fg: #F4F4F2;
+  --muted: #A1A1AA;
+  --accent: #FF2E88;
+  --grad-hero: linear-gradient(135deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
+  --grad-progress: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
+  --grad-meta: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
+
+  /* Fallbacks for Void */
+  --surface: var(--bg);
+  --link: var(--accent);
+  --accent-soft: rgba(255, 46, 136, 0.12);
+  --rule: #1F1F22;
+
+  /* Pillar labels token set */
+  --pillar-label-unmasked: #FF4D6D;
+  --pillar-label-tools:    #F4A93B;
+  --pillar-label-digital:  #22B8CF;
+}
+
+:root[data-theme="incubation"] {
+  --bg: #0B130F;          /* dark sage */
+  --fg: #F4F4F2;
+  --muted: #839788;
+  --accent: #5A8A60;
+  --grad-hero: linear-gradient(135deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
+  --grad-progress: linear-gradient(90deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
+  --grad-meta: linear-gradient(90deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
+
+  /* Fallbacks for Incubation */
+  --surface: var(--bg);
+  --link: var(--accent);
+  --accent-soft: rgba(90, 138, 96, 0.12);
+  --rule: #1A2E22;
+
+  /* Pillar labels token set */
+  --pillar-label-unmasked: #FF4D6D;
+  --pillar-label-tools:    #F4A93B;
+  --pillar-label-digital:  #22B8CF;
+}
+
+/* Parchment custom overrides (Declared last as belt-and-braces) */
+:root[data-theme="parchment"] {
+  --bg: #ECE7DA;          /* warm cream */
+  --surface: #F4F0E6;
+  --fg: #221E1A;          /* warm ink */
+  --muted: #585148;       /* passes 4.5:1 on cream (A11Y-4) */
+  --accent: #FF2D87;      /* display/headline pink */
+  --link: #BE1756;        /* text + links (AA on cream) (A11Y-1) */
+  --accent-text: #221E1A;  /* dark ink for text on the pink accent fill (A11Y-2) */
+  --grad-hero: linear-gradient(135deg, #FF2D87 0%, #BE1756 100%);
+  --grad-progress: linear-gradient(90deg, #FF2D87 0%, #BE1756 100%);
+  --grad-meta: linear-gradient(90deg, #FF2D87 0%, #BE1756 100%);
+
+  /* Fallbacks for Parchment */
+  --accent-soft: rgba(255, 45, 135, 0.12);
+  --rule: #DDD7CD;
+
+  /* Pillar labels token set (AA-safe dark values on Parchment cream bg) */
+  --pillar-label-unmasked: #BB1B57;
+  --pillar-label-tools:    #6B4310;
+  --pillar-label-digital:  #0A5F6E;
+}
+
+/* Global identity hues — brand reference, same in every theme */
+:root {
+  --pillar-unmasked: #FF4D6D;   /* coral-rose */
+  --pillar-tools:    #F4A93B;   /* amber */
+  --pillar-digital:  #22B8CF;   /* azure-cyan */
+  --pillar-card-text: #F4F4F2;  /* Card text is always white */
+
+  /* Defaults for card fills (Void values) to prevent FOUC */
+  --pillar-card-unmasked: #3A1626;
+  --pillar-card-tools:    #5C3A08;
+  --pillar-card-digital:  #10333B;
+}
+
+/* Pillar CARD fills — deep tints for dark themes (specificity 0,2,0) */
+:root[data-theme="void"],
+:root[data-theme="incubation"] {
+  --pillar-card-unmasked: #3A1626;  /* deep garnet */
+  --pillar-card-tools:    #5C3A08;  /* deep burnt bronze */
+  --pillar-card-digital:  #10333B;  /* deep petrol-teal */
+}
+
+/* Pillar CARD fills — saturated set for Parchment (specificity 0,2,0) */
+:root[data-theme="parchment"] {
+  --pillar-card-unmasked: #BB1B57;  /* dark rose */
+  --pillar-card-tools:    #A6690B;  /* dark amber */
+  --pillar-card-digital:  #0B7285;  /* dark teal */
+}
+
+/* Pillar cards / post covers dynamic attributes mapping */
+.post-cover {
+  background: var(--cover-bg);
+  color: var(--pillar-card-text);
+  border: 1px solid var(--rule);
+}
+.post-cover[data-pillar="unmasked"] { --cover-bg: var(--pillar-card-unmasked); }
+.post-cover[data-pillar="tools"]    { --cover-bg: var(--pillar-card-tools); }
+.post-cover[data-pillar="digital"]  { --cover-bg: var(--pillar-card-digital); }
+
+/* Force all logo elements and superscript-³ to be all-white inside post covers */
+.post-cover svg text {
+  fill: currentColor !important;
+}
+
+/* Pillar labels and meta eyebrow styles */
+[data-pillar="unmasked"] .pillar-eyebrow {
+  color: var(--pillar-label-unmasked) !important;
+}
+[data-pillar="tools"] .pillar-eyebrow {
+  color: var(--pillar-label-tools) !important;
+}
+[data-pillar="digital"] .pillar-eyebrow {
+  color: var(--pillar-label-digital) !important;
+}
+
+/* On .post-cover (coloured fill), the eyebrow stays white — do NOT apply pillar-label color over fill */
+.post-cover .pillar-eyebrow {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+/* Cover SVG logo override inside covers to be fully white */
+.post-cover .logo text {
+  fill: #ffffff !important;
+}
+
+html {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Accessible focus ring style */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent) !important;
+  outline-offset: 2px !important;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.animate-marquee {
+  animation: marquee 60s linear infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+}
+
+/* --- NEW PREMIUM UTILITIES --- */
+/* Middle Headline Unhinged Gradient */
+.unhinged-gradient {
+  color: var(--accent);
+  background: var(--grad-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Grain Overlay */
+.bg-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+/* Glitch Text Effect */
+.glitch-text {
+  position: relative;
+}
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+.glitch-text:hover::before,
+.glitch-text.force-glitch::before {
+  animation: glitch-anim-1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both 1;
+  /* INTENTIONAL CHROMATIC ABERRATION: Theme-agnostic visual styling */
+  color: #0ff;
+  z-index: -1;
+  opacity: 1;
+}
+.glitch-text:hover::after,
+.glitch-text.force-glitch::after {
+  animation: glitch-anim-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both 1;
+  /* INTENTIONAL CHROMATIC ABERRATION: Theme-agnostic visual styling */
+  color: #ff007f;
+  z-index: -2;
+  opacity: 1;
+}
+
+@keyframes glitch-anim-1 {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 3px); }
+  40% { transform: translate(-3px, -3px); }
+  60% { transform: translate(3px, 3px); }
+  80% { transform: translate(3px, -3px); }
+  100% { transform: translate(0); }
+}
+@keyframes glitch-anim-2 {
+  0% { transform: translate(0); }
+  20% { transform: translate(3px, -3px); }
+  40% { transform: translate(3px, 3px); }
+  60% { transform: translate(-3px, -3px); }
+  80% { transform: translate(-3px, 3px); }
+  100% { transform: translate(0); }
+}
+
+/* Animated Gradient Mesh */
+@keyframes gradient-mesh {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.3); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+.animate-mesh {
+  animation: gradient-mesh 20s infinite linear;
+}
+
+/* Text Stroke */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+  color: transparent;
+}
+
+/* Accessibility: Support reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+  .animate-marquee {
+    animation: none !important;
+    white-space: normal !important;
+    overflow: visible !important;
+  }
+}
+
+/* Home page animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --- SITE-WIDE ACCESSIBILITY OVERRIDES --- */
+html.font-scale-large {
+  font-size: 112.5% !important; /* ~18px base */
+}
+html.font-scale-xlarge {
+  font-size: 125% !important; /* ~20px base */
+}
+html.font-scale-xxlarge {
+  font-size: 137.5% !important; /* ~22px base */
+}
+
+/* Dyslexia-Friendly Layout (Combines letter spacing, word spacing and line heights) */
+html.dyslexic-friendly-active body {
+  font-family: system-ui, -apple-system, var(--font-sans), sans-serif !important;
+  letter-spacing: 0.08em !important;
+  word-spacing: 0.16em !important;
+  line-height: 1.8 !important;
+}
+
+/* High Contrast Override for legibility - Direct CSS variable overrides */
+html.high-contrast-active,
+html[data-theme="void"].high-contrast-active,
+html[data-theme="incubation"].high-contrast-active {
+  --bg: #000000 !important;
+  --fg: #FFFFFF !important;
+  --muted: #F4F4F5 !important;
+  --rule: #FFFFFF !important;
+  --accent: #FFFF00 !important; /* Extremely high contrast yellow on black */
+  --grad-hero: var(--accent) !important;
+  --grad-progress: var(--accent) !important;
+  --grad-meta: var(--accent) !important;
+}
+
+html[data-theme="parchment"].high-contrast-active {
+  --bg: #FFFFFF !important;
+  --fg: #000000 !important;
+  --muted: #18181B !important;
+  --rule: #000000 !important;
+  --accent: #0000FF !important; /* Extremely high contrast blue on white */
+  --grad-hero: var(--accent) !important;
+  --grad-progress: var(--accent) !important;
+  --grad-meta: var(--accent) !important;
+}
+
+/* Gradients become solid accent under high contrast */
+html.high-contrast-active {
+  --grad-hero: var(--accent) !important;
+  --grad-progress: var(--accent) !important;
+  --grad-meta: var(--accent) !important;
+}
+
+/* High contrast mode pillar eyebrow color override */
+html.high-contrast-active [data-pillar] .pillar-eyebrow {
+  color: var(--fg) !important;
+}
+
+/* Drop pillar fills on covers in High Contrast mode */
+html.high-contrast-active .post-cover {
+  background: var(--bg) !important;
+  color: var(--fg) !important;
+  border: 2px solid var(--accent) !important;
+  --cover-bg: var(--bg) !important;
+}
+
+/* Force body styles under high contrast */
+html.high-contrast-active body {
+  text-shadow: none !important;
+  background-color: var(--bg) !important;
+  color: var(--fg) !important;
+}
+
+/* Deep High Contrast Container and Border solidifiers */
+html.high-contrast-active div,
+html.high-contrast-active section,
+html.high-contrast-active article,
+html.high-contrast-active header,
+html.high-contrast-active footer,
+html.high-contrast-active aside,
+html.high-contrast-active main {
+  border-color: var(--rule) !important;
+}
+
+/* Target specifically low-contrast opacities and force full opacity */
+html.high-contrast-active [class*="/20"],
+html.high-contrast-active [class*="/25"],
+html.high-contrast-active [class*="/30"],
+html.high-contrast-active [class*="/40"],
+html.high-contrast-active [class*="/50"],
+html.high-contrast-active [class*="/60"],
+html.high-contrast-active [class*="/75"],
+html.high-contrast-active [class*="/80"],
+html.high-contrast-active [class*="/90"],
+html.high-contrast-active [class*="bg-opacity-"],
+html.high-contrast-active [class*="text-opacity-"],
+html.high-contrast-active [class*="border-opacity-"] {
+  opacity: 1 !important;
+}
+
+/* Override any transparent black or custom dark backgrounds to solid background color */
+html.high-contrast-active .bg-bg-primary\/40,
+html.high-contrast-active .bg-bg-primary\/75,
+html.high-contrast-active .bg-black\/20,
+html.high-contrast-active .bg-black\/25,
+html.high-contrast-active .bg-black\/40,
+html.high-contrast-active .bg-black\/80,
+html.high-contrast-active [class*="bg-[#050505]"],
+html.high-contrast-active [class*="bg-[#0a0a0f]"],
+html.high-contrast-active [class*="bg-[#121215]"],
+html.high-contrast-active [class*="bg-[#07070a]"],
+html.high-contrast-active [class*="bg-[#09090c]"],
+html.high-contrast-active [class*="bg-[#09090b]"],
+html.high-contrast-active [class*="bg-[#040406]"],
+html.high-contrast-active [class*="bg-[#111115]"],
+html.high-contrast-active [class*="bg-[#050508]"],
+html.high-contrast-active [class*="bg-[#121216]"],
+html.high-contrast-active [class*="bg-[#040405]"] {
+  background-color: var(--bg) !important;
+  opacity: 1 !important;
+}
+
+/* Remove low-contrast gradients and replace with solid backgrounds/colors */
+html.high-contrast-active .unhinged-gradient,
+html.high-contrast-active [class*="bg-gradient-to-"] {
+  background: var(--bg) !important;
+  color: var(--fg) !important;
+  -webkit-text-fill-color: var(--fg) !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+}
+
+/* Make sure text elements have excellent contrast and solid coloring */
+html.high-contrast-active h1,
+html.high-contrast-active h2,
+html.high-contrast-active h3,
+html.high-contrast-active h4,
+html.high-contrast-active h5,
+html.high-contrast-active h6,
+html.high-contrast-active span,
+html.high-contrast-active p,
+html.high-contrast-active a,
+html.high-contrast-active li,
+html.high-contrast-active blockquote {
+  color: var(--fg) !important;
+  text-shadow: none !important;
+  background-image: none !important;
+}
+
+/* Allow pure high-contrast accents on specifically highlighted texts or icons */
+html.high-contrast-active .text-\[var\(--accent\)\],
+html.high-contrast-active .text-accent-pink,
+html.high-contrast-active svg.text-\[var\(--accent\)\],
+html.high-contrast-active svg.text-accent-pink {
+  color: var(--accent) !important;
+  stroke: var(--accent) !important;
+}
+
+/* Solidify all text elements with muted/secondary classes to be crisp and readable */
+html.high-contrast-active .text-\[var\(--muted\)\],
+html.high-contrast-active .text-text-muted,
+html.high-contrast-active .text-zinc-400,
+html.high-contrast-active .text-zinc-500,
+html.high-contrast-active .text-muted-foreground {
+  color: var(--muted) !important;
+}
+
+/* Interactive elements and Form Controls */
+html.high-contrast-active button,
+html.high-contrast-active a {
+  border-color: var(--rule) !important;
+}
+
+html.high-contrast-active .bg-\[var\(--accent\)\] {
+  background-color: var(--accent) !important;
+  color: var(--bg) !important;
+  border-color: var(--rule) !important;
+}
+
+html.high-contrast-active select,
+html.high-contrast-active input,
+html.high-contrast-active textarea {
+  background-color: var(--bg) !important;
+  color: var(--fg) !important;
+  border: 2px solid var(--rule) !important;
+  opacity: 1 !important;
+}
+
+/* Blog Header Cover Banners Accessibility Overrides */
+html.high-contrast-active [class*="aspect-"] {
+  background-color: var(--bg) !important;
+  background-image: none !important;
+  color: var(--fg) !important;
+  border: 2px solid var(--rule) !important;
+}
+
+/* Specific elements inside post covers */
+html.high-contrast-active [class*="aspect-"] h1,
+html.high-contrast-active [class*="aspect-"] h3,
+html.high-contrast-active [class*="aspect-"] span,
+html.high-contrast-active [class*="aspect-"] p,
+html.high-contrast-active [class*="aspect-"] div {
+  color: var(--fg) !important;
+  background-color: transparent !important;
+  border-color: var(--rule) !important;
+}
+
+/* Accented words inside typographic covers should stand out cleanly */
+html.high-contrast-active [class*="aspect-"] h1 span,
+html.high-contrast-active [class*="aspect-"] h3 span {
+  color: var(--accent) !important;
+}
+
+/* Hide all background grain/noise/mesh graphics that degrade text clarity */
+html.high-contrast-active .bg-grain,
+html.high-contrast-active .bg-noise,
+html.high-contrast-active .global-visual-snow-canvas,
+html.high-contrast-active .animate-mesh {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* Accessibility: Support manual reduced motion overrides */
+html.prefers-reduced-motion-override *, 
+html.prefers-reduced-motion-override ::before, 
+html.prefers-reduced-motion-override ::after {
+  animation-delay: -1ms !important;
+  animation-duration: 1ms !important;
+  animation-iteration-count: 1 !important;
+  background-attachment: initial !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+html.prefers-reduced-motion-override .animate-marquee {
+  animation: none !important;
+  white-space: normal !important;
+  overflow: visible !important;
+}
+
+/* --- PRINT STYLES --- */
+@media print {
+  html, body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  /* Hide non-content elements */
+  header, footer, nav, .no-print, [aria-hidden="true"], #mobile-drawer, .global-visual-snow-canvas, .bg-grain, .animate-mesh {
+    display: none !important;
+  }
+  
+  /* Ensure backgrounds of content areas don't render as black */
+  div, section, article, main, [class*="bg-"] {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: #000000 !important;
+    border-color: #cccccc !important;
+  }
+  
+  /* High contrast text */
+  h1, h2, h3, h4, h5, h6, p, span, a, li, blockquote {
+    color: #000000 !important;
+    text-shadow: none !important;
+    -webkit-text-fill-color: initial !important;
+  }
+  
+  /* Link formatting */
+  a {
+    text-decoration: underline !important;
+    color: #0000ee !important;
+  }
+
+  /* Reset layout constraints if necessary */
+  .min-h-screen {
+    min-height: auto !important;
+  }
+}

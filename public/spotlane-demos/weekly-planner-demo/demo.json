@@ -1,0 +1,100 @@
+{
+  "version": "1.0",
+  "meta": {
+    "title": "ND3 Weekly Planner",
+    "description": "Interactive walkthrough of the Weekly Planner printable.",
+    "createdAt": 1780916723329,
+    "updatedAt": 1780916723329
+  },
+  "startScreenId": "screen-1",
+  "screens": [
+    {
+      "id": "screen-1",
+      "title": "Page 1",
+      "image": "/spotlane-demos/weekly-planner-demo/page-1.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "9bddf71a-1b84-4806-aa17-f603454808e0",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "Next page",
+          "description": "Click to continue",
+          "targetScreenId": "screen-2",
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    },
+    {
+      "id": "screen-2",
+      "title": "Page 2",
+      "image": "/spotlane-demos/weekly-planner-demo/page-2.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "9ba25a27-23c2-4a2f-9ae7-302e4df7538f",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "Next page",
+          "description": "Click to continue",
+          "targetScreenId": "screen-3",
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    },
+    {
+      "id": "screen-3",
+      "title": "Page 3",
+      "image": "/spotlane-demos/weekly-planner-demo/page-3.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "d37489b4-e98a-456a-bd08-d0a187d7d132",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "Next page",
+          "description": "Click to continue",
+          "targetScreenId": "screen-4",
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    },
+    {
+      "id": "screen-4",
+      "title": "Page 4",
+      "image": "/spotlane-demos/weekly-planner-demo/page-4.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "cc2d0f7e-b34c-41a0-9d5c-cd2c8f84e37f",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "End of demo",
+          "description": "Thanks for viewing!",
+          "targetScreenId": null,
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+import React from 'react';
+
+export const metadata = {
+  title: 'Accessibility · neurodivers³',
+  description: 'Accessibility statement and commitment to building a deeply neuroinclusive and accessible website for all brains.',
+  openGraph: {
+    title: 'Accessibility · neurodivers³',
+    description: 'Accessibility statement and commitment to building a deeply neuroinclusive and accessible website for all brains.',
+  },
+  twitter: {
+    title: 'Accessibility · neurodivers³',
+    description: 'Accessibility statement and commitment to building a deeply neuroinclusive and accessible website for all brains.',
+  }
+};
+
+export default function AccessibilityPage() {
+  return (
+    <div className="min-h-screen pt-[96px] md:pt-[120px] pb-16 md:pb-24 px-6 md:px-24 max-w-7xl mx-auto flex flex-col justify-start">
+      <div className="mb-16 border-b-2 border-fg-primary pb-8 text-left w-full mt-4">
+        <span className="text-[12px] font-black uppercase tracking-[0.25em] text-accent-pink">
+          DIGITAL ACCESSIBILITY
+        </span>
+        <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-fg-primary mt-2">
+          Accessibility Statement
+        </h1>
+        <p className="text-xs text-text-muted font-mono leading-relaxed mt-3">
+          Compliance status: Conforming to WCAG 2.1 Level AA + W3C Cognitive Accessibility (COGA) Guidelines
+        </p>
+      </div>
+
+      <div className="max-w-[720px] prose prose-invert prose-lg text-left">
+        <p className="text-text-muted text-lg leading-relaxed font-normal">
+          neurodivers³ is designed and built from the ground up for neurodivergent individuals, especially those with ADHD, autism, dyslexia, and sensory processing differences. We believe accessibility isn’t a passive compliance checkbox — it is a foundational pillar of design.
+        </p>
+
+        <h2 className="text-2xl font-black uppercase tracking-tight text-fg-primary mt-12 mb-4">What We've Built</h2>
+        <ul className="text-text-muted text-lg leading-relaxed space-y-4 list-disc pl-6 font-normal">
+          <li>
+            <strong className="text-fg-primary">Sensory Controls Panel</strong> — A persistent floating toolbar (positioned bottom-right on every page) that lets you customize your reading environment on the fly. You can adjust:
+            <ul className="list-circle pl-6 mt-2 space-y-2 text-base">
+              <li><strong className="text-fg-primary">Font Scaling:</strong> Increase sizes up to 137% for low-effort scanning.</li>
+              <li><strong className="text-fg-primary">Dyslexia-Friendly Layout:</strong> Boost word spacing, letter spacing, and line heights for maximum visual comfort.</li>
+              <li><strong className="text-fg-primary">Reading Ruler:</strong> Engage a cursor-tracking overlay to help maintain visual focus.</li>
+              <li><strong className="text-fg-primary">Forced Reduced Motion:</strong> Instantly disable tickers, glitches, and all site animations.</li>
+              <li><strong className="text-fg-primary">Contrast Modes:</strong> Toggle extremely high color contrast overrides.</li>
+            </ul>
+          </li>
+          <li>
+            <strong className="text-fg-primary">Three Visual Themes</strong> — Switch at any time from the navbar header to match your active energy and sensory thresholds:
+            <ul className="list-circle pl-6 mt-2 space-y-1 text-base">
+              <li><strong className="text-fg-primary">Void:</strong> Deep dark mode (pure space).</li>
+              <li><strong className="text-fg-primary">Parchment:</strong> Softer, warm cream light mode.</li>
+              <li><strong className="text-fg-primary">Incubation:</strong> Low-stimulus, low-wavelength green mode.</li>
+            </ul>
+          </li>
+          <li>
+            <strong className="text-fg-primary">Brain-State Content Filtering</strong> — Since cognitive focus fluctuates, every post is classified by brain-state (e.g. Burned Out, Hyperfocus, Masking, Spiralling, On a Roll) allowing you to browse content that fits your current mental capacity.
+          </li>
+          <li>
+            <strong className="text-fg-primary">Full Keyboard Navigation</strong> with robust, high-visibility focus indicators on every interactive element.
+          </li>
+          <li>
+            <strong className="text-fg-primary">Respect for Motion Settings</strong> — All marquees, text glitch effects, and animations respects your OS-level <code className="text-accent-pink bg-bg-primary border border-border-rule px-2 py-0.5 font-mono text-sm">prefers-reduced-motion</code> preference out of the box.
+          </li>
+          <li>
+            <strong className="text-fg-primary">No Autoplay Media</strong> — Articles include high-quality voice narrations, but they are strictly opt-in and will never autoplay.
+          </li>
+          <li>
+            <strong className="text-fg-primary">Skip-to-Content link</strong> enabled on every single page.
+          </li>
+        </ul>
+
+        <h2 className="text-2xl font-black uppercase tracking-tight text-fg-primary mt-12 mb-4">Feedback & Continuous Improvement</h2>
+        <p className="text-text-muted text-lg leading-relaxed font-normal">
+          We are committed to continually expanding our neuroinclusive standards. If you encounter any bugs, find specific copy confusing, or have suggestions for new sensory options, we want to know.
+        </p>
+        <p className="text-text-muted text-lg leading-relaxed font-normal mt-4">
+          Please reach out directly by email: <a href="mailto:ollie@neurodivers3.co.uk" className="text-accent-pink hover:underline font-semibold">ollie@neurodivers3.co.uk</a>.
+        </p>
+
+        <p className="text-text-muted text-sm mt-12 font-mono">
+          Last updated: May 2026
+        </p>
+      </div>
+    </div>
+  );
+}

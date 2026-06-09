@@ -1,0 +1,122 @@
+{
+  "version": "1.0",
+  "meta": {
+    "title": "ND3 CommsBundle ProtocolConversation",
+    "description": "Interactive walkthrough of ND3 CommsBundle ProtocolConversation.",
+    "createdAt": 1780931582525,
+    "updatedAt": 1780931582525
+  },
+  "startScreenId": "screen-1",
+  "screens": [
+    {
+      "id": "screen-1",
+      "title": "Page 1",
+      "image": "/spotlane-demos/nd3-commsbundle-protocolconversation-v1-0/page-1.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "c1de0cd2-dc2d-4394-8f23-c4ce81f1158d",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "Next page",
+          "description": "Click to continue",
+          "targetScreenId": "screen-2",
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    },
+    {
+      "id": "screen-2",
+      "title": "Page 2",
+      "image": "/spotlane-demos/nd3-commsbundle-protocolconversation-v1-0/page-2.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "6230be4d-16f9-4a18-af95-437da041f509",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "Next page",
+          "description": "Click to continue",
+          "targetScreenId": "screen-3",
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    },
+    {
+      "id": "screen-3",
+      "title": "Page 3",
+      "image": "/spotlane-demos/nd3-commsbundle-protocolconversation-v1-0/page-3.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "def79699-831a-4b74-8206-e4ae62466d19",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "Next page",
+          "description": "Click to continue",
+          "targetScreenId": "screen-4",
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    },
+    {
+      "id": "screen-4",
+      "title": "Page 4",
+      "image": "/spotlane-demos/nd3-commsbundle-protocolconversation-v1-0/page-4.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "1000be93-bd41-48fc-8504-1224eba824a4",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "Next page",
+          "description": "Click to continue",
+          "targetScreenId": "screen-5",
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    },
+    {
+      "id": "screen-5",
+      "title": "Page 5",
+      "image": "/spotlane-demos/nd3-commsbundle-protocolconversation-v1-0/page-5.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "7b5459e9-270b-4d82-8972-e3b609b50f53",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "End of demo",
+          "description": "Thanks for viewing!",
+          "targetScreenId": null,
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    }
+  ]
+}

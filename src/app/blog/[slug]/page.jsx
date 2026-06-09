@@ -1,0 +1,575 @@
+import React from 'react';
+import Link from 'next/link';
+import { ArrowLeft, Clock, Calendar, AlertCircle } from 'lucide-react';
+import { getPostBySlug, getRelatedPosts, urlFor, getPosts, getSeriesPosts } from '../../../lib/strapi';
+import RichTextRenderer from '../../../components/RichTextRenderer';
+import AudioNarration from '../../../components/AudioNarration';
+import { SharePost } from '../../../components/SharePost';
+import { PostNewsletter } from '../../../components/PostNewsletter';
+import { RelatedPosts } from '../../../components/RelatedPosts';
+import { TableOfContents } from '../../../components/TableOfContents';
+import { StickyBlogHeader } from '../../../components/StickyBlogHeader';
+import { calculateReadTime } from '../../../lib/readTime';
+import { notFound } from 'next/navigation';
+import CommentSection from '../../../components/CommentSection';
+import { getComments } from '../../actions/comments';
+import AuthorCard from '../../../components/AuthorCard';
+import { toSmartQuotes } from '../../../lib/typography';
+import ReadingProgress from '../../../components/ReadingProgress';
+
+export async function generateStaticParams() {
+  const posts = await getPosts();
+  return posts.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  let post = await getPostBySlug(slug);
+  const allPosts = await getPosts();
+
+  if (!post) {
+    return {
+      title: 'Post not found · neurodivers³',
+      description: 'The requested unmasked story could not be found.'
+    };
+  }
+
+  // Format title and excerpt with typographic curly quotes
+  post = {
+    ...post,
+    title: toSmartQuotes(post.title),
+    excerpt: toSmartQuotes(post.excerpt),
+  };
+
+  const sortedAll = [...allPosts].sort((a, b) => {
+    const dA = new Date(a.date || a._createdAt || 0);
+    const dB = new Date(b.date || b._createdAt || 0);
+    return dA - dB; // chronological older -> newer
+  });
+  
+  const curIdx = sortedAll.findIndex(p => (p.slug?.current || p.slug) === slug);
+  const postNumberVal = post.postNumber || (curIdx !== -1 ? curIdx + 1 : 1);
+  const readTimeVal = post.readTime || calculateReadTime(post.body) || '5 min';
+
+  const formattedDate = post.date
+    ? new Date(post.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+    : post._createdAt
+      ? new Date(post._createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+      : '24 MAY 2026';
+
+  const ogUrl = `https://neurodivers3.co.uk/api/og?title=${encodeURIComponent(post.title)}&pillar=${encodeURIComponent(post.pillar || '')}&brainState=${encodeURIComponent(post.brainState || '')}&accentWord=${encodeURIComponent(post.accentWord || '')}&accentOverride=${encodeURIComponent(post.accentOverride || '')}&readTime=${encodeURIComponent(readTimeVal)}&date=${encodeURIComponent(formattedDate)}&postNumber=${postNumberVal}`;
+
+  const resolvedTitle = post.seoTitle || post.title;
+
+  return {
+    title: `${resolvedTitle} · neurodivers³`,
+    description: (post.excerpt || 'Accessibility tools and memoirs for brains that don\'t fit the standard manual.').slice(0, 155),
+    alternates: {
+      canonical: `https://neurodivers3.co.uk/blog/${slug}`,
+    },
+    openGraph: {
+      title: `${resolvedTitle} · neurodivers³`,
+      description: post.excerpt,
+      type: 'article',
+      publishedTime: post.date || post._createdAt,
+      images: [ogUrl],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${resolvedTitle} · neurodivers³`,
+      description: post.excerpt,
+      images: [ogUrl],
+    }
+  };
+}
+
+// Helpers for structural parsing (H2s for Table of Contents)
+const extractH2s = (blocks) => {
+  const headings = [];
+  if (!Array.isArray(blocks)) return headings;
+  blocks.forEach(block => {
+    // Handle Sanity block H2s
+    if (block._type === 'block' && block.style === 'h2') {
+      const text = block.children?.map(c => c.text).join('') || '';
+      if (text.trim()) {
+        const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+        headings.push({ id, text: toSmartQuotes(text) });
+      }
+    }
+    // Handle Strapi block H2s
+    else if (block.type === 'heading' && block.level === 2) {
+      const text = block.children?.map(c => c.text).join('') || '';
+      if (text.trim()) {
+        const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+        headings.push({ id, text: toSmartQuotes(text) });
+      }
+    }
+  });
+  return headings;
+};
+
+// Helper for extracting footnotes (Sanity-style check only as footnotes are a custom PortableText mark)
+const extractFootnotes = (blocks) => {
+  const fns = [];
+  let counter = 1;
+  if (!Array.isArray(blocks)) return fns;
+  blocks.forEach(block => {
+    if (block._type === 'block' && block.markDefs) {
+      block.markDefs.forEach(def => {
+        if (def._type === 'footnote') {
+          fns.push({
+            id: def._key,
+            number: counter++,
+            text: def.text || 'Footnote description'
+          });
+        }
+      });
+    }
+  });
+  return fns;
+};
+
+const getPillarLabel = (pillar) => {
+  if (!pillar) return '';
+  const p = pillar.toLowerCase();
+  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates') return 'TOOLS & TEMPLATES';
+  if (p === 'glitchwork' || p === 'digital life') return 'DIGITAL LIFE';
+  if (p === 'unmasked-life' || p === 'unmasked life') return 'UNMASKED LIFE';
+  return pillar.replace('-', ' ').toUpperCase();
+};
+
+const getBrainStateLabel = (state) => {
+  if (!state) return '';
+  const s = state.toLowerCase().replace('_', '-');
+  if (s === 'burned-out') return 'BURNED OUT';
+  if (s === 'hyperfocus') return 'HYPERFOCUS';
+  if (s === 'masking') return 'MASKING';
+  if (s === 'spiraling' || s === 'spiralling') return 'SPIRALLING';
+  if (s === 'on-a-roll') return 'ON A ROLL';
+  return state.toUpperCase();
+};
+
+export default async function BlogPostPage({ params }) {
+  const { slug } = await params;
+  const comments = await getComments(slug);
+  let post = await getPostBySlug(slug);
+  const allPosts = await getPosts();
+
+  if (!post) {
+    notFound();
+  }
+
+  // Format title and excerpt with typographic curly quotes
+  post = {
+    ...post,
+    title: toSmartQuotes(post.title),
+    excerpt: toSmartQuotes(post.excerpt),
+  };
+
+  if (!post.pillar) {
+    post.pillar = 'unmasked-life';
+  }
+  if (!post.brainState && !post.state) {
+    post.brainState = 'hyperfocus';
+  }
+
+  const readTimeVal = post.readTime || calculateReadTime(post.body) || '5 min';
+  const readTimeInt = parseInt(readTimeVal) || 5;
+
+  const formattedDate = post.date
+    ? new Date(post.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+    : post._createdAt
+      ? new Date(post._createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+      : null;
+
+  const formattedUpdateDate = post.lastUpdated
+    ? new Date(post.lastUpdated).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+    : null;
+
+  if (!post.body) {
+    throw new Error(`Post "${slug}" is missing body content in CMS.`);
+  }
+
+  const headings = extractH2s(post.body);
+  const footnotes = extractFootnotes(post.body);
+
+  const showToC = headings.length >= 3;
+
+  let seriesPosts = [];
+  let currentSeriesIndex = -1;
+  let prevSeriesPost = null;
+  let nextSeriesPost = null;
+
+  if (post.series?.name) {
+    seriesPosts = await getSeriesPosts(post.series.name);
+    currentSeriesIndex = seriesPosts.findIndex(s => s._id === post._id);
+    if (currentSeriesIndex !== -1) {
+      prevSeriesPost = currentSeriesIndex > 0 ? seriesPosts[currentSeriesIndex - 1] : null;
+      nextSeriesPost = currentSeriesIndex < seriesPosts.length - 1 ? seriesPosts[currentSeriesIndex + 1] : null;
+    }
+  }
+
+  const sortedAll = [...allPosts].sort((a, b) => {
+    const dA = new Date(a.date || a._createdAt || 0);
+    const dB = new Date(b.date || b._createdAt || 0);
+    return dA - dB;
+  });
+  
+  const curIdx = sortedAll.findIndex(p => (p.slug?.current || p.slug) === slug);
+  const postNumberVal = post.postNumber || (curIdx !== -1 ? curIdx + 1 : 1);
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: (post.excerpt || '').slice(0, 155),
+    datePublished: post.date || post._createdAt || '',
+    ...(post.lastUpdated ? { dateModified: post.lastUpdated } : {}),
+    author: {
+      '@type': 'Person',
+      name: 'Ollie Clews',
+      url: 'https://neurodivers3.co.uk/about',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'neurodivers³',
+      url: 'https://neurodivers3.co.uk',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://neurodivers3.co.uk/blog/${slug}`,
+    },
+    image: `https://neurodivers3.co.uk/api/og?title=${encodeURIComponent(post.title)}&pillar=${encodeURIComponent(post.pillar || '')}&brainState=${encodeURIComponent(post.brainState || '')}&accentWord=${encodeURIComponent(post.accentWord || '')}&accentOverride=${encodeURIComponent(post.accentOverride || '')}&readTime=${encodeURIComponent(readTimeVal)}&date=${encodeURIComponent(formattedDate)}&postNumber=${postNumberVal}`
+  };
+
+  const breadcrumbList = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://neurodivers3.co.uk'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: 'https://neurodivers3.co.uk/blog'
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: `https://neurodivers3.co.uk/blog/${slug}`
+      }
+    ]
+  };
+
+  const getFootnoteNumber = (key) => {
+    const fn = footnotes.find(f => f.id === key);
+    return fn ? fn.number : '*';
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbList) }}
+      />
+
+      <article className="relative min-h-screen bg-bg text-fg pb-24">
+        <ReadingProgress />
+        {/* Reading progress header + auto hide Navbar */}
+        <StickyBlogHeader title={post.title} readTime={readTimeVal} />
+
+        <div className="mx-auto px-6 md:px-12 pt-32 max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1600px] relative flex flex-col xl:flex-row gap-12 xl:gap-16 items-start">
+          
+          {/* 1. LEFT COLUMN: OUTLINE / TOC (LIKE IT WAS BEFORE, STICKY ON DESKTOP) */}
+          {showToC && (
+            <div className="hidden xl:block w-60 shrink-0 sticky top-28 select-none">
+              <TableOfContents headings={headings} isMobile={false} />
+            </div>
+          )}
+
+          {/* 2. CENTER: MAIN READING COLUMN */}
+          <div className="flex-grow w-full max-w-[760px] mx-auto xl:mx-0">
+            
+            {/* MOBILE & TABLET ONLY METADATA & UTILITIES FALLBACK */}
+            <div className="xl:hidden w-full mb-8 text-left">
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-text-muted hover:text-accent transition-colors uppercase font-black text-[10px] tracking-widest mb-6 focus-ring"
+              >
+                ← Back to blog
+              </Link>
+
+              <div className="flex flex-wrap items-center gap-3 text-xs font-mono font-bold uppercase tracking-[0.15em] text-text-muted mb-4">
+                <span>{readTimeVal}</span>
+                <span>·</span>
+                <span>{formattedDate}</span>
+                <span>·</span>
+                <Link href={`/blog?pillar=${post.pillar}`} className="text-accent hover:underline font-black focus-ring">
+                  {getPillarLabel(post.pillar)}
+                </Link>
+                <span>·</span>
+                <Link href={`/blog?state=${post.brainState || post.state}`} className="text-accent hover:underline font-black focus-ring">
+                  {getBrainStateLabel(post.brainState || post.state)}
+                </Link>
+                <span>·</span>
+                <span>№ {postNumberVal.toString().padStart(3, '0')}</span>
+              </div>
+
+              <div className="text-xs text-text-muted italic border-l-2 border-border-rule/80 pl-3 py-0.5">
+                By Ollie Clews
+              </div>
+
+              {formattedUpdateDate && (
+                <div className="flex items-center gap-1.5 text-[10px] font-mono tracking-wider uppercase text-accent bg-[var(--accent-soft)] px-3.5 py-1 border border-border-rule mt-4 w-fit">
+                  <AlertCircle size={10} /> Updated {formattedUpdateDate}
+                </div>
+              )}
+
+              <div className="mt-8">
+                <AudioNarration />
+              </div>
+            </div>
+
+            {/* TITLE & EXCERPT */}
+            <div className="max-w-[760px] mx-auto mb-10 text-left">
+              <h1 className="text-[clamp(2rem,4vw,3.25rem)] font-black uppercase tracking-tighter leading-[1.05] mb-6 text-fg-primary font-display">
+                {post.title}
+              </h1>
+              {post.excerpt && (
+                <p className="text-lg md:text-xl text-text-muted italic font-light leading-relaxed border-l-4 border-accent pl-6 font-sans">
+                  {post.excerpt}
+                </p>
+              )}
+            </div>
+
+            {/* ORDERED SERIES COMPACT NAVIGATION CARD */}
+            {post.series?.name && seriesPosts.length > 0 && (
+              <div className="max-w-[760px] mx-auto mb-10 text-left no-print select-none">
+                <div className="p-4 border border-accent bg-[var(--accent-soft)] text-xs font-mono tracking-wide text-fg-primary/90 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                  <span>
+                    Part <span className="font-bold text-accent">{post.series.index}</span> of {seriesPosts.length} in <span className="italic font-bold">'{post.series.name}'</span>
+                  </span>
+                  <div className="flex gap-4 uppercase tracking-widest text-[9px] font-bold shrink-0">
+                    {prevSeriesPost ? (
+                      <Link href={`/blog/${prevSeriesPost.slug}`} className="hover:text-accent focus-ring">
+                        ← Part {post.series.index - 1}
+                      </Link>
+                    ) : (
+                      <span className="opacity-40 select-none">← Prev</span>
+                    )}
+                    {nextSeriesPost ? (
+                      <Link href={`/blog/${nextSeriesPost.slug}`} className="hover:text-accent focus-ring">
+                        Part {post.series.index + 1} →
+                      </Link>
+                    ) : (
+                      <span className="opacity-40 select-none">Next →</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* MOBILE ONLY TABLE OF CONTENTS / OUTLINE DROPDOWN */}
+            {showToC && (
+              <div className="xl:hidden max-w-[760px] mx-auto">
+                <TableOfContents headings={headings} isMobile={true} />
+              </div>
+            )}
+
+            {/* IMMERSIVE BRUTALIST BODY TEXT RENDERER */}
+            <div id="blog-content" className="w-full">
+              <RichTextRenderer 
+                content={post.body} 
+                footnotes={footnotes} 
+                headings={headings}
+              />
+            </div>
+
+            {/* PROSE END SIGN-OFF IN VOICE */}
+            <div className="max-w-[760px] mx-auto text-lg md:text-xl text-fg-primary/90 font-light leading-relaxed mt-10 mb-12 text-left italic font-sans">
+              — Ollie
+            </div>
+
+            {/* FOOTNOTES BLOCK */}
+            {footnotes.length > 0 && (
+              <div className="max-w-[760px] mx-auto border-t border-border-rule/65 mt-16 pt-8 text-left font-sans">
+                <h4 className="text-xs font-mono font-bold tracking-widest text-[#8A8A93] uppercase mb-6">FOOTNOTES</h4>
+                <ol className="space-y-4 text-sm text-text-muted">
+                  {footnotes.map(fn => (
+                    <li key={fn.id} id={`fn-${fn.id}`} className="flex items-start gap-2.5">
+                      <span className="font-mono text-accent font-bold shrink-0">{fn.number}.</span>
+                      <div className="flex-grow text-fg-primary/80 font-normal leading-relaxed">
+                        {fn.text}{' '}
+                        <a 
+                          href={`#fnref-${fn.id}`} 
+                          className="text-accent hover:underline font-black ml-1 select-none focus-ring"
+                          title="Jump back to reference"
+                        >
+                          ↩
+                        </a>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
+            {/* REUSABLE PREMIUM AUTHOR PROFILE CARD */}
+            <div className="max-w-[760px] mx-auto mt-16 mb-16">
+              <AuthorCard author={post.author || {}} socials={post.socials || {}} />
+            </div>
+
+            {/* MOBILE ONLY BOTTOM INLINE SHARE BAR */}
+            <div className="xl:hidden max-w-[760px] mx-auto my-8">
+              <SharePost title={post.title} slug={slug} dek={post.excerpt} />
+            </div>
+
+            {/* CENTRAL NEWSLETTER SIGNUP BLOCK */}
+            <div id="subscribe-block" className="max-w-[760px] mx-auto mt-16">
+              <PostNewsletter />
+            </div>
+
+            {/* CURATED DISCOVERY "KEEP READING" COMPONENT */}
+            <div className="w-full mt-16">
+              <RelatedPosts 
+                posts={allPosts} 
+                currentPost={post} 
+                manualPinSlug={post.manualPinSlug || null}
+              />
+            </div>
+
+            {/* SERIES SEQUENTIAL END-OF-POST NAVIGATION BLOCK */}
+            {post.series?.name && seriesPosts.length > 0 && (
+              <div className="max-w-[760px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 mt-16 pt-10 border-t border-border-rule/60 mb-16 no-print">
+                {prevSeriesPost ? (
+                  <Link
+                    href={`/blog/${prevSeriesPost.slug}`}
+                    className="group border border-border-rule hover:border-fg-primary p-5 flex flex-col justify-between text-left bg-surface/40 hover:-translate-y-0.5 transition-all duration-200"
+                  >
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-text-muted mb-2 block">PREVIOUS IN SERIES</span>
+                    <h4 className="text-sm font-black uppercase text-fg-primary group-hover:text-accent transition-colors line-clamp-2 leading-snug">
+                      {prevSeriesPost.title}
+                    </h4>
+                    <span className="text-[9px] font-mono text-accent uppercase tracking-wider block mt-4 font-bold">
+                      Part {post.series.index - 1} of {seriesPosts.length}
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="border border-dashed border-border-rule/40 p-5 flex items-center justify-center text-center text-text-muted/40 font-mono text-[10px] uppercase select-none">
+                    Start of Series
+                  </div>
+                )}
+
+                {nextSeriesPost ? (
+                  <Link
+                    href={`/blog/${nextSeriesPost.slug}`}
+                    className="group border border-border-rule hover:border-fg-primary p-5 flex flex-col justify-between text-left bg-surface/40 hover:-translate-y-0.5 transition-all duration-200"
+                  >
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-text-muted mb-2 block text-right">NEXT IN SERIES</span>
+                    <h4 className="text-sm font-black uppercase text-fg-primary group-hover:text-accent transition-colors line-clamp-2 leading-snug text-right">
+                      {nextSeriesPost.title}
+                    </h4>
+                    <span className="text-[9px] font-mono text-accent uppercase tracking-wider block mt-4 font-bold text-right">
+                      Part {post.series.index + 1} of {seriesPosts.length}
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="border border-dashed border-border-rule/40 p-5 flex items-center justify-center text-center text-text-muted/40 font-mono text-[10px] uppercase select-none">
+                    End of Series
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* REPLIES TIMELINE SECTION */}
+            {post.allowComments !== false ? (
+              <CommentSection postSlug={slug} postTitle={post.title} initialComments={comments} />
+            ) : (
+              <div className="max-w-[760px] mx-auto mt-16 mb-16 text-left">
+                <div className="p-4 bg-surface border border-border-rule/80 text-xs font-mono tracking-wide text-text-muted text-left">
+                  Comments have been paused for this transmission.{' '}
+                  <a
+                    href={`mailto:hello@neurodivers3.co.uk?subject=${encodeURIComponent(`Reply: ${post.title}`)}`}
+                    className="text-accent hover:underline font-bold focus-ring ml-1"
+                  >
+                    Reply by email instead →
+                  </a>
+                </div>
+              </div>
+            )}
+
+          </div>
+
+          {/* 3. RIGHT COLUMN: BEAUTIFUL FLOATING UTILITY BOX IN THE FREE SPACE */}
+          <aside className="hidden xl:flex flex-col gap-6 w-64 shrink-0 sticky top-28 select-none">
+            
+            <div className="w-full bg-surface/60 border-2 border-border-rule p-5 shadow-[4px_4px_0px_var(--rule)] hover:border-accent hover:shadow-[6px_6px_0px_rgba(255,46,136,0.12)] transition-all duration-300 flex flex-col gap-6 text-left relative overflow-hidden">
+              
+              {/* Gradient accent bar at the top */}
+              <div className="meta-box__topbar absolute top-0 left-0 right-0" />
+
+              {/* Back to Blog */}
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 border-2 border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-[9px] font-black uppercase tracking-widest transition-all duration-200 self-start shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring mt-1"
+              >
+                ← Back to blog
+              </Link>
+
+              {/* Compact Meta Info */}
+              <div className="space-y-4 border-t border-border-rule/80 pt-5 text-left">
+                <div>
+                  <span className="text-[8px] font-mono tracking-widest text-text-muted uppercase block font-bold mb-0.5">
+                    DATE & READ TIME
+                  </span>
+                  <span className="text-[11px] font-sans font-bold text-fg-primary block">
+                    {formattedDate} · {readTimeVal}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[8px] font-mono tracking-widest text-text-muted uppercase block font-bold mb-1.5">
+                    METRICS
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    <Link href={`/blog?pillar=${post.pillar}`} className="text-[9px] font-mono font-black uppercase text-accent bg-[var(--accent-soft)] px-2 py-0.5 border border-border-rule hover:border-accent transition-all">
+                      {getPillarLabel(post.pillar)}
+                    </Link>
+                    <Link href={`/blog?state=${post.brainState || post.state}`} className="text-[9px] font-mono font-black uppercase text-accent bg-[var(--accent-soft)] px-2 py-0.5 border border-border-rule hover:border-accent transition-all">
+                      {getBrainStateLabel(post.brainState || post.state)}
+                    </Link>
+                  </div>
+                </div>
+                <div className="text-[10px] text-accent italic font-sans border-l-2 border-[var(--accent)]/30 pl-2 py-0.5">
+                  By Ollie Clews
+                </div>
+              </div>
+
+              {/* Compact Audio Narration player */}
+              <div className="border-t border-border-rule/80 pt-5">
+                <AudioNarration compact={true} />
+              </div>
+
+              {/* Vertical Share Stack */}
+              <div className="border-t border-border-rule/80 pt-5">
+                <SharePost title={post.title} slug={slug} dek={post.excerpt} vertical={true} />
+              </div>
+
+            </div>
+            
+          </aside>
+
+        </div>
+      </article>
+    </>
+  );
+}

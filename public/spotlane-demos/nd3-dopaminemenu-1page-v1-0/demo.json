@@ -1,0 +1,78 @@
+{
+  "version": "1.0",
+  "meta": {
+    "title": "ND3 DopamineMenu 1Page",
+    "description": "Interactive walkthrough of ND3 DopamineMenu 1Page.",
+    "createdAt": 1780931584214,
+    "updatedAt": 1780931584214
+  },
+  "startScreenId": "screen-1",
+  "screens": [
+    {
+      "id": "screen-1",
+      "title": "Page 1",
+      "image": "/spotlane-demos/nd3-dopaminemenu-1page-v1-0/page-1.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "e4987d7f-a858-4143-a76c-e72404a8aa8d",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "Next page",
+          "description": "Click to continue",
+          "targetScreenId": "screen-2",
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    },
+    {
+      "id": "screen-2",
+      "title": "Page 2",
+      "image": "/spotlane-demos/nd3-dopaminemenu-1page-v1-0/page-2.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "919b6a5e-793a-4229-8684-bff6613d37b0",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "Next page",
+          "description": "Click to continue",
+          "targetScreenId": "screen-3",
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    },
+    {
+      "id": "screen-3",
+      "title": "Page 3",
+      "image": "/spotlane-demos/nd3-dopaminemenu-1page-v1-0/page-3.png",
+      "description": "",
+      "descriptionPosition": "bottom",
+      "hotspots": [
+        {
+          "id": "80a990d1-86be-4a7b-aea3-a19ce4729ef3",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.022,
+          "height": 0.022,
+          "shape": "circle",
+          "label": "End of demo",
+          "description": "Thanks for viewing!",
+          "targetScreenId": null,
+          "color": "#7c6af7",
+          "rippleScale": 2.6
+        }
+      ]
+    }
+  ]
+}

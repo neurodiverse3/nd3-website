@@ -1,0 +1,313 @@
+# Cancellations
+
+*Pulling out of something you already said yes to.*
+
+## 1. Cancelling plans last-minute (friend)
+
+*Use when: you'd agreed to see someone and you've run out of capacity today.*
+
+**Warm / Message**
+
+> I'm so sorry to do this last minute, but I'm not going to make it today. It's nothing to do with you. I've just run out of capacity and need to stay in. Can we find another day soon? x
+>
+
+**Warm / Email**
+
+Subject: **Need to cancel today, so sorry**
+
+Hi [name], I'm really sorry for the short notice. I've hit a wall today and wouldn't be good company, and I need to stay home and rest. It's honestly nothing to do with you, and I'd love to reschedule when I've got more in the tank. Could we look at next week? Thanks for understanding. [you]
+
+**Neutral / Message**
+
+> I need to cancel today, sorry for the short notice. I've run out of energy and need to stay in. Can we reschedule?
+>
+
+**Neutral / Email**
+
+Subject: **Cancelling today**
+
+Hi [name], I have to cancel our plans today. I'm out of energy and need to rest. Sorry for the late notice. Can we pick another day next week? [you]
+
+**Brief / Message**
+
+> So sorry, can't make today. Out of spoons. Reschedule soon? x
+>
+
+**Brief / Email**
+
+Subject: **Cancelling today**
+
+Hi [name], have to cancel today, sorry. Nothing left in the tank. Can we rebook? [you]
+
+--
+
+## 2. Cancelling a work meeting or call
+
+*Use when: you need to pull out of a scheduled work meeting.*
+
+**Warm / Message**
+
+> Hi [name], I'm going to have to step out of our meeting today, sorry for the short notice. I'm not at my best and want to give it proper attention rather than half of it. Could we move it to [day]?
+>
+
+**Warm / Email**
+
+Subject: **Moving our meeting**
+
+Hi [name], apologies for the late change. I need to reschedule today's meeting. I'm not at full capacity and would rather come to it properly than rush through. Would [day/time] work instead? Happy to send anything ahead so we don't lose momentum. Thanks, [you]
+
+**Neutral / Message**
+
+> I need to reschedule today's meeting, sorry for the short notice. Does [day/time] work instead?
+>
+
+**Neutral / Email**
+
+Subject: **Rescheduling today's meeting**
+
+Hi [name], I have to reschedule our meeting today. Sorry for the late notice. Would [day/time] suit you? Let me know and I'll resend the invite. [you]
+
+**Brief / Message**
+
+> Have to move our meeting today, sorry. [Day/time] instead?
+>
+
+**Brief / Email**
+
+Subject: **Rescheduling today**
+
+Hi [name], need to move today's meeting. Can we do [day/time]? Thanks, [you]
+
+--
+
+## 3. Cancelling without rescheduling yet
+
+*Use when: you can't commit to a new date right now and don't want to be pinned down.*
+
+**Warm / Message**
+
+> I need to cancel [plan], and I'm honestly not in a place to pick a new date yet. I don't want to promise something I can't keep. Can I come back to you when I've got a clearer week? x
+>
+
+**Warm / Email**
+
+Subject: **Need to cancel, will come back to you**
+
+Hi [name], I have to cancel [plan]. I'd love to reschedule, but I don't want to pin a date down while I'm this stretched and then let you down again. Can I reach out when things settle? I really appreciate your patience. [you]
+
+**Neutral / Message**
+
+> I need to cancel [plan]. I can't commit to a new date yet. I'll come back to you when I can. Thanks for understanding.
+>
+
+**Neutral / Email**
+
+Subject: **Cancelling [plan]**
+
+Hi [name], I have to cancel [plan] and I'm not able to set a new date right now. I'll be in touch when I can plan properly. Thanks for understanding. [you]
+
+**Brief / Message**
+
+> Have to cancel [plan]. Can't set a new date yet. I'll come back to you. x
+>
+
+**Brief / Email**
+
+Subject: **Cancelling [plan]**
+
+Hi [name], cancelling [plan], sorry. Can't rebook yet. I'll reach out. [you]
+
+--
+
+## 4. Cancelling a recurring commitment
+
+*Use when: you need to step back from something regular (a club, standing call, volunteer slot).*
+
+**Warm / Message**
+
+> I've been thinking about this and I need to step back from [commitment] for a while. It's not a reflection on anyone. I just don't have the capacity to do it well right now. I hope to come back when I do. x
+>
+
+**Warm / Email**
+
+Subject: **Stepping back from [commitment]**
+
+Hi [name], I wanted to let you know properly rather than just go quiet. I need to step back from [commitment] for now. I've really valued it, but I don't have the capacity to keep showing up the way it deserves. I'd love to rejoin when things are steadier. Thank you for understanding. [you]
+
+**Neutral / Message**
+
+> I need to step back from [commitment] for now. I don't have the capacity to keep it up. Wanted to tell you rather than just stop showing up.
+>
+
+**Neutral / Email**
+
+Subject: **Stepping back from [commitment]**
+
+Hi [name], I'm going to step back from [commitment] for the time being. I don't have the capacity to do it justice right now. Thank you for understanding. I'll be in touch if that changes. [you]
+
+**Brief / Message**
+
+> Need to step back from [commitment] for now. Not personal, just no capacity. Thanks for understanding.
+>
+
+**Brief / Email**
+
+Subject: **Stepping back**
+
+Hi [name], stepping back from [commitment] for now, no capacity at the moment. Thanks for understanding. [you]
+
+--
+
+## 5. Leaving an event early
+
+*Use when: you're already somewhere and need to go before the end.*
+
+**Warm / Message**
+
+> I'm going to head off a bit early. I've had a lovely time but I can feel my battery going and I want to leave while it's still good. Thank you for having me. x
+>
+
+**Warm / Email**
+
+Subject: **Thanks, and an early exit**
+
+Hi [name], just a note to say I'll probably slip away earlier than the others. It's nothing to do with the evening, which I'm enjoying. I just know my limits and want to leave before I hit them. Thank you for including me. [you]
+
+**Neutral / Message**
+
+> I'm going to head off early tonight, running low on energy. Thanks for having me.
+>
+
+**Neutral / Email**
+
+Subject: **Heading off early**
+
+Hi [name], just flagging I'll leave a bit early, I'm running low on energy. Thanks for the invite, I've enjoyed it. [you]
+
+**Brief / Message**
+
+> Going to slip off early, battery's low. Thanks for having me x
+>
+
+**Brief / Email**
+
+Subject: **Off early**
+
+Hi [name], heading off early tonight, low on energy. Thanks for having me. [you]
+
+--
+
+## 6. Postponing a deadline
+
+*Use when: you can't deliver something on time and need to ask for more.*
+
+**Warm / Message**
+
+> Hi [name], I want to be upfront: I'm not going to have [thing] ready for [date]. I'd rather tell you now than deliver something rushed. Could I get until [new date]?
+>
+
+**Warm / Email**
+
+Subject: **[Thing]: asking for a little more time**
+
+Hi [name], I wanted to flag this early rather than at the wire: I won't have [thing] finished by [date]. I'd rather give it the attention it needs than hand over something half-done. Could I have until [new date]? Happy to share what I've got so far if that helps. Thanks, [you]
+
+**Neutral / Message**
+
+> I won't have [thing] ready by [date]. Could I have until [new date]? Flagging now rather than late.
+>
+
+**Neutral / Email**
+
+Subject: **[Thing]: new timing**
+
+Hi [name], I need to push [thing] back. I won't make [date]. Could we move it to [new date]? Let me know if that causes any problems and I'll work around it. [you]
+
+**Brief / Message**
+
+> Won't make [date] for [thing]. Can I have until [new date]?
+>
+
+**Brief / Email**
+
+Subject: **[Thing] timing**
+
+Hi [name], need to push [thing] to [new date], won't make [date]. Okay? [you]
+
+--
+
+## 7. Declining an invitation upfront
+
+*Use when: you know now you won't go, and want to say so cleanly instead of leaving it open.*
+
+**Warm / Message**
+
+> Thank you so much for the invite. It means a lot that you thought of me. I'm going to say no to this one so I don't overcommit, but I really hope it goes brilliantly. x
+>
+
+**Warm / Email**
+
+Subject: **Thank you, I'll have to pass**
+
+Hi [name], thank you for inviting me to [event]. I'm genuinely touched to be asked. I'm going to bow out this time so I don't stretch myself too thin, but I hope it's wonderful and I'd love to hear how it goes. [you]
+
+**Neutral / Message**
+
+> Thanks for the invite. I'm going to pass on this one, but I appreciate being asked. Hope it goes well.
+>
+
+**Neutral / Email**
+
+Subject: **[Event]: I'll pass, thank you**
+
+Hi [name], thanks for the invitation to [event]. I won't be able to make it, but I appreciate you thinking of me. Hope it goes well. [you]
+
+**Brief / Message**
+
+> Thanks for the invite, going to pass on this one. Hope it's great x
+>
+
+**Brief / Email**
+
+Subject: **[Event]**
+
+Hi [name], thanks for the invite, I'll pass this time. Hope it goes well. [you]
+
+--
+
+## 8. Cancelling without giving a reason
+
+*Use when: you don't owe an explanation and don't have the energy to invent one.*
+
+**Warm / Message**
+
+> I'm sorry, I need to cancel [plan]. I haven't got a tidy reason. I'm just not up to it today. I hope that's okay, and thank you for being understanding. x
+>
+
+**Warm / Email**
+
+Subject: **Need to cancel [plan]**
+
+Hi [name], I have to cancel [plan]. I won't go into a long explanation. I'm simply not up to it right now, and I've learned the hard way that pushing through doesn't help anyone. Thank you for understanding, it means a lot. [you]
+
+**Neutral / Message**
+
+> I need to cancel [plan], not up to it today. No long story, just being honest. Thanks for understanding.
+>
+
+**Neutral / Email**
+
+Subject: **Cancelling [plan]**
+
+Hi [name], I'm cancelling [plan]. I'm not up to it today and would rather be straight with you than give a reason that isn't the real one. Thanks for understanding. [you]
+
+**Brief / Message**
+
+> Need to cancel [plan], not up to it today. Thanks for understanding x
+>
+
+**Brief / Email**
+
+Subject: **Cancelling**
+
+Hi [name], cancelling [plan], not up to it today. Thank you for understanding. [you]
