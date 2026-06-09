@@ -118,7 +118,7 @@ export async function getAllPostSlugs() {
 
 export async function getSiteSettings() {
   const response = await fetchStrapi('site-setting', {
-    populate: 'featuredPosts,featuredPosts.coverImage,founder,founder.photo,socials',
+    populate: 'featuredPosts,featuredPosts.coverImage,founder,founder.photo,memoirTeaser',
   });
 
   const rawData = response?.data && !Array.isArray(response.data) ? response.data : response;

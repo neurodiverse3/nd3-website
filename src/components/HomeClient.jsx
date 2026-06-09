@@ -44,20 +44,20 @@ export default function HomeClient({ siteSettings, latestPosts }) {
   const [errorMessage, setErrorMessage] = useState('');
 
   // Standard fallback content
-  const memoir = siteSettings?.memoirTeaser || {
-    headline: "I thought I was just bad at being a person.",
-    blurb: "A memoir in progress about late AuDHD diagnosis, unmasking, and figuring out how to human.",
-    ctaLabel: "Read the memoir",
-    ctaHref: "/memoir"
+  const memoir = {
+    headline: siteSettings?.memoirTeaser?.headline || "I thought I was just bad at being a person.",
+    blurb: siteSettings?.memoirTeaser?.blurb || "A memoir in progress about late AuDHD diagnosis, unmasking, and figuring out how to human.",
+    ctaLabel: siteSettings?.memoirTeaser?.ctaLabel || "Read the memoir",
+    ctaHref: siteSettings?.memoirTeaser?.ctaHref || "/memoir"
   };
 
-  const founder = siteSettings?.founder || {
-    name: "Ollie",
-    role: "Writer & Founder",
-    bio: "I started neurodivers³ because I needed somewhere honest to put the messy middle of late-diagnosed AuDHD life; the stories, the tools, the burnout, the rebuilding.",
-    photo: null,
-    ctaLabel: "More about me",
-    ctaHref: "/about"
+  const founder = {
+    name: siteSettings?.founder?.name || "Ollie",
+    role: siteSettings?.founder?.role || "Writer & Founder",
+    bio: siteSettings?.founder?.bio || "I started neurodivers³ because I needed somewhere honest to put the messy middle of late-diagnosed AuDHD life; the stories, the tools, the burnout, the rebuilding.",
+    photo: siteSettings?.founder?.photo || null,
+    ctaLabel: siteSettings?.founder?.ctaLabel || "More about me",
+    ctaHref: siteSettings?.founder?.ctaHref || "/about"
   };
 
   const featured = siteSettings?.featuredPosts || [];
