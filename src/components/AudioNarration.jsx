@@ -140,18 +140,18 @@ export const AudioNarration = ({ compact = false }) => {
   if (!supported) return null;
 
   return (
-    <div className={`flex ${compact ? 'flex-col items-start gap-2.5 p-3' : 'flex-wrap items-center gap-3 p-3'} bg-bg-primary/50 border border-border-rule rounded-none shadow-[2px_2px_0px_var(--rule)]`}>
-      <span className="text-[10px] font-mono tracking-widest text-text-muted uppercase font-bold flex items-center gap-1.5 ml-1">
+    <div className={`flex ${compact ? 'flex-col items-start gap-3 p-4 bg-black/15 border border-border-rule/60' : 'flex-wrap items-center gap-3 p-3 bg-bg-primary/50 border border-border-rule'} rounded-none shadow-[2px_2px_0px_var(--rule)]`}>
+      <span className="text-[9.5px] font-mono tracking-widest text-text-muted uppercase font-black flex items-center gap-1.5 ml-0.5">
         <Volume2 size={12} className="text-accent-pink animate-pulse-slow shrink-0" /> 
         {isPlaying ? (isPaused ? 'PAUSED' : 'NARRATING...') : 'AUDIO NARRATION'}
       </span>
       
-      <div className={`flex items-center gap-1.5 ${compact ? 'w-full justify-between' : 'ml-auto gap-2'}`}>
+      <div className={`flex items-center gap-2 ${compact ? 'w-full justify-between' : 'ml-auto'}`}>
         {/* Play / Pause Toggle Button */}
         <button
           onClick={toggleNarration}
-          className={`h-8 ${compact ? 'flex-grow justify-center' : 'px-3'} border border-border-rule hover:border-accent-pink flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer rounded-none bg-transparent ${
-            isPlaying && !isPaused ? 'text-accent-pink border-accent-pink animate-pulse-slow' : 'text-text-muted hover:text-fg-primary'
+          className={`h-8 ${compact ? 'flex-grow justify-center' : 'px-3'} border border-border-rule/70 hover:border-accent-pink flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer rounded-none bg-transparent ${
+            isPlaying && !isPaused ? 'text-accent-pink border-accent-pink animate-pulse-slow' : 'text-text-muted hover:text-fg-primary hover:border-accent-pink'
           }`}
           aria-label={isPlaying ? (isPaused ? 'Resume narration' : 'Pause narration') : 'Play narration'}
         >
@@ -169,7 +169,7 @@ export const AudioNarration = ({ compact = false }) => {
         {/* Speed rate selection */}
         <button
           onClick={cycleRate}
-          className={`h-8 border border-border-rule hover:border-accent-pink text-[9px] font-black uppercase tracking-wider text-text-muted hover:text-fg-primary transition-all cursor-pointer rounded-none bg-transparent flex items-center justify-center gap-0.5 shrink-0 ${compact ? 'w-12' : 'px-2.5'}`}
+          className={`h-8 border border-border-rule/70 hover:border-accent-pink text-[9px] font-black uppercase tracking-wider text-text-muted hover:text-fg-primary transition-all cursor-pointer rounded-none bg-transparent flex items-center justify-center gap-0.5 shrink-0 ${compact ? 'w-12' : 'px-2.5'}`}
           aria-label={`Change speech speed, current ${rate}x`}
         >
           {rate}x
@@ -179,7 +179,7 @@ export const AudioNarration = ({ compact = false }) => {
         {(isPlaying || isPaused) && (
           <button
             onClick={stopNarration}
-            className="h-8 w-8 border border-border-rule hover:border-red-500 flex items-center justify-center text-text-muted hover:text-red-500 transition-all cursor-pointer rounded-none bg-transparent shrink-0"
+            className="h-8 w-8 border border-border-rule/70 hover:border-red-500 flex items-center justify-center text-text-muted hover:text-red-500 transition-all cursor-pointer rounded-none bg-transparent shrink-0"
             aria-label="Stop narration"
           >
             <RotateCcw size={10} strokeWidth={3} />

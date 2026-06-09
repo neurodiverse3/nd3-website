@@ -63,7 +63,7 @@ export const TableOfContents = ({ headings = [], isMobile = false }) => {
 
   if (isMobile) {
     return (
-      <div className="block xl:hidden border-2 border-border-rule bg-bg-primary p-4 shadow-[4px_4px_0px_var(--rule)] mb-12 select-none">
+      <div className="block xl:hidden sidebar-card p-4 mb-12 select-none">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="w-full flex items-center justify-between font-mono text-xs font-black uppercase tracking-wider text-fg-primary cursor-pointer bg-transparent border-none focus-ring"
@@ -84,7 +84,7 @@ export const TableOfContents = ({ headings = [], isMobile = false }) => {
                 className={`text-base tracking-tight text-left transition-colors pl-2.5 py-1 border-l-2 flex flex-col gap-0.5 focus-ring ${
                   activeId === h.id
                     ? 'text-accent-pink border-accent-pink font-black'
-                    : 'text-zinc-300 border-transparent hover:text-fg-primary hover:border-border-rule font-bold'
+                    : 'text-text-muted border-transparent hover:text-fg-primary hover:border-border-rule font-bold'
                 }`}
               >
                 <span>{h.text}</span>
@@ -111,7 +111,7 @@ export const TableOfContents = ({ headings = [], isMobile = false }) => {
             className={`transition-all pl-3 py-1.5 border-l-2 hover:translate-x-0.5 tracking-wide leading-relaxed uppercase font-bold text-left flex flex-col focus-ring ${
               activeId === h.id
                 ? 'text-accent-pink border-accent-pink font-black pl-4'
-                : 'text-zinc-400 border-border-rule/50 hover:text-fg-primary hover:border-fg-primary'
+                : 'text-text-muted border-border-rule/50 hover:text-fg-primary hover:border-fg-primary'
             }`}
           >
             <span>{h.text}</span>

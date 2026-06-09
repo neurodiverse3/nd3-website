@@ -1,0 +1,11 @@
+{
+  "name": "nd3-store",
+  "version": "1.0.0",
+  "private": true,
+  "description": "neurodivers\u00B3 store landing + product listing components (Next.js App Router).",
+  "peerDependencies": {
+    "next": ">=13.4",
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}

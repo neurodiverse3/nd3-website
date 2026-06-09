@@ -24,9 +24,9 @@ const THEME_DEFS = {
     '--grad-hero': 'linear-gradient(135deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%)',
     '--grad-progress': 'linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%)',
     cardBg: {
-      'unmasked-life': '#3A1626',  
-      'tiny-systems': '#5C3A08',   
-      'glitchwork': '#10333B'      
+      'unmasked-life': '#2A0A19',  
+      'tiny-systems': '#2F1A00',   
+      'glitchwork': '#00252C'      
     },
     name: 'Void (Soft Dark)'
   },
@@ -65,9 +65,9 @@ const THEME_DEFS = {
 };
 
 const PILLAR_COLORS = {
-  'unmasked-life': '#FF4D6D',
-  'tiny-systems': '#F4A93B',
-  'glitchwork': '#22B8CF'
+  'unmasked-life': '#FF2D87',
+  'tiny-systems': '#FFAC1C',
+  'glitchwork': '#00F0FF'
 };
 
 const PILLAR_LABELS = {

@@ -149,6 +149,27 @@ const getBrainStateLabel = (state) => {
   return state.toUpperCase();
 };
 
+const getPillarTagClass = (pillar) => {
+  const p = pillar?.toLowerCase() || '';
+  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates' || p === 'tools') {
+    return 'text-[var(--pillar-label-tools,var(--pillar-tools))] bg-[var(--pillar-tools)]/8 border border-[var(--pillar-label-tools,var(--pillar-tools))]/20 hover:border-[var(--pillar-label-tools,var(--pillar-tools))]';
+  }
+  if (p === 'glitchwork' || p === 'digital life' || p === 'digital') {
+    return 'text-[var(--pillar-label-digital,var(--pillar-digital))] bg-[var(--pillar-digital)]/8 border border-[var(--pillar-label-digital,var(--pillar-digital))]/20 hover:border-[var(--pillar-label-digital,var(--pillar-digital))]';
+  }
+  return 'text-[var(--pillar-label-unmasked,var(--pillar-unmasked))] bg-[var(--pillar-unmasked)]/8 border border-[var(--pillar-label-unmasked,var(--pillar-unmasked))]/20 hover:border-[var(--pillar-label-unmasked,var(--pillar-unmasked))]';
+};
+
+const getBrainStateTagClass = (state) => {
+  const s = state?.toLowerCase().replace('_', '-').replace('spiraling', 'spiralling') || '';
+  if (s === 'burned-out') return 'badge-state-burned-out';
+  if (s === 'hyperfocus') return 'badge-state-hyperfocus';
+  if (s === 'masking') return 'badge-state-masking';
+  if (s === 'spiralling') return 'badge-state-spiralling';
+  if (s === 'on-a-roll') return 'badge-state-on-a-roll';
+  return 'text-accent bg-[var(--accent-soft)] border border-border-rule hover:border-accent'; // fallback
+};
+
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
   const comments = await getComments(slug);
@@ -513,15 +534,15 @@ export default async function BlogPostPage({ params }) {
           {/* 3. RIGHT COLUMN: BEAUTIFUL FLOATING UTILITY BOX IN THE FREE SPACE */}
           <aside className="hidden xl:flex flex-col gap-6 w-64 shrink-0 sticky top-28 select-none">
             
-            <div className="w-full bg-surface/60 border-2 border-border-rule p-5 shadow-[4px_4px_0px_var(--rule)] hover:border-accent hover:shadow-[6px_6px_0px_rgba(255,46,136,0.12)] transition-all duration-300 flex flex-col gap-6 text-left relative overflow-hidden">
+            <div className="w-full sidebar-card p-5 flex flex-col gap-6 text-left relative overflow-hidden">
               
               {/* Gradient accent bar at the top */}
-              <div className="meta-box__topbar absolute top-0 left-0 right-0" />
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-grad-meta" />
 
               {/* Back to Blog */}
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 border-2 border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-[9px] font-black uppercase tracking-widest transition-all duration-200 self-start shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring mt-1"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-200 self-start shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring mt-1"
               >
                 ← Back to blog
               </Link>
@@ -529,28 +550,37 @@ export default async function BlogPostPage({ params }) {
               {/* Compact Meta Info */}
               <div className="space-y-4 border-t border-border-rule/80 pt-5 text-left">
                 <div>
-                  <span className="text-[8px] font-mono tracking-widest text-text-muted uppercase block font-bold mb-0.5">
+                  <span className="text-[8.5px] font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-1">
                     DATE & READ TIME
                   </span>
-                  <span className="text-[11px] font-sans font-bold text-fg-primary block">
+                  <span className="text-xs font-sans font-bold text-fg-primary block">
                     {formattedDate} · {readTimeVal}
                   </span>
                 </div>
                 <div>
-                  <span className="text-[8px] font-mono tracking-widest text-text-muted uppercase block font-bold mb-1.5">
+                  <span className="text-[8.5px] font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-2">
                     METRICS
                   </span>
                   <div className="flex flex-wrap gap-1.5">
-                    <Link href={`/blog?pillar=${post.pillar}`} className="text-[9px] font-mono font-black uppercase text-accent bg-[var(--accent-soft)] px-2 py-0.5 border border-border-rule hover:border-accent transition-all">
+                    <Link 
+                      href={`/blog?pillar=${post.pillar}`} 
+                      className={`text-[9px] font-mono font-black uppercase px-2 py-0.5 transition-all focus-ring ${getPillarTagClass(post.pillar)}`}
+                    >
                       {getPillarLabel(post.pillar)}
                     </Link>
-                    <Link href={`/blog?state=${post.brainState || post.state}`} className="text-[9px] font-mono font-black uppercase text-accent bg-[var(--accent-soft)] px-2 py-0.5 border border-border-rule hover:border-accent transition-all">
+                    <Link 
+                      href={`/blog?state=${post.brainState || post.state}`} 
+                      className={`text-[9px] font-mono font-black uppercase px-2 py-0.5 transition-all focus-ring ${getBrainStateTagClass(post.brainState || post.state)}`}
+                    >
                       {getBrainStateLabel(post.brainState || post.state)}
                     </Link>
                   </div>
                 </div>
-                <div className="text-[10px] text-accent italic font-sans border-l-2 border-[var(--accent)]/30 pl-2 py-0.5">
-                  By Ollie Clews
+                <div className="text-[10px] font-mono tracking-widest text-text-muted uppercase font-bold flex items-center gap-2 pt-1">
+                  <span>BY</span>
+                  <span className="text-fg-primary font-black hover:text-accent transition-colors">
+                    OLLIE CLEWS
+                  </span>
                 </div>
               </div>
 

@@ -83,7 +83,7 @@ export function StickyBlogHeader({ title, readTime }) {
       </div>
 
       {/* Dynamic reading progress bar — full viewport width (outside max-width container) */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-zinc-900 overflow-hidden">
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-border-rule/50 overflow-hidden">
         <div 
           className="h-full transition-all duration-75 ease-out origin-left" 
           style={{ width: `${progress}%`, background: 'var(--grad-progress)' }}

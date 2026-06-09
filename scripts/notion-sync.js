@@ -207,7 +207,7 @@ async function convertNotionBlocksToStrapi(notionBlocks) {
         // Strapi doesn't have an explicit divider block in standard Rich Text structure,
         // so we represent it as a styled horizontal line inside a paragraph or let frontend render divider.
         break;
-      default:
+      default: {
         // Fallback for other block types
         const details = block[block.type];
         if (details?.rich_text) {
@@ -217,6 +217,7 @@ async function convertNotionBlocksToStrapi(notionBlocks) {
           });
         }
         break;
+      }
     }
   }
 
@@ -254,7 +255,7 @@ async function syncNotionToStrapi() {
     // It's a blog post if parent is 'neurodivers3 Website Planning' (9249f34d-d01e-46b4-874d-501476fac047)
     // AND it has some real content (not just a specs page)
     if (parentId === '9249f34d-d01e-46b4-874d-501476fac047') {
-      if (title.includes('Site Finish') || title.includes('Website & Blog Map') || title.includes('Logo Assets') || title.includes('Agent Prompt') || title.includes('Page Wireframes') || title.includes('QA') || title.includes('Master Blog Posts') || title.includes('Ollie Clews')) {
+      if (title.includes('Site Finish') || title.includes('Website & Blog Map') || title.includes('Logo Assets') || title.includes('Agent Prompt') || title.includes('Page Wireframes') || title.includes('QA') || title.includes('Master Blog Posts') || title.includes('Ollie Clews') || title.includes('Page Header System') || title.includes('Website Pages')) {
         // Spec pages, skip
         continue;
       }

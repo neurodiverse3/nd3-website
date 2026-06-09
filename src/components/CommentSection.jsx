@@ -240,7 +240,7 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
                 </div>
 
                 {/* Comment Body */}
-                <div className="bg-[#09090b]/40 border border-border-rule/80 p-5 shadow-[3px_3px_0px_var(--rule)] hover:border-accent/40 hover:shadow-[4px_4px_0px_var(--accent-soft)] transition-all duration-300">
+                <div className="bg-surface/40 border border-border-rule/80 p-5 shadow-[3px_3px_0px_var(--rule)] hover:border-accent/40 hover:shadow-[4px_4px_0px_var(--accent-soft)] transition-all duration-300">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-3">
                     <span className="font-black text-sm uppercase tracking-tight text-fg-primary">
                       {c.name}
@@ -319,7 +319,7 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
                 placeholder="Ollie Clews"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full h-11 bg-[#09090b] border-2 border-text-muted/40 focus:border-accent focus:ring-2 focus:ring-accent/15 px-4 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-200 rounded-none placeholder:text-text-muted/65"
+                className="w-full h-11 bg-bg-primary border-2 border-text-muted/40 focus:border-accent focus:ring-2 focus:ring-accent/15 px-4 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-200 rounded-none placeholder:text-text-muted/65"
               />
             </div>
 
@@ -335,7 +335,7 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
                 placeholder="you@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-11 bg-[#09090b] border-2 border-text-muted/40 focus:border-accent focus:ring-2 focus:ring-accent/15 px-4 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-200 rounded-none placeholder:text-text-muted/65"
+                className="w-full h-11 bg-bg-primary border-2 border-text-muted/40 focus:border-accent focus:ring-2 focus:ring-accent/15 px-4 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-200 rounded-none placeholder:text-text-muted/65"
               />
             </div>
           </div>
@@ -352,7 +352,7 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
               placeholder="What did this trigger in your own brain? Keep it thoughtful, sensory-friendly, and constructive."
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full bg-[#09090b] border-2 border-text-muted/40 focus:border-accent focus:ring-2 focus:ring-accent/15 px-4 py-3 outline-none text-fg-primary text-sm font-light leading-relaxed shadow-[2px_2px_0px_var(--rule)] transition-all duration-200 rounded-none placeholder:text-text-muted/65 resize-y min-h-[100px]"
+              className="w-full bg-bg-primary border-2 border-text-muted/40 focus:border-accent focus:ring-2 focus:ring-accent/15 px-4 py-3 outline-none text-fg-primary text-sm font-light leading-relaxed shadow-[2px_2px_0px_var(--rule)] transition-all duration-200 rounded-none placeholder:text-text-muted/65 resize-y min-h-[100px]"
             />
           </div>
 

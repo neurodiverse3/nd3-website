@@ -3,6 +3,49 @@ import React, { useState, useEffect } from 'react';
 import { Sliders, Eye, EyeOff, RotateCcw, Type, Move, ToggleLeft, ToggleRight, Moon, Sun, Sprout } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 
+// Custom toggle switch for premium look & feel
+const ToggleSwitch = ({ checked, onChange, ariaLabel }) => {
+  return (
+    <button
+      role="switch"
+      aria-checked={checked}
+      onClick={onChange}
+      className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out focus-ring items-center px-0.5 ${
+        checked ? 'bg-accent' : 'bg-text-muted/20 border-border-rule'
+      }`}
+      aria-label={ariaLabel}
+    >
+      <span
+        className={`pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out ${
+          checked ? 'translate-x-[18px]' : 'translate-x-0'
+        }`}
+      />
+    </button>
+  );
+};
+
+// Reusable row for accessibility helper options
+const ToggleRow = ({ icon: Icon, title, description, checked, onChange, ariaLabel }) => {
+  return (
+    <div className="flex items-start justify-between gap-4">
+      <div className="space-y-1">
+        <div className="flex items-center gap-1.5">
+          <Icon size={13} className="text-accent shrink-0" />
+          <span className="font-sans text-[11px] text-fg-primary font-black tracking-wider uppercase">
+            {title}
+          </span>
+        </div>
+        <p className="text-[11px] text-text-muted leading-relaxed font-sans font-medium">
+          {description}
+        </p>
+      </div>
+      <div className="flex items-center h-5 shrink-0 pt-0.5">
+        <ToggleSwitch checked={checked} onChange={onChange} ariaLabel={ariaLabel} />
+      </div>
+    </div>
+  );
+};
+
 export default function AccessibilityPanel({ mobile }) {
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -150,8 +193,8 @@ export default function AccessibilityPanel({ mobile }) {
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={mobile 
-            ? `relative p-2 text-fg-primary hover:text-[var(--accent)] cursor-pointer ${isOpen ? 'text-[var(--accent)]' : ''}`
-            : `relative p-2.5 text-fg-primary hover:text-[var(--accent)] bg-transparent transition-all group cursor-pointer focus-ring rounded-none flex items-center gap-1.5 border border-transparent hover:border-border-rule px-3 shrink-0 ${isOpen ? 'text-[var(--accent)] border-border-rule' : ''}`
+            ? `relative p-2 text-fg-primary hover:text-accent cursor-pointer ${isOpen ? 'text-accent' : ''}`
+            : `relative p-2.5 text-fg-primary hover:text-accent bg-transparent transition-all group cursor-pointer focus-ring rounded-none flex items-center gap-1.5 border border-transparent hover:border-border-rule px-3 shrink-0 ${isOpen ? 'text-accent border-border-rule' : ''}`
           }
           title="Open Sensory & Site Accessibility Controls"
           aria-expanded={isOpen}
@@ -163,162 +206,143 @@ export default function AccessibilityPanel({ mobile }) {
 
         {/* 3. Dropdown Accessible Controls Drawer */}
         {isOpen && (
-          <div className={`absolute top-full mt-2 ${mobile ? '-right-16 md:right-0' : 'right-0'} w-[320px] bg-black border-2 border-[var(--rule)] p-5 text-left shadow-[6px_6px_0px_rgba(0,0,0,0.9)] animate-in fade-in slide-in-from-top-2 duration-300 z-[100]`}>
+          <div className={`absolute top-full mt-2 ${mobile ? '-right-16 md:right-0' : 'right-0'} w-[340px] sidebar-card p-5 text-left transition-all duration-300 animate-in fade-in slide-in-from-top-2 duration-300 z-[100]`}>
             
             {/* Header branding */}
-            <div className="flex items-center justify-between border-b border-[var(--rule)] pb-3 mb-4">
-              <span className="font-sans text-base text-[var(--accent)] font-black tracking-wide uppercase">PREFERENCES</span>
+            <div className="flex items-center justify-between border-b border-border-rule pb-3 mb-4">
+              <span className="font-sans text-xs text-accent font-black tracking-widest uppercase">PREFERENCES</span>
               <button 
                 onClick={resetAllSettings}
-                className="text-xs font-sans font-black text-red-500 hover:text-red-400 bg-transparent flex items-center gap-1 cursor-pointer"
+                className="text-[10px] font-sans font-black px-2 py-1 border border-red-500/25 text-red-500 hover:text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-1 cursor-pointer focus-ring rounded-none bg-transparent"
                 title="Reset accessibility overrides"
               >
-                <RotateCcw size={12} /> CLEAR
+                <RotateCcw size={10} className="shrink-0" /> RESET
               </button>
             </div>
 
             <div className="space-y-4">
-              {/* Site Theme */}
-              <div className="space-y-2">
-                <span className="font-sans text-sm text-fg-primary font-black uppercase tracking-wide block flex items-center gap-1.5">
-                  <Sun size={14} className="text-[var(--accent)]" /> SITE THEME:
+              {/* Category 1: Appearance */}
+              <div>
+                <span className="font-sans text-[10px] text-text-muted/60 font-black tracking-widest uppercase block mb-3">
+                  APPEARANCE
                 </span>
-                <div className="grid grid-cols-3 gap-1 select-none font-sans">
-                  {[
-                    { id: 'void', label: 'VOID' },
-                    { id: 'parchment', label: 'PARCHMENT' },
-                    { id: 'incubation', label: 'INCUBATION' }
-                  ].map((preset) => {
-                    const isActive = theme === preset.id;
-                    return (
-                      <button
-                        key={preset.id}
-                        onClick={() => setTheme(preset.id)}
-                        className={`py-1.5 text-xs font-black border transition-all cursor-pointer rounded-none uppercase ${
-                          isActive
-                            ? 'border-[var(--accent)] text-[var(--accent)] bg-[var(--accent-soft)]/10'
-                            : 'border-[var(--rule)] text-[var(--muted)] hover:border-white hover:text-white bg-transparent'
-                        }`}
-                      >
-                        {preset.label}
-                      </button>
-                    );
-                  })}
+                
+                <div className="space-y-4">
+                  {/* Site Theme */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <Sun size={13} className="text-accent shrink-0" />
+                      <span className="font-sans text-[11px] text-fg-primary font-black tracking-wider uppercase">
+                        SITE THEME:
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-1.5 select-none font-sans mt-1">
+                      {[
+                        { id: 'void', label: 'VOID', dotColor: 'bg-[#FF2E88]' },
+                        { id: 'parchment', label: 'PARCHMENT', dotColor: 'bg-[#221E1A] border border-[#DDD7CD]' },
+                        { id: 'incubation', label: 'INCUBATION', dotColor: 'bg-[#5A8A60]' }
+                      ].map((preset) => {
+                        const isActive = theme === preset.id;
+                        return (
+                          <button
+                            key={preset.id}
+                            onClick={() => setTheme(preset.id)}
+                            className={`py-2 px-1 text-[10px] font-black border transition-all cursor-pointer rounded-none uppercase focus-ring flex items-center justify-center gap-1.5 ${
+                              isActive
+                                ? 'border-accent text-accent bg-[var(--accent-soft)]'
+                                : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
+                            }`}
+                          >
+                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${preset.dotColor}`} />
+                            {preset.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Option A: Global Font Scale */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <Type size={13} className="text-accent shrink-0" />
+                      <span className="font-sans text-[11px] text-fg-primary font-black tracking-wider uppercase">
+                        GLOBAL TEXT SIZE:
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-4 gap-1.5 select-none font-sans mt-1">
+                      {[
+                        { id: 'normal', label: '100%', style: 'text-[9px]' },
+                        { id: 'large', label: '112%', style: 'text-[10px]' },
+                        { id: 'xlarge', label: '125%', style: 'text-[11px]' },
+                        { id: 'xxlarge', label: '137%', style: 'text-[12px]' }
+                      ].map((preset) => {
+                        const isActive = fontScale === preset.id;
+                        return (
+                          <button
+                            key={preset.id}
+                            onClick={() => handleScaleChange(preset.id)}
+                            className={`py-2 text-center font-black border transition-all cursor-pointer rounded-none uppercase focus-ring ${preset.style} ${
+                              isActive
+                                ? 'border-accent text-accent bg-[var(--accent-soft)]'
+                                : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
+                            }`}
+                          >
+                            {preset.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Option A: Global Font Scale */}
-              <div className="space-y-2 border-t border-[var(--rule)]/60 pt-4">
-                <span className="font-sans text-sm text-fg-primary font-black uppercase tracking-wide block flex items-center gap-1.5">
-                  <Type size={14} className="text-[var(--accent)]" /> GLOBAL TEXT SIZE:
+              {/* Category 2: Assistive Tools */}
+              <div className="border-t border-border-rule/60 pt-4">
+                <span className="font-sans text-[10px] text-text-muted/60 font-black tracking-widest uppercase block mb-3">
+                  ASSISTIVE TOOLS
                 </span>
-                <div className="grid grid-cols-4 gap-1 select-none font-sans">
-                  {[
-                    { id: 'normal', label: '100%' },
-                    { id: 'large', label: '112%' },
-                    { id: 'xlarge', label: '125%' },
-                    { id: 'xxlarge', label: '137%' }
-                  ].map((preset) => {
-                    const isActive = fontScale === preset.id;
-                    return (
-                      <button
-                        key={preset.id}
-                        onClick={() => handleScaleChange(preset.id)}
-                        className={`py-1.5 text-xs font-black border transition-all cursor-pointer rounded-none uppercase ${
-                          isActive
-                            ? 'border-[var(--accent)] text-[var(--accent)] bg-[var(--accent-soft)]/10'
-                            : 'border-[var(--rule)] text-[var(--muted)] hover:border-white hover:text-white bg-transparent'
-                        }`}
-                      >
-                        {preset.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+                
+                <div className="space-y-4">
+                  {/* Option B: Dyslexia Friendly text override */}
+                  <ToggleRow
+                    icon={Type}
+                    title="DYSLEXIC FRIENDLY"
+                    description="Enlarge letter gaps & line spaces"
+                    checked={dyslexicFont}
+                    onChange={handleDyslexicToggle}
+                    ariaLabel="Toggle Dyslexic Font spacing"
+                  />
 
-              {/* Option B: Dyslexia Friendly text override */}
-              <div className="flex items-center justify-between border-t border-[var(--rule)]/60 pt-4">
-                <div className="space-y-0.5 pr-2">
-                  <span className="font-sans text-sm text-fg-primary font-black uppercase tracking-wide block flex items-center gap-1.5">
-                    <Type size={14} className="text-[var(--accent)]" /> DYSLEXIC FRIENDLY:
-                  </span>
-                  <span className="text-xs text-text-muted leading-tight block font-sans">Enlarge letter gaps & line spaces</span>
-                </div>
-                <button
-                  onClick={handleDyslexicToggle}
-                  className="text-[var(--muted)] hover:text-white cursor-pointer transition-colors bg-transparent border-none outline-none"
-                  aria-label="Toggle Dyslexic Font spacing"
-                >
-                  {dyslexicFont ? (
-                    <ToggleRight size={24} className="text-[var(--accent)]" />
-                  ) : (
-                    <ToggleLeft size={24} className="text-[var(--muted)]/50" />
-                  )}
-                </button>
-              </div>
+                  {/* Option C: Contrast filter scale overlay */}
+                  <ToggleRow
+                    icon={Eye}
+                    title="HIGH CONTRAST TEXT"
+                    description="Maximize text/background contrast"
+                    checked={highContrast}
+                    onChange={handleContrastToggle}
+                    ariaLabel="Toggle High Contrast Mode"
+                  />
 
-              {/* Option C: Contrast filter scale overlay */}
-              <div className="flex items-center justify-between border-t border-[var(--rule)]/60 pt-4">
-                <div className="space-y-0.5 pr-2">
-                  <span className="font-sans text-sm text-fg-primary font-black uppercase tracking-wide block flex items-center gap-1.5">
-                    <Eye size={14} className="text-[var(--accent)]" /> HIGH CONTRAST TEXT:
-                  </span>
-                  <span className="text-xs text-text-muted leading-tight block font-sans">Maximize text/background contrast</span>
-                </div>
-                <button
-                  onClick={handleContrastToggle}
-                  className="text-[var(--muted)] hover:text-white cursor-pointer transition-colors bg-transparent border-none outline-none"
-                  aria-label="Toggle High Contrast Mode"
-                >
-                  {highContrast ? (
-                    <ToggleRight size={24} className="text-[var(--accent)]" />
-                  ) : (
-                    <ToggleLeft size={24} className="text-[var(--muted)]/50" />
-                  )}
-                </button>
-              </div>
+                  {/* Option D: Focus Reading Ruler */}
+                  <ToggleRow
+                    icon={Move}
+                    title="FOCUS READING RULER"
+                    description="Line tracking guide tracks cursor"
+                    checked={readingRuler}
+                    onChange={handleRulerToggle}
+                    ariaLabel="Toggle Focus Reading Ruler"
+                  />
 
-              {/* Option D: Focus Reading Ruler */}
-              <div className="flex items-center justify-between border-t border-[var(--rule)]/60 pt-4">
-                <div className="space-y-0.5 pr-2">
-                  <span className="font-sans text-sm text-fg-primary font-black uppercase tracking-wide block flex items-center gap-1.5">
-                    <Move size={14} className="text-[var(--accent)]" /> FOCUS READING RULER:
-                  </span>
-                  <span className="text-xs text-text-muted leading-tight block font-sans">Line tracking guide tracks cursor</span>
+                  {/* Option E: Site animations reduced motion */}
+                  <ToggleRow
+                    icon={EyeOff}
+                    title="FORCE REDUCED MOTION"
+                    description="Halt marquees and visual shakes"
+                    checked={reducedMotion}
+                    onChange={handleMotionToggle}
+                    ariaLabel="Toggle Reduced Motion Override"
+                  />
                 </div>
-                <button
-                  onClick={handleRulerToggle}
-                  className="text-[var(--muted)] hover:text-white cursor-pointer transition-colors bg-transparent border-none outline-none"
-                  aria-label="Toggle Focus Reading Ruler"
-                >
-                  {readingRuler ? (
-                    <ToggleRight size={24} className="text-[var(--accent)]" />
-                  ) : (
-                    <ToggleLeft size={24} className="text-[var(--muted)]/50" />
-                  )}
-                </button>
-              </div>
-
-              {/* Option E: Site animations reduced motion */}
-              <div className="flex items-center justify-between border-t border-[var(--rule)]/60 pt-4">
-                <div className="space-y-0.5 pr-2">
-                  <span className="font-sans text-sm text-fg-primary font-black uppercase tracking-wide block flex items-center gap-1.5">
-                    <EyeOff size={14} className="text-[var(--accent)]" /> FORCE REDUCED MOTION:
-                  </span>
-                  <span className="text-xs text-text-muted leading-tight block font-sans">Halt marquees and visual shakes</span>
-                </div>
-                <button
-                  onClick={handleMotionToggle}
-                  className="text-[var(--muted)] hover:text-white cursor-pointer transition-colors bg-transparent border-none outline-none"
-                  aria-label="Toggle Reduced Motion Override"
-                >
-                  {reducedMotion ? (
-                    <ToggleRight size={24} className="text-[var(--accent)]" />
-                  ) : (
-                    <ToggleLeft size={24} className="text-[var(--muted)]/50" />
-                  )}
-                </button>
               </div>
             </div>
             

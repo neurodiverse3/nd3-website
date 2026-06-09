@@ -150,11 +150,11 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
   };
 
   if (vertical) {
-    const gridBtnClass = "w-10 h-10 border border-border-rule bg-[#09090b] flex items-center justify-center text-fg-primary hover:bg-accent-pink hover:border-accent-pink hover:text-[#09090b] transition-all duration-200 rounded-none cursor-pointer focus-ring mx-auto";
+    const gridBtnClass = "w-10 h-10 border border-border-rule/70 bg-bg-primary/40 flex items-center justify-center text-text-muted hover:bg-accent-pink/10 hover:border-accent-pink hover:text-accent-pink transition-all duration-200 rounded-none cursor-pointer focus-ring mx-auto";
 
     return (
       <div className="w-full no-print select-none">
-        <span className="text-[8px] font-mono tracking-[0.25em] text-text-muted uppercase font-bold mb-2.5 block text-center">
+        <span className="text-[8.5px] font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-2.5 text-center">
           SHARE
         </span>
         <div className="grid grid-cols-4 gap-2 justify-items-center">
@@ -165,72 +165,72 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
             title="Copy Link"
             aria-label="Copy post link"
           >
-            {copied ? <Check size={13} /> : <Link2 size={13} />}
+            {copied ? <Check size={16} /> : <Link2 size={16} />}
           </button>
 
           {/* X */}
           <a href={xShare} target="_blank" rel="noopener noreferrer" className={gridBtnClass} title="Share on X" aria-label="Share on X">
-            <XIcon size={13} />
+            <XIcon size={16} />
           </a>
 
           {/* Bluesky */}
           <a href={blueskyShare} target="_blank" rel="noopener noreferrer" className={gridBtnClass} title="Share on Bluesky" aria-label="Share on Bluesky">
-            <BlueskyIcon size={13} />
+            <BlueskyIcon size={16} />
           </a>
 
           {/* Email */}
           <a href={emailShare} className={gridBtnClass} title="Share via Email" aria-label="Share via Email">
-            <Mail size={13} />
+            <Mail size={16} />
           </a>
 
           {/* LinkedIn */}
           <a href={linkedinShare} target="_blank" rel="noopener noreferrer" className={gridBtnClass} title="Share on LinkedIn" aria-label="Share on LinkedIn">
-            <LinkedInIcon size={13} />
+            <LinkedInIcon size={16} />
           </a>
 
           {/* Facebook */}
           <a href={facebookShare} target="_blank" rel="noopener noreferrer" className={gridBtnClass} title="Share on Facebook" aria-label="Share on Facebook">
-            <FacebookIcon size={13} />
+            <FacebookIcon size={16} />
           </a>
 
           {/* Reddit */}
           <a href={redditShare} target="_blank" rel="noopener noreferrer" className={gridBtnClass} title="Share on Reddit" aria-label="Share on Reddit">
-            <RedditIcon size={13} />
+            <RedditIcon size={16} />
           </a>
 
           {/* WhatsApp */}
           <a href={whatsappShare} target="_blank" rel="noopener noreferrer" className={gridBtnClass} title="Share on WhatsApp" aria-label="Share on WhatsApp">
-            <WhatsAppIcon size={13} />
+            <WhatsAppIcon size={16} />
           </a>
 
           {/* Telegram */}
           <a href={telegramShare} target="_blank" rel="noopener noreferrer" className={gridBtnClass} title="Share on Telegram" aria-label="Share on Telegram">
-            <TelegramIcon size={13} />
+            <TelegramIcon size={16} />
           </a>
 
           {/* Threads */}
           <a href={threadsShare} target="_blank" rel="noopener noreferrer" className={gridBtnClass} title="Share on Threads" aria-label="Share on Threads">
-            <ThreadsIcon size={13} />
+            <ThreadsIcon size={16} />
           </a>
 
           {/* Mastodon */}
           <button onClick={() => setShowMastodonInput(!showMastodonInput)} className={gridBtnClass} title="Share on Mastodon" aria-label="Share on Mastodon">
-            <MastodonIcon size={13} />
+            <MastodonIcon size={16} />
           </button>
 
           {/* Print */}
           <button onClick={handlePrint} className={gridBtnClass} title="Print" aria-label="Print post">
-            <Printer size={13} />
+            <Printer size={16} />
           </button>
         </div>
 
         {/* Mastodon Instance Picker */}
         {showMastodonInput && (
-          <form onSubmit={triggerMastodonShare} className="w-full p-3 border border-border-rule bg-[#09090b] flex flex-col gap-2 items-center animate-in slide-in-from-top-2 duration-200 text-left mt-3">
+          <form onSubmit={triggerMastodonShare} className="w-full p-3 border border-border-rule/70 bg-bg-primary/95 flex flex-col gap-2 items-center animate-in slide-in-from-top-2 duration-200 text-left mt-3">
             <label htmlFor="mastodon-server-vertical" className="block text-[8px] font-mono tracking-widest text-text-muted uppercase font-bold w-full">
               MASTODON SERVER:
             </label>
-            <input id="mastodon-server-vertical" type="text" placeholder="mastodon.social" value={mastodonInstance} onChange={(e) => setMastodonInstance(e.target.value)} required className="w-full h-8 bg-black border border-border-rule focus:border-accent-pink px-2 py-1 font-mono text-[10px] text-white outline-none rounded-none" />
+            <input id="mastodon-server-vertical" type="text" placeholder="mastodon.social" value={mastodonInstance} onChange={(e) => setMastodonInstance(e.target.value)} required className="w-full h-8 bg-bg-primary border border-border-rule/80 focus:border-accent-pink px-2 py-1 font-mono text-[10px] text-fg-primary outline-none rounded-none" />
             <button type="submit" className="w-full h-8 bg-accent-pink text-bg-primary text-[9px] font-black uppercase tracking-widest border border-fg-primary hover:opacity-90 transition-opacity cursor-pointer rounded-none">
               SHARE
             </button>

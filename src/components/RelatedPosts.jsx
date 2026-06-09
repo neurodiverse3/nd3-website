@@ -155,7 +155,7 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
             <Link
               key={post._id || post.id}
               href={`/blog/${slug}`}
-              className="group border-2 border-border-rule hover:border-fg-primary p-6 flex flex-col justify-between min-h-[280px] bg-[#09090b]/40 hover:-translate-y-1 hover:translate-x-1 transition-all duration-300 shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--fg)] cursor-pointer rounded-none text-left"
+              className="group border-2 border-border-rule hover:border-fg-primary p-6 flex flex-col justify-between min-h-[280px] bg-surface/40 hover:-translate-y-1 hover:translate-x-1 transition-all duration-300 shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--fg)] cursor-pointer rounded-none text-left"
             >
               <div className="space-y-3">
                 {/* Category / Relationship Eyebrow */}

@@ -58,9 +58,9 @@
   --rule: #1F1F22;
 
   /* Pillar labels token set (default Void) */
-  --pillar-label-unmasked: #FF4D6D;
-  --pillar-label-tools:    #F4A93B;
-  --pillar-label-digital:  #22B8CF;
+  --pillar-label-unmasked: #FF2D87;
+  --pillar-label-tools:    #FFAC1C;
+  --pillar-label-digital:  #00F0FF;
 }
 
 /* High Specificity Selectors (specificity 0,2,0) */
@@ -85,9 +85,9 @@
   --rule: #1F1F22;
 
   /* Pillar labels token set */
-  --pillar-label-unmasked: #FF4D6D;
-  --pillar-label-tools:    #F4A93B;
-  --pillar-label-digital:  #22B8CF;
+  --pillar-label-unmasked: #FF2D87;
+  --pillar-label-tools:    #FFAC1C;
+  --pillar-label-digital:  #00F0FF;
 }
 
 :root[data-theme="incubation"] {
@@ -136,19 +136,25 @@
 
 /* Global identity hues — brand reference, same in every theme */
 :root {
-  --pillar-unmasked: #FF4D6D;   /* coral-rose */
-  --pillar-tools:    #F4A93B;   /* amber */
-  --pillar-digital:  #22B8CF;   /* azure-cyan */
+  --pillar-unmasked: #FF2D87;   /* electric rose */
+  --pillar-tools:    #FFAC1C;   /* solar gold */
+  --pillar-digital:  #00F0FF;   /* bright cyan */
   --pillar-card-text: #F4F4F2;  /* Card text is always white */
 
   /* Defaults for card fills (Void values) to prevent FOUC */
-  --pillar-card-unmasked: #3A1626;
-  --pillar-card-tools:    #5C3A08;
-  --pillar-card-digital:  #10333B;
+  --pillar-card-unmasked: #2A0A19;
+  --pillar-card-tools:    #2F1A00;
+  --pillar-card-digital:  #00252C;
 }
 
-/* Pillar CARD fills — deep tints for dark themes (specificity 0,2,0) */
-:root[data-theme="void"],
+/* Pillar CARD fills — deep tints for Void dark theme (specificity 0,2,0) */
+:root[data-theme="void"] {
+  --pillar-card-unmasked: #2A0A19;  /* deep garnet-black */
+  --pillar-card-tools:    #2F1A00;  /* deep obsidian-amber */
+  --pillar-card-digital:  #00252C;  /* deep abyssal-teal */
+}
+
+/* Pillar CARD fills — deep tints for Incubation dark sage theme (specificity 0,2,0) */
 :root[data-theme="incubation"] {
   --pillar-card-unmasked: #3A1626;  /* deep garnet */
   --pillar-card-tools:    #5C3A08;  /* deep burnt bronze */
@@ -339,6 +345,108 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
   color: transparent;
 }
+
+/* Theme-Responsive Sidebar Card Widget styling */
+.sidebar-card {
+  border: 1.5px solid var(--rule);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.sidebar-card:hover {
+  border-color: var(--accent) !important;
+}
+
+:root[data-theme="void"] .sidebar-card {
+  background-color: #171719 !important;
+  border-color: #2b2b30 !important;
+  box-shadow: 4px 4px 0px #09090b !important;
+}
+:root[data-theme="void"] .sidebar-card:hover {
+  box-shadow: 6px 6px 0px rgba(255, 46, 136, 0.15) !important;
+}
+
+:root[data-theme="incubation"] .sidebar-card {
+  background-color: #111d17 !important;
+  border-color: #233a2e !important;
+  box-shadow: 4px 4px 0px #050b08 !important;
+}
+:root[data-theme="incubation"] .sidebar-card:hover {
+  box-shadow: 6px 6px 0px rgba(90, 138, 96, 0.15) !important;
+}
+
+:root[data-theme="parchment"] .sidebar-card {
+  background-color: #f4f0e6 !important;
+  border-color: #ddd7cd !important;
+  box-shadow: 4px 4px 0px #ddd7cd !important;
+}
+:root[data-theme="parchment"] .sidebar-card:hover {
+  box-shadow: 6px 6px 0px rgba(255, 45, 135, 0.15) !important;
+}
+
+/* Brain States Theme-Responsive Badges */
+.badge-state-burned-out {
+  color: #ff5c5c !important;
+  background-color: rgba(255, 92, 92, 0.08) !important;
+  border: 1px solid rgba(255, 92, 92, 0.2) !important;
+}
+.badge-state-burned-out:hover { border-color: #ff5c5c !important; }
+:root[data-theme="parchment"] .badge-state-burned-out {
+  color: #b91c1c !important;
+  background-color: rgba(185, 28, 28, 0.06) !important;
+  border-color: rgba(185, 28, 28, 0.15) !important;
+}
+:root[data-theme="parchment"] .badge-state-burned-out:hover { border-color: #b91c1c !important; }
+
+.badge-state-hyperfocus {
+  color: #4dde82 !important;
+  background-color: rgba(77, 222, 130, 0.08) !important;
+  border: 1px solid rgba(77, 222, 130, 0.2) !important;
+}
+.badge-state-hyperfocus:hover { border-color: #4dde82 !important; }
+:root[data-theme="parchment"] .badge-state-hyperfocus {
+  color: #047857 !important;
+  background-color: rgba(4, 120, 87, 0.06) !important;
+  border-color: rgba(4, 120, 87, 0.15) !important;
+}
+:root[data-theme="parchment"] .badge-state-hyperfocus:hover { border-color: #047857 !important; }
+
+.badge-state-masking {
+  color: #f4b942 !important;
+  background-color: rgba(244, 185, 66, 0.08) !important;
+  border: 1px solid rgba(244, 185, 66, 0.2) !important;
+}
+.badge-state-masking:hover { border-color: #f4b942 !important; }
+:root[data-theme="parchment"] .badge-state-masking {
+  color: #b45309 !important;
+  background-color: rgba(180, 83, 9, 0.06) !important;
+  border-color: rgba(180, 83, 9, 0.15) !important;
+}
+:root[data-theme="parchment"] .badge-state-masking:hover { border-color: #b45309 !important; }
+
+.badge-state-spiralling {
+  color: #a78bfa !important;
+  background-color: rgba(167, 139, 250, 0.08) !important;
+  border: 1px solid rgba(167, 139, 250, 0.2) !important;
+}
+.badge-state-spiralling:hover { border-color: #a78bfa !important; }
+:root[data-theme="parchment"] .badge-state-spiralling {
+  color: #6d28d9 !important;
+  background-color: rgba(109, 40, 217, 0.06) !important;
+  border-color: rgba(109, 40, 217, 0.15) !important;
+}
+:root[data-theme="parchment"] .badge-state-spiralling:hover { border-color: #6d28d9 !important; }
+
+.badge-state-on-a-roll {
+  color: #38bdf8 !important;
+  background-color: rgba(56, 189, 248, 0.08) !important;
+  border: 1px solid rgba(56, 189, 248, 0.2) !important;
+}
+.badge-state-on-a-roll:hover { border-color: #38bdf8 !important; }
+:root[data-theme="parchment"] .badge-state-on-a-roll {
+  color: #0369a1 !important;
+  background-color: rgba(3, 105, 161, 0.06) !important;
+  border-color: rgba(3, 105, 161, 0.15) !important;
+}
+:root[data-theme="parchment"] .badge-state-on-a-roll:hover { border-color: #0369a1 !important; }
 
 /* Accessibility: Support reduced motion */
 @media (prefers-reduced-motion: reduce) {
