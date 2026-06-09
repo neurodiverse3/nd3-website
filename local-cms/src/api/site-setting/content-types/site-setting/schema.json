@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site setting",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "statusLine": {
+      "type": "string"
+    },
+    "featuredPosts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post"
+    },
+    "founder": {
+      "type": "component",
+      "repeatable": false,
+      "component": "site.founder"
+    },
+    "memoirTeaser": {
+      "type": "component",
+      "repeatable": false,
+      "component": "site.memoir-teaser"
+    }
+  }
+}

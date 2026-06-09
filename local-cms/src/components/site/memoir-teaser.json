@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_site_memoir_teasers",
+  "info": {
+    "displayName": "memoirTeaser",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": true
+    },
+    "blurb": {
+      "type": "text"
+    },
+    "ctaLabel": {
+      "type": "string"
+    },
+    "ctaHref": {
+      "type": "string"
+    }
+  }
+}

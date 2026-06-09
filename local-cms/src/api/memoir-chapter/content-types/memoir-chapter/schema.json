@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "memoir_chapters",
+  "info": {
+    "singularName": "memoir-chapter",
+    "pluralName": "memoir-chapters",
+    "displayName": "Memoir chapter",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "chapterNumber": {
+      "type": "integer",
+      "required": true
+    },
+    "body": {
+      "type": "blocks",
+      "required": true
+    }
+  }
+}
