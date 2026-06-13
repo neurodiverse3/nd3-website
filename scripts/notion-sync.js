@@ -456,7 +456,7 @@ async function syncNotionToStrapi() {
           bio: 'Late-diagnosed ADHD & Autism. Writer and builder.'
         },
         memoirTeaser: {
-          headline: 'I Thought I Was Just Bad at Being a Person',
+          headline: 'I Thought I Was Just Bad at Being a Human',
           blurb: 'An honest, slow-burn serial memoir about late-diagnosed AuDHD, masking recovery, and rebuilding systems.',
           ctaLabel: 'Read Memoir',
           ctaHref: '/memoir'
