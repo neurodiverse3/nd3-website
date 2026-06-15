@@ -146,17 +146,45 @@ function parsePostBody(bodyText) {
   function flushQuote() {
     if (currentQuoteLines.length > 0) {
       const quoteText = currentQuoteLines.join(' ').replace(/\s+/g, ' ').trim();
-      blocks.push({
-        type: 'quote',
-        children: parseInlineMarkdown(quoteText)
-      });
+      if (quoteText) {
+        blocks.push({
+          type: 'quote',
+          children: parseInlineMarkdown(quoteText)
+        });
+      }
       currentQuoteLines = [];
     }
   }
 
   function flushTable() {
     if (currentTable) {
-      blocks.push(currentTable);
+      const headers = currentTable.rows[0].cells;
+      const listItems = [];
+      
+      for (let r = 1; r < currentTable.rows.length; r++) {
+        const cells = currentTable.rows[r].cells;
+        const textParts = [];
+        for (let c = 0; c < cells.length; c++) {
+          if (cells[c] && headers[c]) {
+            const cleanHeader = headers[c].replace(/\*\*/g, '');
+            const cleanCell = cells[c];
+            textParts.push(`**${cleanHeader}**: ${cleanCell}`);
+          }
+        }
+        listItems.push({
+          type: 'list-item',
+          children: parseInlineMarkdown(textParts.join('  |  '))
+        });
+      }
+      
+      if (listItems.length > 0) {
+        blocks.push({
+          type: 'list',
+          format: 'unordered',
+          children: listItems
+        });
+      }
+      
       currentTable = null;
     }
   }

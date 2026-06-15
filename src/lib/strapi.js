@@ -59,9 +59,8 @@ async function fetchStrapi(path, params = {}) {
     console.error(`[Strapi] ${path} fetch failed.`, error);
     if (process.env.GITHUB_ACTIONS === 'true') {
       console.warn(`[Strapi] Bypassing fetch error in GitHub Actions CI: ${error.message}`);
-      return { data: [] };
     }
-    throw error;
+    return { data: [] };
   }
 }
 
