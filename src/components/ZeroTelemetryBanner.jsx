@@ -43,7 +43,7 @@ export const ZeroTelemetryBanner = () => {
             <div className="w-7 h-7 bg-accent-pink-soft border border-accent-pink/30 flex items-center justify-center text-accent-pink rounded-none shrink-0">
               <ShieldCheck size={14} />
             </div>
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent-pink font-mono">
+            <span className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-accent-pink font-mono">
               SECURE CORE: ZERO TELEMETRY
             </span>
           </div>
@@ -59,7 +59,7 @@ export const ZeroTelemetryBanner = () => {
           {/* Action Trigger Button */}
           <button
             onClick={handleAcknowledge}
-            className="w-full py-3 bg-transparent hover:bg-accent-pink-soft border-2 border-border-rule hover:border-accent-pink text-fg-primary hover:text-accent-pink flex items-center justify-center gap-2 font-black uppercase tracking-widest text-[9px] transition-all focus-ring rounded-none cursor-pointer"
+            className="w-full py-3 bg-transparent hover:bg-accent-pink-soft border-2 border-border-rule hover:border-accent-pink text-fg-primary hover:text-accent-pink flex items-center justify-center gap-2 font-black uppercase tracking-widest text-xs md:text-sm transition-all focus-ring rounded-none cursor-pointer"
           >
             <span>Acknowledge Transmission</span>
             <ArrowRight size={10} />

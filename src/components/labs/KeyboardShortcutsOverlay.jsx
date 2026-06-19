@@ -62,7 +62,7 @@ export default function KeyboardShortcutsOverlay({ shortcuts = {} }) {
               {Object.entries(shortcuts).map(([key, action]) => (
                 <div key={key} className="flex items-center justify-between">
                   <span className="text-xs text-[var(--muted)] font-sans">{action}</span>
-                  <kbd className="px-2 py-1 bg-black border border-[var(--rule)] text-[10px] font-mono text-[var(--accent)] uppercase tracking-wider">
+                  <kbd className="px-2 py-1 bg-black border border-[var(--rule)] text-xs md:text-sm font-mono text-[var(--accent)] uppercase tracking-wider">
                     {key}
                   </kbd>
                 </div>
@@ -71,25 +71,25 @@ export default function KeyboardShortcutsOverlay({ shortcuts = {} }) {
 
             {/* Global Shortcuts */}
             <div className="border-t border-[var(--rule)] pt-3 space-y-2">
-              <span className="text-[9px] font-mono text-[var(--muted)] uppercase tracking-widest block font-bold">
+              <span className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase tracking-widest block font-bold">
                 GLOBAL
               </span>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-[var(--muted)] font-sans">Show/hide this panel</span>
-                <kbd className="px-2 py-1 bg-black border border-[var(--rule)] text-[10px] font-mono text-[var(--accent)] uppercase tracking-wider">
+                <kbd className="px-2 py-1 bg-black border border-[var(--rule)] text-xs md:text-sm font-mono text-[var(--accent)] uppercase tracking-wider">
                   ?
                 </kbd>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-[var(--muted)] font-sans">Close panel</span>
-                <kbd className="px-2 py-1 bg-black border border-[var(--rule)] text-[10px] font-mono text-[var(--accent)] uppercase tracking-wider">
+                <kbd className="px-2 py-1 bg-black border border-[var(--rule)] text-xs md:text-sm font-mono text-[var(--accent)] uppercase tracking-wider">
                   ESC
                 </kbd>
               </div>
             </div>
 
             {/* Footer */}
-            <p className="text-[9px] font-mono text-[var(--muted)] uppercase tracking-wider text-center pt-2 border-t border-[var(--rule)]/40">
+            <p className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase tracking-wider text-center pt-2 border-t border-[var(--rule)]/40">
               PRESS ? TO TOGGLE THIS PANEL
             </p>
           </div>

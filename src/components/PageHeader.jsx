@@ -11,7 +11,7 @@ export default function PageHeader({
     return (
       <header className="relative w-full flex flex-col items-start text-left pt-[100px] md:pt-[120px] pb-12 select-none z-10">
         {eyebrow && (
-          <div className="inline-block text-[11px] font-mono tracking-[0.2em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-[10px] py-[4px] uppercase border border-accent/15 rounded-[6px] mb-6 select-none">
+          <div className="inline-block text-xs md:text-sm font-mono tracking-[0.2em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-[10px] py-[4px] uppercase border border-accent/15 rounded-[6px] mb-6 select-none">
             {eyebrow}
           </div>
         )}
@@ -49,11 +49,11 @@ export default function PageHeader({
     );
   }
 
-  // Type 2 — Section header (every other page)
+  // Type 2 - Section header (every other page)
   return (
     <header className="relative w-full flex flex-col items-start text-left mt-4 mb-12 select-none">
       {eyebrow && (
-        <div className="inline-block text-[11px] font-mono tracking-[0.2em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-[10px] py-[4px] uppercase border border-accent/15 rounded-[6px] mb-3 select-none">
+        <div className="inline-block text-xs md:text-sm font-mono tracking-[0.2em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-[10px] py-[4px] uppercase border border-accent/15 rounded-[6px] mb-3 select-none">
           {eyebrow}
         </div>
       )}

@@ -99,11 +99,11 @@ export default function DataPersistencePanel() {
       >
         <div className="flex items-center gap-2">
           <Shield size={14} className="text-[var(--accent)]" />
-          <span className="text-[10px] font-mono font-bold text-[var(--fg)] uppercase tracking-widest">
+          <span className="text-xs md:text-sm font-mono font-bold text-[var(--fg)] uppercase tracking-widest">
             YOUR DATA & PERSISTENCE
           </span>
         </div>
-        <span className="text-[10px] font-mono text-[var(--muted)] uppercase tracking-wider">
+        <span className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase tracking-wider">
           {isOpen ? '▼' : '▶'}
         </span>
       </button>
@@ -113,7 +113,7 @@ export default function DataPersistencePanel() {
         <div className="border-t border-[var(--rule)] p-4 space-y-4 animate-in fade-in duration-200">
           {/* Info Banner */}
           <div className="border border-blue-500/20 bg-blue-500/5 p-3 space-y-1">
-            <p className="text-[10px] font-mono text-[var(--muted)] leading-relaxed">
+            <p className="text-xs md:text-sm font-mono text-[var(--muted)] leading-relaxed">
               Your lab data is stored locally on this device. No account required. No tracking. No server.
               Export your data to transfer between devices or back it up.
             </p>
@@ -121,12 +121,12 @@ export default function DataPersistencePanel() {
 
           {/* Encryption Toggle */}
           <div className="flex items-center justify-between">
-            <span className="text-[9px] font-mono text-[var(--muted)] uppercase tracking-wider">
+            <span className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase tracking-wider">
               ENCRYPT EXPORT:
             </span>
             <button
               onClick={() => setUseEncryption(!useEncryption)}
-              className={`px-2 py-1 text-[9px] font-mono font-bold border cursor-pointer transition-all uppercase ${
+              className={`px-2 py-1 text-xs md:text-sm font-mono font-bold border cursor-pointer transition-all uppercase ${
                 useEncryption
                   ? 'border-[var(--accent)] text-[var(--accent)] bg-accent-pink-soft/10'
                   : 'border-[var(--rule)] text-[var(--muted)] hover:border-[var(--muted)]'
@@ -140,7 +140,7 @@ export default function DataPersistencePanel() {
           {/* Passphrase Input */}
           {useEncryption && (
             <div className="space-y-1">
-              <label className="text-[9px] font-mono text-[var(--muted)] uppercase tracking-wider block">
+              <label className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase tracking-wider block">
                 PASSPHRASE (REQUIRED FOR ENCRYPTED FILES):
               </label>
               <input
@@ -159,7 +159,7 @@ export default function DataPersistencePanel() {
             <button
               onClick={handleExport}
               disabled={isExporting}
-              className="flex items-center justify-center gap-2 py-2.5 border border-[var(--rule)] hover:border-[var(--accent)] text-[var(--muted)] hover:text-[var(--fg)] text-[10px] font-mono font-bold uppercase tracking-wider cursor-pointer transition-all disabled:opacity-50 rounded-none"
+              className="flex items-center justify-center gap-2 py-2.5 border border-[var(--rule)] hover:border-[var(--accent)] text-[var(--muted)] hover:text-[var(--fg)] text-xs md:text-sm font-mono font-bold uppercase tracking-wider cursor-pointer transition-all disabled:opacity-50 rounded-none"
             >
               {exportSuccess ? (
                 <><Check size={12} className="text-green-500" /> EXPORTED</>
@@ -169,7 +169,7 @@ export default function DataPersistencePanel() {
             </button>
 
             {/* Import */}
-            <label className="flex items-center justify-center gap-2 py-2.5 border border-[var(--rule)] hover:border-[var(--accent)] text-[var(--muted)] hover:text-[var(--fg)] text-[10px] font-mono font-bold uppercase tracking-wider cursor-pointer transition-all rounded-none">
+            <label className="flex items-center justify-center gap-2 py-2.5 border border-[var(--rule)] hover:border-[var(--accent)] text-[var(--muted)] hover:text-[var(--fg)] text-xs md:text-sm font-mono font-bold uppercase tracking-wider cursor-pointer transition-all rounded-none">
               {importSuccess ? (
                 <><Check size={12} className="text-green-500" /> IMPORTED</>
               ) : (
@@ -188,7 +188,7 @@ export default function DataPersistencePanel() {
             <button
               onClick={() => setShowConfirmClear(true)}
               disabled={isClearing}
-              className="flex items-center justify-center gap-2 py-2.5 border border-red-500/30 hover:border-red-500 text-red-500/70 hover:text-red-500 text-[10px] font-mono font-bold uppercase tracking-wider cursor-pointer transition-all disabled:opacity-50 rounded-none"
+              className="flex items-center justify-center gap-2 py-2.5 border border-red-500/30 hover:border-red-500 text-red-500/70 hover:text-red-500 text-xs md:text-sm font-mono font-bold uppercase tracking-wider cursor-pointer transition-all disabled:opacity-50 rounded-none"
             >
               <Trash2 size={12} /> {isClearing ? 'CLEARING...' : 'CLEAR ALL DATA'}
             </button>
@@ -198,7 +198,7 @@ export default function DataPersistencePanel() {
           {importError && (
             <div className="border border-red-500/20 bg-red-500/5 p-2 flex items-center gap-2">
               <AlertTriangle size={12} className="text-red-500 shrink-0" />
-              <span className="text-[9px] font-mono text-red-500 uppercase tracking-wider">{importError}</span>
+              <span className="text-xs md:text-sm font-mono text-red-500 uppercase tracking-wider">{importError}</span>
               <button onClick={() => setImportError('')} className="ml-auto text-red-500 cursor-pointer">
                 <X size={10} />
               </button>
@@ -208,19 +208,19 @@ export default function DataPersistencePanel() {
           {/* Clear Confirmation */}
           {showConfirmClear && (
             <div className="border border-red-500/30 bg-red-500/5 p-3 space-y-3">
-              <p className="text-[10px] font-mono text-red-500 uppercase tracking-wider">
+              <p className="text-xs md:text-sm font-mono text-red-500 uppercase tracking-wider">
                 WARNING: This will permanently delete ALL saved lab data on this device. This cannot be undone.
               </p>
               <div className="flex gap-2">
                 <button
                   onClick={handleClear}
-                  className="px-4 py-1.5 bg-red-500 text-white text-[10px] font-mono font-bold uppercase tracking-wider cursor-pointer hover:bg-red-600 transition-colors rounded-none"
+                  className="px-4 py-1.5 bg-red-500 text-white text-xs md:text-sm font-mono font-bold uppercase tracking-wider cursor-pointer hover:bg-red-600 transition-colors rounded-none"
                 >
                   CONFIRM DELETE
                 </button>
                 <button
                   onClick={() => setShowConfirmClear(false)}
-                  className="px-4 py-1.5 border border-[var(--rule)] text-[var(--muted)] text-[10px] font-mono font-bold uppercase tracking-wider cursor-pointer hover:border-[var(--muted)] transition-colors rounded-none"
+                  className="px-4 py-1.5 border border-[var(--rule)] text-[var(--muted)] text-xs md:text-sm font-mono font-bold uppercase tracking-wider cursor-pointer hover:border-[var(--muted)] transition-colors rounded-none"
                 >
                   CANCEL
                 </button>

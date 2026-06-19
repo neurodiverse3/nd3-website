@@ -160,7 +160,7 @@ export function StoreClient({ initialProducts = [] }) {
               <div className="p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center mb-4">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-1 bg-[var(--accent-soft)] text-[var(--link,var(--accent))]">
+                    <span className="text-xs md:text-sm font-mono font-bold uppercase tracking-widest px-2 py-1 bg-[var(--accent-soft)] text-[var(--link,var(--accent))]">
                       {item.tag}
                     </span>
                     <span className="text-xl font-black text-[var(--fg)] font-display">

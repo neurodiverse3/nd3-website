@@ -26,7 +26,7 @@ export default function GlobalError({ error, reset }) {
         </div>
 
         {/* Hero Casing Headers */}
-        <span className="text-[11px] font-black uppercase tracking-[0.25em] text-accent-pink block mb-2 font-mono">
+        <span className="text-xs md:text-sm font-black uppercase tracking-[0.25em] text-accent-pink block mb-2 font-mono">
           · NOTICE ·
         </span>
         <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-fg-primary leading-none mb-6">
@@ -34,7 +34,7 @@ export default function GlobalError({ error, reset }) {
         </h1>
 
         <p className="text-fg-primary text-lg font-bold mb-4">
-          It's not you — something went wrong on our end.
+          It's not you - something went wrong on our end.
         </p>
 
         <p className="text-text-muted text-base leading-relaxed mb-8">

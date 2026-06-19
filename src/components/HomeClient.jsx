@@ -115,7 +115,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
     if (!email || !email.includes('@')) {
       setSubscribeStatus('validation_error');
-      setErrorMessage("That doesn't look like an email — try again?");
+      setErrorMessage("That doesn't look like an email - try again?");
       return;
     }
 
@@ -193,7 +193,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
       <section className="relative min-h-[100svh] h-auto flex flex-col px-6 md:px-24 overflow-hidden border-b border-border-rule py-12 md:py-16">
         <div className="max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center relative z-10 items-start text-left pt-[100px] md:pt-[120px] pb-12">
           <div
-            className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 md:mb-12 select-none"
+            className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 md:mb-12 select-none"
             style={{ opacity: 0, animation: 'fadeInUp 0.6s ease forwards' }}
           >
             NEURODIVERGENT LIFE, TOOLS AND STORIES
@@ -261,10 +261,10 @@ export default function HomeClient({ siteSettings, latestPosts }) {
         </div>
       </section>
 
-      {/* 3. Mood Section — How's the brain today? */}
+      {/* 3. Mood Section - How's the brain today? */}
       <section ref={moodSectionRef} className="border-b border-border-rule bg-bg-primary">
         <div className="max-w-7xl mx-auto pt-16 md:pt-[64px] pb-8 md:pb-12 px-6 md:px-24">
-          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
+          <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
             PICK A MODE. READ WHAT FITS.
           </span>
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-left">
@@ -307,7 +307,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                     </div>
                   </div>
                   <div className="flex items-center shrink-0">
-                    <span className={`text-[10px] font-mono font-black text-accent border border-accent/20 bg-[var(--accent-soft)] px-2.5 py-1 uppercase tracking-wider transition-all duration-300 hidden md:inline-block mr-4 select-none ${hoveredState === state.id || selectedBrainState === state.id ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'}`}>
+                    <span className={`text-xs md:text-sm font-mono font-black text-accent border border-accent/20 bg-[var(--accent-soft)] px-2.5 py-1 uppercase tracking-wider transition-all duration-300 hidden md:inline-block mr-4 select-none ${hoveredState === state.id || selectedBrainState === state.id ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'}`}>
                       {selectedBrainState === state.id ? 'Active filter' : 'Click to filter below'}
                     </span>
                     <ChevronRight size={32} className={`text-text-muted group-hover:text-link group-hover:translate-x-1.5 transition-all duration-300 shrink-0 ${selectedBrainState === state.id ? 'text-accent translate-x-2' : ''}`} />
@@ -324,7 +324,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
       {/* 4. Three Pillars */}
       <section id="pillars" className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto border-b border-border-rule">
         <div className="mb-16">
-          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
+          <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
             THE THREE TOPIC PILLARS
           </span>
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6 text-left">
@@ -365,7 +365,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
       <section className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto border-b border-border-rule">
         <div className="mb-16">
-          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">FEATURED READING</span>
+          <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">FEATURED READING</span>
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mt-4">
             Read these first<span className="text-accent inline-block ml-0.5">.</span>
           </h2>
@@ -411,7 +411,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-text-muted group-hover:text-link transition-colors self-start md:self-auto pl-12 md:pl-0">
+                <div className="flex items-center gap-2 text-xs md:text-sm font-black uppercase tracking-widest text-text-muted group-hover:text-link transition-colors self-start md:self-auto pl-12 md:pl-0">
                   Read article <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -433,7 +433,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             {/* Dotted noise texture overlay */}
             <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none rounded-none" />
             
-            <span className="relative z-10 inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] border border-border-rule px-3 py-1 uppercase select-none">
+            <span className="relative z-10 inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] border border-border-rule px-3 py-1 uppercase select-none">
               SERIAL MEMOIR IN PROGRESS
             </span>
             <h2 className="relative z-10 text-4xl md:text-6xl font-black tracking-tighter uppercase mt-8 mb-6 text-fg-primary leading-none group-hover:text-link transition-colors duration-300">
@@ -456,7 +456,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
         </div>
       </section>
 
-      {/* 7. Founder Block — Meet Ollie */}
+      {/* 7. Founder Block - Meet Ollie */}
       <section className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto border-b border-border-rule">
         <div className="flex flex-col md:flex-row items-center gap-16 md:gap-24">
           {/* Photo container */}
@@ -480,7 +480,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                 <div className="text-xs font-black uppercase tracking-[0.2em] text-accent">
                   [ PHOTO · ASSET PENDING ]
                 </div>
-                <p className="text-[11px] font-mono text-text-muted max-w-[24ch] leading-relaxed">
+                <p className="text-xs md:text-sm font-mono text-text-muted max-w-[24ch] leading-relaxed">
                   Real photo of Ollie. Direction: tight crop, dark background, grain treatment, non-corporate feel.
                 </p>
               </div>
@@ -489,7 +489,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
           {/* Text Container */}
           <div className="flex-1 flex flex-col justify-center items-start">
-            <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">
+            <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">
               Founder’s Note
             </span>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6 leading-none text-fg-primary">
@@ -511,7 +511,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
       {/* 7.5 Social Follow Section */}
       <section className="border-b border-border-rule py-16 md:py-20 lg:py-[100px] bg-bg-primary px-6 md:px-24">
         <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
-          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
+          <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
             FOLLOW THE TRANSITIONS
           </span>
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6">
@@ -531,7 +531,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="shrink-0"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.74-3.94-1.78-.22-.22-.41-.47-.59-.73v7.02c0 3.74-2.07 6.97-5.46 8.22-3.39 1.25-7.39.4-9.87-2.12-2.48-2.52-3.13-6.52-1.61-9.76 1.52-3.24 5.05-5.18 8.62-4.77v4.07c-2-.31-4.04.57-5.01 2.37-.97 1.8-.6 4.09.91 5.46 1.52 1.37 3.86 1.34 5.35-.07.97-.96 1.44-2.34 1.37-3.7V0h.03z"/></svg>
               </span>
-              <span className="font-mono text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">TikTok</span>
+              <span className="font-mono text-xs md:text-sm sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">TikTok</span>
             </a>
 
             <a 
@@ -543,7 +543,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
               </span>
-              <span className="font-mono text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">Instagram</span>
+              <span className="font-mono text-xs md:text-sm sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">Instagram</span>
             </a>
 
             <a 
@@ -555,7 +555,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
               </span>
-              <span className="font-mono text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">YouTube</span>
+              <span className="font-mono text-xs md:text-sm sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">YouTube</span>
             </a>
 
             <a 
@@ -569,7 +569,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                 </svg>
               </span>
-              <span className="font-mono text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">Facebook</span>
+              <span className="font-mono text-xs md:text-sm sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">Facebook</span>
             </a>
 
             <a 
@@ -581,7 +581,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
               </span>
-              <span className="font-mono text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">X / Twitter</span>
+              <span className="font-mono text-xs md:text-sm sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">X / Twitter</span>
             </a>
           </div>
         </div>
@@ -594,7 +594,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
           <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none" />
           
           <div className="max-w-[560px] mx-auto text-center relative z-10">
-            <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
+            <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
               Newsletter
             </span>
             <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4 leading-none font-display">
@@ -651,7 +651,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                 <p className="text-xs text-text-muted text-center leading-relaxed font-normal">
                   Get early access to tools, templates, and new essays before they land on the site.
                 </p>
-                <p className="text-[11px] text-text-muted text-center leading-relaxed font-normal font-mono uppercase mt-1">
+                <p className="text-xs md:text-sm text-text-muted text-center leading-relaxed font-normal font-mono uppercase mt-1">
                   No spam. Unsubscribe in one click.
                 </p>
 
@@ -673,7 +673,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                 <CheckCircle2 size={40} className="text-accent mx-auto mb-4" />
                 <h3 className="text-xl font-black uppercase text-fg-primary mb-2">In.</h3>
                 <p className="text-sm text-text-muted leading-relaxed">
-                  Check your inbox for a confirmation — subject line: <span className="text-accent italic font-semibold">"yes that was me"</span>.
+                  Check your inbox for a confirmation - subject line: <span className="text-accent italic font-semibold">"yes that was me"</span>.
                 </p>
               </div>
             )}
@@ -686,7 +686,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
         <section ref={latestWritingRef} className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
             <div>
-              <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">Latest Writing</span>
+              <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">Latest Writing</span>
               <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mt-4">
                 FRESH OFF THE KEYBOARD<span className="text-accent inline-block ml-0.5">.</span>
               </h2>
@@ -764,7 +764,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
                     <div className="px-6 py-8 flex flex-col justify-between flex-grow">
                       <div className="flex flex-col flex-grow">
-                        <div className="flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-link mb-4">
+                        <div className="flex items-center gap-3 text-xs md:text-sm font-black uppercase tracking-widest text-link mb-4">
                           <span>{getPillarLabel(post.pillar)}</span>
                         </div>
                         {post.excerpt && (
@@ -774,13 +774,13 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                         )}
                       </div>
                       
-                      <div className="text-[11px] font-black tracking-widest text-text-muted uppercase font-mono group-hover:text-link transition-colors mt-6 pt-4 border-t border-border-rule/40 flex items-center justify-between w-full">
+                      <div className="text-xs md:text-sm font-black tracking-widest text-text-muted uppercase font-mono group-hover:text-link transition-colors mt-6 pt-4 border-t border-border-rule/40 flex items-center justify-between w-full">
                         <time dateTime={post.date || post._createdAt}>
                           {formattedDate}
                         </time>
                         <Link 
                           href={`/blog/${slug}`}
-                          className="text-[11px] font-black tracking-widest text-link hover:underline flex items-center gap-1 group-hover:translate-x-0.5 transition-all duration-300"
+                          className="text-xs md:text-sm font-black tracking-widest text-link hover:underline flex items-center gap-1 group-hover:translate-x-0.5 transition-all duration-300"
                         >
                           READ POST →
                         </Link>

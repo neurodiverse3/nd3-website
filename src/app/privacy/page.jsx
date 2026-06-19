@@ -3,14 +3,14 @@ import Link from 'next/link';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Privacy Policy — neurodivers3',
+  title: 'Privacy Policy - neurodivers3',
   description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Gumroad payments.',
   openGraph: {
-    title: 'Privacy Policy — neurodivers3',
+    title: 'Privacy Policy - neurodivers3',
     description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Gumroad payments.',
   },
   twitter: {
-    title: 'Privacy Policy — neurodivers3',
+    title: 'Privacy Policy - neurodivers3',
     description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Gumroad payments.',
   }
 };
@@ -87,7 +87,7 @@ export default function PrivacyPage() {
                   <li>The right to be informed about how your data is used.</li>
                   <li>The right to access the personal data we hold about you.</li>
                   <li>The right to request rectification of inaccurate data.</li>
-                  <li>The right to erasure ("right to be forgotten") — we will delete your record in full upon request.</li>
+                  <li>The right to erasure ("right to be forgotten") - we will delete your record in full upon request.</li>
                   <li>The right to withdraw consent at any time (e.g., unsubscribing from emails).</li>
                 </ul>
                 <p className="mt-4">
@@ -98,7 +98,7 @@ export default function PrivacyPage() {
 
           </div>
 
-          {/* Sidebar / Quick Info (Spans 1 column) — Module 6.2 sticky on desktop */}
+          {/* Sidebar / Quick Info (Spans 1 column) - Module 6.2 sticky on desktop */}
           <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
             <div className="bg-bg-primary border-2 border-[var(--rule)] p-6 shadow-[4px_4px_0px_var(--rule)]">
               <h3 className="text-lg font-black uppercase tracking-tight text-[var(--fg)] mb-4">Summary Checklist</h3>

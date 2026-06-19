@@ -98,7 +98,7 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => setShowSharePanel(!showSharePanel)}
-              className="px-4 py-2.5 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] text-[var(--fg)] font-black uppercase text-[10px] tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-[3px_3px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-0 active:translate-y-0"
+              className="px-4 py-2.5 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] text-[var(--fg)] font-black uppercase text-xs md:text-sm tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-[3px_3px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-0 active:translate-y-0"
             >
               <Share2 size={12} className={showSharePanel ? 'animate-pulse text-[var(--accent)]' : ''} /> 
               {showSharePanel ? 'HIDE SHARE & EMBED' : 'SHARE & EMBED OPTIONS'}
@@ -108,7 +108,7 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
                 href={landingPageUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2.5 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] text-[var(--fg)] font-black uppercase text-[10px] tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-[3px_3px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-0 active:translate-y-0"
+                className="px-4 py-2.5 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] text-[var(--fg)] font-black uppercase text-xs md:text-sm tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-[3px_3px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-0 active:translate-y-0"
               >
                 <ExternalLink size={12} /> OPEN FULL LANDING PAGE
               </a>
@@ -123,7 +123,7 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
               
               {/* Copy Direct Link */}
               <div className="flex flex-col gap-1.5">
-                <span className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-widest block font-bold">DIRECT LANDING PAGE LINK:</span>
+                <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest block font-bold">DIRECT LANDING PAGE LINK:</span>
                 <div className="flex gap-2">
                   <input
                     type="text"
@@ -143,7 +143,7 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
 
               {/* Social Tweet Quick Share */}
               <div className="flex flex-col gap-1.5 justify-end">
-                <span className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-widest block font-bold">QUICK SOCIAL TRANSMISSION:</span>
+                <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest block font-bold">QUICK SOCIAL TRANSMISSION:</span>
                 <a
                   href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this amazing sensory-friendly neurodivergent tool: ${landingPageUrl} via @neurodivers3`)}`}
                   target="_blank"
@@ -159,8 +159,8 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
             {/* Iframe Embed Code snippet */}
             <div className="flex flex-col gap-1.5 border-t border-[var(--rule)]/60 pt-4">
               <div className="flex justify-between items-center flex-wrap gap-2">
-                <span className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-widest block font-bold">IFRAME EMBED CODE (PASTE ON YOUR BLOG):</span>
-                <span className="text-[9px] font-mono text-[var(--accent)] bg-[var(--accent-soft)] border border-[var(--rule)] px-1.5 py-0.5">ALLOWS AUTOPLAY</span>
+                <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest block font-bold">IFRAME EMBED CODE (PASTE ON YOUR BLOG):</span>
+                <span className="text-xs md:text-sm font-mono text-[var(--accent)] bg-[var(--accent-soft)] border border-[var(--rule)] px-1.5 py-0.5">ALLOWS AUTOPLAY</span>
               </div>
               <div className="flex gap-2">
                 <input
@@ -177,7 +177,7 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
                   {copiedEmbed ? 'COPIED' : 'COPY CODE'}
                 </button>
               </div>
-              <p className="text-[10px] text-[var(--muted)] italic leading-relaxed font-sans mt-1">
+              <p className="text-xs md:text-sm text-[var(--muted)] italic leading-relaxed font-sans mt-1">
                 💡 Paste this code inside the HTML/Embed editor of your custom Wordpress, Squarespace, Ghost, or Medium blog post to display this interactive sensory tool right inline for your readers.
               </p>
             </div>

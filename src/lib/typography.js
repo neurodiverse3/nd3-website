@@ -2,9 +2,9 @@
  * Smart Typography & Typographic Quotes Utility (UK English Convention)
  * 
  * Converts straight quotes and apostrophes to premium curly ones:
- * - Primary quotation marks: single curly — ‘ ’
- * - Nested quotation marks: double curly — “ ”
- * - Apostrophes: curly — ’ (e.g. Can’t, won’t)
+ * - Primary quotation marks: single curly - ‘ ’
+ * - Nested quotation marks: double curly - “ ”
+ * - Apostrophes: curly - ’ (e.g. Can’t, won’t)
  * 
  * Code blocks and inline code are exempted to maintain valid syntax.
  */

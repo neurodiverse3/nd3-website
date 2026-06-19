@@ -40,11 +40,11 @@ export default function CoverPlayground() {
         <div>
           <Link
             href="/labs"
-            className="inline-flex items-center gap-2 text-text-muted hover:text-accent-pink transition-colors uppercase font-black text-[10px] tracking-widest mb-6 focus-ring"
+            className="inline-flex items-center gap-2 text-text-muted hover:text-accent-pink transition-colors uppercase font-black text-xs md:text-sm tracking-widest mb-6 focus-ring"
           >
             <ArrowLeft size={12} /> Back to Labs
           </Link>
-          <div className="inline-block text-[11px] font-mono tracking-[0.25em] text-accent-pink bg-accent-pink-soft px-3 py-1 uppercase border border-border-rule mb-4 select-none animate-pulse-slow">
+          <div className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-accent-pink bg-accent-pink-soft px-3 py-1 uppercase border border-border-rule mb-4 select-none animate-pulse-slow">
             INTERACTIVE LAB PROTOTYPE
           </div>
           <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-fg-primary leading-none font-display">
@@ -73,7 +73,7 @@ export default function CoverPlayground() {
 
           {/* Title input */}
           <div className="flex flex-col gap-1.5">
-            <label className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">ARTICLE TITLE:</label>
+            <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">ARTICLE TITLE:</label>
             <input
               type="text"
               value={title}
@@ -84,7 +84,7 @@ export default function CoverPlayground() {
 
           {/* Accent Word input */}
           <div className="flex flex-col gap-1.5">
-            <label className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">HIGHLIGHT WORD:</label>
+            <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">HIGHLIGHT WORD:</label>
             <input
               type="text"
               value={accentWord}
@@ -95,7 +95,7 @@ export default function CoverPlayground() {
 
           {/* Category Pillar */}
           <div className="flex flex-col gap-1.5">
-            <label className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">CATEGORY PILLAR:</label>
+            <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">CATEGORY PILLAR:</label>
             <select
               value={pillar}
               onChange={(e) => setPillar(e.target.value)}
@@ -109,7 +109,7 @@ export default function CoverPlayground() {
 
           {/* Brain State */}
           <div className="flex flex-col gap-1.5">
-            <label className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">BRAIN STATE / MOOD:</label>
+            <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">BRAIN STATE / MOOD:</label>
             <select
               value={brainState}
               onChange={(e) => setBrainState(e.target.value)}
@@ -125,8 +125,8 @@ export default function CoverPlayground() {
 
           {/* Aspect Ratio */}
           <div className="flex flex-col gap-1.5">
-            <label className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">ASPECT RATIO CROP:</label>
-            <div className="flex gap-2 font-mono text-[10px]">
+            <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">ASPECT RATIO CROP:</label>
+            <div className="flex gap-2 font-mono text-xs md:text-sm">
               {['21:9', '16:9', '1:1', '4:5'].map(r => (
                 <button
                   key={r}
@@ -152,7 +152,7 @@ export default function CoverPlayground() {
               className="border-2 border-border-rule bg-[#050508] p-6 hover:border-fg-primary transition-colors shadow-[6px_6px_0px_var(--rule)] flex flex-col gap-4 text-left"
             >
               <div className="flex flex-col gap-1.5">
-                <span className="font-mono text-[10px] font-black uppercase text-accent-pink tracking-widest block select-none">
+                <span className="font-mono text-xs md:text-sm font-black uppercase text-accent-pink tracking-widest block select-none">
                   {c.name}
                 </span>
                 <p className="text-xs text-text-muted font-sans font-normal leading-relaxed">

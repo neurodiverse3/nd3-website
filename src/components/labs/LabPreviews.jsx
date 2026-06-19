@@ -164,7 +164,7 @@ export function SpoonTrackerPreview({ isActive }) {
           );
         })}
       </div>
-      <span className="font-mono text-[9px] text-text-muted uppercase tracking-widest mt-1 select-none">
+      <span className="font-mono text-xs md:text-sm text-text-muted uppercase tracking-widest mt-1 select-none">
         {activeSpoons} OF 6 SPOONS
       </span>
     </div>
@@ -201,7 +201,7 @@ export function DopamineMenuPreview({ isActive }) {
           className="text-center space-y-2"
         >
           <span className="text-4xl block leading-none select-none">{snacks[index].icon}</span>
-          <span className="text-[10px] font-mono font-black text-accent uppercase tracking-widest block select-none">
+          <span className="text-xs md:text-sm font-mono font-black text-accent uppercase tracking-widest block select-none">
             {snacks[index].title}
           </span>
         </motion.div>
@@ -361,7 +361,7 @@ export function SensoryAuditPreview({ isActive }) {
           style={{ width: `${(progress / 7) * 100}%` }}
         />
       </div>
-      <span className="font-mono text-[9px] text-text-muted uppercase tracking-widest mt-1 select-none">
+      <span className="font-mono text-xs md:text-sm text-text-muted uppercase tracking-widest mt-1 select-none">
         {!isActive || progress === 0 ? '7-DOMAIN AUDIT' : `${progress} OF 7 COMPLETED`}
       </span>
     </div>
@@ -381,7 +381,7 @@ export function BannerShowcasePreview({ isActive }) {
 
   return (
     <div className="w-full h-full bg-black/60 flex flex-col justify-center p-5 gap-2.5 text-left select-none overflow-hidden relative">
-      <div className="absolute top-2 right-3 font-mono text-[8px] text-text-muted/50 uppercase tracking-widest">
+      <div className="absolute top-2 right-3 font-mono text-xs md:text-sm text-text-muted/50 uppercase tracking-widest">
         SANDBOX
       </div>
 
@@ -402,7 +402,7 @@ export function BannerShowcasePreview({ isActive }) {
           </div>
         )}
         {pulse === 2 && (
-          <div className="text-[8px] font-mono text-text-muted/60 tracking-wider">
+          <div className="text-xs md:text-sm font-mono text-text-muted/60 tracking-wider">
             - - • - - • - - • - - • - - • - -
           </div>
         )}
@@ -437,7 +437,7 @@ export function LabPreview({ slug, isActive }) {
   if (!PreviewComponent) {
     return (
       <div className="w-full h-full bg-black/60 flex items-center justify-center">
-        <span className="text-[8px] font-mono text-text-muted uppercase tracking-wider">
+        <span className="text-xs md:text-sm font-mono text-text-muted uppercase tracking-wider">
           PREVIEW UNAVAILABLE
         </span>
       </div>

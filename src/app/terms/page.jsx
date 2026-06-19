@@ -3,14 +3,14 @@ import Link from 'next/link';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Terms of Use — neurodivers3',
+  title: 'Terms of Use - neurodivers3',
   description: 'Terms of service and digital download refund guidelines aligned with the UK Consumer Rights Act 2015.',
   openGraph: {
-    title: 'Terms of Use — neurodivers3',
+    title: 'Terms of Use - neurodivers3',
     description: 'Terms of service and digital download refund guidelines aligned with the UK Consumer Rights Act 2015.',
   },
   twitter: {
-    title: 'Terms of Use — neurodivers3',
+    title: 'Terms of Use - neurodivers3',
     description: 'Terms of service and digital download refund guidelines aligned with the UK Consumer Rights Act 2015.',
   }
 };
@@ -94,7 +94,7 @@ export default function TermsPage() {
 
           </div>
 
-          {/* Sidebar / Quick Info (Spans 1 column) — Module 6.2 sticky on desktop */}
+          {/* Sidebar / Quick Info (Spans 1 column) - Module 6.2 sticky on desktop */}
           <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
             <div className="bg-bg-primary border-2 border-[var(--rule)] p-6 shadow-[4px_4px_0px_var(--rule)]">
               <h3 className="text-lg font-black uppercase tracking-tight text-[var(--fg)] mb-4">Quick Read</h3>

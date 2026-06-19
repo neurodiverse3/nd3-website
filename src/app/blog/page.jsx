@@ -7,14 +7,14 @@ import { PostCover } from '../../components/PostCover';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Blog — neurodivers3',
+  title: 'Blog - neurodivers3',
   description: 'Honest writing on neurodivergent life: stories, tools and ideas from inside a late-diagnosed brain.',
   openGraph: {
-    title: 'Blog — neurodivers3',
+    title: 'Blog - neurodivers3',
     description: 'Honest writing on neurodivergent life: stories, tools and ideas from inside a late-diagnosed brain.',
   },
   twitter: {
-    title: 'Blog — neurodivers3',
+    title: 'Blog - neurodivers3',
     description: 'Honest writing on neurodivergent life: stories, tools and ideas from inside a late-diagnosed brain.',
   }
 };
@@ -124,7 +124,7 @@ export default async function BlogPage(props) {
       {/* Featured Post Card */}
       {featuredPost && (
         <div className="mb-16">
-          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-accent bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
+          <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-accent bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
             FEATURED READ
           </span>
           <div
@@ -152,7 +152,7 @@ export default async function BlogPage(props) {
             {/* Content (Right side) */}
             <div className="lg:col-span-5 p-10 md:p-14 lg:p-16 flex flex-col justify-between">
               <div>
-                <div className="flex flex-wrap items-center gap-2.5 text-[11px] font-mono tracking-[0.15em] uppercase mb-6 text-text-muted">
+                <div className="flex flex-wrap items-center gap-2.5 text-xs md:text-sm font-mono tracking-[0.15em] uppercase mb-6 text-text-muted">
                   <Link 
                     href={`/blog?pillar=${featuredPost.pillar}`}
                     className="pillar-eyebrow text-accent hover:underline font-black"

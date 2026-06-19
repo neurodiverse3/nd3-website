@@ -306,7 +306,7 @@ export default function SpotlaneViewer({ slug, className = "" }) {
           <h2 className="text-sm md:text-base font-black uppercase tracking-tight text-white font-display">
             {demo.meta?.title || "Product Walkthrough"}
           </h2>
-          <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 bg-[#ff007f]/10 text-[#ff007f] border border-[#ff007f]/20 rounded-sm">
+          <span className="text-xs md:text-sm font-mono font-bold uppercase tracking-widest px-2 py-0.5 bg-[#ff007f]/10 text-[#ff007f] border border-[#ff007f]/20 rounded-sm">
             Interactive Demo
           </span>
         </div>
@@ -375,7 +375,7 @@ export default function SpotlaneViewer({ slug, className = "" }) {
             />
           </AnimatePresence>
 
-          {/* Interaction Shield — intercepts right clicks and dragging */}
+          {/* Interaction Shield - intercepts right clicks and dragging */}
           <div
             className="absolute inset-0 z-10 select-none cursor-default"
             onContextMenu={(e) => e.preventDefault()}

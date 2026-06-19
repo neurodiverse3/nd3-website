@@ -234,7 +234,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
 
         {/* Topics / Pillars */}
         <div className="space-y-3 text-left">
-          <span className="text-[10px] font-mono tracking-widest text-text-muted uppercase block font-bold">BY TOPIC:</span>
+          <span className="text-xs md:text-sm font-mono tracking-widest text-text-muted uppercase block font-bold">BY TOPIC:</span>
           <div className="flex flex-wrap gap-2.5">
             <button
               onClick={() => {
@@ -273,7 +273,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
 
         {/* States of Mind */}
         <div className="space-y-3 text-left">
-          <span className="text-[10px] font-mono tracking-widest text-text-muted uppercase block font-bold">BY BRAIN STATE:</span>
+          <span className="text-xs md:text-sm font-mono tracking-widest text-text-muted uppercase block font-bold">BY BRAIN STATE:</span>
           <div className="flex flex-wrap gap-2.5">
             <button
               onClick={() => {
@@ -380,7 +380,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                 <div className="px-6 md:px-10 pt-8 pb-8 flex flex-col justify-between flex-grow">
                   <div className="flex flex-col flex-grow">
                     {/* Meta Row: Pillar + State + Read time + Date */}
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] mb-5 text-text-muted font-bold leading-none">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs md:text-sm sm:text-xs md:text-sm uppercase tracking-[0.15em] mb-5 text-text-muted font-bold leading-none">
                       <button 
                         onClick={(e) => handlePillarClick(e, post.pillar)}
                         className="pillar-eyebrow text-accent hover:underline font-black cursor-pointer bg-transparent border-none p-0 inline-block align-baseline leading-none"

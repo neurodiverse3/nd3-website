@@ -184,7 +184,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
             <button
               key={cat._id}
               onClick={() => setActiveCategory(categoryId)}
-              className={`px-4 py-2 text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer border rounded-none ${
+              className={`px-4 py-2 text-sm font-black uppercase tracking-wider transition-all duration-200 cursor-pointer border rounded-none ${
                 isActive
                   ? 'bg-accent text-bg-primary border-accent shadow-[2px_2px_0px_var(--fg)]'
                   : 'bg-transparent text-text-muted border-border-rule hover:border-text-muted/50 hover:text-fg-primary'
@@ -197,7 +197,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
       </div>
 
       {/* Search + Metadata Bar */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-text-muted uppercase tracking-[0.12em] pb-4 border-b border-dashed border-border-rule/60 select-none">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-sm font-mono text-text-muted uppercase tracking-[0.12em] pb-4 border-b border-dashed border-border-rule/60 select-none">
         <span>
           FOUND {filteredLabs.length} PROTOTYPE{filteredLabs.length !== 1 && 'S'} MATCHING COMBO
         </span>
@@ -205,7 +205,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
           {activeCategory !== "all" && (
             <button
               onClick={() => setActiveCategory("all")}
-              className="text-accent hover:underline font-black cursor-pointer bg-transparent border-none text-[10px] uppercase font-mono tracking-wider"
+              className="text-accent hover:underline font-black cursor-pointer bg-transparent border-none text-sm uppercase font-mono tracking-wider"
             >
               RESET FILTER
             </button>
@@ -217,7 +217,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search labs..."
-              className="w-full bg-bg-primary/40 border border-border-rule pl-8 pr-3 py-1.5 text-[10px] font-mono text-fg-primary placeholder:text-text-muted/50 outline-none focus:border-accent transition-colors rounded-none uppercase tracking-wider"
+              className="w-full bg-bg-primary/40 border border-border-rule pl-8 pr-3 py-1.5 text-sm font-mono text-fg-primary placeholder:text-text-muted/50 outline-none focus:border-accent transition-colors rounded-none uppercase tracking-wider"
             />
           </div>
         </div>
@@ -265,7 +265,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                   />
                 </svg>
 
-                {/* Entire card surface is the link — Module 4.2 */}
+                {/* Entire card surface is the link - Module 4.2 */}
                 <Link
                   href={`/labs/${labSlug}`}
                   className="absolute inset-0 z-20 cursor-pointer"
@@ -275,15 +275,15 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                 {/* Preview Area */}
                 <div className="h-[180px] border-b border-border-rule bg-black/60 relative overflow-hidden">
                   <LabPreview slug={getToolKey(lab)} isActive={isHovered} />
-                  {/* Tag Badge — Module 4.5: functional categories replace generic EXPERIMENT */}
+                  {/* Tag Badge - Module 4.5: functional categories replace generic EXPERIMENT */}
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-accent bg-black/70 border border-border-rule px-2 py-0.5">
+                    <span className="text-sm font-mono font-bold uppercase tracking-widest text-accent bg-black/70 border border-border-rule px-2 py-0.5">
                       {lab.tag || "TOOL"}
                     </span>
                   </div>
                   {/* Hover Indicator */}
                   <div className={`absolute bottom-2 right-2 z-10 transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-                    <span className="text-[8px] font-mono text-accent uppercase tracking-wider animate-pulse">
+                    <span className="text-sm font-mono text-accent uppercase tracking-wider animate-pulse">
                       PREVIEW ACTIVE
                     </span>
                   </div>
@@ -297,7 +297,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                     </h2>
                     {/* Module 4.6: Always show 1-2 sentence cognitive-friendly description */}
                     <p
-                      className="text-xs text-text-muted font-sans leading-relaxed min-h-[2.5rem]"
+                      className="text-base text-text-muted font-sans leading-relaxed min-h-[2.5rem]"
                       title={lab.excerpt}
                     >
                       {lab.excerpt || `A ${lab.tag?.toLowerCase() || 'free'} lab prototype to help neurodivergent brains.`}
@@ -307,19 +307,19 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                   {/* Metadata Row */}
                   <div className="flex flex-wrap gap-2 pt-3 border-t border-border-rule/40 mt-3">
                     {lab.setupTime && (
-                      <span className="text-[8px] font-mono text-text-muted uppercase tracking-wider">
+                      <span className="text-sm font-mono text-text-muted uppercase tracking-wider">
                         {lab.setupTime} setup
                       </span>
                     )}
                     {lab.noTracking && (
-                      <span className="text-[8px] font-mono text-green-500/70 uppercase tracking-wider">
+                      <span className="text-sm font-mono text-green-500/70 uppercase tracking-wider">
                         No tracking
                       </span>
                     )}
                   </div>
 
-                  {/* CTA — purely visual now, real link is the absolute overlay */}
-                  <div className="w-full mt-4 py-3 bg-transparent text-fg-primary border border-border-rule group-hover:border-accent font-black uppercase text-[10px] tracking-wider transition-all flex items-center justify-center gap-2 rounded-none group-hover:bg-accent group-hover:text-[var(--accent-btn-text)] group-hover:border-accent">
+                  {/* CTA - purely visual now, real link is the absolute overlay */}
+                  <div className="w-full mt-4 py-3 bg-transparent text-fg-primary border border-border-rule group-hover:border-accent font-black uppercase text-sm tracking-wider transition-all flex items-center justify-center gap-2 rounded-none group-hover:bg-accent group-hover:text-[var(--accent-btn-text)] group-hover:border-accent">
                     OPEN LAB <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform duration-200" />
                   </div>
                 </div>
@@ -338,7 +338,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
           </p>
           <button
             onClick={() => { setActiveCategory('all'); setSearchQuery(''); }}
-            className="px-6 py-2 bg-accent text-bg-primary border border-accent font-black uppercase text-xs tracking-wider cursor-pointer hover:bg-transparent hover:text-accent transition-all rounded-none shadow-[2px_2px_0px_var(--fg)]"
+            className="px-6 py-2 bg-accent text-bg-primary border border-accent font-black uppercase text-sm tracking-wider cursor-pointer hover:bg-transparent hover:text-accent transition-all rounded-none shadow-[2px_2px_0px_var(--fg)]"
           >
             RESET ALL FILTERS
           </button>

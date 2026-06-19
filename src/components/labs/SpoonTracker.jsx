@@ -128,7 +128,7 @@ export default function SpoonTracker({ noWrapper = false }) {
         <h3 className="text-base font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
           <Battery size={16} className="text-[var(--accent)]" /> SPOON TRACKER
         </h3>
-        <span className="text-[10px] font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5 tracking-wider">
+        <span className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5 tracking-wider">
           ENERGY · BUDGETING
         </span>
       </div>
@@ -140,7 +140,7 @@ export default function SpoonTracker({ noWrapper = false }) {
       {/* Starting energy configure slider box */}
       <div className={`bg-black/45 border border-[var(--rule)] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm transition-all ${noWrapper ? 'p-3' : 'p-4'}`}>
         <div className="text-left space-y-1">
-          <span className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-widest block font-bold">DAILY CAPACITY INITIALIZER</span>
+          <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest block font-bold">DAILY CAPACITY INITIALIZER</span>
           <span className="text-sm font-black text-white uppercase font-display leading-tight block">STARTING SPOONS FOR TODAY: {maxSpoons}</span>
         </div>
         
@@ -163,10 +163,10 @@ export default function SpoonTracker({ noWrapper = false }) {
       {/* Main Spoons visualization board */}
       <div className={`border border-[var(--rule)] bg-black/10 transition-all ${noWrapper ? 'p-4 space-y-4' : 'p-5 space-y-6'}`}>
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--rule)] pb-3">
-          <span className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-widest font-bold">ENERGETIC POTENTIAL METRICS</span>
+          <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest font-bold">ENERGETIC POTENTIAL METRICS</span>
           <button
             onClick={resetEntireTracker}
-            className="text-[10px] font-mono font-bold text-red-500 hover:text-red-400 bg-transparent flex items-center gap-1 cursor-pointer"
+            className="text-xs md:text-sm font-mono font-bold text-red-500 hover:text-red-400 bg-transparent flex items-center gap-1 cursor-pointer"
           >
             <RefreshCw size={10} /> CLEAR WORKSPACE
           </button>
@@ -174,7 +174,7 @@ export default function SpoonTracker({ noWrapper = false }) {
 
         {/* Visual tray showing the actual glowing spoons */}
         <div className="space-y-2 text-left">
-          <div className="flex justify-between font-mono text-[10px] text-[var(--muted)] uppercase font-bold">
+          <div className="flex justify-between font-mono text-xs md:text-sm text-[var(--muted)] uppercase font-bold">
             <span>TRAY STATE: {availableSpoons} / {maxSpoons} SPOONS READY</span>
             <span>{totalSpentSpoons} SPENT · {bankedSpoonsCount} BANKED</span>
           </div>
@@ -229,7 +229,7 @@ export default function SpoonTracker({ noWrapper = false }) {
           
           {/* Left Side Column: Spent Tasks details */}
           <div className="space-y-4 text-left">
-            <span className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-widest block font-bold">SPENT ENERGY LOG</span>
+            <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest block font-bold">SPENT ENERGY LOG</span>
             
             <div className={`space-y-2 custom-scrollbar overflow-y-auto border border-[var(--rule)] bg-black/40 p-2.5 transition-all ${noWrapper ? 'max-h-[140px] min-h-[80px]' : 'max-h-[180px] min-h-[100px]'}`}>
               {spentTasks.map((task) => (
@@ -239,7 +239,7 @@ export default function SpoonTracker({ noWrapper = false }) {
                 >
                   <div className="space-y-1">
                     <span className="text-white font-bold block pr-2 leading-snug text-xs">{task.title}</span>
-                    <span className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-wider">COST: {task.cost} {task.cost === 1 ? 'SPOON' : 'SPOONS'}</span>
+                    <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-wider">COST: {task.cost} {task.cost === 1 ? 'SPOON' : 'SPOONS'}</span>
                   </div>
                   
                   <button
@@ -259,7 +259,7 @@ export default function SpoonTracker({ noWrapper = false }) {
 
             {/* Manual task addition form */}
             <div className="space-y-2 pt-1">
-              <span className="text-[10px] font-mono text-[var(--muted)] uppercase tracking-wider block font-bold">ADD NEW SPENT BLOCK:</span>
+              <span className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase tracking-wider block font-bold">ADD NEW SPENT BLOCK:</span>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -304,7 +304,7 @@ export default function SpoonTracker({ noWrapper = false }) {
                     key={preset.label}
                     onClick={() => addSpentTask(preset.name, preset.cost)}
                     disabled={availableSpoons < preset.cost}
-                    className="px-2 py-1 text-[9px] font-mono border border-[var(--rule)] hover:border-[var(--accent)] text-[var(--muted)] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent rounded-none transition-colors"
+                    className="px-2 py-1 text-xs md:text-sm font-mono border border-[var(--rule)] hover:border-[var(--accent)] text-[var(--muted)] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent rounded-none transition-colors"
                   >
                     + {preset.label}
                   </button>
@@ -316,12 +316,12 @@ export default function SpoonTracker({ noWrapper = false }) {
           {/* Right Side Column: Banked Reserves & Instructions */}
           <div className={`space-y-4 text-left pt-4 md:pt-0 flex flex-col justify-between ${noWrapper ? 'border-t lg:border-t lg:border-l-0 xl:border-l xl:border-t-0 xl:pt-0 xl:pl-4 border-[var(--rule)]' : 'border-t md:border-t-0 md:border-l md:pl-6 border-[var(--rule)]'}`}>
             <div className="space-y-3">
-              <span className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-widest block font-bold">PROTECTED RESERVE BANK</span>
+              <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest block font-bold">PROTECTED RESERVE BANK</span>
               
               <div className={`bg-black/30 border border-[var(--rule)] flex items-center justify-between shadow-inner transition-all ${noWrapper ? 'p-3' : 'p-4'}`}>
                 <div className="space-y-0.5">
                   <span className="text-sm font-black text-blue-500 uppercase font-display leading-tight block">BANKED ENERGY: {bankedSpoonsCount}</span>
-                  <span className="text-[10px] font-mono text-[var(--muted)] leading-tight block">Locks spoons in place to protect reserves.</span>
+                  <span className="text-xs md:text-sm font-mono text-[var(--muted)] leading-tight block">Locks spoons in place to protect reserves.</span>
                 </div>
                 
                 <div className="flex gap-1.5 shrink-0">
@@ -347,7 +347,7 @@ export default function SpoonTracker({ noWrapper = false }) {
             <div className={`border border-blue-500/20 bg-blue-500/5 flex gap-2.5 text-left leading-normal transition-all ${noWrapper ? 'p-3 mt-2' : 'p-4 mt-4 md:mt-0'}`}>
               <Clock size={14} className="text-blue-500 shrink-0 mt-0.5 animate-pulse" />
               <div className="space-y-1.5">
-                <span className="text-[9px] font-mono font-bold text-blue-500 uppercase tracking-widest block">MIDNIGHT TIMER RESET</span>
+                <span className="text-xs md:text-sm font-mono font-bold text-blue-500 uppercase tracking-widest block">MIDNIGHT TIMER RESET</span>
                 <p className="text-xs text-[var(--muted)] leading-relaxed font-sans">
                   The budget resets automatically at midnight in your local browser timezone. Clear browser cache or use the "CLEAR" button to restart manually.
                 </p>

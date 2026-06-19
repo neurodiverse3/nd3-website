@@ -160,7 +160,7 @@ export const Navbar = () => {
               >
                 <ShoppingBag size={20} className="group-hover:scale-105 transition-transform" />
                 {cart.length > 0 && (
-                  <span className="absolute top-0 right-0 bg-accent text-bg-primary text-[9px] font-black w-4.5 h-4.5 flex items-center justify-center rounded-full border border-bg-primary animate-in zoom-in duration-200">
+                  <span className="absolute top-0 right-0 bg-accent text-bg-primary text-xs md:text-sm font-black w-4.5 h-4.5 flex items-center justify-center rounded-full border border-bg-primary animate-in zoom-in duration-200">
                     {cart.length}
                   </span>
                 )}
@@ -279,7 +279,7 @@ export const Navbar = () => {
                 >
                   Join the list →
                 </button>
-                <div className="text-[10px] text-text-muted tracking-widest uppercase text-center font-mono">
+                <div className="text-xs md:text-sm text-text-muted tracking-widest uppercase text-center font-mono">
                   For the unmasked.
                 </div>
               </div>

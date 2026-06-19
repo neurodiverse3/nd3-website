@@ -456,7 +456,7 @@ export default function AcousticShield({ noWrapper = false }) {
                   onChange={(e) => setBinauralVolume(parseFloat(e.target.value))}
                   className="w-full accent-[var(--accent)] h-1.5 bg-[var(--rule)] cursor-pointer rounded-none outline-none"
                 />
-                <span className="text-[10px] font-mono text-amber-500 uppercase tracking-widest block font-bold leading-normal">
+                <span className="text-xs md:text-sm font-mono text-amber-500 uppercase tracking-widest block font-bold leading-normal">
                   ⚠️ HEADPHONES REQUIRED · BINAURAL MODE WILL NOT WORK ON SPEAKERS.
                 </span>
               </div>
@@ -469,7 +469,7 @@ export default function AcousticShield({ noWrapper = false }) {
               <span className="text-xs font-mono text-[var(--muted)] uppercase tracking-wider block font-bold">SESSION TIMER TIMEBOX:</span>
               <button
                 onClick={handleTimerToggle}
-                className={`text-[10px] font-mono font-bold uppercase tracking-widest px-1.5 py-0.5 border cursor-pointer select-none ${
+                className={`text-xs md:text-sm font-mono font-bold uppercase tracking-widest px-1.5 py-0.5 border cursor-pointer select-none ${
                   timerActive ? 'border-accent-pink-soft bg-accent-pink-soft text-[var(--accent)]' : 'border-[var(--rule)] text-[var(--muted)]'
                 }`}
               >

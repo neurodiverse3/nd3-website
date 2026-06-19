@@ -23,7 +23,7 @@ export const CodeBlock = ({ code, language }) => {
           <span>{language || 'code'}</span>
           <button
             onClick={copyToClipboard}
-            className={`flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider border cursor-pointer transition-all duration-200 rounded-none bg-transparent ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 text-xs md:text-sm font-black uppercase tracking-wider border cursor-pointer transition-all duration-200 rounded-none bg-transparent ${
               copied
                 ? 'border-green-500 text-green-400 bg-green-500/10'
                 : 'border-accent/40 text-accent hover:border-accent hover:bg-accent/10'

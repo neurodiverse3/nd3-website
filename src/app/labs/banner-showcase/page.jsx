@@ -214,7 +214,7 @@ export default function BannerShowcase() {
         )}
 
         <div className="relative z-10 flex flex-row justify-between items-center w-full select-none gap-2">
-          <div className="font-mono text-[10px] text-white/70 uppercase font-black tracking-widest text-left whitespace-nowrap overflow-hidden text-ellipsis">
+          <div className="font-mono text-xs md:text-sm text-white/70 uppercase font-black tracking-widest text-left whitespace-nowrap overflow-hidden text-ellipsis">
             {eyebrowLabel}
           </div>
           <div className="flex justify-end items-center ml-auto text-right font-display font-black text-xs tracking-tight opacity-90">
@@ -258,10 +258,10 @@ export default function BannerShowcase() {
         
         <div className="mb-12 border-b-4 border-fg-primary pb-8 pt-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 w-full mt-4">
           <div>
-            <Link href="/labs" className="inline-flex items-center gap-2 text-text-muted hover:text-accent-pink transition-colors uppercase font-black text-[10px] tracking-widest mb-6 focus-ring">
+            <Link href="/labs" className="inline-flex items-center gap-2 text-text-muted hover:text-accent-pink transition-colors uppercase font-black text-xs md:text-sm tracking-widest mb-6 focus-ring">
               <ArrowLeft size={12} /> Back to Labs
             </Link>
-            <div className="inline-block text-[11px] font-mono tracking-[0.25em] text-accent-pink bg-accent-pink-soft px-3 py-1 uppercase border border-border-rule mb-4 select-none animate-pulse-slow">
+            <div className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-accent-pink bg-accent-pink-soft px-3 py-1 uppercase border border-border-rule mb-4 select-none animate-pulse-slow">
               PREMIUM DESIGNS SANDBOX
             </div>
             <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-fg-primary leading-none font-display">
@@ -285,8 +285,8 @@ export default function BannerShowcase() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <div className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">THEME EMULATOR:</div>
-              <div className="grid grid-cols-3 gap-1 font-mono text-[9px] tracking-wide">
+              <div className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">THEME EMULATOR:</div>
+              <div className="grid grid-cols-3 gap-1 font-mono text-xs md:text-sm tracking-wide">
                 {Object.keys(THEME_DEFS).map((tKey) => (
                   <button key={tKey} onClick={() => setSelectedTheme(tKey)} className={`py-2 px-1 border-2 text-center font-black cursor-pointer rounded-none uppercase transition-all ${selectedTheme === tKey ? 'bg-accent-pink border-white text-black' : 'border-border-rule text-text-muted bg-black/40 hover:border-white hover:text-white'}`}>
                     {tKey}
@@ -296,12 +296,12 @@ export default function BannerShowcase() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="cover-title-input" className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">COVER TITLE:</label>
+              <label htmlFor="cover-title-input" className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">COVER TITLE:</label>
               <textarea id="cover-title-input" rows={3} value={title} onChange={(e) => setTitle(e.target.value)} className="w-full bg-black border border-border-rule focus:border-accent-pink px-3 py-2 text-xs text-white outline-none rounded-none font-sans font-medium focus-ring resize-y" />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="pillar-select" className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">PILLAR BRAND CARD COLOR:</label>
+              <label htmlFor="pillar-select" className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">PILLAR BRAND CARD COLOR:</label>
               <select id="pillar-select" value={pillar} onChange={(e) => setPillar(e.target.value)} className="w-full h-10 bg-black border border-border-rule focus:border-accent-pink px-3 py-1 text-xs text-white outline-none rounded-none font-mono focus-ring cursor-pointer">
                 <option value="unmasked-life">Unmasked Life (Garnet Dark Rose)</option>
                 <option value="tiny-systems">Tools & Templates (Bronze Amber)</option>
@@ -310,7 +310,7 @@ export default function BannerShowcase() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="brain-state-select" className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">BRAIN STATE TAG:</label>
+              <label htmlFor="brain-state-select" className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">BRAIN STATE TAG:</label>
               <select id="brain-state-select" value={brainState} onChange={(e) => setBrainState(e.target.value)} className="w-full h-10 bg-black border border-border-rule focus:border-accent-pink px-3 py-1 text-xs text-white outline-none rounded-none font-mono focus-ring cursor-pointer">
                 <option value="burned-out">Burned Out</option>
                 <option value="hyperfocus">Hyperfocused</option>
@@ -321,7 +321,7 @@ export default function BannerShowcase() {
             </div>
 
             <div className="flex flex-col gap-2 pt-3 border-t border-border-rule/60">
-              <div className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">LINES TO AUDIT / SWAP:</div>
+              <div className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">LINES TO AUDIT / SWAP:</div>
               <label htmlFor="eyebrow-line-checkbox" className="flex items-center gap-2 text-xs text-text-muted hover:text-white cursor-pointer select-none font-mono">
                 <input id="eyebrow-line-checkbox" type="checkbox" checked={modifyEyebrowLine} onChange={() => setModifyEyebrowLine(!modifyEyebrowLine)} className="accent-accent-pink cursor-pointer" />
                 <span>Eyebrow Hairline Divider</span>
@@ -341,13 +341,13 @@ export default function BannerShowcase() {
               <div className="px-6 py-4 bg-black/40 border-b border-border-rule flex justify-between items-center select-none flex-wrap gap-4">
                 <div>
                   <span className="font-mono text-xs font-black uppercase text-accent-pink tracking-widest block">
-                    CONCEPT 1 — TAPERED GLOW
+                    CONCEPT 1 - TAPERED GLOW
                   </span>
-                  <span className="text-[10px] font-sans text-text-muted mt-1 block">
+                  <span className="text-xs md:text-sm font-sans text-text-muted mt-1 block">
                     Lines fade to transparency at the edges with a soft neon glow in the center. Elegant and premium.
                   </span>
                 </div>
-                <button onClick={() => toggleInspector('A')} className="flex items-center gap-1.5 px-3 py-1 border border-border-rule hover:border-accent-pink hover:text-accent-pink transition-all font-mono text-[9px] font-bold uppercase rounded-none cursor-pointer">
+                <button onClick={() => toggleInspector('A')} className="flex items-center gap-1.5 px-3 py-1 border border-border-rule hover:border-accent-pink hover:text-accent-pink transition-all font-mono text-xs md:text-sm font-bold uppercase rounded-none cursor-pointer">
                   <Code size={11} /> {openInspectors.A ? 'HIDE CODE' : 'INSPECT'}
                 </button>
               </div>
@@ -366,7 +366,7 @@ export default function BannerShowcase() {
                 )}
               </div>
               {openInspectors.A && (
-                <div className="border-t border-border-rule bg-black p-5 font-mono text-[11px] text-zinc-400 overflow-x-auto relative">
+                <div className="border-t border-border-rule bg-black p-5 font-mono text-xs md:text-sm text-zinc-400 overflow-x-auto relative">
                   <div className="absolute right-4 top-4 z-10 flex gap-2">
                     <button onClick={() => copyToClipboard('A', codes.A)} className="flex items-center gap-1.5 px-3 py-1 bg-zinc-900 border border-zinc-700 text-white hover:bg-white hover:text-black transition-colors rounded-none font-bold cursor-pointer">
                       {copiedStates.A ? <Check size={11} className="text-green-500" /> : <Copy size={11} />}
@@ -383,13 +383,13 @@ export default function BannerShowcase() {
               <div className="px-6 py-4 bg-black/40 border-b border-border-rule flex justify-between items-center select-none flex-wrap gap-4">
                 <div>
                   <span className="font-mono text-xs font-black uppercase text-accent-pink tracking-widest block">
-                    CONCEPT 2 — GLASSMORPHIC ETCHES
+                    CONCEPT 2 - GLASSMORPHIC ETCHES
                   </span>
-                  <span className="text-[10px] font-sans text-text-muted mt-1 block">
+                  <span className="text-xs md:text-sm font-sans text-text-muted mt-1 block">
                     Uses backdrop-blur and borders to look like a frosted glass ridge etched into the layout. Minimalist depth.
                   </span>
                 </div>
-                <button onClick={() => toggleInspector('B')} className="flex items-center gap-1.5 px-3 py-1 border border-border-rule hover:border-accent-pink hover:text-accent-pink transition-all font-mono text-[9px] font-bold uppercase rounded-none cursor-pointer">
+                <button onClick={() => toggleInspector('B')} className="flex items-center gap-1.5 px-3 py-1 border border-border-rule hover:border-accent-pink hover:text-accent-pink transition-all font-mono text-xs md:text-sm font-bold uppercase rounded-none cursor-pointer">
                   <Code size={11} /> {openInspectors.B ? 'HIDE CODE' : 'INSPECT'}
                 </button>
               </div>
@@ -405,7 +405,7 @@ export default function BannerShowcase() {
                 )}
               </div>
               {openInspectors.B && (
-                <div className="border-t border-border-rule bg-black p-5 font-mono text-[11px] text-zinc-400 overflow-x-auto relative">
+                <div className="border-t border-border-rule bg-black p-5 font-mono text-xs md:text-sm text-zinc-400 overflow-x-auto relative">
                   <div className="absolute right-4 top-4 z-10 flex gap-2">
                     <button onClick={() => copyToClipboard('B', codes.B)} className="flex items-center gap-1.5 px-3 py-1 bg-zinc-900 border border-zinc-700 text-white hover:bg-white hover:text-black transition-colors rounded-none font-bold cursor-pointer">
                       {copiedStates.B ? <Check size={11} className="text-green-500" /> : <Copy size={11} />}
@@ -422,13 +422,13 @@ export default function BannerShowcase() {
               <div className="px-6 py-4 bg-black/40 border-b border-border-rule flex justify-between items-center select-none flex-wrap gap-4">
                 <div>
                   <span className="font-mono text-xs font-black uppercase text-accent-pink tracking-widest block">
-                    CONCEPT 3 — ANIMATED LIGHT SWEEP
+                    CONCEPT 3 - ANIMATED LIGHT SWEEP
                   </span>
-                  <span className="text-[10px] font-sans text-text-muted mt-1 block">
+                  <span className="text-xs md:text-sm font-sans text-text-muted mt-1 block">
                     Clean 1px line with a very slow, ambient glowing lens flare sweeping across it. Alive and interactive.
                   </span>
                 </div>
-                <button onClick={() => toggleInspector('C')} className="flex items-center gap-1.5 px-3 py-1 border border-border-rule hover:border-accent-pink hover:text-accent-pink transition-all font-mono text-[9px] font-bold uppercase rounded-none cursor-pointer">
+                <button onClick={() => toggleInspector('C')} className="flex items-center gap-1.5 px-3 py-1 border border-border-rule hover:border-accent-pink hover:text-accent-pink transition-all font-mono text-xs md:text-sm font-bold uppercase rounded-none cursor-pointer">
                   <Code size={11} /> {openInspectors.C ? 'HIDE CODE' : 'INSPECT'}
                 </button>
               </div>
@@ -450,7 +450,7 @@ export default function BannerShowcase() {
                 )}
               </div>
               {openInspectors.C && (
-                <div className="border-t border-border-rule bg-black p-5 font-mono text-[11px] text-zinc-400 overflow-x-auto relative">
+                <div className="border-t border-border-rule bg-black p-5 font-mono text-xs md:text-sm text-zinc-400 overflow-x-auto relative">
                   <div className="absolute right-4 top-4 z-10 flex gap-2">
                     <button onClick={() => copyToClipboard('C', codes.C)} className="flex items-center gap-1.5 px-3 py-1 bg-zinc-900 border border-zinc-700 text-white hover:bg-white hover:text-black transition-colors rounded-none font-bold cursor-pointer">
                       {copiedStates.C ? <Check size={11} className="text-green-500" /> : <Copy size={11} />}
@@ -467,13 +467,13 @@ export default function BannerShowcase() {
               <div className="px-6 py-4 bg-black/40 border-b border-border-rule flex justify-between items-center select-none flex-wrap gap-4">
                 <div>
                   <span className="font-mono text-xs font-black uppercase text-accent-pink tracking-widest block">
-                    CONCEPT 4 — ARCHITECTURAL BLUEPRINT
+                    CONCEPT 4 - ARCHITECTURAL BLUEPRINT
                   </span>
-                  <span className="text-[10px] font-sans text-text-muted mt-1 block">
+                  <span className="text-xs md:text-sm font-sans text-text-muted mt-1 block">
                     Very sparse, wide-set dashed lines that feel like clean technical blueprints.
                   </span>
                 </div>
-                <button onClick={() => toggleInspector('D')} className="flex items-center gap-1.5 px-3 py-1 border border-border-rule hover:border-accent-pink hover:text-accent-pink transition-all font-mono text-[9px] font-bold uppercase rounded-none cursor-pointer">
+                <button onClick={() => toggleInspector('D')} className="flex items-center gap-1.5 px-3 py-1 border border-border-rule hover:border-accent-pink hover:text-accent-pink transition-all font-mono text-xs md:text-sm font-bold uppercase rounded-none cursor-pointer">
                   <Code size={11} /> {openInspectors.D ? 'HIDE CODE' : 'INSPECT'}
                 </button>
               </div>
@@ -501,7 +501,7 @@ export default function BannerShowcase() {
                 )}
               </div>
               {openInspectors.D && (
-                <div className="border-t border-border-rule bg-black p-5 font-mono text-[11px] text-zinc-400 overflow-x-auto relative">
+                <div className="border-t border-border-rule bg-black p-5 font-mono text-xs md:text-sm text-zinc-400 overflow-x-auto relative">
                   <div className="absolute right-4 top-4 z-10 flex gap-2">
                     <button onClick={() => copyToClipboard('D', codes.D)} className="flex items-center gap-1.5 px-3 py-1 bg-zinc-900 border border-zinc-700 text-white hover:bg-white hover:text-black transition-colors rounded-none font-bold cursor-pointer">
                       {copiedStates.D ? <Check size={11} className="text-green-500" /> : <Copy size={11} />}

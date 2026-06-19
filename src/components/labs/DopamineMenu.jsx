@@ -34,7 +34,7 @@ export default function DopamineMenu({ noWrapper = false }) {
         <h3 className="text-base font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
           <Coffee size={16} className="text-[var(--accent)]" /> RESET MENU
         </h3>
-        <span className="text-[10px] font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5">DOPAMINE</span>
+        <span className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5">DOPAMINE</span>
       </div>
 
       <div className="space-y-3">
@@ -48,7 +48,7 @@ export default function DopamineMenu({ noWrapper = false }) {
             <span className="text-xs font-mono uppercase text-[var(--accent)] font-bold tracking-widest">· {activeSnack.title} ·</span>
             <p className="text-xs font-mono text-[var(--muted)] leading-relaxed">{activeSnack.body}</p>
           </div>
-          <div className="text-[10px] font-mono text-[var(--muted)] tracking-wider mt-3 uppercase border-t border-[var(--rule)]/40 pt-2 flex justify-between">
+          <div className="text-xs md:text-sm font-mono text-[var(--muted)] tracking-wider mt-3 uppercase border-t border-[var(--rule)]/40 pt-2 flex justify-between">
             <span>SENSORY TARGET</span>
             <span>EST: {activeSnack.duration}</span>
           </div>

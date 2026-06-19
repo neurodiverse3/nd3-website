@@ -430,21 +430,21 @@ export async function generateMetadata({ params }) {
 
   if (!lab) {
     return {
-      title: 'Lab not found — neurodivers3',
+      title: 'Lab not found - neurodivers3',
     };
   }
 
   const pageTitle = lab.seoTitle || lab.title;
 
   return {
-    title: `${pageTitle} — neurodivers3`,
+    title: `${pageTitle} - neurodivers3`,
     description: lab.excerpt || "Alternative visual-spatial paths, sensory-friendly utilities, and resets specifically tailored for neurodivergent brains.",
     openGraph: {
-      title: `${pageTitle} — neurodivers3`,
+      title: `${pageTitle} - neurodivers3`,
       description: lab.excerpt || "Alternative visual-spatial paths, sensory-friendly utilities, and resets specifically tailored for neurodivergent brains.",
     },
     twitter: {
-      title: `${pageTitle} — neurodivers3`,
+      title: `${pageTitle} - neurodivers3`,
       description: lab.excerpt || "Alternative visual-spatial paths, sensory-friendly utilities, and resets specifically tailored for neurodivergent brains.",
     }
   };
@@ -496,7 +496,7 @@ export default async function LabSlugPage(props) {
   return (
     <div className="min-h-screen pt-[96px] md:pt-[120px] pb-16 md:pb-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col justify-start text-left">
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-[10px] font-mono text-[var(--muted)] uppercase tracking-wider mb-6">
+      <nav className="flex items-center gap-2 text-sm font-mono text-[var(--muted)] uppercase tracking-wider mb-6">
         <Link href="/labs" className="hover:text-[var(--accent)] transition-colors">
           LABS
         </Link>
@@ -511,7 +511,7 @@ export default async function LabSlugPage(props) {
       {/* Back button */}
       <Link 
         href="/labs" 
-        className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[var(--muted)] hover:text-[var(--accent)] transition-colors mb-8 self-start cursor-pointer font-mono"
+        className="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-[var(--muted)] hover:text-[var(--accent)] transition-colors mb-8 self-start cursor-pointer font-mono"
       >
         <ArrowLeft size={12} /> BACK TO EXPERIMENTAL PLAYGROUND
       </Link>
@@ -520,10 +520,10 @@ export default async function LabSlugPage(props) {
       <div className="border-b-4 border-fg-primary pb-8 mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 w-full">
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 bg-[var(--accent-soft)] text-[var(--accent)] border border-[var(--rule)]">
+            <span className="text-sm font-mono font-bold uppercase tracking-widest px-2.5 py-1 bg-[var(--accent-soft)] text-[var(--accent)] border border-[var(--rule)]">
               {lab.category?.title || "EXPERIMENT"} · {lab.tag || "LAB"}
             </span>
-            <span className={`text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 border ${
+            <span className={`text-sm font-mono font-bold uppercase tracking-widest px-2 py-0.5 border ${
               metadata.complexity === 'DEEP DIVE'
                 ? 'border-amber-500/30 text-amber-500 bg-amber-500/5'
                 : 'border-green-500/30 text-green-500 bg-green-500/5'
@@ -541,7 +541,7 @@ export default async function LabSlugPage(props) {
       </div>
 
       {/* Metadata Bar */}
-      <div className="flex flex-wrap items-center gap-4 py-3 px-4 border border-[var(--rule)] bg-black/20 mb-8 text-[10px] font-mono uppercase tracking-wider text-[var(--muted)]">
+      <div className="flex flex-wrap items-center gap-4 py-3 px-4 border border-[var(--rule)] bg-black/20 mb-8 text-sm font-mono uppercase tracking-wider text-[var(--muted)]">
         <div className="flex items-center gap-1.5">
           <Clock size={12} className="text-[var(--accent)]" />
           <span>{metadata.setupTime} setup</span>
@@ -587,7 +587,7 @@ export default async function LabSlugPage(props) {
             </h3>
             <ul className="space-y-2">
               {metadata.useCases.map((useCase, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs text-[var(--muted)] leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-sm text-[var(--muted)] leading-relaxed">
                   <span className="text-[var(--accent)] mt-0.5 shrink-0">→</span>
                   {useCase}
                 </li>
@@ -602,7 +602,7 @@ export default async function LabSlugPage(props) {
                 href={lab.externalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-[var(--bg)] border border-[var(--accent)] hover:bg-transparent hover:text-[var(--accent)] transition-all font-black uppercase text-xs tracking-wider cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-[var(--bg)] border border-[var(--accent)] hover:bg-transparent hover:text-[var(--accent)] transition-all font-black uppercase text-sm tracking-wider cursor-pointer"
               >
                 LAUNCH EXTERNAL APPLICATION <ExternalLink size={14} />
               </a>
@@ -612,7 +612,7 @@ export default async function LabSlugPage(props) {
           {/* Prev/Next Navigation */}
           {(prevLab || nextLab) && (
             <div className="border border-[var(--rule)] bg-black/20 p-4 space-y-3">
-              <span className="text-[9px] font-mono text-[var(--muted)] uppercase tracking-widest block font-bold">
+              <span className="text-sm font-mono text-[var(--muted)] uppercase tracking-widest block font-bold">
                 NAVIGATE LABS
               </span>
               <div className="grid grid-cols-2 gap-3">
@@ -623,14 +623,14 @@ export default async function LabSlugPage(props) {
                   >
                     <ChevronLeft size={14} className="text-[var(--muted)] group-hover:text-[var(--accent)] shrink-0" />
                     <div className="overflow-hidden">
-                      <span className="text-[8px] font-mono text-[var(--muted)] uppercase block">PREVIOUS</span>
-                      <span className="text-xs font-black text-[var(--fg)] group-hover:text-[var(--accent)] uppercase truncate block">{prevLab.title}</span>
+                      <span className="text-sm font-mono text-[var(--muted)] uppercase block">PREVIOUS</span>
+                      <span className="text-sm font-black text-[var(--fg)] group-hover:text-[var(--accent)] uppercase truncate block">{prevLab.title}</span>
                     </div>
                   </Link>
                 ) : (
                   <div className="p-3 border border-[var(--rule)]/30 opacity-30">
-                    <span className="text-[8px] font-mono text-[var(--muted)] uppercase block">PREVIOUS</span>
-                    <span className="text-xs font-black text-[var(--muted)] uppercase">-</span>
+                    <span className="text-sm font-mono text-[var(--muted)] uppercase block">PREVIOUS</span>
+                    <span className="text-sm font-black text-[var(--muted)] uppercase">-</span>
                   </div>
                 )}
                 {nextLab ? (
@@ -639,15 +639,15 @@ export default async function LabSlugPage(props) {
                     className="flex items-center gap-2 p-3 border border-[var(--rule)] hover:border-[var(--accent)] transition-colors group cursor-pointer justify-end text-right"
                   >
                     <div className="overflow-hidden">
-                      <span className="text-[8px] font-mono text-[var(--muted)] uppercase block">NEXT</span>
-                      <span className="text-xs font-black text-[var(--fg)] group-hover:text-[var(--accent)] uppercase truncate block">{nextLab.title}</span>
+                      <span className="text-sm font-mono text-[var(--muted)] uppercase block">NEXT</span>
+                      <span className="text-sm font-black text-[var(--fg)] group-hover:text-[var(--accent)] uppercase truncate block">{nextLab.title}</span>
                     </div>
                     <ChevronRight size={14} className="text-[var(--muted)] group-hover:text-[var(--accent)] shrink-0" />
                   </Link>
                 ) : (
                   <div className="p-3 border border-[var(--rule)]/30 opacity-30 text-right">
-                    <span className="text-[8px] font-mono text-[var(--muted)] uppercase block">NEXT</span>
-                    <span className="text-xs font-black text-[var(--muted)] uppercase">-</span>
+                    <span className="text-sm font-mono text-[var(--muted)] uppercase block">NEXT</span>
+                    <span className="text-sm font-black text-[var(--muted)] uppercase">-</span>
                   </div>
                 )}
               </div>
@@ -669,8 +669,8 @@ export default async function LabSlugPage(props) {
                     className="flex items-center justify-between p-3 border border-[var(--rule)] hover:border-[var(--accent)] transition-colors group cursor-pointer"
                   >
                     <div>
-                      <span className="text-xs font-black text-[var(--fg)] group-hover:text-[var(--accent)] uppercase block">{related.title}</span>
-                      <span className="text-[9px] font-mono text-[var(--muted)] uppercase tracking-wider">{related.tag}</span>
+                      <span className="text-sm font-black text-[var(--fg)] group-hover:text-[var(--accent)] uppercase block">{related.title}</span>
+                      <span className="text-sm font-mono text-[var(--muted)] uppercase tracking-wider">{related.tag}</span>
                     </div>
                     <ArrowLeft size={12} className="text-[var(--muted)] group-hover:text-[var(--accent)] rotate-180 shrink-0" />
                   </Link>

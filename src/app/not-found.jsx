@@ -16,7 +16,7 @@ export default function NotFound() {
         eyebrow="404"
         titleLabel="Lost"
         titleAccent="The Plot"
-        subtitle="The page you're looking for doesn't exist — it may have been moved or removed."
+        subtitle="The page you're looking for doesn't exist - it may have been moved or removed."
       />
 
       <div className="mt-8 flex justify-start">

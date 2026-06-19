@@ -11,7 +11,7 @@ export default function AuthorCard({ author = {}, socials = {} }) {
     "Writer, founder, and late-diagnosed AuDHD brain behind neurodivers³. Diagnosed with both autism and ADHD during a combined assessment in 2023. Building tiny systems and sharing honest writings for brains that don't fit the standard manual.";
   const photoUrl = "/ollie.jpg"; // Premium local asset
 
-  // Social handles — single source of truth, mirrors the homepage.
+  // Social handles - single source of truth, mirrors the homepage.
   const instagram = socials.instagram || "neurodivers3";
   const tiktok    = socials.tiktok    || "neurodivers3";
   const youtube   = socials.youtube   || "neurodivers3";
@@ -36,7 +36,7 @@ export default function AuthorCard({ author = {}, socials = {} }) {
         {/* Content Area */}
         <div className="flex-grow space-y-3">
           <div>
-            <span className="text-[9px] font-mono tracking-widest text-accent-pink uppercase block font-bold">
+            <span className="text-xs md:text-sm font-mono tracking-widest text-accent-pink uppercase block font-bold">
               WRITTEN BY
             </span>
             <h3 className="text-xl font-black uppercase text-fg-primary tracking-tight font-display mt-0.5">
@@ -52,14 +52,14 @@ export default function AuthorCard({ author = {}, socials = {} }) {
           <div className="flex flex-wrap items-center gap-2.5 pt-2">
             <Link
               href="/about"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-[10px] font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
             >
               <Compass size={11} className="text-accent-pink" /> ABOUT
             </Link>
 
             <Link
               href="#subscribe-block"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-[10px] font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
             >
               <Send size={11} className="text-accent-pink" /> NEWSLETTER
             </Link>
@@ -68,7 +68,7 @@ export default function AuthorCard({ author = {}, socials = {} }) {
               href={`https://tiktok.com/@${tiktok}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-[10px] font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
             >
               TIKTOK
             </a>
@@ -77,7 +77,7 @@ export default function AuthorCard({ author = {}, socials = {} }) {
               href={`https://instagram.com/${instagram}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-[10px] font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
             >
               INSTAGRAM
             </a>
@@ -86,7 +86,7 @@ export default function AuthorCard({ author = {}, socials = {} }) {
               href={`https://youtube.com/@${youtube}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-[10px] font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
             >
               YOUTUBE
             </a>
@@ -95,7 +95,7 @@ export default function AuthorCard({ author = {}, socials = {} }) {
               href={`https://facebook.com/${facebook}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-[10px] font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
             >
               FACEBOOK
             </a>
@@ -104,7 +104,7 @@ export default function AuthorCard({ author = {}, socials = {} }) {
               href={`https://x.com/${twitter}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-[10px] font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"
             >
               X / TWITTER
             </a>

@@ -318,7 +318,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
             </div>
  
             {/* QUICK KEYBOARD HINT */}
-            <div className="flex justify-between items-center text-[10px] font-mono text-text-muted uppercase tracking-widest mb-6">
+            <div className="flex justify-between items-center text-xs md:text-sm font-mono text-text-muted uppercase tracking-widest mb-6">
               <span>{loading ? 'indexing files...' : `system ready: ${items.length} items loaded`}</span>
               <div className="hidden md:flex gap-4">
                 <span>[↑↓] navigate</span>
@@ -387,14 +387,14 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
                         <div className="flex-1 min-w-0">
                           {/* Top Row: Type and Metadata */}
                           <div className="flex items-center gap-2 mb-2">
-                            <span className={`px-2 py-0.5 text-[9px] font-mono font-black uppercase tracking-widest border rounded-none ${
+                            <span className={`px-2 py-0.5 text-xs md:text-sm font-mono font-black uppercase tracking-widest border rounded-none ${
                               isActive 
                                 ? 'bg-[var(--accent-soft)] border-accent text-accent' 
                                 : 'bg-bg-primary border-border-rule text-text-muted'
                             }`}>
                               {item.badge}
                             </span>
-                            <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider truncate">
+                            <span className="text-xs md:text-sm font-mono text-text-muted uppercase tracking-wider truncate">
                               {item.meta}
                             </span>
                           </div>

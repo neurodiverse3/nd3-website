@@ -158,7 +158,7 @@ export const Footer = () => {
           <Link
             key={idx}
             href={pillar.path}
-            className={`badge-pillar-link px-3.5 py-1 rounded-full text-[11px] font-bold font-mono uppercase tracking-wider border badge-pillar-${pillar.theme} focus-ring`}
+            className={`badge-pillar-link px-3.5 py-1 rounded-full text-xs md:text-sm font-bold font-mono uppercase tracking-wider border badge-pillar-${pillar.theme} focus-ring`}
           >
             <span className={`w-1.5 h-1.5 rounded-full bg-pillar-${pillar.theme}`} />
             {pillar.text}

@@ -146,7 +146,7 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
       {/* Discovery Block Header */}
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono tracking-[0.25em] text-accent-pink uppercase block font-bold">
+          <span className="text-xs md:text-sm font-mono tracking-[0.25em] text-accent-pink uppercase block font-bold">
             CURATED DISCOVERY
           </span>
           <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-fg-primary mt-1.5 leading-none font-display">
@@ -155,7 +155,7 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
         </div>
         <Link
           href="/blog"
-          className="text-[10px] font-mono tracking-widest text-text-muted hover:text-accent-pink transition-colors flex items-center gap-1.5 uppercase font-bold focus-ring"
+          className="text-xs md:text-sm font-mono tracking-widest text-text-muted hover:text-accent-pink transition-colors flex items-center gap-1.5 uppercase font-bold focus-ring"
         >
           All transmissions <ArrowRight size={12} className="ml-0.5" />
         </Link>
@@ -188,7 +188,7 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
             >
               <div className="space-y-3">
                 {/* Category / Relationship Eyebrow */}
-                <div className="text-[9px] font-mono tracking-widest uppercase flex items-center gap-1.5 flex-wrap font-bold leading-none">
+                <div className="text-xs md:text-sm font-mono tracking-widest uppercase flex items-center gap-1.5 flex-wrap font-bold leading-none">
                   {isPinkLabel ? (
                     <span className="text-accent-pink">{eyebrow}</span>
                   ) : (
@@ -208,7 +208,7 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
               </div>
 
               {/* Card Footer tags */}
-              <div className="flex flex-wrap items-center justify-between mt-6 pt-4 border-t border-border-rule/40 text-[9px] font-bold uppercase tracking-widest text-text-muted font-mono gap-2 leading-none">
+              <div className="flex flex-wrap items-center justify-between mt-6 pt-4 border-t border-border-rule/40 text-xs md:text-sm font-bold uppercase tracking-widest text-text-muted font-mono gap-2 leading-none">
                 <div className="flex items-center gap-1.5 flex-wrap">
                   <span className="text-accent-pink">{getPillarLabel(post.pillar)}</span>
                   <span>/</span>

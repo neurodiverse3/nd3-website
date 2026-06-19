@@ -327,8 +327,8 @@ export default function PrintableArchitect() {
               {/* Product Idea Seed Prompt */}
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                  <label className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">RESEARCH & COMPILE PROMPT:</label>
-                  <span className="text-[9px] font-mono text-accent-pink bg-accent-pink-soft px-1.5 py-0.5 border border-border-rule">AI ASSISTANT ACTIVE</span>
+                  <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">RESEARCH & COMPILE PROMPT:</label>
+                  <span className="text-xs md:text-sm font-mono text-accent-pink bg-accent-pink-soft px-1.5 py-0.5 border border-border-rule">AI ASSISTANT ACTIVE</span>
                 </div>
                 <div className="flex gap-2">
                   <input
@@ -347,7 +347,7 @@ export default function PrintableArchitect() {
                     {isAIPlanning ? 'RUNNING...' : 'AI RESEARCH'}
                   </button>
                 </div>
-                <div className="text-[10px] text-text-muted leading-relaxed font-sans mt-1">
+                <div className="text-xs md:text-sm text-text-muted leading-relaxed font-sans mt-1">
                   💡 Try typing <span className="text-[#FF2E88] font-mono cursor-pointer hover:underline" onClick={() => setPrompt("ADHD Sleep & Evening Routine")}>"ADHD sleep routine"</span> or <span className="text-[#2E62FF] font-mono cursor-pointer hover:underline" onClick={() => setPrompt("Autism Sensory Food Audit")}>"Autism Sensory Food Audit"</span> to watch the AI build custom specialized templates.
                 </div>
               </div>
@@ -357,7 +357,7 @@ export default function PrintableArchitect() {
                 <div className="border border-border-rule bg-[#040406] p-6 text-center space-y-4 animate-pulse select-none">
                   <Cpu className="text-accent-pink mx-auto animate-spin" size={24} />
                   <div className="space-y-1">
-                    <span className="font-mono text-[10px] uppercase font-bold tracking-widest text-accent-pink block">AI AGENTIC PROCESSOR</span>
+                    <span className="font-mono text-xs md:text-sm uppercase font-bold tracking-widest text-accent-pink block">AI AGENTIC PROCESSOR</span>
                     <p className="text-xs text-white font-mono uppercase tracking-wide">
                       {planningStep === 1 && "Stage 1: Crawling niche demand metrics..."}
                       {planningStep === 2 && "Stage 2: Structuring neurological grounding justification..."}
@@ -379,10 +379,10 @@ export default function PrintableArchitect() {
                 <div className="border border-border-rule bg-[#050508] p-5 flex flex-col gap-4 font-sans text-xs">
                   <div className="flex items-center gap-2 border-b border-border-rule pb-3">
                     <TrendingUp className="text-accent-pink" size={14} />
-                    <span className="font-mono text-[10px] font-black uppercase text-white tracking-wider">MARKET SEGMENT & MARKETING DATA</span>
+                    <span className="font-mono text-xs md:text-sm font-black uppercase text-white tracking-wider">MARKET SEGMENT & MARKETING DATA</span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 font-mono text-[10px]">
+                  <div className="grid grid-cols-2 gap-4 font-mono text-xs md:text-sm">
                     <div>
                       <span className="text-text-muted uppercase block">ESTIMATED DEMAND:</span>
                       <span className="text-white font-bold">{researchData.demand}</span>
@@ -402,22 +402,22 @@ export default function PrintableArchitect() {
                   </div>
 
                   <div className="space-y-1.5 pt-2 border-t border-border-rule">
-                    <span className="font-mono text-[9px] text-text-muted uppercase tracking-wider block">NEURODIVERGENT GROUNDING STRATEGY (WHY IT SELLS):</span>
+                    <span className="font-mono text-xs md:text-sm text-text-muted uppercase tracking-wider block">NEURODIVERGENT GROUNDING STRATEGY (WHY IT SELLS):</span>
                     <p className="text-xs text-text-muted leading-relaxed font-sans">{researchData.neuroReason}</p>
                   </div>
 
                   <div className="space-y-1.5">
-                    <span className="font-mono text-[9px] text-text-muted uppercase tracking-wider block">TARGET HIGH-CONVERSION KEYWORDS:</span>
+                    <span className="font-mono text-xs md:text-sm text-text-muted uppercase tracking-wider block">TARGET HIGH-CONVERSION KEYWORDS:</span>
                     <div className="flex flex-wrap gap-1.5 pt-1">
                       {researchData.keywords.map((kw, i) => (
-                        <span key={i} className="px-2 py-0.5 bg-[#121216] border border-border-rule font-mono text-[9px] uppercase tracking-wide text-white">{kw}</span>
+                        <span key={i} className="px-2 py-0.5 bg-[#121216] border border-border-rule font-mono text-xs md:text-sm uppercase tracking-wide text-white">{kw}</span>
                       ))}
                     </div>
                   </div>
 
                   <div className="space-y-1.5 border-t border-dashed border-border-rule pt-3 mt-1">
-                    <span className="font-mono text-[9px] text-accent-pink uppercase font-bold tracking-wider block">STORE DESCRIPTION COPY (PRE-COMPILED):</span>
-                    <p className="text-[11px] text-text-muted font-sans leading-relaxed italic bg-black/40 p-2.5 border border-border-rule/50">
+                    <span className="font-mono text-xs md:text-sm text-accent-pink uppercase font-bold tracking-wider block">STORE DESCRIPTION COPY (PRE-COMPILED):</span>
+                    <p className="text-xs md:text-sm text-text-muted font-sans leading-relaxed italic bg-black/40 p-2.5 border border-border-rule/50">
                       "{researchData.copy}"
                     </p>
                   </div>
@@ -428,36 +428,36 @@ export default function PrintableArchitect() {
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2 border-b border-border-rule pb-2">
                   <BookOpen className="text-white" size={12} />
-                  <span className="font-mono text-[9px] font-black uppercase text-white tracking-widest">LOAD BESTSELLING ETSY PRESETS</span>
+                  <span className="font-mono text-xs md:text-sm font-black uppercase text-white tracking-widest">LOAD BESTSELLING ETSY PRESETS</span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-[10px]">
+                <div className="grid grid-cols-2 gap-2 text-xs md:text-sm">
                   <button
                     onClick={() => handleLoadPreset('dopamine')}
                     className="p-3 border border-border-rule hover:border-accent-pink bg-black/50 text-left cursor-pointer transition-all flex flex-col gap-1 rounded-none hover:-translate-y-0.5 active:scale-95"
                   >
-                    <span className="font-mono text-[9px] font-bold text-accent-pink uppercase">1. DOPAMINE MENU</span>
-                    <span className="text-text-muted font-sans text-[10px]">Break paralysis.</span>
+                    <span className="font-mono text-xs md:text-sm font-bold text-accent-pink uppercase">1. DOPAMINE MENU</span>
+                    <span className="text-text-muted font-sans text-xs md:text-sm">Break paralysis.</span>
                   </button>
                   <button
                     onClick={() => handleLoadPreset('executive')}
                     className="p-3 border border-border-rule hover:border-accent-pink bg-black/50 text-left cursor-pointer transition-all flex flex-col gap-1 rounded-none hover:-translate-y-0.5 active:scale-95"
                   >
-                    <span className="font-mono text-[9px] font-bold text-[#2E62FF] uppercase">2. EXEC ALIGNMENT</span>
-                    <span className="text-text-muted font-sans text-[10px]">Expedite work layers.</span>
+                    <span className="font-mono text-xs md:text-sm font-bold text-[#2E62FF] uppercase">2. EXEC ALIGNMENT</span>
+                    <span className="text-text-muted font-sans text-xs md:text-sm">Expedite work layers.</span>
                   </button>
                   <button
                     onClick={() => handleLoadPreset('sensory')}
                     className="p-3 border border-border-rule hover:border-accent-pink bg-black/50 text-left cursor-pointer transition-all flex flex-col gap-1 rounded-none hover:-translate-y-0.5 active:scale-95"
                   >
-                    <span className="font-mono text-[9px] font-bold text-[#5A8A60] uppercase">3. SENSORY AUDIT</span>
-                    <span className="text-text-muted font-sans text-[10px]">Log drains & glimmers.</span>
+                    <span className="font-mono text-xs md:text-sm font-bold text-[#5A8A60] uppercase">3. SENSORY AUDIT</span>
+                    <span className="text-text-muted font-sans text-xs md:text-sm">Log drains & glimmers.</span>
                   </button>
                   <button
                     onClick={() => handleLoadPreset('routine')}
                     className="p-3 border border-border-rule hover:border-accent-pink bg-black/50 text-left cursor-pointer transition-all flex flex-col gap-1 rounded-none hover:-translate-y-0.5 active:scale-95"
                   >
-                    <span className="font-mono text-[9px] font-bold text-accent-pink uppercase">4. NOW / NEXT BOARD</span>
-                    <span className="text-text-muted font-sans text-[10px]">Anchor routines.</span>
+                    <span className="font-mono text-xs md:text-sm font-bold text-accent-pink uppercase">4. NOW / NEXT BOARD</span>
+                    <span className="text-text-muted font-sans text-xs md:text-sm">Anchor routines.</span>
                   </button>
                 </div>
               </div>
@@ -470,12 +470,12 @@ export default function PrintableArchitect() {
             <div className="flex flex-col gap-6">
 
               {/* PDF Export Mode Toggle */}
-              <div className="flex flex-col gap-2 font-mono text-[10px] select-none">
-                <label className="font-mono text-[9px] text-accent-pink tracking-widest uppercase font-bold">EXPORT TYPE FORMAT:</label>
+              <div className="flex flex-col gap-2 font-mono text-xs md:text-sm select-none">
+                <label className="font-mono text-xs md:text-sm text-accent-pink tracking-widest uppercase font-bold">EXPORT TYPE FORMAT:</label>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setExportMode('prefilled')}
-                    className={`flex-1 py-2.5 text-[10px] text-center border font-bold cursor-pointer transition-all ${
+                    className={`flex-1 py-2.5 text-xs md:text-sm text-center border font-bold cursor-pointer transition-all ${
                       exportMode === 'prefilled'
                         ? 'bg-white text-black border-white shadow-[2px_2px_0px_#FF2E88]'
                         : 'border-border-rule text-text-muted hover:border-white'
@@ -485,7 +485,7 @@ export default function PrintableArchitect() {
                   </button>
                   <button
                     onClick={() => setExportMode('blank')}
-                    className={`flex-1 py-2.5 text-[10px] text-center border font-bold cursor-pointer transition-all ${
+                    className={`flex-1 py-2.5 text-xs md:text-sm text-center border font-bold cursor-pointer transition-all ${
                       exportMode === 'blank'
                         ? 'bg-white text-black border-white shadow-[2px_2px_0px_#FF2E88]'
                         : 'border-border-rule text-text-muted hover:border-white'
@@ -494,7 +494,7 @@ export default function PrintableArchitect() {
                     BLANK FILLABLE PDF
                   </button>
                 </div>
-                <p className="text-[9px] text-text-muted leading-relaxed font-sans mt-0.5">
+                <p className="text-xs md:text-sm text-text-muted leading-relaxed font-sans mt-0.5">
                   {exportMode === 'prefilled' 
                     ? '💾 Exports with all your pre-filled custom texts and checklist goals intact.' 
                     : '✏️ Generates empty fillable lines and interactive checkboxes in the PDF, letting customers check items and type text directly inside the file!'}
@@ -503,8 +503,8 @@ export default function PrintableArchitect() {
 
               {/* Brand Theming */}
               <div className="flex flex-col gap-2">
-                <label className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">BRAND SYSTEM COLORWAY:</label>
-                <div className="flex gap-2 font-mono text-[10px] select-none">
+                <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">BRAND SYSTEM COLORWAY:</label>
+                <div className="flex gap-2 font-mono text-xs md:text-sm select-none">
                   <button
                     onClick={() => setSheet(prev => ({ ...prev, theme: 'void' }))}
                     className={`flex-1 py-2 text-center border font-bold cursor-pointer transition-all ${
@@ -540,8 +540,8 @@ export default function PrintableArchitect() {
 
               {/* Typography toggles */}
               <div className="flex flex-col gap-2 select-none">
-                <label className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">BRAND FONT FAMILY:</label>
-                <div className="flex gap-2 font-mono text-[10px]">
+                <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">BRAND FONT FAMILY:</label>
+                <div className="flex gap-2 font-mono text-xs md:text-sm">
                   <button
                     onClick={() => setSheet(prev => ({ ...prev, font: 'mono' }))}
                     className={`flex-1 py-2 text-center border font-bold cursor-pointer transition-all ${
@@ -566,8 +566,8 @@ export default function PrintableArchitect() {
               </div>
 
               {/* Layout Watermark Toggles */}
-              <div className="flex flex-col gap-2 font-mono text-[10px] select-none">
-                <label className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">LAYOUT OPTIONS:</label>
+              <div className="flex flex-col gap-2 font-mono text-xs md:text-sm select-none">
+                <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">LAYOUT OPTIONS:</label>
                 <div className="flex gap-4">
                   <label className="flex items-center gap-2 cursor-pointer hover:text-white text-text-muted">
                     <input
@@ -583,7 +583,7 @@ export default function PrintableArchitect() {
 
               {/* Capacity Slider Label Config */}
               <div className="flex flex-col gap-2 font-mono">
-                <label className="font-mono text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">DASHBOARD BATTERY LABEL:</label>
+                <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">DASHBOARD BATTERY LABEL:</label>
                 <input
                   type="text"
                   value={sheet.scaleLabel || ""}
@@ -595,7 +595,7 @@ export default function PrintableArchitect() {
               {/* Tasks Tweaker (Manage Section Structure) */}
               <div className="flex flex-col gap-3 font-mono text-xs">
                 <div className="flex items-center justify-between border-b border-border-rule pb-2">
-                  <span className="text-[9px] text-[#8A8A93] tracking-widest uppercase font-bold">MANAGE CHECKLIST BLOCKS</span>
+                  <span className="text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">MANAGE CHECKLIST BLOCKS</span>
                 </div>
                 <div className="space-y-3 font-sans text-xs select-none">
                   {sheet.sections.map((sec, secIdx) => {
@@ -603,10 +603,10 @@ export default function PrintableArchitect() {
                     return (
                       <div key={sec.id} className="border border-border-rule bg-[#040405] p-3 space-y-2">
                         <div className="flex justify-between items-center border-b border-border-rule/45 pb-1.5">
-                          <span className="font-mono text-[10px] font-bold text-accent-pink uppercase">{sec.title.substring(0, 30)}...</span>
+                          <span className="font-mono text-xs md:text-sm font-bold text-accent-pink uppercase">{sec.title.substring(0, 30)}...</span>
                           <button
                             onClick={() => handleAddChecklistItem(secIdx)}
-                            className="px-2 py-0.5 bg-[#121216] border border-border-rule font-mono text-[9px] uppercase tracking-wide text-white hover:border-white transition-colors cursor-pointer flex items-center gap-1"
+                            className="px-2 py-0.5 bg-[#121216] border border-border-rule font-mono text-xs md:text-sm uppercase tracking-wide text-white hover:border-white transition-colors cursor-pointer flex items-center gap-1"
                           >
                             <Plus size={10} /> ADD ITEM
                           </button>
@@ -618,7 +618,7 @@ export default function PrintableArchitect() {
                                 type="text"
                                 value={it.text}
                                 onChange={(e) => handleUpdateChecklistItemText(secIdx, itIdx, e.target.value)}
-                                className="flex-1 bg-black border border-border-rule px-2 py-1 text-[11px] text-white focus:border-accent-pink outline-none rounded-none"
+                                className="flex-1 bg-black border border-border-rule px-2 py-1 text-xs md:text-sm text-white focus:border-accent-pink outline-none rounded-none"
                               />
                               <button
                                 onClick={() => handleRemoveChecklistItem(secIdx, itIdx)}
@@ -656,7 +656,7 @@ export default function PrintableArchitect() {
                 </>
               )}
             </button>
-            <div className="text-[10px] text-text-muted font-mono leading-relaxed text-center italic">
+            <div className="text-xs md:text-sm text-text-muted font-mono leading-relaxed text-center italic">
               📌 Tip: Generates a high-fidelity vector PDF featuring fully interactive checkboxes and clickable text fields compatible with all device readers!
             </div>
           </div>
@@ -666,7 +666,7 @@ export default function PrintableArchitect() {
         <div className="flex flex-col items-center justify-start w-full relative">
           
           {/* Active Preset Overlay indicator */}
-          <div className="w-full max-w-[800px] mb-3 flex justify-between items-center font-mono text-[10px] text-text-muted uppercase tracking-wider px-2 no-print">
+          <div className="w-full max-w-[800px] mb-3 flex justify-between items-center font-mono text-xs md:text-sm text-text-muted uppercase tracking-wider px-2 no-print">
             <span>PREVIEWING physical layout (A4 Ratio)</span>
             <span className="flex items-center gap-1.5"><Maximize2 size={10} /> EDIT TEXT FIELDS INLINE BELOW</span>
           </div>
@@ -685,7 +685,7 @@ export default function PrintableArchitect() {
                 <div className="space-y-1 flex-1">
                   <div className="flex items-center gap-2">
                     <span 
-                      className={`font-mono text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] border border-black px-2 py-0.5 ${
+                      className={`font-mono text-xs md:text-sm md:text-xs md:text-sm font-black uppercase tracking-[0.2em] border border-black px-2 py-0.5 ${
                         sheet.theme === 'void' ? 'bg-[#FF2E88]/15 text-[#FF2E88]' : ''
                       } ${
                         sheet.theme === 'warm-charcoal' ? 'bg-[#2E62FF]/15 text-[#2E62FF]' : ''
@@ -708,12 +708,12 @@ export default function PrintableArchitect() {
                     type="text"
                     value={sheet.subtitle}
                     onChange={(e) => handleUpdateSheetSubtitle(e.target.value)}
-                    className="text-[11px] md:text-[12px] text-[#444444] font-medium leading-relaxed bg-transparent border-b border-transparent hover:border-black/20 focus:border-black focus:bg-black/5 outline-none w-full"
+                    className="text-xs md:text-sm md:text-[12px] text-[#444444] font-medium leading-relaxed bg-transparent border-b border-transparent hover:border-black/20 focus:border-black focus:bg-black/5 outline-none w-full"
                   />
                 </div>
 
                 {/* Date stamp without REF */}
-                <div className="hidden md:flex flex-col items-end text-[9px] font-mono border border-black p-2.5 bg-[#eaeaea]/10 text-[#222222] shrink-0 self-end mb-1">
+                <div className="hidden md:flex flex-col items-end text-xs md:text-sm font-mono border border-black p-2.5 bg-[#eaeaea]/10 text-[#222222] shrink-0 self-end mb-1">
                   <span>DATE: _________________</span>
                 </div>
               </div>
@@ -721,10 +721,10 @@ export default function PrintableArchitect() {
               {/* Dynamic Brain State scale gauge */}
               {sheet.scaleLabel && (
                 <div className="border-2 border-black p-4 bg-white select-none">
-                  <div className="flex justify-between items-center font-mono text-[9px] md:text-[10px] font-black uppercase text-[#111111] mb-2.5 tracking-wider">
+                  <div className="flex justify-between items-center font-mono text-xs md:text-sm md:text-xs md:text-sm font-black uppercase text-[#111111] mb-2.5 tracking-wider">
                     <span>{sheet.scaleLabel}</span>
                     <span 
-                      className={`text-[9px] px-1.5 py-0.5 border border-black font-bold ${
+                      className={`text-xs md:text-sm px-1.5 py-0.5 border border-black font-bold ${
                         sheet.theme === 'void' ? 'bg-[#FF2E88] text-white' : ''
                       } ${
                         sheet.theme === 'warm-charcoal' ? 'bg-[#2E62FF] text-white' : ''
@@ -754,7 +754,7 @@ export default function PrintableArchitect() {
                               : 'bg-transparent'
                           }`}
                         >
-                          <span className={isActive ? "text-[#111] text-[10px] md:text-xs block" : "hidden"}>●</span>
+                          <span className={isActive ? "text-[#111] text-xs md:text-sm md:text-xs block" : "hidden"}>●</span>
                         </div>
                       );
                     })}
@@ -779,14 +779,14 @@ export default function PrintableArchitect() {
                             type="text"
                             value={sec.title}
                             onChange={(e) => handleUpdateSectionTitle(secIdx, e.target.value)}
-                            className="font-mono text-[10px] md:text-[11px] font-black uppercase text-[#111111] bg-transparent border-none outline-none focus:bg-black/5 w-full tracking-wider"
+                            className="font-mono text-xs md:text-sm md:text-xs md:text-sm font-black uppercase text-[#111111] bg-transparent border-none outline-none focus:bg-black/5 w-full tracking-wider"
                           />
                         </div>
                         <textarea
                           value={isBlank ? "" : sec.text}
                           placeholder={isBlank ? "Click to write notes or log sensory status..." : ""}
                           onChange={(e) => handleUpdateNotesText(secIdx, e.target.value)}
-                          className="fillable-textarea flex-1 bg-transparent border-none text-[11px] md:text-[12px] leading-relaxed text-[#222222] font-sans resize-none outline-none focus:bg-black/5 w-full h-full min-h-[100px]"
+                          className="fillable-textarea flex-1 bg-transparent border-none text-xs md:text-sm md:text-[12px] leading-relaxed text-[#222222] font-sans resize-none outline-none focus:bg-black/5 w-full h-full min-h-[100px]"
                         />
                       </div>
                     );
@@ -803,7 +803,7 @@ export default function PrintableArchitect() {
                           type="text"
                           value={sec.title}
                           onChange={(e) => handleUpdateSectionTitle(secIdx, e.target.value)}
-                          className="font-mono text-[10px] md:text-[11px] font-black uppercase text-[#111111] bg-transparent border-none outline-none focus:bg-black/5 w-full tracking-wider"
+                          className="font-mono text-xs md:text-sm md:text-xs md:text-sm font-black uppercase text-[#111111] bg-transparent border-none outline-none focus:bg-black/5 w-full tracking-wider"
                         />
                       </div>
                       <div className="space-y-3 flex-1">
@@ -828,7 +828,7 @@ export default function PrintableArchitect() {
                                 value={isBlank ? "" : item.text}
                                 placeholder={isBlank ? "Type item goal here..." : ""}
                                 onChange={(e) => handleUpdateChecklistItemText(secIdx, itemIdx, e.target.value)}
-                                className="fillable-input flex-1 bg-transparent border-none text-[11px] md:text-[12px] font-medium leading-tight text-[#222222] focus:bg-black/5 outline-none py-0.5"
+                                className="fillable-input flex-1 bg-transparent border-none text-xs md:text-sm md:text-[12px] font-medium leading-tight text-[#222222] focus:bg-black/5 outline-none py-0.5"
                               />
                             </div>
                           );
@@ -843,7 +843,7 @@ export default function PrintableArchitect() {
 
             {/* Branded printable footer watermark */}
             {sheet.watermark && (
-              <div className="border-t-2 border-black pt-4 flex flex-col sm:flex-row justify-between items-center text-[8px] md:text-[9px] font-mono uppercase tracking-wider text-[#333333] select-none gap-2 mt-6">
+              <div className="border-t-2 border-black pt-4 flex flex-col sm:flex-row justify-between items-center text-xs md:text-sm md:text-xs md:text-sm font-mono uppercase tracking-wider text-[#333333] select-none gap-2 mt-6">
                 <span>© {new Date().getFullYear()} neurodivers3.co.uk</span>
                 <span 
                   className={`px-2 py-0.5 border border-black ${

@@ -50,7 +50,7 @@ const ThreadsIcon = ({ size = 11, color = "currentColor" }) => (
   </svg>
 );
 
-const baseChipClass = "flex items-center gap-1.5 px-3 py-1.5 border border-border-rule bg-[#09090b] text-[10px] font-black uppercase tracking-widest text-fg-primary hover:bg-accent-pink hover:border-accent-pink hover:text-[#09090b] transition-all duration-200 rounded-none cursor-pointer select-none group";
+const baseChipClass = "flex items-center gap-1.5 px-3 py-1.5 border border-border-rule bg-[#09090b] text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:bg-accent-pink hover:border-accent-pink hover:text-[#09090b] transition-all duration-200 rounded-none cursor-pointer select-none group";
 
 export function SharePost({ title, slug, dek = '', vertical = false }) {
   const [copied, setCopied] = useState(false);
@@ -107,7 +107,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
     }
   };
 
-  const shareText = `"${title}"${dek ? ` — ${dek}` : ''}`;
+  const shareText = `"${title}"${dek ? ` - ${dek}` : ''}`;
   const encodedText = encodeURIComponent(shareText);
   const currentUrl = mounted ? url : `https://neurodivers3.co.uk/blog/${slug}`;
   const encodedUrl = encodeURIComponent(currentUrl);
@@ -117,7 +117,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
   const emailShare = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`Check out this post: "${title}"\n\n"${dek}"\n\nRead more here: ${currentUrl}`)}`;
   
   // More items
-  const threadsShare = `https://www.threads.net/intent/post?text=${encodeURIComponent(`"${title}"${dek ? ` — ${dek}` : ''}\n\n${currentUrl}`)}`;
+  const threadsShare = `https://www.threads.net/intent/post?text=${encodeURIComponent(`"${title}"${dek ? ` - ${dek}` : ''}\n\n${currentUrl}`)}`;
   const linkedinShare = `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(dek || '')}`;
   const facebookShare = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodeURIComponent(shareText)}`;
   const redditShare = `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodeURIComponent(title)}`;
@@ -130,7 +130,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
       localStorage.setItem('nd3_mastodon_instance', mastodonInstance);
     }
     const cleanInstance = mastodonInstance.trim().replace(/^https?:\/\//, '');
-    const mastodonUrl = `https://${cleanInstance}/share?text=${encodeURIComponent(`"${title}"${dek ? ` — ${dek}` : ''} ${currentUrl}`)}`;
+    const mastodonUrl = `https://${cleanInstance}/share?text=${encodeURIComponent(`"${title}"${dek ? ` - ${dek}` : ''} ${currentUrl}`)}`;
     window.open(mastodonUrl, '_blank', 'noopener,noreferrer');
     setShowMastodonInput(false);
   };
@@ -147,7 +147,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
 
     return (
       <div className="w-full no-print select-none">
-        <span className="text-[8.5px] font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-2.5 text-center">
+        <span className="text-xs md:text-sm font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-2.5 text-center">
           SHARE
         </span>
         <div className="grid grid-cols-4 gap-2 justify-items-center">
@@ -215,11 +215,11 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
         {/* Mastodon Instance Picker */}
         {showMastodonInput && (
           <form onSubmit={triggerMastodonShare} className="w-full p-3 border border-border-rule/70 bg-bg-primary/95 flex flex-col gap-2 items-center animate-in slide-in-from-top-2 duration-200 text-left mt-3">
-            <label htmlFor="mastodon-server-vertical" className="block text-[8px] font-mono tracking-widest text-text-muted uppercase font-bold w-full">
+            <label htmlFor="mastodon-server-vertical" className="block text-xs md:text-sm font-mono tracking-widest text-text-muted uppercase font-bold w-full">
               MASTODON SERVER:
             </label>
-            <input id="mastodon-server-vertical" type="text" placeholder="mastodon.social" value={mastodonInstance} onChange={(e) => setMastodonInstance(e.target.value)} required className="w-full h-8 bg-bg-primary border border-border-rule/80 focus:border-accent-pink px-2 py-1 font-mono text-[10px] text-fg-primary outline-none rounded-none" />
-            <button type="submit" className="w-full h-8 bg-accent-pink text-bg-primary text-[9px] font-black uppercase tracking-widest border border-fg-primary hover:opacity-90 transition-opacity cursor-pointer rounded-none">
+            <input id="mastodon-server-vertical" type="text" placeholder="mastodon.social" value={mastodonInstance} onChange={(e) => setMastodonInstance(e.target.value)} required className="w-full h-8 bg-bg-primary border border-border-rule/80 focus:border-accent-pink px-2 py-1 font-mono text-xs md:text-sm text-fg-primary outline-none rounded-none" />
+            <button type="submit" className="w-full h-8 bg-accent-pink text-bg-primary text-xs md:text-sm font-black uppercase tracking-widest border border-fg-primary hover:opacity-90 transition-opacity cursor-pointer rounded-none">
               SHARE
             </button>
           </form>
@@ -232,7 +232,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
     <div className="flex flex-col gap-3 py-6 border-y border-border-rule/60 my-6 select-none w-full no-print">
       {/* Primary share row */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-[10px] font-black uppercase tracking-[0.25em] text-text-muted mr-1">
+        <span className="text-xs md:text-sm font-black uppercase tracking-[0.25em] text-text-muted mr-1">
           SHARE:
         </span>
 
@@ -315,7 +315,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
           className="p-4 border border-border-rule bg-[#09090b] flex flex-col sm:flex-row gap-3 items-center animate-in slide-in-from-top-2 duration-200 w-full max-w-md self-start text-left mt-1"
         >
           <div className="flex-grow w-full">
-            <label htmlFor="mastodon-server" className="block text-[9px] font-mono tracking-widest text-text-muted uppercase mb-1 font-bold">
+            <label htmlFor="mastodon-server" className="block text-xs md:text-sm font-mono tracking-widest text-text-muted uppercase mb-1 font-bold">
               MASTODON SERVER URL:
             </label>
             <input

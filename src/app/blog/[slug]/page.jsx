@@ -29,7 +29,7 @@ export async function generateMetadata({ params }) {
 
   if (!post) {
     return {
-      title: 'Post not found — neurodivers3',
+      title: 'Post not found - neurodivers3',
       description: 'The requested unmasked story could not be found.'
     };
   }
@@ -62,13 +62,13 @@ export async function generateMetadata({ params }) {
   const resolvedTitle = post.seoTitle || post.title;
 
   return {
-    title: `${resolvedTitle} — neurodivers3`,
+    title: `${resolvedTitle} - neurodivers3`,
     description: (post.excerpt || 'Accessibility tools and memoirs for brains that don\'t fit the standard manual.').slice(0, 155),
     alternates: {
       canonical: `https://neurodivers3.co.uk/blog/${slug}`,
     },
     openGraph: {
-      title: `${resolvedTitle} — neurodivers3`,
+      title: `${resolvedTitle} - neurodivers3`,
       description: post.excerpt,
       type: 'article',
       publishedTime: post.date || post._createdAt,
@@ -76,7 +76,7 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${resolvedTitle} — neurodivers3`,
+      title: `${resolvedTitle} - neurodivers3`,
       description: post.excerpt,
       images: [ogUrl],
     }
@@ -339,7 +339,7 @@ export default async function BlogPostPage({ params }) {
             <div className="xl:hidden w-full mb-8 text-left">
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 text-text-muted hover:text-accent transition-colors uppercase font-black text-[10px] tracking-widest mb-6 focus-ring"
+                className="inline-flex items-center gap-2 text-text-muted hover:text-accent transition-colors uppercase font-black text-xs md:text-sm tracking-widest mb-6 focus-ring"
               >
                 ← Back to blog
               </Link>
@@ -365,7 +365,7 @@ export default async function BlogPostPage({ params }) {
               </div>
 
               {formattedUpdateDate && (
-                <div className="flex items-center gap-1.5 text-[10px] font-mono tracking-wider uppercase text-accent bg-[var(--accent-soft)] px-3.5 py-1 border border-border-rule mt-4 w-fit">
+                <div className="flex items-center gap-1.5 text-xs md:text-sm font-mono tracking-wider uppercase text-accent bg-[var(--accent-soft)] px-3.5 py-1 border border-border-rule mt-4 w-fit">
                   <AlertCircle size={10} /> Updated {formattedUpdateDate}
                 </div>
               )}
@@ -377,26 +377,26 @@ export default async function BlogPostPage({ params }) {
 
 
 
-            {/* MOBILE/TABLET SIDEBAR CAROUSEL — pops sidebar widgets below title */}
+            {/* MOBILE/TABLET SIDEBAR CAROUSEL - pops sidebar widgets below title */}
             <div className="xl:hidden mb-10">
               <div className="blog-sidebar-carousel max-w-[760px] mx-auto">
                 {/* Back to Blog */}
                 <Link
                   href="/blog"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-200 shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring whitespace-nowrap"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-200 shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring whitespace-nowrap"
                 >
                   ← All posts
                 </Link>
 
                 {/* Date + Read Time pill */}
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule bg-surface/40 text-fg-primary font-mono text-[9px] font-bold uppercase tracking-widest whitespace-nowrap">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule bg-surface/40 text-fg-primary font-mono text-xs md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">
                   {formattedDate} · {readTimeVal}
                 </span>
 
                 {/* Pillar tag */}
                 <Link
                   href={`/blog?pillar=${post.pillar}`}
-                  className={`inline-flex items-center px-2.5 py-1.5 text-[9px] font-mono font-black uppercase transition-all focus-ring whitespace-nowrap ${getPillarTagClass(post.pillar)}`}
+                  className={`inline-flex items-center px-2.5 py-1.5 text-xs md:text-sm font-mono font-black uppercase transition-all focus-ring whitespace-nowrap ${getPillarTagClass(post.pillar)}`}
                 >
                   {getPillarLabel(post.pillar)}
                 </Link>
@@ -404,7 +404,7 @@ export default async function BlogPostPage({ params }) {
                 {/* Brain State tag */}
                 <Link
                   href={`/blog?state=${post.brainState || post.state}`}
-                  className={`inline-flex items-center px-2.5 py-1.5 text-[9px] font-mono font-black uppercase transition-all focus-ring whitespace-nowrap ${getBrainStateTagClass(post.brainState || post.state)}`}
+                  className={`inline-flex items-center px-2.5 py-1.5 text-xs md:text-sm font-mono font-black uppercase transition-all focus-ring whitespace-nowrap ${getBrainStateTagClass(post.brainState || post.state)}`}
                 >
                   {getBrainStateLabel(post.brainState || post.state)}
                 </Link>
@@ -428,7 +428,7 @@ export default async function BlogPostPage({ params }) {
                   <span>
                     Part <span className="font-bold text-accent">{post.series.index}</span> of {seriesPosts.length} in <span className="italic font-bold">'{post.series.name}'</span>
                   </span>
-                  <div className="flex gap-4 uppercase tracking-widest text-[9px] font-bold shrink-0">
+                  <div className="flex gap-4 uppercase tracking-widest text-xs md:text-sm font-bold shrink-0">
                     {prevSeriesPost ? (
                       <Link href={`/blog/${prevSeriesPost.slug}`} className="hover:text-accent focus-ring">
                         ← Part {post.series.index - 1}
@@ -525,16 +525,16 @@ export default async function BlogPostPage({ params }) {
                     href={`/blog/${prevSeriesPost.slug}`}
                     className="group border border-border-rule hover:border-fg-primary p-5 flex flex-col justify-between text-left bg-surface/40 hover:-translate-y-0.5 transition-all duration-200"
                   >
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-text-muted mb-2 block">PREVIOUS IN SERIES</span>
+                    <span className="text-xs md:text-sm font-mono uppercase tracking-widest text-text-muted mb-2 block">PREVIOUS IN SERIES</span>
                     <h4 className="text-sm font-black uppercase text-fg-primary group-hover:text-accent transition-colors line-clamp-2 leading-snug">
                       {prevSeriesPost.title}
                     </h4>
-                    <span className="text-[9px] font-mono text-accent uppercase tracking-wider block mt-4 font-bold">
+                    <span className="text-xs md:text-sm font-mono text-accent uppercase tracking-wider block mt-4 font-bold">
                       Part {post.series.index - 1} of {seriesPosts.length}
                     </span>
                   </Link>
                 ) : (
-                  <div className="border border-dashed border-border-rule/40 p-5 flex items-center justify-center text-center text-text-muted/40 font-mono text-[10px] uppercase select-none">
+                  <div className="border border-dashed border-border-rule/40 p-5 flex items-center justify-center text-center text-text-muted/40 font-mono text-xs md:text-sm uppercase select-none">
                     Start of Series
                   </div>
                 )}
@@ -544,16 +544,16 @@ export default async function BlogPostPage({ params }) {
                     href={`/blog/${nextSeriesPost.slug}`}
                     className="group border border-border-rule hover:border-fg-primary p-5 flex flex-col justify-between text-left bg-surface/40 hover:-translate-y-0.5 transition-all duration-200"
                   >
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-text-muted mb-2 block text-right">NEXT IN SERIES</span>
+                    <span className="text-xs md:text-sm font-mono uppercase tracking-widest text-text-muted mb-2 block text-right">NEXT IN SERIES</span>
                     <h4 className="text-sm font-black uppercase text-fg-primary group-hover:text-accent transition-colors line-clamp-2 leading-snug text-right">
                       {nextSeriesPost.title}
                     </h4>
-                    <span className="text-[9px] font-mono text-accent uppercase tracking-wider block mt-4 font-bold text-right">
+                    <span className="text-xs md:text-sm font-mono text-accent uppercase tracking-wider block mt-4 font-bold text-right">
                       Part {post.series.index + 1} of {seriesPosts.length}
                     </span>
                   </Link>
                 ) : (
-                  <div className="border border-dashed border-border-rule/40 p-5 flex items-center justify-center text-center text-text-muted/40 font-mono text-[10px] uppercase select-none">
+                  <div className="border border-dashed border-border-rule/40 p-5 flex items-center justify-center text-center text-text-muted/40 font-mono text-xs md:text-sm uppercase select-none">
                     End of Series
                   </div>
                 )}
@@ -590,7 +590,7 @@ export default async function BlogPostPage({ params }) {
               {/* Back to Blog */}
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-200 self-start shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring mt-1"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-200 self-start shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring mt-1"
               >
                 ← Back to blog
               </Link>
@@ -598,7 +598,7 @@ export default async function BlogPostPage({ params }) {
               {/* Compact Meta Info */}
               <div className="space-y-4 border-t border-border-rule/80 pt-5 text-left">
                 <div>
-                  <span className="text-[8.5px] font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-1">
+                  <span className="text-xs md:text-sm font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-1">
                     DATE & READ TIME
                   </span>
                   <span className="text-xs font-sans font-bold text-fg-primary block">
@@ -606,25 +606,25 @@ export default async function BlogPostPage({ params }) {
                   </span>
                 </div>
                 <div>
-                  <span className="text-[8.5px] font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-2">
+                  <span className="text-xs md:text-sm font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-2">
                     METRICS
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     <Link 
                       href={`/blog?pillar=${post.pillar}`} 
-                      className={`text-[9px] font-mono font-black uppercase px-2 py-0.5 transition-all focus-ring ${getPillarTagClass(post.pillar)}`}
+                      className={`text-xs md:text-sm font-mono font-black uppercase px-2 py-0.5 transition-all focus-ring ${getPillarTagClass(post.pillar)}`}
                     >
                       {getPillarLabel(post.pillar)}
                     </Link>
                     <Link 
                       href={`/blog?state=${post.brainState || post.state}`} 
-                      className={`text-[9px] font-mono font-black uppercase px-2 py-0.5 transition-all focus-ring ${getBrainStateTagClass(post.brainState || post.state)}`}
+                      className={`text-xs md:text-sm font-mono font-black uppercase px-2 py-0.5 transition-all focus-ring ${getBrainStateTagClass(post.brainState || post.state)}`}
                     >
                       {getBrainStateLabel(post.brainState || post.state)}
                     </Link>
                   </div>
                 </div>
-                <div className="text-[10px] font-mono tracking-widest text-text-muted uppercase font-bold flex items-center gap-2 pt-1">
+                <div className="text-xs md:text-sm font-mono tracking-widest text-text-muted uppercase font-bold flex items-center gap-2 pt-1">
                   <span>BY</span>
                   <span className="text-fg-primary font-black hover:text-accent transition-colors">
                     OLLIE CLEWS

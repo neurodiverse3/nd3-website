@@ -30,7 +30,7 @@ export default function ProductCard({
         <div className="flex-grow space-y-4 w-full">
           <div>
             <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-border-rule/80 pb-2">
-              <span className="text-[10px] font-mono tracking-widest text-[var(--link)] uppercase font-bold">
+              <span className="text-xs md:text-sm font-mono tracking-widest text-[var(--link)] uppercase font-bold">
                 TOOLKIT COMPONENT
               </span>
               <span className="text-lg font-mono font-black text-fg-primary uppercase">

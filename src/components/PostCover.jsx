@@ -228,7 +228,7 @@ export const PostCover = ({
         <div className="absolute inset-0 bg-[linear-gradient(rgba(31,31,34,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(31,31,34,0.35)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none select-none z-0"></div>
 
         {/* Top Header details */}
-        <div className="z-10 flex justify-between items-start w-full border-b border-[#1F1F22] pb-3 text-[10px] text-text-muted">
+        <div className="z-10 flex justify-between items-start w-full border-b border-[#1F1F22] pb-3 text-xs md:text-sm text-text-muted">
           <span>STATUS: ACTIVE DIAGNOSTIC</span>
           <span>DEV_MODE: V2.1</span>
         </div>
@@ -245,13 +245,13 @@ export const PostCover = ({
                 {dop}%
               </text>
             </svg>
-            <span className="text-[8px] text-text-muted mt-2 tracking-widest uppercase">SYS_LEVEL</span>
+            <span className="text-xs md:text-sm text-text-muted mt-2 tracking-widest uppercase">SYS_LEVEL</span>
           </div>
 
           {/* Core metrics bar graphs (right) */}
           <div className="col-span-8 flex flex-col gap-2 pl-2 text-left justify-center h-full">
             {metrics.map(m => (
-              <div key={m.name} className="flex items-center text-[9px] w-full">
+              <div key={m.name} className="flex items-center text-xs md:text-sm w-full">
                 <span className="w-16 text-[#8A8A93] tracking-wider select-none font-bold">{m.name}:</span>
                 <div className="flex-grow h-2 bg-[#1F1F22] relative overflow-hidden ml-2 shadow-[inset_1px_1px_2px_rgba(0,0,0,0.5)] border border-[#1F1F22]">
                   <div className="h-full" style={{ width: `${m.val}%`, backgroundColor: m.color, filter: 'drop-shadow(0 0 4px currentColor)' }}></div>
@@ -455,7 +455,7 @@ export const PostCover = ({
 
         <div className="relative z-10 w-full h-full flex flex-col justify-between p-6 md:p-10">
           {/* Top Header metadata */}
-          <div className="flex justify-between items-center w-full pb-3 border-b border-white/20 text-[10px] font-mono tracking-widest text-white/70">
+          <div className="flex justify-between items-center w-full pb-3 border-b border-white/20 text-xs md:text-sm font-mono tracking-widest text-white/70">
             <span>TX_GEN_ART</span>
             <span>SEED: #{seed.toString(16).toUpperCase()}</span>
           </div>
@@ -498,7 +498,7 @@ export const PostCover = ({
             <span className="font-display font-black text-4xl text-black leading-none tracking-tighter drop-shadow-[2px_2px_0px_#ffffff]">
               ³
             </span>
-            <span className="font-mono text-[8px] font-bold text-black uppercase tracking-widest mt-1">
+            <span className="font-mono text-xs md:text-sm font-bold text-black uppercase tracking-widest mt-1">
               SYS: ND3_GRID
             </span>
           </div>
@@ -521,7 +521,7 @@ export const PostCover = ({
             </h2>
           </div>
 
-          <div className="mt-8 pt-4 border-t border-[#1F1F22] flex justify-between items-center text-[9px] font-mono text-text-muted">
+          <div className="mt-8 pt-4 border-t border-[#1F1F22] flex justify-between items-center text-xs md:text-sm font-mono text-text-muted">
             <span>TX_STATUS: OK</span>
             <span className="font-display font-black text-white" aria-label="neurodivers three">neurodivers³</span>
           </div>
@@ -553,11 +553,11 @@ export const PostCover = ({
   if (is11) {
     const len = displayEyebrow11.length;
     if (len > 35) {
-      eyebrowFontClass = 'text-[9px] tracking-wide';
+      eyebrowFontClass = 'text-xs md:text-sm tracking-wide';
     } else if (len > 28) {
-      eyebrowFontClass = 'text-[10px] tracking-wide';
+      eyebrowFontClass = 'text-xs md:text-sm tracking-wide';
     } else if (len > 20) {
-      eyebrowFontClass = 'text-[11px] tracking-wider';
+      eyebrowFontClass = 'text-xs md:text-sm tracking-wider';
     } else {
       eyebrowFontClass = 'text-xs tracking-widest';
     }
@@ -599,7 +599,7 @@ export const PostCover = ({
           </div>
         </div>
 
-        {/* The hairline rule — 1px horizontal rule between eyebrow and title */}
+        {/* The hairline rule - 1px horizontal rule between eyebrow and title */}
         <div className={`w-full h-[1px] ${gridLineColor} ${aspect === '4:3' ? 'my-2' : 'my-3 md:my-5'}`}></div>
 
         {/* Main Title Align Top-Left */}

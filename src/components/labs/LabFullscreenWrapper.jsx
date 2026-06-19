@@ -59,7 +59,7 @@ export default function LabFullscreenWrapper({ slug }) {
         </span>
         <button
           onClick={toggleFullscreen}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 border-2 border-fg-primary bg-[var(--accent)] text-[var(--accent-text,var(--bg))] text-[10px] font-mono font-bold uppercase tracking-wider cursor-pointer transition-all rounded-none hover:-translate-y-0.5 hover:translate-x-0.5 hover:shadow-[3px_3px_0px_var(--fg)] active:translate-x-0 active:translate-y-0 active:shadow-none self-start sm:self-auto"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 border-2 border-fg-primary bg-[var(--accent)] text-[var(--accent-text,var(--bg))] text-xs md:text-sm font-mono font-bold uppercase tracking-wider cursor-pointer transition-all rounded-none hover:-translate-y-0.5 hover:translate-x-0.5 hover:shadow-[3px_3px_0px_var(--fg)] active:translate-x-0 active:translate-y-0 active:shadow-none self-start sm:self-auto"
           aria-label="Enter fullscreen"
         >
           <Maximize2 size={12} /> FULLSCREEN MODE (F)
@@ -72,7 +72,7 @@ export default function LabFullscreenWrapper({ slug }) {
           backgroundSize: '24px 24px'
         }}
       >
-        <div className="absolute top-2 right-2 font-mono text-[8px] text-[var(--muted)] opacity-40 select-none" aria-hidden="true">· GRID CALIBRATED ·</div>
+        <div className="absolute top-2 right-2 font-mono text-xs md:text-sm text-[var(--muted)] opacity-40 select-none" aria-hidden="true">· GRID CALIBRATED ·</div>
         <LabEmbedder slug={slug} />
       </div>
     </div>

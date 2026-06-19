@@ -251,7 +251,7 @@ END:VCARD`;
 
         {/* Links List */}
         <div className="space-y-4 pt-4">
-          <span className="text-[10px] font-mono font-bold text-text-muted uppercase tracking-[0.2em] block text-center">
+          <span className="text-xs md:text-sm font-mono font-bold text-text-muted uppercase tracking-[0.2em] block text-center">
             explore neurodivers³
           </span>
 
@@ -297,14 +297,14 @@ END:VCARD`;
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-mono font-bold uppercase text-[var(--accent-label,var(--accent))] tracking-wider shrink-0">
+          <span className="text-xs md:text-sm font-mono font-bold uppercase text-[var(--accent-label,var(--accent))] tracking-wider shrink-0">
             {copied ? "COPIED ✓" : "COPY"}
           </span>
         </button>
 
         {/* Social Grid */}
         <div className="space-y-4 pt-4">
-          <span className="text-[10px] font-mono font-bold text-text-muted uppercase tracking-[0.2em] block text-center">
+          <span className="text-xs md:text-sm font-mono font-bold text-text-muted uppercase tracking-[0.2em] block text-center">
             social channels
           </span>
           <div className="grid grid-cols-4 gap-3">
@@ -320,7 +320,7 @@ END:VCARD`;
                 <div className="text-fg-primary group-hover:text-[var(--accent-text,var(--bg))] transition-colors">
                   {social.icon}
                 </div>
-                <span className="text-[9px] font-mono font-bold uppercase tracking-wider hidden sm:block">
+                <span className="text-xs md:text-sm font-mono font-bold uppercase tracking-wider hidden sm:block">
                   {social.name}
                 </span>
               </a>

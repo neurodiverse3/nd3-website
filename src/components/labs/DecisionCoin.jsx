@@ -117,19 +117,19 @@ export default function DecisionCoin({ noWrapper = false }) {
         <h3 className="text-base font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
           <Sparkles size={16} className="text-[var(--accent)]" /> DECISION COIN
         </h3>
-        <span className="text-[10px] font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5 tracking-wider">
+        <span className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5 tracking-wider">
           TACTILE • BRAIN HACK
         </span>
       </div>
 
       <p className={`text-[13px] text-[var(--muted)] leading-relaxed ${noWrapper ? 'line-clamp-2 hover:line-clamp-none transition-all duration-300' : ''}`}>
-        Stuck in executive paralysis? Deliberating has stopped helping. Type your two options, tap to flip, and notice your gut reaction — the half-second of relief or disappointment is the answer your brain couldn't access.
+        Stuck in executive paralysis? Deliberating has stopped helping. Type your two options, tap to flip, and notice your gut reaction - the half-second of relief or disappointment is the answer your brain couldn't access.
       </p>
 
       {/* Two Text Inputs for Labels */}
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <label className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-wider block font-bold">
+          <label className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-wider block font-bold">
             SIDE A (HEADS)
           </label>
           <input
@@ -144,7 +144,7 @@ export default function DecisionCoin({ noWrapper = false }) {
         </div>
 
         <div className="space-y-1">
-          <label className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-wider block font-bold">
+          <label className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-wider block font-bold">
             SIDE B (TAILS)
           </label>
           <input
@@ -188,8 +188,8 @@ export default function DecisionCoin({ noWrapper = false }) {
               style={{ backfaceVisibility: 'hidden' }}
             >
               <div className="w-18 h-18 rounded-full border border-dashed border-[var(--rule)] flex flex-col items-center justify-center p-1.5">
-                <span className="text-[8px] font-mono tracking-widest text-[var(--muted)] select-none uppercase">PUSH</span>
-                <span className="text-[11px] font-black tracking-tight text-white uppercase break-all mt-0.5 leading-tight select-none">
+                <span className="text-xs md:text-sm font-mono tracking-widest text-[var(--muted)] select-none uppercase">PUSH</span>
+                <span className="text-xs md:text-sm font-black tracking-tight text-white uppercase break-all mt-0.5 leading-tight select-none">
                   {labelA || "HEADS"}
                 </span>
               </div>
@@ -204,8 +204,8 @@ export default function DecisionCoin({ noWrapper = false }) {
               }}
             >
               <div className="w-18 h-18 rounded-full border border-dashed border-[var(--rule)] flex flex-col items-center justify-center p-1.5">
-                <span className="text-[8px] font-mono tracking-widest text-[var(--accent)] select-none uppercase">REST</span>
-                <span className="text-[11px] font-black tracking-tight text-[var(--accent)] uppercase break-all mt-0.5 leading-tight select-none">
+                <span className="text-xs md:text-sm font-mono tracking-widest text-[var(--accent)] select-none uppercase">REST</span>
+                <span className="text-xs md:text-sm font-black tracking-tight text-[var(--accent)] uppercase break-all mt-0.5 leading-tight select-none">
                   {labelB || "TAILS"}
                 </span>
               </div>
@@ -216,13 +216,13 @@ export default function DecisionCoin({ noWrapper = false }) {
 
         {/* Floating status */}
         {isFlipping && (
-          <span className="absolute bottom-2 font-mono text-[9px] text-[var(--accent)] uppercase tracking-widest animate-pulse select-none">
+          <span className="absolute bottom-2 font-mono text-xs md:text-sm text-[var(--accent)] uppercase tracking-widest animate-pulse select-none">
             FLIPPING CHANNELS...
           </span>
         )}
 
         {!isFlipping && !gutFeedback && (
-          <span className="absolute bottom-2 font-mono text-[9px] text-[var(--muted)] uppercase tracking-widest select-none animate-pulse-slow">
+          <span className="absolute bottom-2 font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest select-none animate-pulse-slow">
             [ TAP COIN TO FLIP ]
           </span>
         )}
@@ -231,7 +231,7 @@ export default function DecisionCoin({ noWrapper = false }) {
       {/* Gut Reaction Feedback Display */}
       {gutFeedback && (
         <div className={`border border-[var(--rule)] bg-black/30 animate-in fade-in slide-in-from-bottom-2 duration-300 ${noWrapper ? 'p-3' : 'p-4'}`}>
-          <h4 className="text-[10px] font-mono font-bold text-[var(--accent)] uppercase tracking-widest flex items-center gap-1.5 border-b border-[var(--rule)] pb-1.5 mb-1.5">
+          <h4 className="text-xs md:text-sm font-mono font-bold text-[var(--accent)] uppercase tracking-widest flex items-center gap-1.5 border-b border-[var(--rule)] pb-1.5 mb-1.5">
             <Volume2 size={11} /> GUT-REACTION METRIC OUTPUT
           </h4>
           <p className="text-xs text-[var(--fg)] leading-relaxed font-sans">

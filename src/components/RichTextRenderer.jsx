@@ -179,7 +179,7 @@ export function getPortableTextComponents({ footnotes, headings }) {
         if (!slugVal) return null;
         return (
           <div className="max-w-[1000px] mx-auto my-12 text-left no-print">
-            <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-accent-pink mb-3 block select-none">
+            <div className="text-xs md:text-sm font-mono font-bold uppercase tracking-widest text-accent-pink mb-3 block select-none">
               INTERACTIVE LAB EMBED
             </div>
             <LabEmbedder slug={slugVal} inline={true} />
@@ -468,7 +468,7 @@ export function getStrapiBlocksComponents() {
       if (!labSlug) return null;
       return (
         <div className="max-w-[1000px] mx-auto my-12 text-left no-print">
-          <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-accent-pink mb-3 block select-none">
+          <div className="text-xs md:text-sm font-mono font-bold uppercase tracking-widest text-accent-pink mb-3 block select-none">
             INTERACTIVE LAB EMBED
           </div>
           <LabEmbedder slug={labSlug} inline={true} />

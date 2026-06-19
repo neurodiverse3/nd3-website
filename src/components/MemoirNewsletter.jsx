@@ -19,7 +19,7 @@ export default function MemoirNewsletter() {
 
     if (!email || !email.includes('@')) {
       setSubscribeStatus('validation_error');
-      setErrorMessage("That doesn't look like an email — try again?");
+      setErrorMessage("That doesn't look like an email - try again?");
       return;
     }
 
@@ -52,7 +52,7 @@ export default function MemoirNewsletter() {
     <div className="border border-accent bg-black p-8 shadow-[6px_6px_0px_var(--accent-soft)] flex flex-col justify-between h-full select-none text-left">
       <div>
         {/* Eyebrow chip */}
-        <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-accent bg-[var(--accent-soft)] px-3 py-1 uppercase border border-accent/30 mb-6 font-bold">
+        <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-accent bg-[var(--accent-soft)] px-3 py-1 uppercase border border-accent/30 mb-6 font-bold">
           EARLY DRAFTS
         </span>
 
@@ -132,7 +132,7 @@ export default function MemoirNewsletter() {
       </div>
 
       {/* Status chip */}
-      <div className="mt-8 pt-6 border-t border-[#1F1F22] text-[10px] text-[#8A8A93] font-mono uppercase tracking-widest font-bold">
+      <div className="mt-8 pt-6 border-t border-[#1F1F22] text-xs md:text-sm text-[#8A8A93] font-mono uppercase tracking-widest font-bold">
         STATUS: ACTIVE INCUBATION
       </div>
     </div>

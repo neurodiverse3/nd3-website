@@ -44,7 +44,7 @@ export default function AboutClient() {
             eyebrow="The Founder"
             titleLabel="About"
             titleAccent="Born out of survival"
-            subtitle="Meet Ollie — late-diagnosed AuDHD founder of neurodivers³. Stories, tools, and systems for the wired-different brain."
+            subtitle="Meet Ollie - late-diagnosed AuDHD founder of neurodivers³. Stories, tools, and systems for the wired-different brain."
           />
           <blockquote className="border-l-4 border-accent pl-6 py-2 mt-8">
             <p className="text-2xl md:text-3xl font-light text-fg leading-relaxed max-w-4xl font-sans">
@@ -101,7 +101,7 @@ export default function AboutClient() {
                 </div>
               </div>
               <div className="mt-3 text-center md:text-left">
-                <span className="text-[11px] font-mono text-muted tracking-widest uppercase">
+                <span className="text-xs md:text-sm font-mono text-muted tracking-widest uppercase">
                   Ollie · Founder of neurodivers³
                 </span>
               </div>
@@ -341,7 +341,7 @@ export default function AboutClient() {
 
         {/* Section 8: The memoir */}
         <motion.section variants={itemVariants} className="mb-24 p-8 bg-bg-primary/20 border border-border-rule rounded-lg max-w-3xl shadow-[4px_4px_0px_var(--rule)]">
-          <p className="text-[11px] font-mono tracking-[0.2em] text-accent uppercase mb-4">THE MEMOIR</p>
+          <p className="text-xs md:text-sm font-mono tracking-[0.2em] text-accent uppercase mb-4">THE MEMOIR</p>
           <div className="space-y-4 text-[16px] leading-relaxed text-fg/90 font-sans mb-8">
             <p>
               Some parts of the story simply need more room than an About page can give them.

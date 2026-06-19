@@ -224,7 +224,7 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
       <div className="space-y-8 mb-16">
         {comments.length === 0 ? (
           <div className="p-8 border border-dashed border-border-rule/50 text-center text-text-muted italic text-sm select-none">
-            No replies yet — be the first.
+            No replies yet - be the first.
           </div>
         ) : (
           <div className="relative border-l border-border-rule/60 pl-6 sm:pl-8 ml-4 space-y-8">
@@ -245,7 +245,7 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
                     <span className="font-black text-sm uppercase tracking-tight text-fg-primary">
                       {c.name}
                     </span>
-                    <time className="text-[10px] font-mono text-text-muted uppercase tracking-wider">
+                    <time className="text-xs md:text-sm font-mono text-text-muted uppercase tracking-wider">
                       {formatCommentDate(c.createdAt)}
                     </time>
                   </div>
@@ -263,12 +263,12 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
       {/* Comments Input Form Box */}
       <div className="border-4 border-fg-primary p-6 md:p-8 bg-bg-primary/50 shadow-[6px_6px_0px_var(--rule)] relative">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
-          <span className="text-[9px] font-mono tracking-widest uppercase text-accent block font-bold">
+          <span className="text-xs md:text-sm font-mono tracking-widest uppercase text-accent block font-bold">
             LEAVE A REPLY
           </span>
           <a 
             href={`mailto:hello@neurodivers3.co.uk?subject=${encodeURIComponent(`Reply: ${postTitle}`)}`} 
-            className="text-[9px] font-mono tracking-widest text-text-muted hover:text-accent transition-colors font-bold uppercase underline focus-ring"
+            className="text-xs md:text-sm font-mono tracking-widest text-text-muted hover:text-accent transition-colors font-bold uppercase underline focus-ring"
           >
             Reply by email →
           </a>

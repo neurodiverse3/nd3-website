@@ -141,7 +141,7 @@ export const AudioNarration = ({ compact = false }) => {
 
   return (
     <div className={`flex ${compact ? 'flex-col items-start gap-3 p-4 bg-black/15 border border-border-rule/60' : 'flex-wrap items-center gap-3 p-3 bg-bg-primary/50 border border-border-rule'} rounded-none shadow-[2px_2px_0px_var(--rule)]`}>
-      <span className="text-[9.5px] font-mono tracking-widest text-text-muted uppercase font-black flex items-center gap-1.5 ml-0.5">
+      <span className="text-xs md:text-sm font-mono tracking-widest text-text-muted uppercase font-black flex items-center gap-1.5 ml-0.5">
         {isPlaying && !isPaused ? (
           <span className="audio-wave active text-accent-pink shrink-0" aria-hidden="true">
             <span></span>
@@ -159,7 +159,7 @@ export const AudioNarration = ({ compact = false }) => {
         {/* Play / Pause Toggle Button */}
         <button
           onClick={toggleNarration}
-          className={`h-8 ${compact ? 'flex-grow justify-center' : 'px-3'} border border-border-rule/70 hover:border-accent-pink flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer rounded-none bg-transparent ${
+          className={`h-8 ${compact ? 'flex-grow justify-center' : 'px-3'} border border-border-rule/70 hover:border-accent-pink flex items-center gap-1.5 text-xs md:text-sm font-black uppercase tracking-wider transition-all cursor-pointer rounded-none bg-transparent ${
             isPlaying && !isPaused ? 'text-accent-pink border-accent-pink animate-pulse-slow' : 'text-text-muted hover:text-fg-primary hover:border-accent-pink'
           }`}
           aria-label={isPlaying ? (isPaused ? 'Resume narration' : 'Pause narration') : 'Play narration'}
@@ -178,7 +178,7 @@ export const AudioNarration = ({ compact = false }) => {
         {/* Speed rate selection */}
         <button
           onClick={cycleRate}
-          className={`h-8 border border-border-rule/70 hover:border-accent-pink text-[9px] font-black uppercase tracking-wider text-text-muted hover:text-fg-primary transition-all cursor-pointer rounded-none bg-transparent flex items-center justify-center gap-0.5 shrink-0 ${compact ? 'w-12' : 'px-2.5'}`}
+          className={`h-8 border border-border-rule/70 hover:border-accent-pink text-xs md:text-sm font-black uppercase tracking-wider text-text-muted hover:text-fg-primary transition-all cursor-pointer rounded-none bg-transparent flex items-center justify-center gap-0.5 shrink-0 ${compact ? 'w-12' : 'px-2.5'}`}
           aria-label={`Change speech speed, current ${rate}x`}
         >
           {rate}x

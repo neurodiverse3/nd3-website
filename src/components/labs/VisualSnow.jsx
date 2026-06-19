@@ -270,7 +270,7 @@ export default function VisualSnow({ noWrapper = false, fullPage = false }) {
                   {sitewideActive ? 'ACTIVE SITE-WIDE' : 'APPLY SITE-WIDE'}
                 </button>
               </div>
-              <p className="text-[10px] text-[var(--muted)] leading-relaxed font-sans mt-1">
+              <p className="text-xs md:text-sm text-[var(--muted)] leading-relaxed font-sans mt-1">
                 If enabled, the fractal grain and wash tint will cover the entire site viewport (including all other pages) as you browse.
               </p>
             </div>

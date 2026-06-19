@@ -4,15 +4,15 @@ import { Mail, ArrowRight } from 'lucide-react';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Contact — neurodivers3',
-  description: 'Get in touch with Ollie — founder of neurodivers3. Collaboration, press, or just saying hi.',
+  title: 'Contact - neurodivers3',
+  description: 'Get in touch with Ollie - founder of neurodivers3. Collaboration, press, or just saying hi.',
   openGraph: {
-    title: 'Contact — neurodivers3',
-    description: 'Get in touch with Ollie — founder of neurodivers3. Collaboration, press, or just saying hi.',
+    title: 'Contact - neurodivers3',
+    description: 'Get in touch with Ollie - founder of neurodivers3. Collaboration, press, or just saying hi.',
   },
   twitter: {
-    title: 'Contact — neurodivers3',
-    description: 'Get in touch with Ollie — founder of neurodivers3. Collaboration, press, or just saying hi.',
+    title: 'Contact - neurodivers3',
+    description: 'Get in touch with Ollie - founder of neurodivers3. Collaboration, press, or just saying hi.',
   }
 };
 
@@ -83,7 +83,7 @@ export default function ContactPage() {
   const faqs = [
     {
       q: 'Can I pitch a collaboration or sponsored post?',
-      a: 'Yes — email is the best route. Be upfront about what you\'re proposing. I only partner with things I\'d genuinely use.',
+      a: 'Yes - email is the best route. Be upfront about what you\'re proposing. I only partner with things I\'d genuinely use.',
     },
     {
       q: 'Can I share or quote your writing?',
@@ -95,7 +95,7 @@ export default function ContactPage() {
     },
     {
       q: 'How long do replies take?',
-      a: 'Honest answer: variable. Executive function is real. I aim for within a week on emails, sooner if it\'s urgent — just say so.',
+      a: 'Honest answer: variable. Executive function is real. I aim for within a week on emails, sooner if it\'s urgent - just say so.',
     },
   ];
 
@@ -114,7 +114,7 @@ export default function ContactPage() {
         <div
           style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.1s forwards' }}
         >
-          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-text-muted block mb-8">
+          <span className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-text-muted block mb-8">
             WHERE TO FIND ME
           </span>
 
@@ -133,7 +133,7 @@ export default function ContactPage() {
                 </div>
                   <div className="flex-1">
                   <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-[11px] font-black uppercase tracking-widest text-text-muted">
+                    <span className="text-xs md:text-sm font-black uppercase tracking-widest text-text-muted">
                       {ch.label}
                     </span>
                     <ArrowRight
@@ -157,7 +157,7 @@ export default function ContactPage() {
         <div
           style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.2s forwards' }}
         >
-          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-text-muted block mb-8">
+          <span className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-text-muted block mb-8">
             COMMON QUESTIONS
           </span>
 
@@ -183,7 +183,7 @@ export default function ContactPage() {
             className="mt-12 p-6 border-2 border-border-rule bg-bg-primary/40 shadow-[4px_4px_0px_var(--rule)]"
             style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.6s forwards' }}
           >
-            <span className="text-[10px] font-black uppercase tracking-widest text-accent-pink block mb-2">
+            <span className="text-xs md:text-sm font-black uppercase tracking-widest text-accent-pink block mb-2">
               NEWSLETTER
             </span>
             <p className="text-sm text-text-muted font-normal leading-relaxed mb-4">
@@ -191,7 +191,7 @@ export default function ContactPage() {
             </p>
             <Link
               href="/#newsletter"
-              className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-accent-pink hover:opacity-80 transition-opacity"
+              className="inline-flex items-center gap-2 text-xs md:text-sm font-black uppercase tracking-widest text-accent-pink hover:opacity-80 transition-opacity"
             >
               Subscribe → <ArrowRight size={12} />
             </Link>

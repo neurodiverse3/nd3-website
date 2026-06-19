@@ -55,7 +55,7 @@ export function StickyBlogHeader({ title, readTime }) {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-20 lg:h-24 flex items-center justify-between gap-6 relative">
         {/* Left Side: Article Title */}
         <div className="flex-grow max-w-[70%]">
-          <span className="text-[8px] font-mono tracking-widest text-accent-pink uppercase block font-bold mb-1">
+          <span className="text-xs md:text-sm font-mono tracking-widest text-accent-pink uppercase block font-bold mb-1">
             CURRENTLY READING
           </span>
           <h2 className="text-sm md:text-base font-black uppercase tracking-tight text-fg-primary truncate font-display leading-tight">
@@ -65,7 +65,7 @@ export function StickyBlogHeader({ title, readTime }) {
 
         {/* Right Side: Reading time + "↑ Top" obvious pill button */}
         <div className="flex items-center gap-4 md:gap-6 shrink-0">
-          <span className="hidden sm:inline-block text-[9px] font-mono tracking-widest text-text-muted uppercase font-bold">
+          <span className="hidden sm:inline-block text-xs md:text-sm font-mono tracking-widest text-text-muted uppercase font-bold">
             {readTime} Read
           </span>
           
@@ -74,7 +74,7 @@ export function StickyBlogHeader({ title, readTime }) {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="px-4 py-2 border-2 border-accent-pink bg-accent-pink-soft text-accent-pink hover:bg-accent-pink hover:text-bg-primary font-mono text-[9px] font-black uppercase tracking-widest transition-all duration-200 select-none shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring cursor-pointer"
+            className="px-4 py-2 border-2 border-accent-pink bg-accent-pink-soft text-accent-pink hover:bg-accent-pink hover:text-bg-primary font-mono text-xs md:text-sm font-black uppercase tracking-widest transition-all duration-200 select-none shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring cursor-pointer"
             aria-label="Scroll back to top of the article"
           >
             ↑ TOP
@@ -82,7 +82,7 @@ export function StickyBlogHeader({ title, readTime }) {
         </div>
       </div>
 
-      {/* Dynamic reading progress bar — full viewport width (outside max-width container) */}
+      {/* Dynamic reading progress bar - full viewport width (outside max-width container) */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-border-rule/50 overflow-hidden">
         <div 
           className="h-full transition-all duration-75 ease-out origin-left" 
