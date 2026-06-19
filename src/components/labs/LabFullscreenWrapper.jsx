@@ -32,8 +32,8 @@ export default function LabFullscreenWrapper({ slug }) {
       <div className="fixed inset-0 z-[100] bg-[#050505] flex flex-col">
         {/* Fullscreen Header */}
         <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--rule)] bg-black/80">
-          <span className="text-[10px] font-mono text-[var(--accent)] uppercase tracking-widest">
-            // FULLSCREEN MODE · PRESS ESC OR F TO EXIT
+          <span className="text-xs md:text-sm font-mono font-bold text-[var(--accent)] uppercase tracking-widest">
+            FULLSCREEN MODE · PRESS ESC OR F TO EXIT
           </span>
           <button
             onClick={toggleFullscreen}
@@ -54,8 +54,8 @@ export default function LabFullscreenWrapper({ slug }) {
   return (
     <div className="w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <span className="text-[10px] font-mono text-[var(--muted)] uppercase tracking-widest">
-          // INTERACTIVE WORKSPACE
+        <span className="text-xs md:text-sm font-mono font-bold text-[var(--muted)] uppercase tracking-widest">
+          INTERACTIVE WORKSPACE
         </span>
         <button
           onClick={toggleFullscreen}

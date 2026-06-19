@@ -91,8 +91,8 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
       {/* Share / Embed administrative block */}
       <div className="w-full no-print flex flex-col gap-3 font-sans text-xs">
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--rule)] pt-6">
-          <span className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-wider">
-            // Tactile Sharing & Embed Integration
+          <span className="font-mono text-xs text-[var(--muted)] uppercase tracking-wider">
+            Tactile Sharing & Embed Integration
           </span>
 
           <div className="flex flex-wrap gap-3">
