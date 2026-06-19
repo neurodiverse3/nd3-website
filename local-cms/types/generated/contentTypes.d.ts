@@ -562,7 +562,7 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'> &
       Schema.Attribute.Private;
     pillar: Schema.Attribute.Enumeration<
-      ['glitchwork', 'tiny-systems', 'unmasked-life']
+      ['digital-life', 'tools-templates', 'unmasked-life']
     > &
       Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
@@ -665,6 +665,39 @@ export interface ApiSiteSettingSiteSetting extends Struct.SingleTypeSchema {
     memoirTeaser: Schema.Attribute.Component<'site.memoir-teaser', false>;
     publishedAt: Schema.Attribute.DateTime;
     statusLine: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSubscriberSubscriber extends Struct.CollectionTypeSchema {
+  collectionName: 'subscribers';
+  info: {
+    description: 'Newsletter subscribers';
+    displayName: 'Subscriber';
+    pluralName: 'subscribers';
+    singularName: 'subscriber';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subscriber.subscriber'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    source: Schema.Attribute.String;
+    subscribedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1189,6 +1222,7 @@ declare module '@strapi/strapi' {
       'api::product.product': ApiProductProduct;
       'api::series.series': ApiSeriesSeries;
       'api::site-setting.site-setting': ApiSiteSettingSiteSetting;
+      'api::subscriber.subscriber': ApiSubscriberSubscriber;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
