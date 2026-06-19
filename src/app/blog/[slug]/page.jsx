@@ -363,7 +363,7 @@ export default async function BlogPostPage({ params }) {
 
             {/* TITLE & EXCERPT */}
             <div className="max-w-[760px] mx-auto mb-10 text-left">
-              <h1 className="text-[clamp(2rem,4vw,3.25rem)] font-black uppercase tracking-tighter leading-[1.05] mb-6 text-fg-primary font-display">
+              <h1 className="text-[clamp(2rem,4vw,3.25rem)] font-black uppercase tracking-wide leading-[1.05] mb-6 text-fg-primary font-display">
                 {post.title}
               </h1>
               {post.excerpt && (

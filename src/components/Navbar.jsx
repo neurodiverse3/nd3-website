@@ -56,6 +56,9 @@ export const Navbar = () => {
         setHideNavbar(false);
       }
     };
+    
+    handleScroll(); // Check initial scroll position on mount
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isSingleBlogPost]);
