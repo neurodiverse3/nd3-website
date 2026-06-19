@@ -218,12 +218,12 @@ export const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href="/blog?pillar=tiny-systems" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog?pillar=tools-templates" className="hover:text-fg-primary transition-colors focus-ring">
                 Tools & Templates
               </Link>
             </li>
             <li>
-              <Link href="/blog?pillar=glitchwork" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog?pillar=digital-life" className="hover:text-fg-primary transition-colors focus-ring">
                 Digital Life
               </Link>
             </li>

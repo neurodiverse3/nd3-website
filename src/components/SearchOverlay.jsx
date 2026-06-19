@@ -43,7 +43,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
               url: `/blog/${post.slug?.current || post.slug}`,
               type: 'post',
               badge: 'Post',
-              meta: post.pillar === 'tiny-systems' ? 'TOOLS & TEMPLATES' : post.pillar === 'glitchwork' ? 'DIGITAL LIFE' : 'UNMASKED LIFE'
+              meta: (post.pillar === 'tiny-systems' || post.pillar === 'tools-templates') ? 'TOOLS & TEMPLATES' : (post.pillar === 'glitchwork' || post.pillar === 'digital-life') ? 'DIGITAL LIFE' : 'UNMASKED LIFE'
             });
           });
         } else {

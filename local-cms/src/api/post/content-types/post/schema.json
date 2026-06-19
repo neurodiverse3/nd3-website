@@ -23,8 +23,8 @@
     "pillar": {
       "type": "enumeration",
       "enum": [
-        "glitchwork",
-        "tiny-systems",
+        "digital-life",
+        "tools-templates",
         "unmasked-life"
       ],
       "required": true

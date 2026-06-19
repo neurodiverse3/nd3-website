@@ -5,8 +5,8 @@ export const runtime = 'nodejs';
 const getPillarLabel = (pillar) => {
   if (!pillar) return '';
   const p = pillar.toLowerCase();
-  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates') return 'TOOLS & TEMPLATES';
-  if (p === 'glitchwork' || p === 'digital life') return 'DIGITAL LIFE';
+  if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates') return 'TOOLS & TEMPLATES';
+  if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life') return 'DIGITAL LIFE';
   if (p === 'unmasked-life' || p === 'unmasked life') return 'UNMASKED LIFE';
   return pillar.toUpperCase();
 };
@@ -15,8 +15,8 @@ const getPillarColor = (pillar, override) => {
   if (override) return override;
   if (!pillar) return '#9E0048';
   const p = pillar.toLowerCase();
-  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates') return '#F0E8D8';
-  if (p === 'glitchwork' || p === 'digital life') return '#0E5A6B';
+  if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates') return '#F0E8D8';
+  if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life') return '#0E5A6B';
   return '#9E0048';
 };
 
@@ -75,7 +75,7 @@ export async function GET(request) {
       textMutedColor = 'rgba(255, 255, 255, 0.7)';
       textMutedStrongColor = 'rgba(255, 255, 255, 0.8)';
       themeAccentColor = '#FF007F';
-    } else if (p === 'glitchwork' || p === 'digital life') {
+    } else if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life') {
       themeBg = '#0E5A6B';
       themeTextColor = '#FFFFFF';
       watermarkColor = 'rgba(255, 255, 255, 0.05)';
@@ -83,7 +83,7 @@ export async function GET(request) {
       textMutedColor = 'rgba(255, 255, 255, 0.7)';
       textMutedStrongColor = 'rgba(255, 255, 255, 0.8)';
       themeAccentColor = '#00E5FF';
-    } else if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates') {
+    } else if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates') {
       themeBg = '#F0E8D8';
       themeTextColor = '#000000';
       watermarkColor = 'rgba(0, 0, 0, 0.05)';

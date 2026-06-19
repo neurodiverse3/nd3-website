@@ -6,8 +6,8 @@ import { ArrowRight } from 'lucide-react';
 const getPillarLabel = (pillar) => {
   if (!pillar) return '';
   const p = pillar.toLowerCase();
-  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates') return 'TOOLS & TEMPLATES';
-  if (p === 'glitchwork' || p === 'digital life') return 'DIGITAL LIFE';
+  if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates') return 'TOOLS & TEMPLATES';
+  if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life') return 'DIGITAL LIFE';
   if (p === 'unmasked-life' || p === 'unmasked life') return 'UNMASKED LIFE';
   return pillar.replace('-', ' ').toUpperCase();
 };

@@ -330,8 +330,8 @@ function parsePostBody(bodyText) {
 // Map markdown metadata to Strapi models
 function mapPillar(pillar) {
   const p = pillar.toLowerCase().trim();
-  if (p.includes('digital')) return 'glitchwork';
-  if (p.includes('tools') || p.includes('systems') || p.includes('templates')) return 'tiny-systems';
+  if (p.includes('digital')) return 'digital-life';
+  if (p.includes('tools') || p.includes('systems') || p.includes('templates')) return 'tools-templates';
   return 'unmasked-life';
 }
 
@@ -350,7 +350,7 @@ function cleanReadTime(rt) {
 }
 
 async function run() {
-  const filePath = path.join(projectRoot, 'Master Blog Posts.md');
+  const filePath = path.join(projectRoot, 'workspace', 'content', 'Master Blog Posts.md');
   const content = fs.readFileSync(filePath, 'utf8');
 
   // Split into separate posts

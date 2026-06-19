@@ -7,8 +7,8 @@ import { LogoWordmark } from './Logo';
 const getPillarLabel = (pillar) => {
   if (!pillar) return '';
   const p = pillar.toLowerCase();
-  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates' || p === 'tools') return 'TOOLS & TEMPLATES';
-  if (p === 'glitchwork' || p === 'digital life' || p === 'digital') return 'DIGITAL LIFE';
+  if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates' || p === 'tools') return 'TOOLS & TEMPLATES';
+  if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life' || p === 'digital') return 'DIGITAL LIFE';
   if (p === 'unmasked-life' || p === 'unmasked life' || p === 'unmasked') return 'UNMASKED LIFE';
   return pillar.toUpperCase();
 };
@@ -16,8 +16,8 @@ const getPillarLabel = (pillar) => {
 const mapPillarKey = (pillar) => {
   if (!pillar) return 'unmasked';
   const p = pillar.toLowerCase();
-  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates' || p === 'tools') return 'tools';
-  if (p === 'glitchwork' || p === 'digital life' || p === 'digital') return 'digital';
+  if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates' || p === 'tools') return 'tools';
+  if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life' || p === 'digital') return 'digital';
   return 'unmasked';
 };
 

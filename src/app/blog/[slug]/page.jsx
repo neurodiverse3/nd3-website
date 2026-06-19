@@ -132,8 +132,8 @@ const extractFootnotes = (blocks) => {
 const getPillarLabel = (pillar) => {
   if (!pillar) return '';
   const p = pillar.toLowerCase();
-  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates') return 'TOOLS & TEMPLATES';
-  if (p === 'glitchwork' || p === 'digital life') return 'DIGITAL LIFE';
+  if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates') return 'TOOLS & TEMPLATES';
+  if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life') return 'DIGITAL LIFE';
   if (p === 'unmasked-life' || p === 'unmasked life') return 'UNMASKED LIFE';
   return pillar.replace('-', ' ').toUpperCase();
 };
@@ -151,10 +151,10 @@ const getBrainStateLabel = (state) => {
 
 const getPillarTagClass = (pillar) => {
   const p = pillar?.toLowerCase() || '';
-  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates' || p === 'tools') {
+  if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates' || p === 'tools') {
     return 'text-[var(--pillar-label-tools,var(--pillar-tools))] bg-[var(--pillar-tools)]/8 border border-[var(--pillar-label-tools,var(--pillar-tools))]/20 hover:border-[var(--pillar-label-tools,var(--pillar-tools))]';
   }
-  if (p === 'glitchwork' || p === 'digital life' || p === 'digital') {
+  if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life' || p === 'digital') {
     return 'text-[var(--pillar-label-digital,var(--pillar-digital))] bg-[var(--pillar-digital)]/8 border border-[var(--pillar-label-digital,var(--pillar-digital))]/20 hover:border-[var(--pillar-label-digital,var(--pillar-digital))]';
   }
   return 'text-[var(--pillar-label-unmasked,var(--pillar-unmasked))] bg-[var(--pillar-unmasked)]/8 border border-[var(--pillar-label-unmasked,var(--pillar-unmasked))]/20 hover:border-[var(--pillar-label-unmasked,var(--pillar-unmasked))]';

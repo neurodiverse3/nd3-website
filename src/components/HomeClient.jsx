@@ -10,8 +10,8 @@ import { PostCover } from './PostCover';
 import { useBrainState, BRAIN_STATES } from '../context/BrainStateContext';
 
 const getPillarLabel = (pillar) => {
-  if (pillar === 'tiny-systems') return 'TOOLS & TEMPLATES';
-  if (pillar === 'glitchwork') return 'DIGITAL LIFE';
+  if (pillar === 'tiny-systems' || pillar === 'tools-templates') return 'TOOLS & TEMPLATES';
+  if (pillar === 'glitchwork' || pillar === 'digital-life') return 'DIGITAL LIFE';
   if (pillar === 'unmasked-life') return 'UNMASKED LIFE';
   return pillar?.replace('-', ' ').toUpperCase() || '';
 };
@@ -129,16 +129,16 @@ export default function HomeClient({ siteSettings, latestPosts }) {
       archiveHref: "/blog?pillar=unmasked-life"
     },
     {
-      id: "tiny-systems",
+      id: "tools-templates",
       title: "Tools & Templates",
       desc: "Templates, checklists and practical tools for neurodivergent life, work and everyday overwhelm.",
-      archiveHref: "/blog?pillar=tiny-systems"
+      archiveHref: "/blog?pillar=tools-templates"
     },
     {
-      id: "glitchwork",
+      id: "digital-life",
       title: "Digital Life",
       desc: "Practical and personal writing about attention, technology, digital overwhelm and life online.",
-      archiveHref: "/blog?pillar=glitchwork"
+      archiveHref: "/blog?pillar=digital-life"
     }
   ];
 

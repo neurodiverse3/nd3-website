@@ -7,18 +7,18 @@ import { PostCover } from './PostCover';
 const getPillarLabel = (pillar) => {
   if (!pillar) return '';
   const p = pillar.toLowerCase();
-  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates') return 'TOOLS & TEMPLATES';
-  if (p === 'glitchwork' || p === 'digital life') return 'DIGITAL LIFE';
+  if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates') return 'TOOLS & TEMPLATES';
+  if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life') return 'DIGITAL LIFE';
   if (p === 'unmasked-life' || p === 'unmasked life') return 'UNMASKED LIFE';
   return pillar.replace('-', ' ').toUpperCase();
 };
 
 const getPillarTheme = (pillar) => {
   const p = pillar?.toLowerCase() || '';
-  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates') {
+  if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates') {
     return { bg: '#F0E8D8', text: '#000000' };
   }
-  if (p === 'glitchwork' || p === 'digital life') {
+  if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life') {
     return { bg: '#0E5A6B', text: '#FFFFFF' };
   }
   return { bg: '#9E0048', text: '#FFFFFF' };
@@ -27,8 +27,8 @@ const getPillarTheme = (pillar) => {
 const mapPillarKey = (pillar) => {
   if (!pillar) return 'unmasked';
   const p = pillar.toLowerCase();
-  if (p === 'tiny-systems' || p === 'tools & templates' || p === 'tools-and-templates' || p === 'tools') return 'tools';
-  if (p === 'glitchwork' || p === 'digital life' || p === 'digital') return 'digital';
+  if (p === 'tiny-systems' || p === 'tools-templates' || p === 'tools & templates' || p === 'tools-and-templates' || p === 'tools') return 'tools';
+  if (p === 'glitchwork' || p === 'digital-life' || p === 'digital life' || p === 'digital') return 'digital';
   return 'unmasked';
 };
 
@@ -59,15 +59,23 @@ const formatDateUK = (dateStr) => {
   }
 };
 
+const normalizePillar = (p) => {
+  if (!p) return p;
+  const lower = p.toLowerCase();
+  if (lower === 'glitchwork') return 'digital-life';
+  if (lower === 'tiny-systems') return 'tools-templates';
+  return lower;
+};
+
 export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activeState: urlState }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activePillar, setActivePillar] = useState(urlPillar);
+  const [activePillar, setActivePillar] = useState(normalizePillar(urlPillar));
   const [activeState, setActiveState] = useState(urlState);
   const [visibleCount, setVisibleCount] = useState(12);
 
   // Sync with URL query parameters if they change
   useEffect(() => {
-    if (urlPillar) setActivePillar(urlPillar);
+    if (urlPillar) setActivePillar(normalizePillar(urlPillar));
     if (urlState) setActiveState(urlState);
   }, [urlPillar, urlState]);
 
@@ -76,6 +84,8 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
     const newPost = { ...post };
     if (!newPost.pillar) {
       newPost.pillar = 'unmasked-life';
+    } else {
+      newPost.pillar = normalizePillar(newPost.pillar);
     }
     if (!newPost.brainState && !newPost.state) {
       newPost.brainState = 'hyperfocus';
@@ -112,8 +122,8 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
 
   const pillarsList = [
     { id: 'unmasked-life', name: 'Unmasked Life' },
-    { id: 'tiny-systems', name: 'Tools & Templates' },
-    { id: 'glitchwork', name: 'Digital Life' }
+    { id: 'tools-templates', name: 'Tools & Templates' },
+    { id: 'digital-life', name: 'Digital Life' }
   ];
 
   const statesList = [
