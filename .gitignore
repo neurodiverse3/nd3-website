@@ -47,5 +47,13 @@ workspace/*
 screenshots/
 public/demos/*.webm
 public/store/covers/*.png.bak
+public/spotlane-demos/
+public/store/videos/
+public/store-assets/
+scripts/
+
+# Local-only markdown documents
+*.md
+!README.md
 
 .vercel
