@@ -31,9 +31,12 @@ async function fetchStrapi(path, params = {}) {
     ...(STRAPI_TOKEN ? { Authorization: `Bearer ${STRAPI_TOKEN}` } : {}),
   };
 
-  // Add 6-second abort timeout to prevent fetch from hanging SSR indefinitely
+  // Add abort timeout to prevent fetch from hanging SSR indefinitely.
+  // Set a longer timeout on the server-side to allow Render's free tier backend to spin up from sleep.
+  const isServer = typeof window === 'undefined';
+  const timeoutMs = isServer ? 60000 : 15000;
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 6000);
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
   const requestOptions = {
     headers,
@@ -91,7 +94,10 @@ function normalizeData(item) {
 }
 
 export async function getPosts() {
-  const response = await fetchStrapi('posts', { populate: 'coverImage' });
+  const response = await fetchStrapi('posts', { 
+    populate: 'coverImage',
+    'pagination[limit]': '100'
+  });
   return (response?.data || []).map(normalizeData);
 }
 
@@ -122,7 +128,10 @@ export async function getSeriesPosts(seriesName) {
 }
 
 export async function getAllPostSlugs() {
-  const response = await fetchStrapi('posts', { fields: 'slug' });
+  const response = await fetchStrapi('posts', { 
+    fields: 'slug',
+    'pagination[limit]': '100'
+  });
   return (response?.data || []).map((item) => normalizeData(item).slug).filter(Boolean);
 }
 
@@ -179,7 +188,10 @@ export const client = {
 };
 
 export async function getLabs() {
-  const response = await fetchStrapi('labs', { populate: 'category' });
+  const response = await fetchStrapi('labs', { 
+    populate: 'category',
+    'pagination[limit]': '100'
+  });
   return (response?.data || []).map((item) => {
     const lab = normalizeData(item);
     if (lab.category?.data) {
@@ -214,6 +226,7 @@ export async function getLabCategories() {
 export async function getMemoirChapters() {
   const response = await fetchStrapi('memoir-chapters', {
     sort: 'chapterNumber:asc',
+    'pagination[limit]': '100'
   });
   return (response?.data || []).map(normalizeData);
 }
@@ -226,7 +239,9 @@ export async function getMemoirChapterBySlug(slug) {
 }
 
 export async function getProducts() {
-  const response = await fetchStrapi('products');
+  const response = await fetchStrapi('products', {
+    'pagination[limit]': '100'
+  });
   return (response?.data || []).map(normalizeData);
 }
 
