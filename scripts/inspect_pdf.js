@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { workspacePaths } from './workspace-paths.js';
 
 async function extractPdfText(pdfPath) {
     const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
@@ -33,5 +34,5 @@ async function extractPdfText(pdfPath) {
     }
 }
 
-const pdfFile = "./store-products-PDF's/ND3__CommsBundle__README__v1.0.pdf";
+const pdfFile = path.join(workspacePaths.productPdfs, 'ND3__CommsBundle__README__v1.0.pdf');
 extractPdfText(pdfFile).catch(console.error);

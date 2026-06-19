@@ -15,6 +15,7 @@ const PAGES_TO_TEST = [
   { name: 'Labs Banner Showcase', path: '/labs/banner-showcase' },
   { name: 'Accessibility Info', path: '/accessibility' },
   { name: 'Privacy Policy', path: '/privacy' },
+  { name: 'Memoir', path: '/memoir' },
 ];
 
 test.describe('WCAG & Accessibility Compliance Scan', () => {

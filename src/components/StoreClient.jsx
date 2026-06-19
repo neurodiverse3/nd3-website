@@ -149,7 +149,7 @@ export function StoreClient({ initialProducts = [] }) {
                   
                   {/* Premium Hover Overlay indicator */}
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-                    <span className="text-xs font-black tracking-widest text-[var(--accent)] border border-[var(--accent)] px-4 py-2 uppercase bg-bg-primary/80">
+                    <span className="text-xs font-black tracking-widest text-[var(--link)] border border-[var(--link)] px-4 py-2 uppercase bg-bg-primary/80">
                       VIEW PRODUCT LANDING PAGE
                     </span>
                   </div>
@@ -184,7 +184,7 @@ export function StoreClient({ initialProducts = [] }) {
                   className={`w-full py-4 font-black uppercase text-xs tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer border ${
                     isAdded 
                       ? 'bg-transparent text-green-400 border-green-600/50 cursor-default' 
-                      : 'bg-[var(--accent)] text-[var(--accent-text,var(--bg))] border-[var(--accent)] hover:bg-transparent hover:text-[var(--accent)] hover:border-[var(--accent)] active:scale-[0.98]'
+                      : 'bg-[var(--accent)] text-[var(--accent-text,var(--bg))] border-[var(--accent)] hover:bg-transparent hover:text-[var(--link)] hover:border-[var(--accent)] active:scale-[0.98]'
                   }`}
                   aria-label={isAdded ? `${item.title} is added to your toolkit` : `Add ${item.title} to toolkit`}
                 >

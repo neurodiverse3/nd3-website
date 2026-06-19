@@ -238,9 +238,9 @@ function SuccessPageContent() {
   if (loading) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-6 pt-24 px-6 max-w-lg mx-auto">
-        <Loader2 size={48} className="text-[var(--nd3-pink)] animate-spin" />
+        <Loader2 size={48} className="text-[var(--accent)] animate-spin" />
         <div className="space-y-2">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[var(--nd3-pink)] block">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[var(--accent)] block">
             Verifying Transaction
           </span>
           <h2 className="text-2xl font-black uppercase tracking-tight text-white">
@@ -257,11 +257,11 @@ function SuccessPageContent() {
   if (error) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-6 pt-24 px-6 max-w-md mx-auto">
-        <div className="p-4 bg-[var(--nd3-pink)]/10 border border-[var(--nd3-pink)]/30 text-[var(--nd3-pink)] rounded-none flex items-center justify-center">
+        <div className="p-4 bg-[var(--accent)]/10 border border-[var(--accent)]/30 text-[var(--accent)] rounded-none flex items-center justify-center">
           <AlertCircle size={40} />
         </div>
         <div className="space-y-2">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[var(--nd3-pink)] block">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[var(--accent)] block">
             Verification Warning
           </span>
           <h2 className="text-2xl font-black uppercase tracking-tight text-white">
@@ -273,7 +273,7 @@ function SuccessPageContent() {
         </div>
         <Link
           href="/store"
-          className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 hover:border-[var(--nd3-pink)] text-xs font-black uppercase tracking-wider transition-colors cursor-pointer font-mono"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-[#3FB07C] text-[#0B130F] border-2 border-[var(--fg)] font-black uppercase tracking-wider transition-colors cursor-pointer font-mono shadow-[3px_3px_0px_var(--fg)] hover:shadow-[2px_2px_0px_var(--fg)] hover:-translate-y-0.5 hover:translate-x-0.5 focus-ring"
         >
           Return to toolkit
         </Link>
@@ -307,14 +307,14 @@ function SuccessPageContent() {
         ))}
       </div>
 
-      <div className="border border-white/10 p-8 md:p-12 bg-[var(--nd3-card)] shadow-[8px_8px_0px_rgba(255,45,142,0.15)] relative overflow-hidden rounded-none mb-12">
+      <div className="border border-white/10 p-8 md:p-12 bg-[var(--nd3-card)] shadow-[8px_8px_0px_var(--accent-soft)] relative overflow-hidden rounded-none mb-12">
         <div className="flex flex-col md:flex-row justify-between items-start gap-6 pb-8 border-b border-white/10">
           <div>
             <span className="inline-block text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-green-400 bg-green-500/10 px-2.5 py-1 border border-green-600/30 mb-4 select-none">
               Transaction Secured ✓
             </span>
             <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase leading-none text-white">
-              Acquisition Complete<span className="text-[var(--nd3-pink)]">.</span>
+              Acquisition Complete<span className="text-[var(--accent)]">.</span>
             </h1>
           </div>
           <div className="shrink-0 text-left md:text-right font-mono text-xs text-[var(--muted)] space-y-1">
@@ -332,7 +332,7 @@ function SuccessPageContent() {
             {purchasedItems.map((item) => (
               <div
                 key={item.id}
-                className="p-6 bg-[var(--nd3-void)] border border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-[var(--nd3-pink)]/30 transition-colors duration-200"
+                className="p-6 bg-[var(--nd3-void)] border border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-[var(--accent)]/30 transition-colors duration-200"
               >
                 <div className="flex items-center gap-4">
                   <div
@@ -341,7 +341,7 @@ function SuccessPageContent() {
                     PDF
                   </div>
                   <div>
-                    <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-[var(--nd3-pink)] block mb-1">
+                    <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-[var(--accent)] block mb-1">
                       {item.tag}
                     </span>
                     <h3 className="font-black text-base uppercase tracking-tight text-white leading-tight">
@@ -356,7 +356,7 @@ function SuccessPageContent() {
                 <button
                   onClick={() => handleDownload(item)}
                   disabled={downloadingId !== null}
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[var(--nd3-pink)] text-white hover:bg-transparent hover:text-[var(--nd3-pink)] border border-[var(--nd3-pink)] px-5 py-3 text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer disabled:opacity-50 font-mono"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--accent-text,var(--bg))] hover:bg-transparent hover:text-[var(--accent)] border border-[var(--accent)] px-5 py-3 text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer disabled:opacity-50 font-mono"
                 >
                   {downloadingId === item.id ? (
                     <>
@@ -375,7 +375,7 @@ function SuccessPageContent() {
 
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center">
           <div className="flex items-start gap-2.5 text-xs text-[var(--muted)] leading-relaxed max-w-md font-sans">
-            <CheckCircle2 size={18} className="text-[var(--nd3-pink)] shrink-0 mt-0.5" />
+            <CheckCircle2 size={18} className="text-[var(--accent)] shrink-0 mt-0.5" />
             <span>
               All updates are lifetime-free. If this methodology does not align with your focus, reply to your confirmation receipt for a full refund.
             </span>
@@ -406,9 +406,9 @@ export default function SuccessPage() {
     <Suspense
       fallback={
         <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-6 pt-24 px-6 max-w-lg mx-auto">
-          <Loader2 size={48} className="text-[var(--nd3-pink)] animate-spin" />
+          <Loader2 size={48} className="text-[var(--accent)] animate-spin" />
           <div className="space-y-2">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[var(--nd3-pink)] block">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[var(--accent)] block">
               Loading
             </span>
             <h2 className="text-2xl font-black uppercase tracking-tight text-white">

@@ -313,7 +313,7 @@ export default async function BlogPostPage({ params }) {
           
           {/* 1. LEFT COLUMN: OUTLINE / TOC (LIKE IT WAS BEFORE, STICKY ON DESKTOP) */}
           {showToC && (
-            <div className="hidden xl:block w-60 shrink-0 sticky top-28 select-none">
+            <div className="hidden xl:block w-60 shrink-0 sticky top-8 select-none">
               <TableOfContents headings={headings} isMobile={false} />
             </div>
           )}
@@ -373,6 +373,50 @@ export default async function BlogPostPage({ params }) {
               )}
             </div>
 
+            {/* MOBILE/TABLET SIDEBAR CAROUSEL — pops sidebar widgets below title */}
+            <div className="xl:hidden mb-10">
+              <div className="blog-sidebar-carousel max-w-[760px] mx-auto">
+                {/* Back to Blog */}
+                <Link
+                  href="/blog"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-200 shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring whitespace-nowrap"
+                >
+                  ← All posts
+                </Link>
+
+                {/* Date + Read Time pill */}
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule bg-surface/40 text-fg-primary font-mono text-[9px] font-bold uppercase tracking-widest whitespace-nowrap">
+                  {formattedDate} · {readTimeVal}
+                </span>
+
+                {/* Pillar tag */}
+                <Link
+                  href={`/blog?pillar=${post.pillar}`}
+                  className={`inline-flex items-center px-2.5 py-1.5 text-[9px] font-mono font-black uppercase transition-all focus-ring whitespace-nowrap ${getPillarTagClass(post.pillar)}`}
+                >
+                  {getPillarLabel(post.pillar)}
+                </Link>
+
+                {/* Brain State tag */}
+                <Link
+                  href={`/blog?state=${post.brainState || post.state}`}
+                  className={`inline-flex items-center px-2.5 py-1.5 text-[9px] font-mono font-black uppercase transition-all focus-ring whitespace-nowrap ${getBrainStateTagClass(post.brainState || post.state)}`}
+                >
+                  {getBrainStateLabel(post.brainState || post.state)}
+                </Link>
+
+                {/* Audio Narration */}
+                <span className="inline-flex shrink-0">
+                  <AudioNarration compact={true} />
+                </span>
+
+                {/* Share buttons */}
+                <span className="inline-flex shrink-0">
+                  <SharePost title={post.title} slug={slug} dek={post.excerpt} vertical={false} />
+                </span>
+              </div>
+            </div>
+
             {/* ORDERED SERIES COMPACT NAVIGATION CARD */}
             {post.series?.name && seriesPosts.length > 0 && (
               <div className="max-w-[760px] mx-auto mb-10 text-left no-print select-none">
@@ -418,7 +462,7 @@ export default async function BlogPostPage({ params }) {
 
             {/* PROSE END SIGN-OFF IN VOICE */}
             <div className="max-w-[760px] mx-auto text-lg md:text-xl text-fg-primary/90 font-light leading-relaxed mt-10 mb-12 text-left italic font-sans">
-              — Ollie
+              - Ollie
             </div>
 
             {/* FOOTNOTES BLOCK */}
@@ -438,7 +482,7 @@ export default async function BlogPostPage({ params }) {
                         >
                           ↩
                         </a>
-                      </div>
+            </div>
                     </li>
                   ))}
                 </ol>
@@ -532,7 +576,7 @@ export default async function BlogPostPage({ params }) {
           </div>
 
           {/* 3. RIGHT COLUMN: BEAUTIFUL FLOATING UTILITY BOX IN THE FREE SPACE */}
-          <aside className="hidden xl:flex flex-col gap-6 w-64 shrink-0 sticky top-28 select-none">
+          <aside className="hidden xl:flex flex-col gap-6 w-64 shrink-0 sticky top-8 select-none">
             
             <div className="w-full sidebar-card p-5 flex flex-col gap-6 text-left relative overflow-hidden">
               

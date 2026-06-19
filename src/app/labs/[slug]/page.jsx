@@ -157,7 +157,7 @@ const fallbackLabs = {
     toolComponentKey: 'acoustic-shield',
     descriptionText: `### What it is
 
-A single-button ambient sound generators. Layered brown noise, soft hum, and optional low-frequency binaural carrier tuned to help with focus and sensory overwhelm. No music, no rhythm, no variation — just a stable acoustic blanket you can leave running for hours.
+A single-button ambient sound generators. Layered brown noise, soft hum, and optional low-frequency binaural carrier tuned to help with focus and sensory overwhelm. No music, no rhythm, no variation · just a stable acoustic blanket you can leave running for hours.
 
 ### How to use
 
@@ -200,7 +200,7 @@ For neurodivergent brains, predictable sound can reduce the cognitive load of fi
     toolComponentKey: 'visual-snow-shield',
     descriptionText: `### What it is
 
-A full-screen visual overlay that reduces the brightness, contrast, and visual noise of the page underneath. Designed for people who experience visual snow, light sensitivity, or sensory overload from bright screens. The standalone version works as a tab you keep open behind your work — or you can invoke it over the current tab via a browser extension hand-off.
+A full-screen visual overlay that reduces the brightness, contrast, and visual noise of the page underneath. Designed for people who experience visual snow, light sensitivity, or sensory overload from bright screens. The standalone version works as a tab you keep open behind your work · or you can invoke it over the current tab via a browser extension hand-off.
 
 ### How to use
 
@@ -236,11 +236,11 @@ Visual snow and light sensitivity can make standard screen brightness feel aggre
     title: "Brown Noise Loop",
     tag: "FOCUS",
     category: { title: "ACOUSTIC SHIELDS" },
-    excerpt: "A single play button, a volume slider, a 60-minute timer. Brown noise generated client-side — no streaming, no buffering, no account.",
+    excerpt: "A single play button, a volume slider, a 60-minute timer. Brown noise generated client-side · no streaming, no buffering, no account.",
     toolComponentKey: 'brown-noise-loop',
     descriptionText: `### What it is
 
-Brown noise is a steady, low-frequency hum — deeper and softer than white noise. For a lot of ADHD and autistic brains, it sits underneath the auditory chaos of a normal environment and gives the focus circuit something to lean on. It's not music. There's nothing to anticipate. That's the whole point.
+Brown noise is a steady, low-frequency hum · deeper and softer than white noise. For a lot of ADHD and autistic brains, it sits underneath the auditory chaos of a normal environment and gives the focus circuit something to lean on. It's not music. There's nothing to anticipate. That's the whole point.
 
 ### How to use
 
@@ -278,17 +278,17 @@ A constant, predictable audio signal reduces the auditory system's need to scan 
     title: "Decision Coin",
     tag: "DECISIONS",
     category: { title: "DOPAMINE RESETS" },
-    excerpt: "Tap to flip. Two custom labels. Useful for the decisions your brain refuses to make on its own. Not for the answer — for the feeling.",
+    excerpt: "Tap to flip. Two custom labels. Useful for the decisions your brain refuses to make on its own. Not for the answer · for the feeling.",
     toolComponentKey: 'decision-coin',
     descriptionText: `### What it is
 
-A coin with two labels you choose (e.g. *Rest* / *Push*, *Yes* / *No*, *Now* / *Later*). You tap it, it flips, it lands on one side. The point isn't to obey the coin. The point is to notice your reaction — the half-second of relief or disappointment that tells you which option you actually wanted.
+A coin with two labels you choose (e.g. *Rest* / *Push*, *Yes* / *No*, *Now* / *Later*). You tap it, it flips, it lands on one side. The point isn't to obey the coin. The point is to notice your reaction · the half-second of relief or disappointment that tells you which option you actually wanted.
 
 ### How to use
 
 1. Pick the two options. Type them into the labels.
 2. Tap the coin. Don't think.
-3. The instant it lands, notice your gut reaction — a tiny *yes* or *oh no* before any reasoning kicks in.
+3. The instant it lands, notice your gut reaction · a tiny *yes* or *oh no* before any reasoning kicks in.
 4. Go with the option your gut wanted, regardless of which side the coin actually landed on.
 
 The coin remembers your last labels via localStorage so you don't have to retype them next time.
@@ -300,7 +300,7 @@ ADHD brains often have a working answer already but can't access it through deli
 ### Accessibility & safety
 
 - Fully keyboard-accessible. Tap with mouse, tap, or press Space.
-- Animation respects prefers-reduced-motion — a static reveal replaces the flip if you've opted out.
+- Animation respects prefers-reduced-motion · a static reveal replaces the flip if you've opted out.
 - Labels saved to your browser's localStorage. Nothing leaves your device. Clearing browser storage clears the labels.
 - Not for high-stakes decisions. If the cost of being wrong is large, use a different tool.
 
@@ -325,14 +325,14 @@ ADHD brains often have a working answer already but can't access it through deli
     toolComponentKey: 'spoon-tracker',
     descriptionText: `### What it is
 
-The Spoon Tracker is a visual rendering of *spoon theory* — the idea that on any given day, you have a finite, limited number of units of energy ("spoons") and that ordinary activities spend them at different rates. The tracker lets you drag spoons in and out across the day so the cost of what you're doing is visible to you in real time, instead of being a vague feeling.
+The Spoon Tracker is a visual rendering of *spoon theory* · the idea that on any given day, you have a finite, limited number of units of energy ("spoons") and that ordinary activities spend them at different rates. The tracker lets you drag spoons in and out across the day so the cost of what you're doing is visible to you in real time, instead of being a vague feeling.
 
 ### How to use
 
 1. At the start of the day, set your starting spoon count. Most people land between 6 and 12 on a good day. Lower on a bad one.
 2. As you do things, drag spoons out of the tray and into the *spent* column. Use the suggested costs or set your own.
 3. Use the *banked* column for energy you're choosing to protect for later.
-4. At the end of the day, glance at the pattern. Don't analyse — just notice.
+4. At the end of the day, glance at the pattern. Don't analyse · just notice.
 
 Resets at midnight by default. There's a manual reset button if you want to start over earlier.
 
@@ -366,19 +366,19 @@ For brains that struggle to feel the cost of an activity until they've already p
     toolComponentKey: 'sensory-audit',
     descriptionText: `### What it is
 
-The Sensory Audit is a short, guided self-audit of the environment you're currently in. It walks you through the seven sensory domains most likely to be silently draining your energy, asks you a single question about each, and produces a one-page summary at the end — with one suggested change to try first. It's the free, 5-minute version of the *Sensory Audit Workbook*.
+The Sensory Audit is a short, guided self-audit of the environment you're currently in. It walks you through the seven sensory domains most likely to be silently draining your energy, asks you a single question about each, and produces a one-page summary at the end · with one suggested change to try first. It's the free, 5-minute version of the *Sensory Audit Workbook*.
 
 ### How to use
 
 1. Click *Start the audit*. The 7 questions appear one at a time.
 2. For each domain (light, sound, smell, temperature, clothing, posture, screen), pick the option that best matches your current state. Don't overthink.
-3. At the end, you get a one-page summary of the domains likely costing you most — and a single suggested change.
+3. At the end, you get a one-page summary of the domains likely costing you most · and a single suggested change.
 4. No signup required to see the result. The page is yours to read, screenshot, ignore, or act on.
 5. Optionally, at the bottom, save the result to a printable PDF or grab the deeper *Sensory Audit Workbook*.
 
 ### Why it helps
 
-Most late-diagnosed autistic adults have spent years filtering out their own sensory needs to fit a workplace, classroom, or family environment that wasn't built with them in mind. The filtering becomes invisible — you no longer notice the cost of the fluorescent light or the seam in the shirt, because you've trained yourself not to. The audit makes one of those costs visible again, which is the first step in deciding whether to keep paying it.
+Most late-diagnosed autistic adults have spent years filtering out their own sensory needs to fit a workplace, classroom, or family environment that wasn't built with them in mind. The filtering becomes invisible · you no longer notice the cost of the fluorescent light or the seam in the shirt, because you've trained yourself not to. The audit makes one of those costs visible again, which is the first step in deciding whether to keep paying it.
 
 ### Accessibility & safety
 
@@ -390,9 +390,9 @@ Most late-diagnosed autistic adults have spent years filtering out their own sen
 
 ### How to read the score
 
-- **0–4** — You're fine. The wrong feeling is from somewhere else. Worth checking emotional or physical inputs instead.
-- **5–10** — You're paying a quiet cost. One or two changes will probably help (dim a light, move seats, put earplugs in).
-- **11+** — You're in sensory debt. The single most useful thing you can do is leave or change the room.
+- **0–4** · You're fine. The wrong feeling is from somewhere else. Worth checking emotional or physical inputs instead.
+- **5–10** · You're paying a quiet cost. One or two changes will probably help (dim a light, move seats, put earplugs in).
+- **11+** · You're in sensory debt. The single most useful thing you can do is leave or change the room.
 
 ### What it isn't
 
@@ -630,7 +630,7 @@ export default async function LabSlugPage(props) {
                 ) : (
                   <div className="p-3 border border-[var(--rule)]/30 opacity-30">
                     <span className="text-[8px] font-mono text-[var(--muted)] uppercase block">PREVIOUS</span>
-                    <span className="text-xs font-black text-[var(--muted)] uppercase">—</span>
+                    <span className="text-xs font-black text-[var(--muted)] uppercase">-</span>
                   </div>
                 )}
                 {nextLab ? (
@@ -647,7 +647,7 @@ export default async function LabSlugPage(props) {
                 ) : (
                   <div className="p-3 border border-[var(--rule)]/30 opacity-30 text-right">
                     <span className="text-[8px] font-mono text-[var(--muted)] uppercase block">NEXT</span>
-                    <span className="text-xs font-black text-[var(--muted)] uppercase">—</span>
+                    <span className="text-xs font-black text-[var(--muted)] uppercase">-</span>
                   </div>
                 )}
               </div>

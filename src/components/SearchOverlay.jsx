@@ -3,7 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, X, BookOpen, Terminal, ShoppingBag, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getPosts, getLabs, getMemoirChapters, getProducts } from '../lib/strapi';
+import { getPosts, getLabs, getMemoirChapters } from '../lib/strapi';
+import { PRODUCTS } from '../data/products';
 
 export const SearchOverlay = ({ isOpen, onClose }) => {
   const router = useRouter();
@@ -23,32 +24,31 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
       setLoading(true);
       setIndexError('');
       try {
-        const [sanityPosts, sanityLabs, sanityChapters, sanityProducts] = await Promise.allSettled([
+        const [sanityPosts, sanityLabs, sanityChapters] = await Promise.allSettled([
           getPosts(),
           getLabs(),
-          getMemoirChapters(),
-          getProducts()
+          getMemoirChapters()
         ]);
 
         const allItems = [];
 
         // --- BLOG POSTS ---
-        if (sanityPosts.status !== 'fulfilled') {
-          throw sanityPosts.reason;
-        }
-        const postsList = sanityPosts.value || [];
-        
-        postsList.forEach(post => {
-          allItems.push({
-            id: `post-${post._id || post.id}`,
-            title: post.title,
-            excerpt: post.excerpt || '',
-            url: `/blog/${post.slug?.current || post.slug}`,
-            type: 'post',
-            badge: 'Post',
-            meta: post.pillar === 'tiny-systems' ? 'TOOLS & TEMPLATES' : post.pillar === 'glitchwork' ? 'DIGITAL LIFE' : 'UNMASKED LIFE'
+        if (sanityPosts.status === 'fulfilled') {
+          const postsList = sanityPosts.value || [];
+          postsList.forEach(post => {
+            allItems.push({
+              id: `post-${post._id || post.id}`,
+              title: post.title,
+              excerpt: post.excerpt || '',
+              url: `/blog/${post.slug?.current || post.slug}`,
+              type: 'post',
+              badge: 'Post',
+              meta: post.pillar === 'tiny-systems' ? 'TOOLS & TEMPLATES' : post.pillar === 'glitchwork' ? 'DIGITAL LIFE' : 'UNMASKED LIFE'
+            });
           });
-        });
+        } else {
+          console.warn('⚠️ Search indexing: Failed to fetch posts from Strapi:', sanityPosts.reason);
+        }
 
         // --- MEMOIR CHAPTERS ---
         if (sanityChapters.status === 'fulfilled' && sanityChapters.value?.length > 0) {
@@ -63,41 +63,90 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
               meta: `Chapter ${chapter.chapterNumber}`
             });
           });
+        } else if (sanityChapters.status === 'rejected') {
+          console.warn('⚠️ Search indexing: Failed to fetch memoir chapters:', sanityChapters.reason);
         }
 
         // --- LAB TOOLS ---
-        if (sanityLabs.status !== 'fulfilled') {
-          throw sanityLabs.reason;
-        }
-        sanityLabs.value.forEach(lab => {
-          allItems.push({
-            id: `lab-${lab._id || lab.id}`,
-            title: lab.title,
-            excerpt: lab.excerpt || '',
-            url: lab.isExternal ? lab.externalUrl : `/labs/${lab.slug?.current || lab.slug}`,
-            type: 'lab',
-            badge: 'Lab',
-            meta: lab.tag || 'Interactive'
+        if (sanityLabs.status === 'fulfilled') {
+          const labsList = sanityLabs.value || [];
+          labsList.forEach(lab => {
+            allItems.push({
+              id: `lab-${lab._id || lab.id}`,
+              title: lab.title,
+              excerpt: lab.excerpt || '',
+              url: lab.isExternal ? lab.externalUrl : `/labs/${lab.slug?.current || lab.slug}`,
+              type: 'lab',
+              badge: 'Lab',
+              meta: lab.tag || 'Interactive'
+            });
           });
-        });
+        } else {
+          console.warn('⚠️ Search indexing: Failed to fetch labs from Strapi:', sanityLabs.reason);
+        }
 
         // --- STORE PRODUCTS ---
-        if (sanityProducts.status !== 'fulfilled') {
-          throw sanityProducts.reason;
-        }
-        const productsList = sanityProducts.value || [];
-
-        productsList.forEach(product => {
+        PRODUCTS.forEach(product => {
           allItems.push({
-            id: `product-${product._id || product.id}`,
+            id: `product-${product.slug}`,
             title: product.title,
-            excerpt: product.excerpt || product.desc || '',
-            url: `/store/${product.slug?.current || product.slug}`,
+            excerpt: product.cardBlurb || product.tagline || '',
+            url: `/store/${product.slug}`,
             type: 'product',
             badge: 'Product',
-            meta: `£${product.price} · Resource`
+            meta: `${product.priceLabel} · Resource`
           });
         });
+
+        // --- CORE STATIC PAGES ---
+        const staticPages = [
+          {
+            id: 'page-about',
+            title: 'About Ollie & neurodivers³',
+            excerpt: 'Meet Ollie, the late-diagnosed AuDHD founder of neurodivers³. Read the story behind the project.',
+            url: '/about',
+            type: 'page',
+            badge: 'Page',
+            meta: 'ABOUT US'
+          },
+          {
+            id: 'page-accessibility',
+            title: 'Accessibility Statement & Design Principles',
+            excerpt: 'How neurodivers³ is designed for ADHD, autistic, dyslexic, and sensory-sensitive users. WCAG 2.1 AA conforming.',
+            url: '/accessibility',
+            type: 'page',
+            badge: 'Page',
+            meta: 'A11Y STATEMENT'
+          },
+          {
+            id: 'page-contact',
+            title: 'Contact Ollie Clews',
+            excerpt: 'Get in touch for collaboration, inquiries, feedback, or general support.',
+            url: '/contact',
+            type: 'page',
+            badge: 'Page',
+            meta: 'GET IN TOUCH'
+          },
+          {
+            id: 'page-store',
+            title: 'Digital Resource Store',
+            excerpt: 'Tactile, low-friction planners, recovery packs, and workbooks built around fluctuating executive capacity.',
+            url: '/store',
+            type: 'page',
+            badge: 'Page',
+            meta: 'STORE HUB'
+          },
+          {
+            id: 'page-memoir',
+            title: 'Serial Memoir Hub',
+            excerpt: 'A serial memoir in progress about late-diagnosed AuDHD, masking, burnout, and figuring out how to human.',
+            url: '/memoir',
+            type: 'page',
+            badge: 'Page',
+            meta: 'MEMOIR'
+          }
+        ];
+        staticPages.forEach(p => allItems.push(p));
 
         setItems(allItems);
       } catch (err) {
@@ -199,7 +248,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
       case 'product':
         return <ShoppingBag size={16} className="text-indigo-400" />;
       default:
-        return <Search size={16} className="text-accent-pink" />;
+        return <Search size={16} className="text-accent" />;
     }
   };
 
@@ -214,7 +263,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
       <span>
         {parts.map((part, i) => 
           testRegex.test(part) ? (
-            <mark key={i} className="bg-accent-pink/30 text-accent-pink font-black px-0.5 select-none rounded-sm">
+            <mark key={i} className="bg-[var(--accent)]/30 text-accent font-black px-0.5 select-none rounded-sm">
               {part}
             </mark>
           ) : (
@@ -238,12 +287,12 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
           {/* Close Trigger Button */}
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 md:top-12 md:right-12 p-3 text-text-muted hover:text-accent-pink bg-transparent hover:bg-accent-pink-soft border border-transparent hover:border-border-rule transition-all cursor-pointer focus-ring rounded-none z-[10000]"
+            className="absolute top-6 right-6 md:top-12 md:right-12 p-3 text-text-muted hover:text-accent bg-transparent hover:bg-[var(--accent-soft)] border border-transparent hover:border-border-rule transition-all cursor-pointer focus-ring rounded-none z-[10000]"
             aria-label="Close search overlay"
           >
             <X size={24} />
           </button>
-
+ 
           <div className="max-w-4xl w-full mx-auto flex flex-col h-full justify-start mt-12 md:mt-20">
             {/* BIG SEARCH BAR */}
             <div className="relative border-b-4 border-fg-primary pb-4 mb-8">
@@ -260,14 +309,14 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
               {query && (
                 <button
                   onClick={() => setQuery('')}
-                  className="absolute right-0 top-3 p-1 text-text-muted hover:text-accent-pink cursor-pointer bg-transparent border-none"
+                  className="absolute right-0 top-3 p-1 text-text-muted hover:text-accent cursor-pointer bg-transparent border-none"
                   aria-label="Clear query"
                 >
                   <X size={20} />
                 </button>
               )}
             </div>
-
+ 
             {/* QUICK KEYBOARD HINT */}
             <div className="flex justify-between items-center text-[10px] font-mono text-text-muted uppercase tracking-widest mb-6">
               <span>{loading ? 'indexing files...' : `system ready: ${items.length} items loaded`}</span>
@@ -277,7 +326,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
                 <span>[esc] close</span>
               </div>
             </div>
-
+ 
             {/* RESULTS CONTAINER */}
             <div 
               ref={resultsContainerRef}
@@ -285,7 +334,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
             >
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-20 gap-4">
-                  <div className="w-8 h-8 border-4 border-accent-pink/20 border-t-accent-pink rounded-full animate-spin"></div>
+                  <div className="w-8 h-8 border-4 border-[var(--accent)]/20 border-t-accent rounded-full animate-spin"></div>
                   <span className="font-mono text-xs text-text-muted uppercase tracking-widest">indexing site logs...</span>
                 </div>
               ) : indexError ? (
@@ -296,13 +345,13 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
               ) : query.trim() === '' ? (
                 /* Empty state / search prompts */
                 <div className="py-12 border border-dashed border-border-rule p-8 flex flex-col gap-6">
-                  <span className="text-xs font-mono text-accent-pink font-bold uppercase tracking-widest">RECENT SEARCH SUGGESTIONS</span>
+                  <span className="text-xs font-mono text-accent font-bold uppercase tracking-widest">RECENT SEARCH SUGGESTIONS</span>
                   <div className="flex flex-wrap gap-3">
                     {['unmasking', 'tabs', 'burnout', 'habit', 'menu', 'audit'].map(term => (
                       <button
                         key={term}
                         onClick={() => setQuery(term)}
-                        className="px-4 py-2 font-mono text-xs font-black uppercase tracking-wider border border-border-rule hover:border-accent-pink text-text-muted hover:text-accent-pink bg-bg-primary transition-all cursor-pointer rounded-none"
+                        className="px-4 py-2 font-mono text-xs font-black uppercase tracking-wider border border-border-rule hover:border-accent text-text-muted hover:text-accent bg-bg-primary transition-all cursor-pointer rounded-none"
                       >
                         {term}
                       </button>
@@ -331,7 +380,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
                         onMouseEnter={() => setSelectedIndex(idx)}
                         className={`group p-5 border-2 flex items-center justify-between gap-6 transition-all duration-150 cursor-pointer rounded-none text-left ${
                           isActive
-                            ? 'bg-accent-pink-soft border-accent-pink shadow-[4px_4px_0px_var(--accent)]'
+                            ? 'bg-[var(--accent-soft)] border-accent shadow-[4px_4px_0px_var(--accent)]'
                             : 'bg-bg-primary/20 border-border-rule hover:border-fg-primary'
                         }`}
                       >
@@ -340,7 +389,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
                           <div className="flex items-center gap-2 mb-2">
                             <span className={`px-2 py-0.5 text-[9px] font-mono font-black uppercase tracking-widest border rounded-none ${
                               isActive 
-                                ? 'bg-accent-pink/20 border-accent-pink text-accent-pink' 
+                                ? 'bg-[var(--accent-soft)] border-accent text-accent' 
                                 : 'bg-bg-primary border-border-rule text-text-muted'
                             }`}>
                               {item.badge}
@@ -349,24 +398,24 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
                               {item.meta}
                             </span>
                           </div>
-
+ 
                           {/* Middle Row: Title */}
                           <h4 className={`text-lg md:text-xl font-black uppercase tracking-tight mb-2 leading-tight transition-colors ${
-                            isActive ? 'text-accent-pink' : 'text-fg-primary'
+                            isActive ? 'text-accent' : 'text-fg-primary'
                           }`}>
                             {highlightText(item.title, query)}
                           </h4>
-
+ 
                           {/* Bottom Row: Excerpt */}
                           <p className="text-xs md:text-sm text-text-muted line-clamp-2 leading-relaxed font-normal">
                             {highlightText(item.excerpt, query)}
                           </p>
                         </div>
-
+ 
                         {/* Visual Icon indicator */}
                         <div className={`p-3 border shrink-0 transition-all ${
                           isActive 
-                            ? 'bg-bg-primary border-accent-pink text-accent-pink scale-110' 
+                            ? 'bg-bg-primary border-accent text-accent scale-110' 
                             : 'bg-bg-primary/50 border-border-rule text-text-muted group-hover:border-fg-primary group-hover:text-fg-primary'
                         }`}>
                           {isActive ? <ArrowRight size={16} /> : renderIcon(item.type)}

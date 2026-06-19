@@ -69,9 +69,9 @@ export const CartSidebar = () => {
         {/* Header Block */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-accent-pink block">ND3 HUB</span>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-accent block">n³ BASKET</span>
             <h2 className="text-3xl font-black uppercase tracking-tighter text-fg-primary mt-1">
-              {isCheckingOut ? 'ACQUISITION' : 'THE TOOLKIT'}
+              {isCheckingOut ? 'ACQUISITION' : 'YOUR CART'}
             </h2>
           </div>
           <button onClick={() => setIsCartOpen(false)} className="text-text-muted hover:text-fg-primary p-2 cursor-pointer transition-colors"><X size={28}/></button>
@@ -115,7 +115,7 @@ export const CartSidebar = () => {
                       </div>
                       <div className="flex items-center gap-4">
                         <span className="font-black text-xs text-fg-primary">£{item.price}</span>
-                        <button onClick={() => removeFromCart(item.id)} className="text-text-muted hover:text-accent-pink transition-colors p-1.5 cursor-pointer"><Trash2 size={16} /></button>
+                        <button onClick={() => removeFromCart(item.id)} className="text-text-muted hover:text-accent transition-colors p-1.5 cursor-pointer"><Trash2 size={16} /></button>
                       </div>
                     </div>
                   ))}
@@ -126,7 +126,7 @@ export const CartSidebar = () => {
               {cart.length === 0 && securedDownloads.length === 0 && (
                 <div className="text-center py-28 opacity-30 text-text-muted">
                   <ShoppingBag size={56} className="mx-auto mb-5" />
-                  <p className="font-black uppercase text-[10px] tracking-[0.25em]">YOUR TOOLKIT IS EMPTY</p>
+                  <p className="font-black uppercase text-[10px] tracking-[0.25em]">YOUR BASKET IS EMPTY</p>
                 </div>
               )}
 
@@ -177,9 +177,9 @@ export const CartSidebar = () => {
         {cart.length > 0 && !isCheckingOut && (
           <div className="mt-6 pt-6 border-t border-border-rule space-y-5">
             {checkoutError && (
-              <div className="bg-bg-primary border-2 border-accent-pink p-3 shadow-[2px_2px_0px_var(--accent)] text-left flex flex-col gap-1 animate-in fade-in slide-in-from-bottom-2 duration-200">
+              <div className="bg-bg-primary border-2 border-accent p-3 shadow-[2px_2px_0px_var(--accent)] text-left flex flex-col gap-1 animate-in fade-in slide-in-from-bottom-2 duration-200">
                 <div className="flex justify-between items-center w-full">
-                  <span className="text-[9px] font-black uppercase text-accent-pink tracking-widest">⚠️ CHECKOUT WARNING</span>
+                  <span className="text-[9px] font-black uppercase text-accent tracking-widest">⚠️ CHECKOUT WARNING</span>
                   <button onClick={() => setCheckoutError(null)} className="text-text-muted hover:text-fg-primary text-[8px] uppercase font-bold tracking-widest font-mono cursor-pointer">[DISMISS]</button>
                 </div>
                 <p className="text-[10px] text-text-muted leading-relaxed font-mono">
@@ -195,7 +195,7 @@ export const CartSidebar = () => {
             
             <button 
               onClick={startCheckoutQueue}
-              className="w-full py-4.5 bg-accent-pink text-bg-primary font-black rounded-none border-2 border-fg-primary hover:-translate-y-1 hover:translate-x-1 active:translate-y-0 active:translate-x-0 transition-all shadow-[4px_4px_0px_var(--fg)] flex items-center justify-center gap-3 uppercase tracking-wider text-xs cursor-pointer"
+              className="w-full py-4.5 bg-accent text-bg-primary font-black rounded-none border-2 border-fg-primary hover:-translate-y-1 hover:translate-x-1 active:translate-y-0 active:translate-x-0 transition-all shadow-[4px_4px_0px_var(--fg)] flex items-center justify-center gap-3 uppercase tracking-wider text-xs cursor-pointer"
             >
               <Zap size={16} /> COMPLETE ORDER
             </button>

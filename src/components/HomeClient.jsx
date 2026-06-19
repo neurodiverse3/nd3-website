@@ -7,6 +7,7 @@ import { ArrowRight, ChevronRight, Loader2, CheckCircle2 } from 'lucide-react';
 import { subscribeNewsletter } from '../app/actions/newsletter';
 import { urlFor } from '../lib/strapi';
 import { PostCover } from './PostCover';
+import { useBrainState, BRAIN_STATES } from '../context/BrainStateContext';
 
 const getPillarLabel = (pillar) => {
   if (pillar === 'tiny-systems') return 'TOOLS & TEMPLATES';
@@ -18,6 +19,15 @@ const getPillarLabel = (pillar) => {
 export default function HomeClient({ siteSettings, latestPosts }) {
   const router = useRouter();
   const moodSectionRef = React.useRef(null);
+  const latestWritingRef = React.useRef(null);
+  const { brainState: selectedBrainState, setBrainState: setSelectedBrainState } = useBrainState();
+
+  const filteredPosts = selectedBrainState
+    ? (latestPosts || []).filter(post => {
+        const postState = (post.brainState || '').toLowerCase();
+        return postState === selectedBrainState;
+      })
+    : latestPosts;
   
   // Scroll progress
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -132,14 +142,18 @@ export default function HomeClient({ siteSettings, latestPosts }) {
     }
   ];
 
-  // Brain states rows definition
-  const brainStates = [
-    { id: "burned-out", label: "BURNED OUT", hint: "for when everything feels too much", num: "01" },
-    { id: "hyperfocus", label: "HYPERFOCUSED", hint: "for when your brain wants the deep dive", num: "02" },
-    { id: "masking", label: "MASKING", hint: "for when you’re tired of performing", num: "03" },
-    { id: "spiraling", label: "SPIRALLING", hint: "for when you need one small next step", num: "04" },
-    { id: "on-a-roll", label: "ON A ROLL", hint: "for when the momentum is finally there", num: "05" }
-  ];
+  // Brain states rows definition (imported from context)
+  const brainStates = BRAIN_STATES;
+
+  const [hoveredState, setHoveredState] = useState(null);
+
+  const handleMoodClick = (e, stateId) => {
+    e.preventDefault();
+    setSelectedBrainState(stateId);
+    if (latestWritingRef.current) {
+      latestWritingRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="bg-bg-primary text-fg-primary font-sans antialiased selection:bg-accent selection:text-bg-primary">
@@ -158,7 +172,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 md:mb-12 select-none"
             style={{ opacity: 0, animation: 'fadeInUp 0.6s ease forwards' }}
           >
-            NEURODIVERGENT LIFE, TOOLS & STORIES
+            NEURODIVERGENT LIFE, TOOLS AND STORIES
           </div>
 
           <h1 className="text-5xl md:text-[8rem] font-black leading-[1.05] tracking-[-0.02em] uppercase mb-4 md:mb-8 select-none">
@@ -188,11 +202,14 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             </div>
           </h1>
 
-          <p
-            className="text-base md:text-2xl text-text-muted max-w-[48ch] leading-relaxed mb-6 md:mb-12 font-normal"
-            style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.3s forwards' }}
+          <p 
+            className="text-lg md:text-2xl text-text-muted font-normal max-w-[48ch] leading-relaxed mb-8 md:mb-12 select-text"
+            style={{ 
+              opacity: 0, 
+              animation: 'fadeInUp 0.6s ease 0.2s forwards'
+            }}
           >
-            Honest stories, useful tools and practical ideas for making everyday life work better with a neurodivergent brain.
+            An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.
           </p>
 
           <div
@@ -242,17 +259,22 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             >
               <Link
                 href={`/blog?state=${state.id}`}
-                className="group block border-b border-border-rule relative overflow-hidden transition-all duration-300 hover:bg-[var(--accent-soft)] focus:bg-[var(--accent-soft)]"
-                aria-label={`${state.label} — ${state.hint}`}
+                onClick={(e) => handleMoodClick(e, state.id)}
+                onMouseEnter={() => setHoveredState(state.id)}
+                onMouseLeave={() => setHoveredState(null)}
+                className={`group block border-b border-border-rule relative overflow-hidden transition-all duration-300 hover:bg-[var(--accent-soft)] focus:bg-[var(--accent-soft)] ${selectedBrainState === state.id ? 'bg-[var(--accent-soft)]' : ''}`}
               >
                 <div className="max-w-7xl w-full mx-auto px-6 md:px-24 py-0 min-h-[88px] md:min-h-[120px] flex flex-row items-center justify-between gap-6 relative z-10">
                   {/* Number & Label */}
                   <div className="flex items-center gap-10 md:gap-[40px]">
-                    <span className="text-[48px] md:text-[72px] font-black text-text-muted group-hover:text-link transition-colors duration-300 font-mono tabular-nums" aria-hidden="true">
+                    <span 
+                      className={`text-[48px] md:text-[72px] font-black text-text-muted transition-all duration-200 font-mono tabular-nums select-none ${hoveredState === state.id ? 'brain-num-glitch' : ''} ${selectedBrainState === state.id ? 'text-accent scale-110' : ''}`}
+                      aria-hidden="true"
+                    >
                       {state.num}
                     </span>
                     <div className="flex flex-col items-start text-left">
-                      <span className="text-2xl md:text-3xl font-black tracking-tight uppercase leading-none text-fg-primary group-hover:text-link transition-colors duration-300 font-display">
+                      <span className={`text-2xl md:text-3xl font-black tracking-tight uppercase leading-none transition-colors duration-300 font-display ${selectedBrainState === state.id ? 'text-accent' : 'text-fg-primary group-hover:text-link'}`}>
                         {state.label}
                       </span>
                       <span className="text-xs md:text-sm text-text-muted mt-1 tracking-wide font-normal group-hover:text-fg-primary transition-colors duration-300">
@@ -260,10 +282,15 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                       </span>
                     </div>
                   </div>
-                  <ChevronRight size={32} className="text-text-muted group-hover:text-link group-hover:translate-x-1.5 transition-all duration-300 shrink-0" />
+                  <div className="flex items-center shrink-0">
+                    <span className={`text-[10px] font-mono font-black text-accent border border-accent/20 bg-[var(--accent-soft)] px-2.5 py-1 uppercase tracking-wider transition-all duration-300 hidden md:inline-block mr-4 select-none ${hoveredState === state.id || selectedBrainState === state.id ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'}`}>
+                      {selectedBrainState === state.id ? 'Active filter' : 'Click to filter below'}
+                    </span>
+                    <ChevronRight size={32} className={`text-text-muted group-hover:text-link group-hover:translate-x-1.5 transition-all duration-300 shrink-0 ${selectedBrainState === state.id ? 'text-accent translate-x-2' : ''}`} />
+                  </div>
                 </div>
                 {/* Active left indicator rule */}
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className={`absolute left-0 top-0 bottom-0 w-1 bg-accent transition-all duration-300 ${selectedBrainState === state.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
               </Link>
             </div>
           ))}
@@ -312,80 +339,68 @@ export default function HomeClient({ siteSettings, latestPosts }) {
         </div>
       </section>
 
-      {/* 5. Featured Reading */}
-      {featured.length >= 3 && (
-        <section className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto border-b border-border-rule">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
-            <div>
-              <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">FEATURED READING</span>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mt-4">
-                Read these first<span className="text-accent inline-block ml-0.5">.</span>
-              </h2>
-            </div>
-            <Link href="/blog" className="text-[13px] font-black uppercase tracking-[0.2em] text-text-muted hover:text-link transition-colors flex items-center gap-2">
-              View all posts →
-            </Link>
-          </div>
+      <section className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto border-b border-border-rule">
+        <div className="mb-16">
+          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">FEATURED READING</span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mt-4">
+            Read these first<span className="text-accent inline-block ml-0.5">.</span>
+          </h2>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featured.slice(0, 3).map((post, idx) => {
-              const slug = post.slug?.current || post.slug;
-              const mapPillarKey = (p) => {
-                const k = p?.toLowerCase() || '';
-                if (k.includes('system') || k.includes('tool')) return 'tools';
-                if (k.includes('glitch') || k.includes('digital')) return 'digital';
-                return 'unmasked';
-              };
-              const postNumber = post.postNumber || (idx + 1);
-
-              return (
-                <div
-                  key={post._id || idx}
-                  className="group border-2 border-border-rule hover:border-fg-primary focus-within:border-fg-primary bg-bg-primary flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 focus-within:-translate-y-1.5 shadow-[6px_6px_0px_var(--rule)] hover:shadow-[10px_10px_0px_var(--accent)] focus-within:shadow-[10px_10px_0px_var(--accent)] rounded-none text-left overflow-hidden cursor-pointer"
-                  data-pillar={mapPillarKey(post.pillar)}
-                >
-                  <Link 
-                    href={`/blog/${slug}`}
-                    className="border-b-2 border-border-rule group-hover:border-fg-primary transition-colors block"
-                  >
-                    <PostCover 
-                      title={post.title} 
-                      pillar={post.pillar} 
-                      brainState={post.brainState || 'hyperfocus'}
-                      accentWord={post.accentWord}
-                      accentOverride={post.accentOverride}
-                      aspect="4:3" 
-                      readTime={post.readTime || '5 MIN'}
-                      date={post.date ? new Date(post.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'RECENT'}
-                      postNumber={postNumber}
-                    />
-                  </Link>
-
-                  <div className="px-6 py-8 flex flex-col justify-between flex-grow">
-                    <div className="flex flex-col flex-grow">
-                      <div className="flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-link mb-4">
-                        <span>{getPillarLabel(post.pillar)}</span>
-                      </div>
-                      {post.excerpt && (
-                        <p className="text-sm text-text-muted leading-relaxed font-normal line-clamp-4 mb-6">
-                          {post.excerpt}
-                        </p>
-                      )}
-                    </div>
-                    
-                    <Link 
-                      href={`/blog/${slug}`}
-                      className="inline-flex items-center justify-center gap-2 px-5 py-3 mt-auto bg-transparent text-fg-primary font-black text-xs uppercase tracking-widest border-2 border-fg-primary shadow-[4px_4px_0px_var(--fg)] hover:-translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all rounded-none w-fit"
-                    >
-                      READ POST <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform shrink-0" />
-                    </Link>
+        <div className="space-y-6">
+          {[
+            {
+              title: "Autistic Burnout: What It Actually Feels Like (And How I Get Out of It)",
+              desc: "the foundational piece.",
+              slug: "autistic-burnout",
+              num: "01"
+            },
+            {
+              title: "Autistic Masking: The Cost of Looking Fine When You're Not (Every Day, for Thirty Years)",
+              desc: "the masking companion.",
+              slug: "autistic-masking",
+              num: "02"
+            },
+            {
+              title: "47 Open Browser Tabs: A Love Letter to the Tab-Hoarding Brain",
+              desc: "a lighter entry point.",
+              slug: "47-tabs-hyperfocus",
+              num: "03"
+            }
+          ].map((item) => (
+            <Link
+              key={item.slug}
+              href={`/blog/${item.slug}`}
+              className="group block border-2 border-border-rule hover:border-fg-primary bg-bg-primary p-6 md:p-8 transition-all duration-300 shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] text-left cursor-pointer"
+            >
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="flex items-start gap-6">
+                  <span className="text-3xl md:text-4xl font-black text-text-muted group-hover:text-link font-mono select-none" aria-hidden="true">
+                    {item.num}
+                  </span>
+                  <div className="space-y-1">
+                    <h3 className="text-lg md:text-xl font-black tracking-tight text-fg-primary group-hover:text-link transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-text-muted leading-relaxed font-normal">
+                      {item.desc}
+                    </p>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
+                <div className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-text-muted group-hover:text-link transition-colors self-start md:self-auto pl-12 md:pl-0">
+                  Read article <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-12 flex justify-start">
+          <Link href="/blog" className="text-sm md:text-base font-black uppercase tracking-[0.2em] text-link hover:opacity-80 transition-opacity flex items-center gap-2 group">
+            <strong>View all posts →</strong>
+          </Link>
+        </div>
+      </section>
 
       {/* 6. Memoir Teaser */}
       <section className="bg-bg-primary border-b border-border-rule py-16 md:py-20 lg:py-[120px] px-6 md:px-24">
@@ -395,7 +410,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none rounded-none" />
             
             <span className="relative z-10 inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] border border-border-rule px-3 py-1 uppercase select-none">
-              · SERIAL MEMOIR IN PROGRESS
+              SERIAL MEMOIR IN PROGRESS
             </span>
             <h2 className="relative z-10 text-4xl md:text-6xl font-black tracking-tighter uppercase mt-8 mb-6 text-fg-primary leading-none group-hover:text-link transition-colors duration-300">
               {memoir.headline.replace(/\.$/, '').toUpperCase()}<span className="text-accent inline-block ml-0.5">.</span>
@@ -469,6 +484,85 @@ export default function HomeClient({ siteSettings, latestPosts }) {
         </div>
       </section>
 
+      {/* 7.5 Social Follow Section */}
+      <section className="border-b border-border-rule py-16 md:py-20 lg:py-[100px] bg-bg-primary px-6 md:px-24">
+        <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
+          <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
+            FOLLOW THE TRANSITIONS
+          </span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6">
+            Join us on socials<span className="text-accent inline-block ml-0.5">.</span>
+          </h2>
+          <p className="text-sm md:text-base text-text-muted max-w-[54ch] leading-relaxed mb-12 font-normal">
+            We share bite-sized dopamine menus, sensory accommodations, and daily unmasked reflections on our channels.
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 w-full max-w-5xl">
+            <a 
+              href="https://tiktok.com/@neurodivers3" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group p-6 border-2 border-border-rule hover:border-fg-primary bg-bg-primary/20 hover:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none"
+            >
+              <span className="text-text-muted group-hover:text-link transition-colors">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="shrink-0"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.74-3.94-1.78-.22-.22-.41-.47-.59-.73v7.02c0 3.74-2.07 6.97-5.46 8.22-3.39 1.25-7.39.4-9.87-2.12-2.48-2.52-3.13-6.52-1.61-9.76 1.52-3.24 5.05-5.18 8.62-4.77v4.07c-2-.31-4.04.57-5.01 2.37-.97 1.8-.6 4.09.91 5.46 1.52 1.37 3.86 1.34 5.35-.07.97-.96 1.44-2.34 1.37-3.7V0h.03z"/></svg>
+              </span>
+              <span className="font-mono text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">TikTok</span>
+            </a>
+
+            <a 
+              href="https://instagram.com/neurodivers3" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group p-6 border-2 border-border-rule hover:border-fg-primary bg-bg-primary/20 hover:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none"
+            >
+              <span className="text-text-muted group-hover:text-link transition-colors">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </span>
+              <span className="font-mono text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">Instagram</span>
+            </a>
+
+            <a 
+              href="https://youtube.com/@neurodivers3" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group p-6 border-2 border-border-rule hover:border-fg-primary bg-bg-primary/20 hover:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none"
+            >
+              <span className="text-text-muted group-hover:text-link transition-colors">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+              </span>
+              <span className="font-mono text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">YouTube</span>
+            </a>
+
+            <a 
+              href="https://facebook.com/neurodivers3" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group p-6 border-2 border-border-rule hover:border-fg-primary bg-bg-primary/20 hover:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none"
+            >
+              <span className="text-text-muted group-hover:text-link transition-colors">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </span>
+              <span className="font-mono text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">Facebook</span>
+            </a>
+
+            <a 
+              href="https://x.com/neurodivers3" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group p-6 border-2 border-border-rule hover:border-fg-primary bg-bg-primary/20 hover:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none"
+            >
+              <span className="text-text-muted group-hover:text-link transition-colors">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+              </span>
+              <span className="font-mono text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] text-fg-primary">X / Twitter</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* 8. Newsletter Block */}
       <section className="border-b border-border-rule py-16 md:py-20 lg:py-[120px] bg-bg-primary px-6 md:px-24">
         <div className="max-w-3xl mx-auto border-2 border-border-rule p-8 md:p-12 bg-bg-primary/35 shadow-[6px_6px_0px_var(--rule)] relative hover:border-fg-primary hover:shadow-[8px_8px_0px_var(--fg)] transition-all duration-300">
@@ -531,9 +625,9 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                 </div>
 
                 <p className="text-xs text-text-muted text-center leading-relaxed font-normal">
-                  New chapters land with subscribers first, then arrive on the site 7 days later.
+                  Get early access to tools, templates, and new essays before they land on the site.
                 </p>
-                <p className="text-[11px] text-text-muted/80 text-center leading-relaxed font-normal font-mono uppercase mt-1">
+                <p className="text-[11px] text-text-muted text-center leading-relaxed font-normal font-mono uppercase mt-1">
                   No spam. Unsubscribe in one click.
                 </p>
 
@@ -565,86 +659,114 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
       {/* 9. Latest Writing */}
       {latestPosts && latestPosts.length > 0 && (
-        <section className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto">
+        <section ref={latestWritingRef} className="py-16 md:py-20 lg:py-[120px] px-6 md:px-24 max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
             <div>
               <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">Latest Writing</span>
               <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mt-4">
                 FRESH OFF THE KEYBOARD<span className="text-accent inline-block ml-0.5">.</span>
               </h2>
+              {selectedBrainState && (
+                <div className="flex items-center gap-2 mt-4 animate-in fade-in slide-in-from-left-2 duration-300">
+                  <span className="text-xs font-mono font-black uppercase text-accent bg-[var(--accent-soft)] border border-accent/20 px-3 py-1 flex items-center gap-2">
+                    Mood: {selectedBrainState.replace('-', ' ')}
+                    <button 
+                      onClick={() => setSelectedBrainState(null)} 
+                      className="hover:text-fg-primary text-accent/70 font-black cursor-pointer bg-transparent border-0 p-0 ml-1"
+                      title="Clear filter"
+                    >
+                      ✕
+                    </button>
+                  </span>
+                </div>
+              )}
             </div>
             <Link href="/blog" className="text-[13px] font-black uppercase tracking-[0.2em] text-text-muted hover:text-link transition-colors flex items-center gap-2">
               All posts →
             </Link>
           </div>
 
-          <div className={`grid gap-8 ${
-            latestPosts.length === 1 ? 'grid-cols-1 max-w-[400px]' :
-            latestPosts.length === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-[850px]' :
-            'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-          }`}>
-            {latestPosts.slice(0, 3).map((post, idx) => {
-              const slug = post.slug?.current || post.slug;
-              const formattedDate = post.date || (post._createdAt ? new Date(post._createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'RECENT');
-              const mapPillarKey = (p) => {
-                const k = p?.toLowerCase() || '';
-                if (k.includes('system') || k.includes('tool')) return 'tools';
-                if (k.includes('glitch') || k.includes('digital')) return 'digital';
-                return 'unmasked';
-              };
-              const postNumber = post.postNumber || (idx + 1);
+          {filteredPosts.length === 0 ? (
+            <div className="border-2 border-dashed border-border-rule p-12 text-center flex flex-col items-center justify-center min-h-[200px] shadow-[4px_4px_0px_var(--rule)]">
+              <p className="text-sm md:text-base text-text-muted mb-4 font-normal">
+                No recent posts are flagged as <span className="text-accent uppercase font-black">{selectedBrainState.replace('-', ' ')}</span>.
+              </p>
+              <button
+                onClick={() => setSelectedBrainState(null)}
+                className="px-4 py-2 border-2 border-accent text-accent font-black uppercase tracking-wider cursor-pointer hover:bg-[var(--accent-soft)] transition-colors text-xs focus-ring"
+              >
+                Clear filter & show all
+              </button>
+            </div>
+          ) : (
+            <div className={`grid gap-8 ${
+              filteredPosts.length === 1 ? 'grid-cols-1 max-w-[400px]' :
+              filteredPosts.length === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-[850px]' :
+              'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            }`}>
+              {filteredPosts.slice(0, 3).map((post, idx) => {
+                const slug = post.slug?.current || post.slug;
+                const formattedDate = post.date || (post._createdAt ? new Date(post._createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'RECENT');
+                const mapPillarKey = (p) => {
+                  const k = p?.toLowerCase() || '';
+                  if (k.includes('system') || k.includes('tool')) return 'tools';
+                  if (k.includes('glitch') || k.includes('digital')) return 'digital';
+                  return 'unmasked';
+                };
+                const postNumber = post.postNumber || (idx + 1);
 
-              return (
-                <div
-                  key={post._id || idx}
-                  className="group border-2 border-border-rule hover:border-fg-primary focus-within:border-fg-primary bg-bg-primary flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 focus-within:-translate-y-1.5 shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--fg)] focus-within:shadow-[6px_6px_0px_var(--fg)] rounded-none text-left overflow-hidden cursor-pointer"
-                  data-pillar={mapPillarKey(post.pillar)}
-                >
-                  <Link 
-                    href={`/blog/${slug}`}
-                    className="border-b-2 border-border-rule group-hover:border-fg-primary transition-colors block cursor-pointer"
+                return (
+                  <div
+                    key={post._id || idx}
+                    className="group border-2 border-border-rule hover:border-fg-primary focus-within:border-fg-primary bg-bg-primary flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 focus-within:-translate-y-1.5 shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--fg)] focus-within:shadow-[6px_6px_0px_var(--fg)] rounded-none text-left overflow-hidden cursor-pointer"
+                    data-pillar={mapPillarKey(post.pillar)}
                   >
-                    <PostCover 
-                      title={post.title} 
-                      pillar={post.pillar} 
-                      brainState={post.brainState || 'hyperfocus'}
-                      accentWord={post.accentWord}
-                      accentOverride={post.accentOverride}
-                      aspect="4:3" 
-                      readTime={post.readTime || '5 MIN'}
-                      date={formattedDate}
-                      postNumber={postNumber}
-                    />
-                  </Link>
+                    <Link 
+                      href={`/blog/${slug}`}
+                      className="border-b-2 border-border-rule group-hover:border-fg-primary transition-colors block cursor-pointer"
+                    >
+                      <PostCover 
+                        title={post.title} 
+                        pillar={post.pillar} 
+                        brainState={post.brainState || 'hyperfocus'}
+                        accentWord={post.accentWord}
+                        accentOverride={post.accentOverride}
+                        aspect="4:3" 
+                        readTime={post.readTime || '5 MIN'}
+                        date={formattedDate}
+                        postNumber={postNumber}
+                      />
+                    </Link>
 
-                  <div className="px-6 py-8 flex flex-col justify-between flex-grow">
-                    <div className="flex flex-col flex-grow">
-                      <div className="flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-link mb-4">
-                        <span>{getPillarLabel(post.pillar)}</span>
+                    <div className="px-6 py-8 flex flex-col justify-between flex-grow">
+                      <div className="flex flex-col flex-grow">
+                        <div className="flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-link mb-4">
+                          <span>{getPillarLabel(post.pillar)}</span>
+                        </div>
+                        {post.excerpt && (
+                          <p className="text-sm text-text-muted leading-relaxed font-normal line-clamp-4 mb-6">
+                            {post.excerpt}
+                          </p>
+                        )}
                       </div>
-                      {post.excerpt && (
-                        <p className="text-sm text-text-muted leading-relaxed font-normal line-clamp-4 mb-6">
-                          {post.excerpt}
-                        </p>
-                      )}
-                    </div>
-                    
-                    <div className="text-[11px] font-black tracking-widest text-text-muted uppercase font-mono group-hover:text-link transition-colors mt-6 pt-4 border-t border-border-rule/40 flex items-center justify-between w-full">
-                      <time dateTime={post.date || post._createdAt}>
-                        {formattedDate}
-                      </time>
-                      <Link 
-                        href={`/blog/${slug}`}
-                        className="text-[11px] font-black tracking-widest text-link hover:underline flex items-center gap-1 group-hover:translate-x-0.5 transition-all duration-300"
-                      >
-                        READ POST →
-                      </Link>
+                      
+                      <div className="text-[11px] font-black tracking-widest text-text-muted uppercase font-mono group-hover:text-link transition-colors mt-6 pt-4 border-t border-border-rule/40 flex items-center justify-between w-full">
+                        <time dateTime={post.date || post._createdAt}>
+                          {formattedDate}
+                        </time>
+                        <Link 
+                          href={`/blog/${slug}`}
+                          className="text-[11px] font-black tracking-widest text-link hover:underline flex items-center gap-1 group-hover:translate-x-0.5 transition-all duration-300"
+                        >
+                          READ POST →
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </section>
       )}
     </div>

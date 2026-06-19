@@ -30,7 +30,7 @@ export default function ProductCard({
         <div className="flex-grow space-y-4 w-full">
           <div>
             <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-border-rule/80 pb-2">
-              <span className="text-[10px] font-mono tracking-widest text-accent uppercase font-bold">
+              <span className="text-[10px] font-mono tracking-widest text-[var(--link)] uppercase font-bold">
                 TOOLKIT COMPONENT
               </span>
               <span className="text-lg font-mono font-black text-fg-primary uppercase">
@@ -38,7 +38,7 @@ export default function ProductCard({
               </span>
             </div>
             
-            <h3 className="text-xl md:text-2xl font-black uppercase text-fg-primary tracking-tight font-display mt-2 group-hover:text-accent transition-colors">
+            <h3 className="text-xl md:text-2xl font-black uppercase text-fg-primary tracking-tight font-display mt-2 group-hover:text-[var(--link)] transition-colors">
               {title}
             </h3>
           </div>
@@ -48,8 +48,8 @@ export default function ProductCard({
           </p>
 
           {/* Reassurance line */}
-          <div className="flex items-start gap-2 text-xs text-text-muted/80 italic font-sans font-light">
-            <ShieldCheck size={14} className="text-accent shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2 text-xs text-text-muted italic font-sans font-light">
+            <ShieldCheck size={14} className="text-[var(--link)] shrink-0 mt-0.5" />
             <span>{reassurance}</span>
           </div>
 

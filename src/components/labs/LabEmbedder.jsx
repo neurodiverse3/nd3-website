@@ -90,25 +90,25 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
 
       {/* Share / Embed administrative block */}
       <div className="w-full no-print flex flex-col gap-3 font-sans text-xs">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--rule)] pt-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--rule)] pt-6">
           <span className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-wider">
             // Tactile Sharing & Embed Integration
           </span>
 
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-3">
             <button
               onClick={() => setShowSharePanel(!showSharePanel)}
-              className="px-3.5 py-2 border border-[var(--rule)] hover:border-accent-pink hover:text-white bg-transparent text-[var(--muted)] font-black uppercase text-[10px] tracking-wider transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2.5 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] text-[var(--fg)] font-black uppercase text-[10px] tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-[3px_3px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-0 active:translate-y-0"
             >
-              <Share2 size={12} className={showSharePanel ? 'text-accent-pink animate-pulse' : ''} /> 
-              {showSharePanel ? 'CLOSE CONTROLS' : 'SHARE & EMBED'}
+              <Share2 size={12} className={showSharePanel ? 'animate-pulse text-[var(--accent)]' : ''} /> 
+              {showSharePanel ? 'HIDE SHARE & EMBED' : 'SHARE & EMBED OPTIONS'}
             </button>
             {inline && (
               <a
                 href={landingPageUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3.5 py-2 border border-[var(--rule)] hover:border-accent-pink hover:text-white bg-transparent text-[var(--muted)] font-black uppercase text-[10px] tracking-wider transition-all flex items-center gap-1.5 cursor-pointer"
+                className="px-4 py-2.5 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] text-[var(--fg)] font-black uppercase text-[10px] tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-[3px_3px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-0 active:translate-y-0"
               >
                 <ExternalLink size={12} /> OPEN FULL LANDING PAGE
               </a>
@@ -118,13 +118,13 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
 
         {/* Share Expandable control panel */}
         {showSharePanel && (
-          <div className="border border-[var(--rule)] bg-[#09090c] p-4 flex flex-col gap-4 animate-in fade-in duration-200">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="border-2 border-[var(--fg)] bg-[#09090c] p-6 flex flex-col gap-4 animate-in fade-in duration-200 shadow-[6px_6px_0px_var(--accent-soft)]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               {/* Copy Direct Link */}
               <div className="flex flex-col gap-1.5">
                 <span className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-widest block font-bold">DIRECT LANDING PAGE LINK:</span>
-                <div className="flex gap-1.5">
+                <div className="flex gap-2">
                   <input
                     type="text"
                     readOnly
@@ -133,7 +133,7 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
                   />
                   <button
                     onClick={handleCopyLink}
-                    className="px-3 bg-white text-black font-black text-xs uppercase tracking-wider hover:bg-accent-pink hover:text-white cursor-pointer select-none transition-all flex items-center gap-1 shrink-0"
+                    className="px-4 bg-white text-black font-black text-xs uppercase tracking-wider hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] cursor-pointer select-none transition-all flex items-center gap-1.5 shrink-0 border border-transparent hover:border-black"
                   >
                     {copiedLink ? <Check size={12} /> : <Copy size={12} />}
                     {copiedLink ? 'COPIED' : 'COPY'}
@@ -148,7 +148,7 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
                   href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this amazing sensory-friendly neurodivergent tool: ${landingPageUrl} via @neurodivers3`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full h-[30px] border border-white hover:border-accent-pink bg-black text-white hover:text-accent-pink text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all select-none"
+                  className="w-full h-[34px] border-2 border-fg-primary hover:border-[var(--accent)] bg-black text-white hover:text-[var(--accent)] text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all select-none hover:bg-[var(--accent-soft)]"
                 >
                   <XIcon size={12} /> SHARE ON X / TWITTER
                 </a>
@@ -157,12 +157,12 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
             </div>
 
             {/* Iframe Embed Code snippet */}
-            <div className="flex flex-col gap-1.5 border-t border-[var(--rule)]/60 pt-3.5">
-              <div className="flex justify-between items-center">
+            <div className="flex flex-col gap-1.5 border-t border-[var(--rule)]/60 pt-4">
+              <div className="flex justify-between items-center flex-wrap gap-2">
                 <span className="font-mono text-[9px] text-[var(--muted)] uppercase tracking-widest block font-bold">IFRAME EMBED CODE (PASTE ON YOUR BLOG):</span>
-                <span className="text-[9px] font-mono text-accent-pink bg-accent-pink-soft border border-border-rule px-1 py-0.5">ALLOWS AUTOPLAY</span>
+                <span className="text-[9px] font-mono text-[var(--accent)] bg-[var(--accent-soft)] border border-[var(--rule)] px-1.5 py-0.5">ALLOWS AUTOPLAY</span>
               </div>
-              <div className="flex gap-1.5">
+              <div className="flex gap-2">
                 <input
                   type="text"
                   readOnly
@@ -171,13 +171,13 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
                 />
                 <button
                   onClick={handleCopyEmbed}
-                  className="px-3 bg-white text-black font-black text-xs uppercase tracking-wider hover:bg-accent-pink hover:text-white cursor-pointer select-none transition-all flex items-center gap-1 shrink-0"
+                  className="px-4 bg-white text-black font-black text-xs uppercase tracking-wider hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] cursor-pointer select-none transition-all flex items-center gap-1.5 shrink-0 border border-transparent hover:border-black"
                 >
                   {copiedEmbed ? <Check size={12} /> : <Copy size={12} />}
                   {copiedEmbed ? 'COPIED' : 'COPY CODE'}
                 </button>
               </div>
-              <p className="text-[10px] text-[var(--muted)] italic leading-relaxed font-sans mt-0.5">
+              <p className="text-[10px] text-[var(--muted)] italic leading-relaxed font-sans mt-1">
                 💡 Paste this code inside the HTML/Embed editor of your custom Wordpress, Squarespace, Ghost, or Medium blog post to display this interactive sensory tool right inline for your readers.
               </p>
             </div>

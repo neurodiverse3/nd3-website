@@ -52,8 +52,8 @@ export default function MemoirNewsletter() {
     <div className="border border-accent bg-black p-8 shadow-[6px_6px_0px_var(--accent-soft)] flex flex-col justify-between h-full select-none text-left">
       <div>
         {/* Eyebrow chip */}
-        <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-[var(--link,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-accent/30 mb-6 font-bold">
-          EARLY TRANSMISSIONS
+        <span className="inline-block text-[11px] font-mono tracking-[0.25em] text-accent bg-[var(--accent-soft)] px-3 py-1 uppercase border border-accent/30 mb-6 font-bold">
+          EARLY DRAFTS
         </span>
 
         {/* Headline */}
@@ -63,7 +63,7 @@ export default function MemoirNewsletter() {
 
         {/* Sub */}
         <p className="text-base text-[#8A8A93] leading-relaxed mb-6 font-sans">
-          I'm writing this memoir in public. Subscribers get each new chapter sent straight to their inbox — seven days before it lands on the site.
+          The memoir is currently incubating in the workshop. Subscribe to the draft list to get early chapters sent straight to your inbox.
         </p>
 
         {subscribeStatus !== 'success' ? (
@@ -125,7 +125,7 @@ export default function MemoirNewsletter() {
             <CheckCircle2 size={32} className="text-accent mx-auto mb-3" />
             <h3 className="text-lg font-black uppercase text-white mb-1">Unmasked.</h3>
             <p className="text-sm text-[#8A8A93] leading-relaxed font-sans">
-              You are on the draft list. Check your inbox for the welcome transmission soon.
+              You are on the draft list. Check your inbox for the welcome email soon.
             </p>
           </div>
         )}

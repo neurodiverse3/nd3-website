@@ -165,11 +165,11 @@ export const PRESETS = {
     id: 'routine',
     title: "Visual Now / Next Scaffold",
     subtitle: "A micro-focused layout to anchor task transitions and decrease initiation panic.",
-    niche: "Neurodivergent Life Organizers",
+    niche: "Neurodivergent Life Organisers",
     demand: "High (90/100)",
     price: "$8.00",
     audience: "Autistic Kids & Adults, ADHDers with Extreme Task Avoidance",
-    neuroReason: "Minimizes working memory fatigue. By hiding the massive master list and presenting ONLY a single active task alongside its successor, task panic is neutralized.",
+    neuroReason: "Minimises working memory fatigue. By hiding the massive master list and presenting ONLY a single active task alongside its successor, task panic is neutralised.",
     keywords: ["now next board", "visual schedule template", "routine scaffold", "executive dysfunction board"],
     theme: "void",
     font: "mono",
@@ -181,7 +181,7 @@ export const PRESETS = {
         id: 'activeNow',
         title: "NOW · Single Focus Window (Do Only This)",
         type: 'notes',
-        text: "Clean, wipe down, and organize my immediate computer desk surface."
+        text: "Clean, wipe down, and organise my immediate computer desk surface."
       },
       {
         id: 'activeNext',
@@ -195,7 +195,7 @@ export const PRESETS = {
         type: 'checklist',
         items: [
           { text: "Reply to three urgent store customer inquiries", checked: false },
-          { text: "Empty study wastebasket and organize notebooks", checked: false },
+          { text: "Empty study wastebasket and organise notebooks", checked: false },
           { text: "15 mins physical movement or deep sensory stretching", checked: false }
         ]
       },

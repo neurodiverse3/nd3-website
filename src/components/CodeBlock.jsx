@@ -35,7 +35,7 @@ export const CodeBlock = ({ code, language }) => {
           </button>
         </div>
         {/* Preformatted body */}
-        <pre className="p-6 overflow-x-auto font-mono text-sm leading-relaxed text-fg bg-transparent text-left scrollbar-thin">
+        <pre className="code-block-body p-6 overflow-x-auto font-mono text-sm leading-relaxed text-fg text-left scrollbar-thin transition-colors duration-300">
           <code>{code}</code>
         </pre>
       </div>

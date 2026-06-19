@@ -20,11 +20,13 @@ export function CheckoutButton({ product, className = "" }: Props) {
       data-product={product.slug}
       className={[
         "inline-flex w-full items-center justify-center gap-2",
-        "rounded-sm px-6 py-4",
-        "bg-[var(--nd3-pink)] text-black",
-        "text-sm font-semibold uppercase tracking-[0.12em]",
-        "transition-opacity hover:opacity-90",
-        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--nd3-pink)]",
+        "rounded-none px-6 py-4",
+        "bg-[var(--accent)] text-[var(--accent-text,var(--bg))] border-2 border-[var(--fg)]",
+        "text-sm font-bold uppercase tracking-[0.12em]",
+        "transition-all duration-150",
+        "hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[4px_4px_0px_var(--fg)]",
+        "active:translate-x-0 active:translate-y-0 active:shadow-none",
+        "focus-visible:outline-none focus-ring",
         className,
       ].join(" ")}
     >

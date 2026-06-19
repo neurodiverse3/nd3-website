@@ -169,7 +169,9 @@ export const PostCover = ({
   
   let pillarAccentColor = accentOverride;
   if (!pillarAccentColor) {
-    if (theme === 'parchment' || pillarKey === 'tools') {
+    if (theme === 'parchment') {
+      pillarAccentColor = `var(--pillar-label-${pillarKey})`;
+    } else if (pillarKey === 'tools') {
       pillarAccentColor = 'var(--pillar-card-text)'; // force white on tools or in Parchment
     } else {
       pillarAccentColor = `var(--pillar-${pillarKey})`; // keep dynamic identity color
@@ -522,10 +524,10 @@ export const PostCover = ({
   const displayDate = date || '24 MAY 2026';
 
   const themeTextColor = 'text-[var(--pillar-card-text)]';
-  const watermarkColor = 'text-white/[0.05]';
-  const gridLineColor = 'bg-white/10';
-  const textMutedColor = 'text-white/70';
-  const textMutedStrongColor = 'text-white/80';
+  const watermarkColor = theme === 'parchment' ? 'text-[var(--fg)]/[0.04]' : 'text-white/[0.05]';
+  const gridLineColor = theme === 'parchment' ? 'bg-[var(--fg)]/10' : 'bg-white/10';
+  const textMutedColor = theme === 'parchment' ? 'text-[var(--fg)]/70' : 'text-white/70';
+  const textMutedStrongColor = theme === 'parchment' ? 'text-[var(--fg)]/80' : 'text-white/80';
   const themeAccentColor = pillarAccentColor;
 
 
@@ -582,7 +584,7 @@ export const PostCover = ({
         {/* Top Header Row */}
         <div className="flex flex-row justify-between items-center w-full select-none gap-2">
           <div className="flex justify-end items-center ml-auto text-right shrink-0">
-            <LogoWordmark className="logo h-5 md:h-6 w-auto opacity-90 text-white" />
+            <LogoWordmark className="logo h-5 md:h-6 w-auto opacity-90 text-[var(--pillar-card-text)]" />
           </div>
         </div>
 

@@ -508,6 +508,16 @@ export default function RichTextRenderer({ content, footnotes, headings }) {
         code: ({ children }) => <code className="bg-bg-secondary px-1.5 py-0.5 font-mono text-accent-pink text-sm border border-border-rule rounded-sm">{children}</code>,
         underline: ({ children }) => <span className="underline decoration-accent-pink decoration-2">{children}</span>,
         strikethrough: ({ children }) => <span className="line-through">{children}</span>,
+        link: ({ children, href }) => (
+          <a
+            href={href}
+            target={href?.startsWith('http') ? '_blank' : undefined}
+            rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+            className="text-accent-pink hover:underline font-black focus-ring"
+          >
+            {children}
+          </a>
+        ),
       }}
     />
   );

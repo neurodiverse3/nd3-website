@@ -48,6 +48,23 @@ export default function SpoonTracker({ noWrapper = false }) {
   useEffect(() => { setSavedBanked(bankedSpoonsCount); }, [bankedSpoonsCount]);
   useEffect(() => { setSavedTasks(spentTasks); }, [spentTasks]);
 
+  // A11Y-13: Warn user before leaving with unsaved data. Data IS auto-saved to
+  // localStorage on every change, so the only true loss is between typing in
+  // newTaskTitle (uncommitted) and clicking the close button.
+  const [hasUnsavedInput, setHasUnsavedInput] = useState(false);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (hasUnsavedInput && newTaskTitle.trim().length > 0) {
+        e.preventDefault();
+        e.returnValue = "You have an unsaved task title. Are you sure you want to leave? Your data is auto-saved, but this entry will be lost.";
+        return e.returnValue;
+      }
+    };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [hasUnsavedInput, newTaskTitle]);
+
   const handleMaxChange = (change) => {
     const nextMax = Math.max(1, Math.min(12, maxSpoons + change));
     setMaxSpoons(nextMax);
@@ -75,6 +92,7 @@ export default function SpoonTracker({ noWrapper = false }) {
     const nextTasks = [...spentTasks, newTask];
     setSpentTasks(nextTasks);
     setNewTaskTitle("");
+    setHasUnsavedInput(false);
     setNewTaskCost(1);
   };
 
@@ -247,7 +265,10 @@ export default function SpoonTracker({ noWrapper = false }) {
                   type="text"
                   placeholder="Task title..."
                   value={newTaskTitle}
-                  onChange={(e) => setNewTaskTitle(e.target.value)}
+                  onChange={(e) => {
+                    setNewTaskTitle(e.target.value);
+                    setHasUnsavedInput(e.target.value.trim().length > 0);
+                  }}
                   className="flex-1 bg-black border border-[var(--rule)] px-3 py-1.5 text-xs text-white outline-none rounded-none focus:border-[var(--accent)]"
                 />
                 

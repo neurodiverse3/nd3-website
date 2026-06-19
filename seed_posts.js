@@ -401,7 +401,7 @@ async function run() {
       excerpt,
       body: bodyBlocks,
       allowComments: true,
-      date: new Date().toISOString().split('T')[0] // format YYYY-MM-DD
+      date: new Date(Date.now() - idx * 4 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] // format YYYY-MM-DD, spread out by 4 days each going back in time
     });
   });
 
@@ -462,7 +462,7 @@ async function run() {
           Authorization: `Bearer ${STRAPI_TOKEN}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ data: { publishedAt: new Date().toISOString() } })
+        body: JSON.stringify({ data: { publishedAt: new Date(post.date).toISOString() } })
       });
       
       if (publishRes.ok) {

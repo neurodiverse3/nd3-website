@@ -19,7 +19,7 @@ const defaultLabs = [
     title: "Acoustic Shield",
     slug: "acoustic-shield",
     category: { title: "ACOUSTIC SHIELDS", slug: "acoustic" },
-    tag: "SYNTH",
+    tag: "AUDIO",
     excerpt: "Brownian focus hum to mask ambient office noises and calm auditory nodes.",
     toolComponentKey: "acoustic-shield",
     setupTime: "30 sec",
@@ -32,7 +32,7 @@ const defaultLabs = [
     title: "Dopamine Snacks",
     slug: "dopamine-snacks",
     category: { title: "DOPAMINE RESETS", slug: "dopamine" },
-    tag: "DOPAMINE",
+    tag: "FOCUS",
     excerpt: "Roll for a sensory reset. Simple physical tasks that interrupt digital loops.",
     toolComponentKey: "dopamine-menu",
     setupTime: "10 sec",
@@ -58,7 +58,7 @@ const defaultLabs = [
     title: "Brown Noise Loop",
     slug: "brown-noise-loop",
     category: { title: "ACOUSTIC SHIELDS", slug: "acoustic" },
-    tag: "FOCUS",
+    tag: "AUDIO",
     excerpt: "A client-side synthesized deep Brownian rumble with a warm, tactile timebox to lock in attention.",
     toolComponentKey: "brown-noise-loop",
     setupTime: "5 sec",
@@ -84,7 +84,7 @@ const defaultLabs = [
     title: "Spoon Tracker",
     slug: "spoon-tracker",
     category: { title: "VISUAL & SPACE", slug: "visual" },
-    tag: "ENERGY",
+    tag: "EXECUTIVE DYSFUNCTION",
     excerpt: "Drag spoons in and out across the day. A visible energy budget for brains that need to see the maths.",
     toolComponentKey: "spoon-tracker",
     setupTime: "15 sec",
@@ -110,7 +110,7 @@ const defaultLabs = [
     title: "Banner Designs",
     slug: "banner-showcase",
     category: { title: "VISUAL & SPACE", slug: "visual" },
-    tag: "SANDBOX",
+    tag: "EXPERIMENT",
     excerpt: "Interactive prototyping for four new premium neurodiverse post header banner designs.",
     toolComponentKey: "banner-showcase",
     setupTime: "10 sec",
@@ -241,17 +241,44 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 onMouseEnter={() => setHoveredCard(lab._id)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className={`sidebar-card flex flex-col h-[400px] relative overflow-hidden transition-all duration-300 ${
-                  isHovered ? '-translate-y-1' : 'hover:-translate-y-0.5'
+                className={`lab-card-premium sidebar-card flex flex-col h-[400px] relative overflow-hidden ${
+                  isHovered ? '' : ''
                 }`}
               >
+                {/* Module 4.7: Premium oscilloscope corner brackets (GPU-accelerated) */}
+                <span className="corner-bracket tl" aria-hidden="true" />
+                <span className="corner-bracket tr" aria-hidden="true" />
+                <span className="corner-bracket bl" aria-hidden="true" />
+                <span className="corner-bracket br" aria-hidden="true" />
+
+                {/* Module 4.7: Oscilloscope SVG line that animates on hover */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none z-[1]"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    className="oscilloscope-line"
+                    d="M 0 50 Q 12.5 20, 25 50 T 50 50 T 75 50 T 100 50"
+                    vectorEffect="non-scaling-stroke"
+                  />
+                </svg>
+
+                {/* Entire card surface is the link — Module 4.2 */}
+                <Link
+                  href={`/labs/${labSlug}`}
+                  className="absolute inset-0 z-20 cursor-pointer"
+                  aria-label={`Open ${lab.title} lab`}
+                />
+
                 {/* Preview Area */}
                 <div className="h-[180px] border-b border-border-rule bg-black/60 relative overflow-hidden">
                   <LabPreview slug={getToolKey(lab)} isActive={isHovered} />
-                  {/* Tag Badge */}
+                  {/* Tag Badge — Module 4.5: functional categories replace generic EXPERIMENT */}
                   <div className="absolute top-3 left-3 z-10">
                     <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-accent bg-black/70 border border-border-rule px-2 py-0.5">
-                      {lab.tag || "EXPERIMENT"}
+                      {lab.tag || "TOOL"}
                     </span>
                   </div>
                   {/* Hover Indicator */}
@@ -263,13 +290,17 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                 </div>
 
                 {/* Content Area */}
-                <div className="flex-1 p-5 flex flex-col justify-between">
+                <div className="flex-1 p-5 flex flex-col justify-between pointer-events-none">
                   <div className="space-y-3">
                     <h2 className="text-lg font-black uppercase text-fg-primary tracking-tight leading-none group-hover:text-accent transition-colors">
                       {lab.title}
                     </h2>
-                    <p className="text-xs text-text-muted font-sans leading-relaxed line-clamp-2">
-                      {lab.excerpt}
+                    {/* Module 4.6: Always show 1-2 sentence cognitive-friendly description */}
+                    <p
+                      className="text-xs text-text-muted font-sans leading-relaxed min-h-[2.5rem]"
+                      title={lab.excerpt}
+                    >
+                      {lab.excerpt || `A ${lab.tag?.toLowerCase() || 'free'} lab prototype to help neurodivergent brains.`}
                     </p>
                   </div>
 
@@ -287,13 +318,10 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                     )}
                   </div>
 
-                  {/* CTA */}
-                  <Link
-                    href={`/labs/${labSlug}`}
-                    className="w-full mt-4 py-3 bg-transparent text-fg-primary border border-border-rule group-hover:border-accent font-black uppercase text-[10px] tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer rounded-none hover:bg-accent hover:text-bg-primary hover:border-accent"
-                  >
+                  {/* CTA — purely visual now, real link is the absolute overlay */}
+                  <div className="w-full mt-4 py-3 bg-transparent text-fg-primary border border-border-rule group-hover:border-accent font-black uppercase text-[10px] tracking-wider transition-all flex items-center justify-center gap-2 rounded-none group-hover:bg-accent group-hover:text-[var(--accent-btn-text)] group-hover:border-accent">
                     OPEN LAB <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform duration-200" />
-                  </Link>
+                  </div>
                 </div>
               </motion.div>
             );

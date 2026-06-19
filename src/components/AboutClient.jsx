@@ -9,6 +9,7 @@ import {
   VolumeX, 
   RotateCcw
 } from 'lucide-react';
+import PageHeader from './PageHeader';
 
 export default function AboutClient() {
   const containerVariants = {
@@ -37,11 +38,15 @@ export default function AboutClient() {
         className="w-full text-left"
       >
         {/* Section 1: Hero */}
-        <motion.section variants={itemVariants} className="mb-16 border-b border-border-rule pb-12 mt-4">
-          <div className="inline-block text-[11px] font-mono tracking-[0.25em] text-accent bg-accent-soft px-3 py-1 uppercase border border-border-rule mb-8 select-none">
-            ABOUT · THE FOUNDER
-          </div>
-          <blockquote className="border-l-4 border-accent pl-6 py-2">
+        <motion.section variants={itemVariants} className="mb-16">
+          <PageHeader
+            variant="section"
+            eyebrow="The Founder"
+            titleLabel="About"
+            titleAccent="Born out of survival"
+            subtitle="Meet Ollie — late-diagnosed AuDHD founder of neurodivers³. Stories, tools, and systems for the wired-different brain."
+          />
+          <blockquote className="border-l-4 border-accent pl-6 py-2 mt-8">
             <p className="text-2xl md:text-3xl font-light text-fg leading-relaxed max-w-4xl font-sans">
               Ollie is a late-diagnosed AuDHD’er, a recovering "weird kid", and the brain behind <span className="font-semibold text-accent">neurodivers³</span>.
             </p>

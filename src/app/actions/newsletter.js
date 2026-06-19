@@ -52,7 +52,7 @@ export async function subscribeNewsletter(prevState, formData) {
     const resend = new Resend(resendApiKey);
     
     await resend.emails.send({
-      from: 'neurodivers³ <chaos@neurodivers3.co.uk>',
+      from: 'neurodivers³ <hello@neurodivers3.co.uk>',
       to: [email],
       subject: 'neurodivers³ · Unmasked & wired different',
       html: `
@@ -62,7 +62,7 @@ export async function subscribeNewsletter(prevState, formData) {
             Hey there,
           </p>
           <p style="color: #B8B8C0; font-size: 16px; font-weight: 300; line-height: 1.6; margin-bottom: 20px;">
-            You're in. neurodivers³ is a project built out of late-diagnosed necessity. It's about designing toolkits, spatial resources, and honest writings around how our brains actually operate—without the corporate masking or typical productivity guilt.
+            You're in. neurodivers³ is a project built out of late-diagnosed necessity. It's about designing toolkits, spatial resources, and honest writings around how our brains actually operate · without the corporate masking or typical productivity guilt.
           </p>
           <p style="color: #B8B8C0; font-size: 16px; font-weight: 300; line-height: 1.6; margin-bottom: 30px;">
             We'll send over new writeups, spatial planners, and beta tool updates when they're ready. No spam, no fluff. Just direct, honest insights.

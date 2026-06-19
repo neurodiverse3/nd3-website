@@ -103,6 +103,14 @@ const XIcon = ({ size = 14, className = "" }) => (
   </svg>
 );
 
+const PILLARS = [
+  { text: 'Neurodivergent Life', theme: 'unmasked', path: '/memoir' },
+  { text: 'Tools & Templates', theme: 'tools', path: '/store' },
+  { text: 'Honest Stories', theme: 'unmasked', path: '/blog' },
+  { text: 'Digital Life', theme: 'digital', path: '/labs' },
+  { text: 'Unmasked & Unfiltered', theme: 'unmasked', path: '/about' }
+];
+
 export const Footer = () => {
   const pathname = usePathname();
   const [socialHandles, setSocialHandles] = useState({
@@ -144,20 +152,18 @@ export const Footer = () => {
 
   return (
     <footer className="relative bg-bg-primary border-t border-border-rule pt-24 md:pt-28 pb-12 overflow-hidden">
-      {/* Scrolling Pink Marquee Ticker */}
-      <div className="absolute top-0 left-0 w-full bg-bg-primary border-b border-border-rule py-4 overflow-hidden whitespace-nowrap flex items-center select-none z-10" aria-hidden="true">
-        <div className="flex animate-marquee whitespace-nowrap text-xs font-black uppercase tracking-[0.25em] text-accent-pink select-none font-mono py-1">
-          <span className="mx-4">NEURODIVERGENT LIFE · TOOLS & TEMPLATES · HONEST STORIES · DIGITAL LIFE · UNMASKED & UNFILTERED</span>
-          <span className="mx-4">NEURODIVERGENT LIFE · TOOLS & TEMPLATES · HONEST STORIES · DIGITAL LIFE · UNMASKED & UNFILTERED</span>
-          <span className="mx-4">NEURODIVERGENT LIFE · TOOLS & TEMPLATES · HONEST STORIES · DIGITAL LIFE · UNMASKED & UNFILTERED</span>
-          <span className="mx-4">NEURODIVERGENT LIFE · TOOLS & TEMPLATES · HONEST STORIES · DIGITAL LIFE · UNMASKED & UNFILTERED</span>
-        </div>
-        <div className="flex animate-marquee whitespace-nowrap text-xs font-black uppercase tracking-[0.25em] text-accent-pink select-none font-mono py-1">
-          <span className="mx-4">NEURODIVERGENT LIFE · TOOLS & TEMPLATES · HONEST STORIES · DIGITAL LIFE · UNMASKED & UNFILTERED</span>
-          <span className="mx-4">NEURODIVERGENT LIFE · TOOLS & TEMPLATES · HONEST STORIES · DIGITAL LIFE · UNMASKED & UNFILTERED</span>
-          <span className="mx-4">NEURODIVERGENT LIFE · TOOLS & TEMPLATES · HONEST STORIES · DIGITAL LIFE · UNMASKED & UNFILTERED</span>
-          <span className="mx-4">NEURODIVERGENT LIFE · TOOLS & TEMPLATES · HONEST STORIES · DIGITAL LIFE · UNMASKED & UNFILTERED</span>
-        </div>
+      {/* Static Utility Badge Bar */}
+      <div className="absolute top-0 left-0 w-full bg-bg-primary border-b border-border-rule z-10 py-3.5 px-6 flex flex-wrap items-center justify-center gap-3 select-none">
+        {PILLARS.map((pillar, idx) => (
+          <Link
+            key={idx}
+            href={pillar.path}
+            className={`badge-pillar-link px-3.5 py-1 rounded-full text-[11px] font-bold font-mono uppercase tracking-wider border badge-pillar-${pillar.theme} focus-ring`}
+          >
+            <span className={`w-1.5 h-1.5 rounded-full bg-pillar-${pillar.theme}`} />
+            {pillar.text}
+          </Link>
+        ))}
       </div>
 
       {/* Main 4-Column Layout */}
@@ -172,7 +178,7 @@ export const Footer = () => {
 
         {/* Column 2: Read */}
         <div className="flex flex-col gap-4 col-span-1 items-start">
-          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-accent-pink">Read</h3>
+          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))]">Read</h3>
           <ul className="flex flex-col gap-3 text-[14px] font-medium text-text-muted w-full items-start">
             <li>
               <Link href="/blog" className="hover:text-fg-primary transition-colors focus-ring">
@@ -204,7 +210,7 @@ export const Footer = () => {
 
         {/* Column 3: Pillars */}
         <div className="flex flex-col gap-4 col-span-1 items-start">
-          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-accent-pink">Pillars</h3>
+          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))]">Pillars</h3>
           <ul className="flex flex-col gap-3 text-[14px] font-medium text-text-muted w-full items-start">
             <li>
               <Link href="/blog?pillar=unmasked-life" className="hover:text-fg-primary transition-colors focus-ring">
@@ -226,7 +232,7 @@ export const Footer = () => {
 
         {/* Column 4: Legal */}
         <div className="flex flex-col gap-4 col-span-2 md:col-span-1 items-start">
-          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-accent-pink">Legal</h3>
+          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))]">Legal</h3>
           <ul className="grid grid-cols-2 gap-3 md:flex md:flex-col md:gap-3 text-[14px] font-medium text-text-muted w-full items-start">
             <li>
               <Link href="/privacy" className="hover:text-fg-primary transition-colors focus-ring">
@@ -295,6 +301,15 @@ export const Footer = () => {
             aria-label="YouTube"
           >
             <YoutubeIcon size={16} className="group-hover:text-inherit" />
+          </a>
+          <a 
+            href={`https://facebook.com/${socialHandles.facebook}`} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="w-10 h-10 border border-border-rule hover:border-fg-primary bg-bg-primary hover:bg-accent text-text-muted hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group"
+            aria-label="Facebook"
+          >
+            <FacebookIcon size={16} className="group-hover:text-inherit" />
           </a>
           <a 
             href={`mailto:${socialHandles.email}`} 

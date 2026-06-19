@@ -38,6 +38,8 @@ export type Product = {
   partnerPostSlug?: string;
   /** Optional partner blog post title. */
   partnerPostTitle?: string;
+  /** Optional demo video filename (served from /store/videos/). */
+  demoVideo?: string;
 };
 
 // NOTE: checkoutUrl values are placeholders. Swap in real Polar product links
@@ -54,9 +56,9 @@ export const PRODUCTS: Product[] = [
     pillar: "Tools & Templates",
     format: "Notion template",
     cardBlurb:
-      "A pre-written list of inputs your brain reliably finds rewarding, sorted by intensity. The tool to reach for when you're paralysed and \u201Cjust start\u201D doesn't help. For ADHD brains stuck on the activation step.",
+      "A pre-built menu of inputs your brain finds rewarding, sorted by intensity. For when \"just start\" doesn't work. Notion template, free Notion plan, fully editable. Refundable for 14 days.",
     tagline:
-      "A pre-built menu of inputs your brain finds rewarding, sorted by intensity. Built for the days when \u201Cjust start\u201D doesn't work.",
+      "A Notion template for the days when \"just start\" doesn't work.",
     longIntro:
       "The Dopamine Menu Template is a pre-built menu of inputs your brain finds rewarding, sorted by intensity. It is designed for the activation step: the bit before the task, where ordinary productivity advice usually collapses.",
     whatYouGet: [
@@ -79,12 +81,13 @@ export const PRODUCTS: Product[] = [
       "a complicated workflow with twelve linked databases",
     ],
     delivery:
-      "Delivered via a Polar file download (ZIP) containing a README with the duplicable Notion template link, plus the printable one-page companion. Works on the free Notion plan.",
-    checkoutUrl: "https://buy.polar.sh/REPLACE-dopamine-menu-template",
+      "Delivered via a Polar file download (ZIP) containing a README with the duplicable Notion template link, plus the printable one-page companion where applicable. Works on the free Notion plan.",
+    checkoutUrl: "https://buy.polar.sh/polar_cl_N2e9IiJURdVEscLcVWpJBAOK4dSxTw5izkNrY2o3pqF",
     coverImage: "nd3-store-cover-dopamine-menu-template-1280.png",
     partnerPostSlug: "adhd-task-paralysis",
     partnerPostTitle:
       "ADHD Task Paralysis: Why Your Brain Can't \u201CJust Start\u201D (And What Actually Works)",
+    demoVideo: "nd3-preview-dopamine-menu-template.mp4",
   },
   {
     slug: "sensory-audit-workbook",
@@ -95,9 +98,9 @@ export const PRODUCTS: Product[] = [
     ctaLabel: "Launch special \u00B7 \u00A35",
     tier: "5",
     pillar: "Unmasked Life",
-    format: "PDF workbook (28pp, A4 + US Letter)",
+    format: "PDF workbook",
     cardBlurb:
-      "A 28-page PDF workbook for finding the sensory drains you've stopped noticing, then choosing one change to make first.",
+      "A 28-page audit of the sensory drains in your environment · the ones you've stopped noticing. Print or fill on screen. Refundable for 14 days.",
     tagline:
       "A 28-page workbook for finding the sensory drains you've stopped noticing.",
     longIntro:
@@ -121,12 +124,13 @@ export const PRODUCTS: Product[] = [
       "a shopping list of products to buy",
       "a promise that one audit fixes everything",
     ],
-    delivery: "Delivered as PDF files, with A4 and US Letter versions.",
-    checkoutUrl: "https://buy.polar.sh/REPLACE-sensory-audit-workbook",
+    delivery: "Delivered as PDF files, with A4 and US Letter versions where available.",
+    checkoutUrl: "https://buy.polar.sh/polar_cl_ImUJemzgnJffowWrWoV1zJX30CFwmaYS5Dilt3h6NOr",
     coverImage: "nd3-store-cover-sensory-audit-workbook-1280.png",
     partnerPostSlug: "sensory-audit",
     partnerPostTitle:
       "Sensory Audit: How I Stopped Living in Constant Low-Grade Pain",
+    demoVideo: "nd3-preview-sensory-audit.mp4",
   },
   {
     slug: "masking-recovery-pack",
@@ -137,9 +141,9 @@ export const PRODUCTS: Product[] = [
     ctaLabel: "Launch special \u00B7 \u00A35",
     tier: "5",
     pillar: "Unmasked Life",
-    format: "PDF (12pp) + Notion template",
+    format: "PDF + Notion template",
     cardBlurb:
-      "A short PDF for the slump after heavy masking, plus a Notion tracker for spotting the pattern before the next one.",
+      "A 12-page PDF for the slump after a heavy mask day, plus a Notion tracker for spotting the pattern. Pairs with the Autistic Masking essay. Refundable for 14 days.",
     tagline: "A two-part pack for the slump after heavy masking.",
     longIntro:
       "The Masking Recovery Pack is for the day after you have looked fine for too long. It combines a short recovery PDF with a Notion tracker for spotting the pattern before the next crash.",
@@ -162,11 +166,12 @@ export const PRODUCTS: Product[] = [
     ],
     delivery:
       "Delivered via a Polar file download (ZIP) containing the PDF and a README with the duplicable Notion tracker link. The Notion template works on the free Notion plan.",
-    checkoutUrl: "https://buy.polar.sh/REPLACE-masking-recovery-pack",
+    checkoutUrl: "https://buy.polar.sh/polar_cl_lMcjhUUQvlf61HVo0u4iRVTMdBUtZVWHbnbGw3ZZsRI",
     coverImage: "nd3-store-cover-masking-recovery-pack-1280.png",
     partnerPostSlug: "autistic-masking",
     partnerPostTitle:
       "Autistic Masking: The Cost of Looking Fine When You're Not",
+    demoVideo: "nd3-preview-masking-pack.mp4",
   },
   {
     slug: "communication-templates-bundle",
@@ -177,9 +182,9 @@ export const PRODUCTS: Product[] = [
     ctaLabel: "Launch special \u00B7 \u00A35",
     tier: "5",
     pillar: "Tools & Templates",
-    format: "ZIP (PDFs + editable files)",
+    format: "PDFs + editable files",
     cardBlurb:
-      "Pre-written messages and emails for cancellations, boundaries, and recovery days. Three tones, multiple editable formats, no reinventing the wording from scratch.",
+      "24 pre-written messages and emails for the conversations that take more energy than they should. Three tones, two formats, any app. Refundable for 14 days.",
     tagline:
       "Pre-written messages for the conversations that take more energy than they should.",
     longIntro:
@@ -204,10 +209,11 @@ export const PRODUCTS: Product[] = [
     ],
     delivery:
       "Delivered as a ZIP containing PDFs and editable text/document files.",
-    checkoutUrl: "https://buy.polar.sh/REPLACE-communication-templates-bundle",
+    checkoutUrl: "https://buy.polar.sh/polar_cl_pgStW9z72cTs7OHETuekEHIoBF79e6NsfP6Cn2ssX4c",
     coverImage: "nd3-store-cover-communication-templates-bundle-1280.png",
     partnerPostSlug: "when-i-cant-use-my-words",
     partnerPostTitle: "When I Can't Use My Words: The Scripts I Send Instead",
+    demoVideo: "nd3-preview-communication-templates.mp4",
   },
   {
     slug: "burnout-recovery-roadmap",
@@ -220,7 +226,7 @@ export const PRODUCTS: Product[] = [
     pillar: "Unmasked Life",
     format: "Notion workspace",
     cardBlurb:
-      "A Notion workspace for the slow climb out of autistic burnout. Sensory budget, masking inventory, three-phase recovery map. For people in or after burnout.",
+      "A Notion workspace built from the actual system I used to recover from autistic burnout. Pairs with the Autistic Burnout essay. Refundable for 14 days.",
     tagline: "A Notion workspace for recovery, not productivity.",
     longIntro:
       "The Burnout Recovery Roadmap is a phase-gated Notion workspace for the slow climb out of autistic burnout. It is built around Survive, Stabilise, and Rebuild: three phases that let you meet your actual capacity instead of the one you used to have.",
@@ -248,11 +254,12 @@ export const PRODUCTS: Product[] = [
     ],
     delivery:
       "Delivered via a Polar file download (ZIP) containing a README with the duplicable Notion workspace link. Works on the free Notion plan.",
-    checkoutUrl: "https://buy.polar.sh/REPLACE-burnout-recovery-roadmap",
+    checkoutUrl: "https://buy.polar.sh/polar_cl_Far40WG4cM5wi9SAM8g31w9AEhZ5PtM8uODXM0NLyK1",
     coverImage: "nd3-store-cover-burnout-recovery-roadmap-1280.png",
     partnerPostSlug: "autistic-burnout",
     partnerPostTitle:
       "Autistic Burnout: What It Actually Feels Like (And How I Get Out of It)",
+    demoVideo: "nd3-preview-burnout-roadmap.mp4",
   },
   {
     slug: "neurodivergent-weekly-planner",
@@ -265,7 +272,7 @@ export const PRODUCTS: Product[] = [
     pillar: "Tools & Templates",
     format: "Notion template",
     cardBlurb:
-      "A planning rhythm that assumes capacity will vary across the week, instead of pretending it won't. Momentum protocol, come-down list, weekly capacity check-in. For anyone who's failed at every other planner.",
+      "A weekly planner built for a brain whose capacity varies. Brain-state tagging, momentum protocol, come-down list. Notion. Refundable for 14 days.",
     tagline: "A weekly planner for a brain whose capacity varies.",
     longIntro:
       "The Neurodivergent Weekly Planner is a Notion template for planning around fluctuating capacity. It uses brain-state tagging, a standing Momentum Protocol, and a Come-down List so the week can bend without becoming a failure.",
@@ -288,11 +295,12 @@ export const PRODUCTS: Product[] = [
       "a complex Bullet Journal recreation",
     ],
     delivery:
-      "Delivered via a Polar file download (ZIP) containing a README with the duplicable Notion template link, with printable companion. Works on the free Notion plan.",
-    checkoutUrl: "https://buy.polar.sh/REPLACE-neurodivergent-weekly-planner",
+      "Delivered via a Polar file download (ZIP) containing a README with the duplicable Notion template link, with printable companion where applicable. Works on the free Notion plan.",
+    checkoutUrl: "https://buy.polar.sh/polar_cl_ouDCM7cwDVe2vJF4rLzW61XRQfby8ZVjwzEDt4eQLni",
     coverImage: "nd3-store-cover-neurodivergent-weekly-planner-1280.png",
     partnerPostSlug: "adhd-momentum",
     partnerPostTitle: "ADHD Momentum: The Window Opens, Now What?",
+    demoVideo: "nd3-preview-weekly-planner.mp4",
   },
   {
     slug: "the-toolkit",
@@ -303,11 +311,11 @@ export const PRODUCTS: Product[] = [
     ctaLabel: "Launch special \u00B7 \u00A319",
     tier: "19",
     pillar: "Tools & Templates",
-    format: "ZIP \u2014 all six paid products",
+    format: "All six paid products",
     isBundle: true,
     cardBlurb:
-      "All six paid products in one bundle. For people who already know they'll use more than two, or who'd rather not choose while overloaded. \u00A334 individually at launch, \u00A319 as the bundle.",
-    tagline: "All six paid neurodivers\u00B3 products in one bundle.",
+      "All six neurodivers³ products in one ZIP. £34 individually at launch, £19 as the bundle. Refundable for 14 days.",
+    tagline: "All six paid neurodivers³ products in one bundle.",
     longIntro:
       "The Toolkit is for people who already know they will use more than two products, or who would rather not choose while overloaded. It is the full launch set in one download.",
     whatYouGet: [
@@ -331,8 +339,9 @@ export const PRODUCTS: Product[] = [
     ],
     delivery:
       "Delivered as a ZIP containing all paid product files and Notion template links.",
-    checkoutUrl: "https://buy.polar.sh/REPLACE-the-toolkit",
+    checkoutUrl: "https://buy.polar.sh/polar_cl_JrUrkZnLHMVnKxuBYYJWQimrPb5kRrU3N8a1o1j1Y55",
     coverImage: "nd3-store-cover-the-toolkit-1280.png",
+    demoVideo: "nd3-preview-toolkit.mp4",
   },
   {
     slug: "1-page-dopamine-menu",
@@ -343,10 +352,10 @@ export const PRODUCTS: Product[] = [
     ctaLabel: "Get it free",
     tier: "free",
     pillar: "Tools & Templates",
-    format: "PDF (1pp, A4 + US Letter)",
+    format: "PDF",
     isFree: true,
     cardBlurb:
-      "A single-page printable version of the Dopamine Menu, free with the newsletter. Useful on its own and a low-friction way to try the format.",
+      "A single-page printable Dopamine Menu, free in exchange for your email. The 5-minute version of the full template.",
     tagline:
       "A free single-page printable for trying the Dopamine Menu format.",
     longIntro:
@@ -368,8 +377,9 @@ export const PRODUCTS: Product[] = [
     ],
     delivery:
       "Delivered both as a Polar free product and by email after newsletter signup.",
-    checkoutUrl: "https://buy.polar.sh/REPLACE-1-page-dopamine-menu",
+    checkoutUrl: "https://buy.polar.sh/polar_cl_BjQbT7dUsJa2bkZqXWwlJY3t1IaS1jCcBIFAH29rHwR",
     coverImage: "nd3-store-cover-1-page-dopamine-menu-1280.png",
+    demoVideo: "nd3-preview-one-page-dopamine-menu.mp4",
   },
 ];
 

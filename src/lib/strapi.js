@@ -45,8 +45,8 @@ async function fetchStrapi(path, params = {}) {
     const res = await fetch(url, requestOptions);
     clearTimeout(timeoutId);
     if (!res.ok) {
-      if (res.status === 404) {
-        console.warn(`[Strapi] ${path} endpoint returned 404. Returning empty response.`);
+      if (res.status === 404 || res.status === 403 || res.status === 401) {
+        console.warn(`[Strapi] ${path} endpoint returned ${res.status}. Returning empty response.`);
         return { data: [] };
       }
       const body = await res.text().catch(() => '');
@@ -56,7 +56,7 @@ async function fetchStrapi(path, params = {}) {
     return await res.json();
   } catch (error) {
     clearTimeout(timeoutId);
-    console.error(`[Strapi] ${path} fetch failed.`, error);
+    console.warn(`[Strapi] ${path} fetch failed.`, error);
     if (process.env.GITHUB_ACTIONS === 'true') {
       console.warn(`[Strapi] Bypassing fetch error in GitHub Actions CI: ${error.message}`);
     }

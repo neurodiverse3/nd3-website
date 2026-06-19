@@ -7,6 +7,7 @@ import { chromium } from '@playwright/test';
 import path from 'path';
 import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
+import { workspacePaths } from './workspace-paths.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,12 +18,12 @@ const __dirname = path.dirname(__filename);
  *
  * Source types:
  * - { type: 'url', url: 'https://...' }          → Notion page or any website
- * - { type: 'pdf', path: './store-products-PDFs/...' } → Local PDF file (renders ALL pages to high-quality PNG)
+ * - { type: 'pdf', path: '...absolute or relative path...' } → Local PDF file (renders ALL pages to high-quality PNG)
  *
  * Or set `autoScanPdfs` to true to automatically create demos for every PDF in the folder.
  */
 const AUTO_SCAN_PDFS = true;           // Automatically scan the PDF folder below
-const PDF_FOLDER = "./store-products-PDF's"; // Relative to project root
+const PDF_FOLDER = workspacePaths.productPdfs;
 const MAX_PAGES_PER_PDF = 10;          // Limit pages per PDF (null for all pages)
 const VIEWPORT_SCALE = 2.0;            // PNG quality: 1.0 = default, 2.0 = 2x resolution
 
@@ -42,8 +43,7 @@ export const demos = [
  * Auto-scan the PDF folder and create demo configs for each PDF found.
  */
 async function buildDemoConfigsFromPdfs() {
-  const projectRoot = path.resolve(__dirname, '..');
-  const pdfFolderPath = path.join(projectRoot, PDF_FOLDER);
+  const pdfFolderPath = PDF_FOLDER;
 
   let files;
   try {
@@ -54,7 +54,7 @@ async function buildDemoConfigsFromPdfs() {
   }
 
   const pdfFiles = files.filter(f => f.toLowerCase().endsWith('.pdf'));
-  console.log(`  Found ${pdfFiles.length} PDF(s) in ${PDF_FOLDER}`);
+  console.log(`  Found ${pdfFiles.length} PDF(s) in ${pdfFolderPath}`);
 
   return pdfFiles.map((file) => {
     // Clean filename for slug: remove extension, version tags, double underscores

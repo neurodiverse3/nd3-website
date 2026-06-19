@@ -1,4 +1,5 @@
-import { getPosts } from '../lib/strapi';
+import { getPosts, getMemoirChapters } from '../lib/strapi';
+import { PRODUCTS } from '../data/products';
 
 export default async function sitemap() {
   const baseUrl = 'https://neurodivers3.co.uk';
@@ -13,7 +14,6 @@ export default async function sitemap() {
     '/memoir',
     '/privacy',
     '/terms',
-    '/downloads',
     '/blog',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
@@ -36,5 +36,29 @@ export default async function sitemap() {
     };
   });
 
-  return [...routes, ...blogRoutes];
+  // 3. Dynamic Memoir Chapters
+  const memoirChapters = await getMemoirChapters() || [];
+
+  const memoirRoutes = memoirChapters.map((chapter) => {
+    const slug = chapter.slug?.current || chapter.slug;
+    const chapterDate = chapter.updatedAt || chapter.publishedAt || new Date().toISOString();
+    return {
+      url: `${baseUrl}/memoir/${slug}`,
+      lastModified: new Date(chapterDate).toISOString().split('T')[0],
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    };
+  });
+
+  // 4. Dynamic Store Products
+  const storeRoutes = PRODUCTS.map((product) => {
+    return {
+      url: `${baseUrl}/store/${product.slug}`,
+      lastModified: new Date().toISOString().split('T')[0],
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    };
+  });
+
+  return [...routes, ...blogRoutes, ...memoirRoutes, ...storeRoutes];
 }

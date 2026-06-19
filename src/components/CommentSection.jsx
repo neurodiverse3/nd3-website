@@ -307,53 +307,47 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <label htmlFor="name-input" className="text-[10px] font-mono uppercase text-text-muted tracking-wider block font-bold">
-                Name (Public)
-              </label>
+            <div className="floating-label-wrap">
               <input
                 id="name-input"
                 type="text"
                 required
                 disabled={isSubmitting}
-                placeholder="Ollie Clews"
+                placeholder=" "
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full h-11 bg-bg-primary border-2 border-text-muted/40 focus:border-accent focus:ring-2 focus:ring-accent/15 px-4 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-200 rounded-none placeholder:text-text-muted/65"
+                className="w-full h-12 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-3 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
               />
+              <label htmlFor="name-input" className="floating-label">NAME</label>
             </div>
 
-            <div className="space-y-1.5">
-              <label htmlFor="email-input" className="text-[10px] font-mono uppercase text-text-muted tracking-wider block font-bold">
-                Email (Private)
-              </label>
+            <div className="floating-label-wrap">
               <input
                 id="email-input"
                 type="email"
                 required
                 disabled={isSubmitting}
-                placeholder="you@email.com"
+                placeholder=" "
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-11 bg-bg-primary border-2 border-text-muted/40 focus:border-accent focus:ring-2 focus:ring-accent/15 px-4 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-200 rounded-none placeholder:text-text-muted/65"
+                className="w-full h-12 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-3 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
               />
+              <label htmlFor="email-input" className="floating-label">EMAIL</label>
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <label htmlFor="content-input" className="text-[10px] font-mono uppercase text-text-muted tracking-wider block font-bold">
-              Reply
-            </label>
+          <div className="floating-label-wrap">
             <textarea
               id="content-input"
               required
               disabled={isSubmitting}
               rows={4}
-              placeholder="What did this trigger in your own brain? Keep it thoughtful, sensory-friendly, and constructive."
+              placeholder=" "
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full bg-bg-primary border-2 border-text-muted/40 focus:border-accent focus:ring-2 focus:ring-accent/15 px-4 py-3 outline-none text-fg-primary text-sm font-light leading-relaxed shadow-[2px_2px_0px_var(--rule)] transition-all duration-200 rounded-none placeholder:text-text-muted/65 resize-y min-h-[100px]"
+              className="w-full bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-5 pb-3 outline-none text-fg-primary text-sm font-light leading-relaxed shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none resize-y min-h-[100px]"
             />
+            <label htmlFor="content-input" className="floating-label" style={{ top: '1.1rem' }}>REPLY</label>
           </div>
 
           <button

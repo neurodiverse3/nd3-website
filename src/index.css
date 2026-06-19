@@ -40,9 +40,10 @@
 :root {
   --bg: #121212;          /* soft charcoal, not pure black */
   --fg: #F4F4F2;
-  --muted: #A1A1AA;
+  --muted: #B8B8C0;
   --accent: #FF2E88;
   --accent-label: var(--accent);
+  --accent-btn-text: #121212; /* charcoal for high-contrast on pink button */
   --grad-hero: linear-gradient(135deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-progress: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-meta: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
@@ -68,9 +69,10 @@
 :root[data-theme="void"] {
   --bg: #121212;          /* soft charcoal, not pure black */
   --fg: #F4F4F2;
-  --muted: #A1A1AA;
+  --muted: #B8B8C0;
   --accent: #FF2E88;
   --accent-label: var(--accent);
+  --accent-btn-text: #121212; /* charcoal for high-contrast on pink button */
   --grad-hero: linear-gradient(135deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-progress: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
   --grad-meta: linear-gradient(90deg, #FF2E88 0%, #C026D3 55%, #7C3AED 100%);
@@ -95,9 +97,10 @@
 :root[data-theme="incubation"] {
   --bg: #0B130F;          /* dark sage */
   --fg: #F4F4F2;
-  --muted: #839788;
+  --muted: #D4E4D8;       /* A11Y-7: brighter mid-tone sage for scannability (>= 4.5:1 on dark sage) */
   --accent: #5A8A60;
-  --accent-label: #72AC7A;
+  --accent-label: #8FC096;
+  --accent-btn-text: #ffffff; /* white for high contrast on green button */
   --grad-hero: linear-gradient(135deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
   --grad-progress: linear-gradient(90deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
   --grad-meta: linear-gradient(90deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
@@ -109,9 +112,9 @@
   --rule: #1A2E22;
 
   /* Pillar labels token set */
-  --pillar-label-unmasked: #FF4D6D;
-  --pillar-label-tools:    #F4A93B;
-  --pillar-label-digital:  #22B8CF;
+  --pillar-label-unmasked: #FF7A8A;
+  --pillar-label-tools:    #F4B963;
+  --pillar-label-digital:  #3FD4E8;
 }
 
 /* Parchment custom overrides (Declared last as belt-and-braces) */
@@ -119,24 +122,40 @@
   --bg: #ECE7DA;          /* warm cream */
   --surface: #F4F0E6;
   --fg: #221E1A;          /* warm ink */
-  --muted: #585148;       /* passes 4.5:1 on cream (A11Y-4) */
-  --accent: #FF2D87;      /* display/headline pink */
-  --accent-label: #B3104D;
-  --link: #BE1756;        /* text + links (AA on cream) (A11Y-1) */
+  --muted: #585148;       /* passes 5:1 on cream (A11Y-4) */
+  --accent: #D0006F;      /* A11Y-1: deeper berry magenta (passes 4.5:1 on cream) */
+  --accent-label: #B3005C;
+  --link: #D0006F;        /* text + links (AA on cream) */
   --accent-text: #221E1A;  /* dark ink for text on the pink accent fill (A11Y-2) */
-  --grad-hero: linear-gradient(135deg, #FF2D87 0%, #BE1756 100%);
-  --grad-progress: linear-gradient(90deg, #FF2D87 0%, #BE1756 100%);
-  --grad-meta: linear-gradient(90deg, #FF2D87 0%, #BE1756 100%);
+  --accent-btn-text: #221E1A; /* dark ink for high contrast on berry-pink button */
+  --grad-hero: linear-gradient(135deg, #D0006F 0%, #8A0F3C 100%);
+  --grad-progress: linear-gradient(90deg, #D0006F 0%, #8A0F3C 100%);
+  --grad-meta: linear-gradient(90deg, #D0006F 0%, #8A0F3C 100%);
+
+  /* Override accent-pink to use AA-compliant link color on cream (A11Y-5) */
+  --color-accent-pink: var(--link);
+  --color-accent-pink-soft: rgba(208, 0, 111, 0.12);
 
   /* Fallbacks for Parchment */
-  --accent-soft: rgba(255, 45, 135, 0.12);
+  --accent-soft: rgba(208, 0, 111, 0.12);
   --rule: #DDD7CD;
 
   /* Pillar labels token set (AA-safe dark values on Parchment cream bg) */
-  --pillar-label-unmasked: #BB1B57;
+  --pillar-label-unmasked: #C4005A;
   --pillar-label-tools:    #6B4310;
   --pillar-label-digital:  #0A5F6E;
+
+  /* Pillar CARD fills — soft tints for Parchment light theme */
+  --pillar-card-unmasked: #FAF2F5;  /* pale rose wash */
+  --pillar-card-tools:    #FAF6EE;  /* pale amber wash */
+  --pillar-card-digital:  #EEF7F9;  /* pale blue wash */
+  --pillar-card-text:     #221E1A;  /* dark ink text inside cards */
 }
+
+:root[data-theme="parchment"] footer .animate-marquee {
+  color: var(--accent-label);
+}
+
 
 /* Global identity hues — brand reference, same in every theme */
 :root {
@@ -165,12 +184,75 @@
   --pillar-card-digital:  #10333B;  /* deep petrol-teal */
 }
 
-/* Pillar CARD fills — saturated set for Parchment (specificity 0,2,0) */
+/* Pillar CARD fills — light washes set for Parchment (specificity 0,2,0) */
 :root[data-theme="parchment"] {
-  --pillar-card-unmasked: #BB1B57;  /* dark rose */
-  --pillar-card-tools:    #A6690B;  /* dark amber */
-  --pillar-card-digital:  #0B7285;  /* dark teal */
+  --pillar-card-unmasked: #FAF2F5;  /* pale rose wash */
+  --pillar-card-tools:    #FAF6EE;  /* pale amber wash */
+  --pillar-card-digital:  #EEF7F9;  /* pale blue wash */
 }
+
+/* Custom border colors and logo fill override for Parchment light cards */
+:root[data-theme="parchment"] .post-cover[data-pillar="unmasked"] { border-color: rgba(196, 0, 90, 0.28) !important; }
+:root[data-theme="parchment"] .post-cover[data-pillar="tools"]    { border-color: rgba(166, 105, 11, 0.25) !important; }
+:root[data-theme="parchment"] .post-cover[data-pillar="digital"]  { border-color: rgba(11, 114, 133, 0.25) !important; }
+
+/* Contact page arrow translateX(4px) hover with 0.2s ease */
+.arrow-hover {
+  transform: translateX(0);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.group:hover .arrow-hover {
+  transform: translateX(4px);
+  color: var(--accent);
+}
+
+/* Labs card SVG wireframe: stroke-dasharray drawing + CRT-glow on hover.
+   The path length is ~160 for the banner wave; the value is generous so
+   any future path stays fully drawn. */
+.lab-preview-svg path,
+.lab-card-premium svg path:not([data-no-stroke]) {
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  will-change: stroke-dashoffset, filter;
+}
+.lab-card-premium:hover .lab-preview-svg path,
+.lab-card-premium:hover svg path:not([data-no-stroke]) {
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 4px var(--accent)) drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 50%, transparent));
+}
+.lab-card-premium:hover .lab-preview-svg {
+  filter: drop-shadow(0 0 4px var(--accent));
+}
+html.prefers-reduced-motion-override .lab-card-premium:hover .lab-preview-svg path,
+html.prefers-reduced-motion-override .lab-card-premium:hover svg path:not([data-no-stroke]) {
+  stroke-dashoffset: 0 !important;
+  filter: none !important;
+}
+
+/* A11Y-15: About / inline text links — boost contrast for WCAG AA on dark bg
+   Note: #FF6FA8 on #121212 = ~6.4:1 (passes AA for normal text).
+   Parchment accent #D0006F on #ECE7DA = ~5.5:1 (passes AA). */
+:root[data-theme="void"] a.text-accent,
+:root[data-theme="void"] .text-accent.underline,
+:root[data-theme="void"] a.text-link {
+  color: #FF6FA8 !important;
+}
+:root[data-theme="void"] a.text-accent:hover,
+:root[data-theme="void"] a.text-link:hover {
+  color: #FF9CC2 !important;
+}
+:root[data-theme="void"] a.text-accent:focus-visible,
+:root[data-theme="void"] a.text-link:focus-visible {
+  outline: 2px solid #FF6FA8 !important;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+:root[data-theme="incubation"] a.text-accent,
+:root[data-theme="incubation"] a.text-link {
+  color: #8FC096 !important;
+}
+:root[data-theme="parchment"] .post-cover .logo text { fill: #221E1A !important; }
 
 /* Pillar cards / post covers dynamic attributes mapping */
 .post-cover {
@@ -181,6 +263,19 @@
 .post-cover[data-pillar="unmasked"] { --cover-bg: var(--pillar-card-unmasked); }
 .post-cover[data-pillar="tools"]    { --cover-bg: var(--pillar-card-tools); }
 .post-cover[data-pillar="digital"]  { --cover-bg: var(--pillar-card-digital); }
+
+/* Home page "Latest Writing" card backgrounds: theme-adaptive with subtle wash */
+:root[data-theme="parchment"] [data-pillar].group {
+  background-color: var(--surface) !important;
+  border-color: var(--rule) !important;
+}
+:root[data-theme="parchment"] [data-pillar].group:hover {
+  border-color: var(--fg) !important;
+  box-shadow: 6px 6px 0px var(--accent) !important;
+}
+:root[data-theme="incubation"] [data-pillar].group {
+  background-color: #0F1A14 !important;
+}
 
 /* Force all logo elements and superscript-³ to be all-white inside post covers */
 .post-cover svg text {
@@ -243,6 +338,90 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-marquee {
   animation: marquee 60s linear infinite;
+}
+
+/* Static Utility Badges styling */
+.badge-pillar-link {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none !important;
+}
+
+.badge-pillar-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.badge-pillar-link:focus-visible {
+  outline: 2px solid var(--accent) !important;
+  outline-offset: 4px;
+}
+
+/* Badge pillar theme variables */
+.badge-pillar-unmasked {
+  color: var(--pillar-label-unmasked) !important;
+  background-color: rgba(255, 45, 135, 0.06) !important;
+  border: 1px solid rgba(255, 45, 135, 0.2) !important;
+}
+:root[data-theme="parchment"] .badge-pillar-unmasked {
+  background-color: rgba(196, 0, 90, 0.06) !important;
+  border-color: rgba(196, 0, 90, 0.18) !important;
+}
+.badge-pillar-unmasked:hover {
+  background-color: rgba(255, 45, 135, 0.12) !important;
+  border-color: rgba(255, 45, 135, 0.4) !important;
+}
+
+.badge-pillar-tools {
+  color: var(--pillar-label-tools) !important;
+  background-color: rgba(255, 172, 28, 0.06) !important;
+  border: 1px solid rgba(255, 172, 28, 0.2) !important;
+}
+:root[data-theme="parchment"] .badge-pillar-tools {
+  background-color: rgba(107, 67, 16, 0.05) !important;
+  border-color: rgba(107, 67, 16, 0.15) !important;
+}
+.badge-pillar-tools:hover {
+  background-color: rgba(255, 172, 28, 0.12) !important;
+  border-color: rgba(255, 172, 28, 0.4) !important;
+}
+
+.badge-pillar-digital {
+  color: var(--pillar-label-digital) !important;
+  background-color: rgba(0, 240, 255, 0.06) !important;
+  border: 1px solid rgba(0, 240, 255, 0.2) !important;
+}
+:root[data-theme="parchment"] .badge-pillar-digital {
+  background-color: rgba(10, 95, 110, 0.05) !important;
+  border-color: rgba(10, 95, 110, 0.15) !important;
+}
+.badge-pillar-digital:hover {
+  background-color: rgba(0, 240, 255, 0.12) !important;
+  border-color: rgba(0, 240, 255, 0.4) !important;
+}
+
+/* Dots helper backgrounds */
+.bg-pillar-unmasked {
+  background-color: var(--pillar-unmasked) !important;
+}
+:root[data-theme="parchment"] .bg-pillar-unmasked {
+  background-color: var(--pillar-label-unmasked) !important;
+}
+
+.bg-pillar-tools {
+  background-color: var(--pillar-tools) !important;
+}
+:root[data-theme="parchment"] .bg-pillar-tools {
+  background-color: var(--pillar-label-tools) !important;
+}
+
+.bg-pillar-digital {
+  background-color: var(--pillar-digital) !important;
+}
+:root[data-theme="parchment"] .bg-pillar-digital {
+  background-color: var(--pillar-label-digital) !important;
 }
 
 .animate-pulse-slow {
@@ -547,6 +726,7 @@ html[data-theme="incubation"].high-contrast-active {
   --muted: #F4F4F5 !important;
   --rule: #FFFFFF !important;
   --accent: #FFFF00 !important; /* Extremely high contrast yellow on black */
+  --accent-btn-text: #000000 !important; /* Black text on yellow button */
   --grad-hero: var(--accent) !important;
   --grad-progress: var(--accent) !important;
   --grad-meta: var(--accent) !important;
@@ -558,6 +738,7 @@ html[data-theme="parchment"].high-contrast-active {
   --muted: #18181B !important;
   --rule: #000000 !important;
   --accent: #0000FF !important; /* Extremely high contrast blue on white */
+  --accent-btn-text: #FFFFFF !important; /* White text on blue button */
   --grad-hero: var(--accent) !important;
   --grad-progress: var(--accent) !important;
   --grad-meta: var(--accent) !important;
@@ -756,6 +937,292 @@ html.prefers-reduced-motion-override .animate-marquee {
   animation: none !important;
   white-space: normal !important;
   overflow: visible !important;
+}
+
+/* Incubation theme: blockquote left accent bar — A11Y-9: brighter teal/cyan for pull-quote visibility */
+:root[data-theme="incubation"] blockquote,
+:root[data-theme="incubation"] .border-l-accent,
+:root[data-theme="incubation"] [class*="border-l-4"] {
+  border-left-color: #2DD4BF !important;
+}
+
+/* Parchment theme: make input focus rings more visible against cream background */
+:root[data-theme="parchment"] input:focus,
+:root[data-theme="parchment"] textarea:focus {
+  --tw-ring-color: var(--accent) !important;
+  --tw-ring-opacity: 0.45 !important;
+}
+
+/* A11Y-10: Form focus glow effect — applied to all inputs in newsletter & comments */
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+  transition: border-color 0.2s ease, box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease;
+}
+
+input[type="email"]:focus,
+input[type="text"]:focus:not(.no-focus-glow),
+input[type="search"]:focus,
+textarea:focus:not(.no-focus-glow) {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent), 3px 3px 0px var(--rule) !important;
+  background-color: var(--surface) !important;
+}
+
+:root[data-theme="void"] input[type="email"]:focus,
+:root[data-theme="void"] input[type="text"]:focus:not(.no-focus-glow),
+:root[data-theme="void"] input[type="search"]:focus,
+:root[data-theme="void"] textarea:focus:not(.no-focus-glow) {
+  background-color: #1A1A1E !important;
+}
+
+:root[data-theme="incubation"] input[type="email"]:focus,
+:root[data-theme="incubation"] input[type="text"]:focus:not(.no-focus-glow),
+:root[data-theme="incubation"] input[type="search"]:focus,
+:root[data-theme="incubation"] textarea:focus:not(.no-focus-glow) {
+  background-color: #0F1A14 !important;
+}
+
+/* A11Y-12: Audio player active feedback — looping sound wave visualizer */
+@keyframes audioWave {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+@keyframes audioWaveBar1 {
+  0%, 100% { height: 4px; }
+  25% { height: 14px; }
+  50% { height: 8px; }
+  75% { height: 12px; }
+}
+@keyframes audioWaveBar2 {
+  0%, 100% { height: 8px; }
+  20% { height: 16px; }
+  60% { height: 4px; }
+  80% { height: 12px; }
+}
+@keyframes audioWaveBar3 {
+  0%, 100% { height: 12px; }
+  35% { height: 6px; }
+  70% { height: 14px; }
+}
+
+.audio-wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 16px;
+  width: 18px;
+  padding: 0 1px;
+}
+.audio-wave span {
+  display: block;
+  width: 3px;
+  background-color: currentColor;
+  height: 4px;
+  border-radius: 1px;
+  transform-origin: center;
+}
+.audio-wave.active span {
+  animation-duration: 0.85s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+.audio-wave.active span:nth-child(1) { animation-name: audioWaveBar1; }
+.audio-wave.active span:nth-child(2) { animation-name: audioWaveBar2; }
+.audio-wave.active span:nth-child(3) { animation-name: audioWaveBar3; }
+.audio-wave.active span:nth-child(4) { animation-name: audioWaveBar2; animation-delay: 0.15s; }
+
+html.prefers-reduced-motion-override .audio-wave.active span,
+html[data-motion="reduced"] .audio-wave.active span {
+  animation: none !important;
+  height: 8px !important;
+}
+
+/* A11Y-14: Premium oscilloscope hover effect for lab cards.
+   GPU-accelerated transforms + cubic-bezier easing + stroke-dasharray */
+@keyframes oscilloscopeGlow {
+  0% { stroke-dashoffset: 0; opacity: 0.35; }
+  50% { stroke-dashoffset: -40; opacity: 1; }
+  100% { stroke-dashoffset: -80; opacity: 0.35; }
+}
+@keyframes oscilloscopePulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--accent)); }
+  50% { transform: scale(1.015); filter: drop-shadow(0 0 6px var(--accent)); }
+}
+
+.lab-card-premium {
+  will-change: transform, box-shadow;
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.25s ease;
+}
+.lab-card-premium:hover {
+  transform: translate3d(0, -4px, 0);
+  box-shadow: 8px 8px 0 var(--fg), 0 0 24px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.lab-card-premium .oscilloscope-line {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-dasharray: 200;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.lab-card-premium:hover .oscilloscope-line {
+  opacity: 1;
+  animation: oscilloscopeGlow 1.6s linear infinite;
+}
+.lab-card-premium .corner-bracket {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease 0.05s, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  z-index: 5;
+}
+.lab-card-premium:hover .corner-bracket { opacity: 1; }
+.lab-card-premium .corner-bracket.tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; transform: translate(-3px, -3px); }
+.lab-card-premium .corner-bracket.tr { top: 6px; right: 6px; border-top: 2px solid; border-right: 2px solid; transform: translate(3px, -3px); }
+.lab-card-premium .corner-bracket.bl { bottom: 6px; left: 6px; border-bottom: 2px solid; border-left: 2px solid; transform: translate(-3px, 3px); }
+.lab-card-premium .corner-bracket.br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; transform: translate(3px, 3px); }
+.lab-card-premium:hover .corner-bracket.tl,
+.lab-card-premium:hover .corner-bracket.bl { transform: translate(0, 0); }
+.lab-card-premium:hover .corner-bracket.tr,
+.lab-card-premium:hover .corner-bracket.br { transform: translate(0, 0); }
+
+html.prefers-reduced-motion-override .lab-card-premium:hover {
+  transform: none;
+  box-shadow: 6px 6px 0 var(--fg);
+}
+html.prefers-reduced-motion-override .lab-card-premium:hover .oscilloscope-line {
+  animation: none;
+  opacity: 0.5;
+}
+
+/* Blog body links on Void — ensure bright enough against pitch-black backdrop */
+:root[data-theme="void"] #blog-content a {
+  color: var(--accent) !important;
+}
+
+/* Brain state number glitch hover animation */
+@keyframes brainNumGlitch {
+  0% { transform: translate(0); }
+  15% { transform: translate(-2px, 3px) skewX(-1deg); }
+  30% { transform: translate(3px, -2px) skewX(1deg); }
+  45% { transform: translate(-3px, -1px) skewX(-0.5deg); }
+  60% { transform: translate(2px, 2px) skewX(0.5deg); }
+  75% { transform: translate(0); }
+  100% { transform: translate(0); }
+}
+.brain-num-glitch {
+  animation: brainNumGlitch 0.35s ease both;
+  color: var(--accent) !important;
+}
+
+/* Brain state active click transition pulse */
+.brain-num-active {
+  animation: brainNumPulse 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+@keyframes brainNumPulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* A11Y-15: About / inline page links — boost contrast for WCAG AA on dark bg */
+/* (The active ruleset is above; this older single-rule block is intentionally removed.) */
+
+/* A11Y-11: Critical safety advisory contrast in dark alert boxes */
+.bg-red-500\/10,
+[class*="bg-amber-500/"][class*="5"],
+[class*="bg-red-500/"][class*="5"] {
+  border-width: 2px;
+}
+:root[data-theme="void"] .text-red-400,
+:root[data-theme="void"] .text-amber-400,
+:root[data-theme="void"] .text-amber-500,
+:root[data-theme="void"] .text-amber-300 {
+  color: #FFE4E6 !important; /* high-saturation light pink for void */
+  text-shadow: 0 0 8px rgba(255, 92, 92, 0.25);
+}
+:root[data-theme="void"] [class*="text-amber-"] {
+  color: #FFE8B0 !important;
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
+}
+:root[data-theme="void"] .text-red-500,
+:root[data-theme="void"] .text-red-600 {
+  color: #FFC2C7 !important;
+}
+:root[data-theme="incubation"] .text-red-400,
+:root[data-theme="incubation"] .text-amber-400,
+:root[data-theme="incubation"] .text-amber-500,
+:root[data-theme="incubation"] .text-amber-300 {
+  color: #FFD4D4 !important;
+  text-shadow: 0 0 8px rgba(255, 92, 92, 0.2);
+}
+
+/* Floating label input styles */
+.floating-label-wrap {
+  position: relative;
+}
+.floating-label-wrap .floating-label {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  pointer-events: none;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-inter), monospace;
+}
+.floating-label-wrap input:focus ~ .floating-label,
+.floating-label-wrap input:not(:placeholder-shown) ~ .floating-label,
+.floating-label-wrap textarea:focus ~ .floating-label,
+.floating-label-wrap textarea:not(:placeholder-shown) ~ .floating-label {
+  top: -0.6rem;
+  left: 0.5rem;
+  transform: translateY(0);
+  font-size: 0.6rem;
+  color: var(--accent);
+  background: var(--bg);
+  padding: 0 0.35rem;
+}
+
+/* Code block theme-matching backgrounds */
+:root[data-theme="void"] .code-block-body {
+  background-color: #050508 !important;
+}
+:root[data-theme="incubation"] .code-block-body {
+  background-color: #080f0c !important;
+}
+:root[data-theme="parchment"] .code-block-body {
+  background-color: #f8f4e8 !important;
+}
+
+/* Mobile sticky-sidebar carousel for blog posts */
+@media (max-width: 1279px) {
+  .blog-sidebar-carousel {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    padding-bottom: 0.5rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .blog-sidebar-carousel > * {
+    flex-shrink: 0 !important;
+    scroll-snap-align: start;
+  }
 }
 
 /* --- PRINT STYLES --- */

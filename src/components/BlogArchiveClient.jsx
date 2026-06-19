@@ -191,8 +191,8 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
               }}
               className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none ${
                 activePillar === null 
-                  ? 'bg-accent border-fg-primary text-bg-primary shadow-[2px_2px_0px_var(--fg)]' 
-                  : 'border-border-rule text-text-muted hover:text-fg-primary hover:border-fg-primary'
+                  ? 'bg-accent border-fg-primary text-[var(--accent-btn-text)] shadow-[2px_2px_0px_var(--fg)]' 
+                  : 'border-border-rule text-[var(--muted)] hover:text-fg-primary hover:border-fg-primary'
               }`}
             >
               All
@@ -208,8 +208,8 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                   }}
                   className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none ${
                     isActive 
-                      ? 'bg-accent border-fg-primary text-bg-primary shadow-[2px_2px_0px_var(--fg)]' 
-                      : 'border-border-rule text-text-muted hover:text-fg-primary hover:border-fg-primary'
+                      ? 'bg-accent border-fg-primary text-[var(--accent-btn-text)] shadow-[2px_2px_0px_var(--fg)]' 
+                      : 'border-border-rule text-[var(--muted)] hover:text-fg-primary hover:border-fg-primary'
                   }`}
                 >
                   {p.name}
@@ -230,8 +230,8 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
               }}
               className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none ${
                 activeState === null 
-                  ? 'bg-accent border-fg-primary text-bg-primary shadow-[2px_2px_0px_var(--fg)]' 
-                  : 'border-border-rule text-text-muted hover:text-fg-primary hover:border-fg-primary'
+                  ? 'bg-accent border-fg-primary text-[var(--accent-btn-text)] shadow-[2px_2px_0px_var(--fg)]' 
+                  : 'border-border-rule text-[var(--muted)] hover:text-fg-primary hover:border-fg-primary'
               }`}
             >
               All
@@ -247,8 +247,8 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                   }}
                   className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none ${
                     isActive 
-                      ? 'bg-accent border-fg-primary text-bg-primary shadow-[2px_2px_0px_var(--fg)]' 
-                      : 'border-border-rule text-text-muted hover:text-fg-primary hover:border-fg-primary'
+                      ? 'bg-accent border-fg-primary text-[var(--accent-btn-text)] shadow-[2px_2px_0px_var(--fg)]' 
+                      : 'border-border-rule text-[var(--muted)] hover:text-fg-primary hover:border-fg-primary'
                   }`}
                 >
                   {s.name}

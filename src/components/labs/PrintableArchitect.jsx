@@ -25,7 +25,7 @@ export default function PrintableArchitect() {
   const [exportMode, setExportMode] = useState('prefilled'); // 'prefilled' or 'blank'
   const [isExporting, setIsExporting] = useState(false);
   
-  // Customizer state linked to active canvas sheet
+  // Customiser state linked to active canvas sheet
   const [sheet, setSheet] = useState(PRESETS.dopamine);
   
   // Generated AI research data
@@ -76,8 +76,8 @@ export default function PrintableArchitect() {
             let matchedNiche = "Neurodivergent Life Skills";
             let demandScore = "High (91/100)";
             let pricing = "$8.50";
-            let reasons = "De-congests cognitive memory loops, giving clear spatial bounds to organize information and lessen working memory decay.";
-            let kws = ["neurodivergent organizer", "adhd templates", "printable routines"];
+            let reasons = "De-congests cognitive memory loops, giving clear spatial bounds to organise information and lessen working memory decay.";
+            let kws = ["neurodivergent organiser", "adhd templates", "printable routines"];
             let audienceType = "ADHDers, Autistic adults, and executive thinkers";
             let customSections = [];
 
@@ -156,7 +156,7 @@ export default function PrintableArchitect() {
               matchedNiche = `Branded ${prompt}`;
               demandScore = "High (91/100)";
               pricing = "$8.00";
-              reasons = `Specially customized template that segments the "${prompt}" process into distinct brutalist tracking blocks, designed to minimize overwhelm and visual distraction.`;
+              reasons = `Specially customised template that segments the "${prompt}" process into distinct brutalist tracking blocks, designed to minimise overwhelm and visual distraction.`;
               kws = [`${prompt.toLowerCase()} tracker`, "adhd planner", "neurodivergent tools"];
               audienceType = "Neurodivergent creators, ADHD students, and autistic adults";
               customSections = [
@@ -253,7 +253,7 @@ export default function PrintableArchitect() {
   const handleAddChecklistItem = (sectionIdx) => {
     setSheet(prev => {
       const updated = { ...prev };
-      updated.sections[sectionIdx].items.push({ text: "Click to customize this goal item", checked: false });
+      updated.sections[sectionIdx].items.push({ text: "Click to customise this goal item", checked: false });
       return updated;
     });
   };
@@ -465,7 +465,7 @@ export default function PrintableArchitect() {
             </div>
           )}
 
-          {/* TAB 2: VISUAL STYLE CUSTOMIZER & LAYOUT TWEAKS */}
+          {/* TAB 2: VISUAL STYLE CUSTOMISER & LAYOUT TWEAKS */}
           {activeTab === 'designer' && (
             <div className="flex flex-col gap-6">
 

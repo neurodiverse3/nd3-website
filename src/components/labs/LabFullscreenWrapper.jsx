@@ -33,7 +33,7 @@ export default function LabFullscreenWrapper({ slug }) {
         {/* Fullscreen Header */}
         <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--rule)] bg-black/80">
           <span className="text-[10px] font-mono text-[var(--accent)] uppercase tracking-widest">
-            // FULLSCREEN MODE — PRESS ESC OR F TO EXIT
+            // FULLSCREEN MODE · PRESS ESC OR F TO EXIT
           </span>
           <button
             onClick={toggleFullscreen}
@@ -53,19 +53,26 @@ export default function LabFullscreenWrapper({ slug }) {
 
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <span className="text-[10px] font-mono text-[var(--muted)] uppercase tracking-widest">
           // INTERACTIVE WORKSPACE
         </span>
         <button
           onClick={toggleFullscreen}
-          className="flex items-center gap-1.5 px-3 py-1.5 border border-[var(--rule)] hover:border-[var(--accent)] text-[var(--muted)] hover:text-[var(--fg)] text-[9px] font-mono font-bold uppercase tracking-wider cursor-pointer transition-all rounded-none"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 border-2 border-fg-primary bg-[var(--accent)] text-[var(--accent-text,var(--bg))] text-[10px] font-mono font-bold uppercase tracking-wider cursor-pointer transition-all rounded-none hover:-translate-y-0.5 hover:translate-x-0.5 hover:shadow-[3px_3px_0px_var(--fg)] active:translate-x-0 active:translate-y-0 active:shadow-none self-start sm:self-auto"
           aria-label="Enter fullscreen"
         >
-          <Maximize2 size={10} /> FULLSCREEN (F)
+          <Maximize2 size={12} /> FULLSCREEN MODE (F)
         </button>
       </div>
-      <div className="w-full border border-[var(--rule)] bg-bg-primary/40 p-1 shadow-[4px_4px_0px_var(--rule)]">
+      <div 
+        className="w-full border-2 border-[var(--fg)] bg-bg-primary p-6 md:p-8 shadow-[6px_6px_0px_var(--fg)] hover:shadow-[8px_8px_0px_var(--accent)] transition-all relative overflow-hidden"
+        style={{
+          backgroundImage: 'linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px)',
+          backgroundSize: '24px 24px'
+        }}
+      >
+        <div className="absolute top-2 right-2 font-mono text-[8px] text-[var(--muted)] opacity-40 select-none" aria-hidden="true">· GRID CALIBRATED ·</div>
         <LabEmbedder slug={slug} />
       </div>
     </div>

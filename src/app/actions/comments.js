@@ -52,7 +52,8 @@ export async function getComments(postSlug) {
       createdAt: item.attributes?.createdAt || item.createdAt || item.attributes?.publishedAt,
     }));
   } catch (err) {
-    throw new Error(`Failed to fetch comments: ${err.message}`, { cause: err });
+    console.warn(`[Comments] Failed to fetch comments for "${postSlug}": ${err.message}`);
+    return [];
   }
 }
 

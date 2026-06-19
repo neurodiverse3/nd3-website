@@ -27,7 +27,7 @@ export default function GlobalError({ error, reset }) {
 
         {/* Hero Casing Headers */}
         <span className="text-[11px] font-black uppercase tracking-[0.25em] text-accent-pink block mb-2 font-mono">
-          // NOTICE
+          · NOTICE ·
         </span>
         <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-fg-primary leading-none mb-6">
           Something <span className="italic font-light text-accent-pink">broke.</span>

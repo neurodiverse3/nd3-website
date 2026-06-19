@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
   title: 'Terms of Use · neurodivers³',
@@ -17,17 +18,13 @@ export const metadata = {
 export default function TermsPage() {
   return (
     <div className="min-h-screen pt-[96px] md:pt-[120px] pb-16 md:pb-24 px-6 md:px-24 max-w-7xl mx-auto flex flex-col justify-start">
-        <div className="mb-16 border-b-2 border-fg-primary pb-8 text-left w-full mt-4">
-          <span className="text-[12px] font-black uppercase tracking-[0.25em] text-accent-pink">
-            LEGAL TERMS
-          </span>
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-fg-primary mt-2">
-            Terms of Use
-          </h1>
-          <p className="text-xs text-text-muted font-mono leading-relaxed mt-3">
-            Last updated: May 2026 · Aligned with the UK Consumer Rights Act 2015
-          </p>
-        </div>
+      <PageHeader
+        variant="section"
+        eyebrow="Legal"
+        titleLabel="Terms"
+        titleAccent="Of Use"
+        subtitle="Last updated: May 2026 · Aligned with the UK Consumer Rights Act 2015"
+      />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Terms Content (Spans 2 columns) */}
@@ -97,8 +94,8 @@ export default function TermsPage() {
 
           </div>
 
-          {/* Sidebar / Quick Info (Spans 1 column) */}
-          <div className="space-y-6">
+          {/* Sidebar / Quick Info (Spans 1 column) — Module 6.2 sticky on desktop */}
+          <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
             <div className="bg-bg-primary border-2 border-[var(--rule)] p-6 shadow-[4px_4px_0px_var(--rule)]">
               <h3 className="text-lg font-black uppercase tracking-tight text-[var(--fg)] mb-4">Quick Read</h3>
               <ul className="text-sm text-[var(--muted)] space-y-3 font-normal leading-relaxed">

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
   title: 'Privacy Policy · neurodivers³',
@@ -17,17 +18,13 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen pt-[96px] md:pt-[120px] pb-16 md:pb-24 px-6 md:px-24 max-w-7xl mx-auto flex flex-col justify-start">
-        <div className="mb-16 border-b-2 border-fg-primary pb-8 text-left w-full mt-4">
-          <span className="text-[12px] font-black uppercase tracking-[0.25em] text-accent-pink">
-            LEGAL STATEMENT
-          </span>
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-fg-primary mt-2">
-            Privacy Policy
-          </h1>
-          <p className="text-xs text-text-muted font-mono leading-relaxed mt-3">
-            Last updated: May 2026 · UK GDPR & Companies Act Compliant
-          </p>
-        </div>
+      <PageHeader
+        variant="section"
+        eyebrow="Legal"
+        titleLabel="Privacy"
+        titleAccent="Policy"
+        subtitle="Last updated: May 2026 · UK GDPR & Companies Act Compliant"
+      />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Policy Content (Spans 2 columns) */}
@@ -59,7 +56,7 @@ export default function PrivacyPage() {
                     <strong className="text-[var(--fg)]">Transaction & Billing Data:</strong> Collected when you purchase tools or courses in our toolkit. We do <strong>not</strong> store or see your raw credit card numbers. All billing and card processing is securely routed through <span className="font-semibold text-[var(--fg)]">Gumroad</span>.
                   </li>
                   <li>
-                    <strong className="text-[var(--fg)]">Technical & Cookies Data:</strong> We do not run invasive behavioral tracking or targeted ads. We may collect basic diagnostic telemetry and essential browser cookies to persist your preferred reading theme (Void, Warm Charcoal, or Incubation) and manage your shopping cart state.
+                    <strong className="text-[var(--fg)]">Technical & Cookies Data:</strong> We do not run invasive behavioural tracking or targeted ads. We may collect basic diagnostic telemetry and essential browser cookies to persist your preferred reading theme (Void, Warm Charcoal, or Incubation) and manage your shopping cart state.
                   </li>
                 </ul>
               </div>
@@ -101,14 +98,14 @@ export default function PrivacyPage() {
 
           </div>
 
-          {/* Sidebar / Quick Info (Spans 1 column) */}
-          <div className="space-y-6">
+          {/* Sidebar / Quick Info (Spans 1 column) — Module 6.2 sticky on desktop */}
+          <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
             <div className="bg-bg-primary border-2 border-[var(--rule)] p-6 shadow-[4px_4px_0px_var(--rule)]">
               <h3 className="text-lg font-black uppercase tracking-tight text-[var(--fg)] mb-4">Summary Checklist</h3>
               <ul className="text-sm text-[var(--muted)] space-y-3 font-normal leading-relaxed">
                 <li className="flex items-start gap-2">
                   <span className="text-[var(--accent)] font-bold">✓</span>
-                  <span>Zero trackers or behavioral ad cookies</span>
+                  <span>Zero trackers or behavioural ad cookies</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[var(--accent)] font-bold">✓</span>

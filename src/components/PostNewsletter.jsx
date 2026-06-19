@@ -60,16 +60,19 @@ export function PostNewsletter() {
 
       <div className="relative z-10">
         <span className="inline-block text-[10px] font-mono tracking-[0.25em] text-[var(--link,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">
-          NEWSLETTER
+          GET IT BY EMAIL
         </span>
 
         <div className="flex flex-col md:flex-row md:items-end gap-8">
           <div className="flex-1">
             <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-fg-primary mb-2 leading-tight">
-              Enjoyed this? Get the next one by email.
+              If any of this lands, get the next one.
             </h2>
             <p className="text-sm text-text-muted font-normal leading-relaxed">
-              One honest email when there's something worth saying. No schedule, no funnel, no "hey friend".
+              One honest email when there's something worth saying. No schedule. No funnel. No "hey friend".
+            </p>
+            <p className="text-xs text-text-muted/80 font-mono uppercase tracking-wider mt-3">
+              Early access to tools, templates, and new essays before they land on the site.
             </p>
           </div>
 
@@ -88,19 +91,22 @@ export function PostNewsletter() {
                 />
 
                 <div className="flex gap-3">
-                  <label htmlFor="post-newsletter-email" className="sr-only">
-                    Email address
-                  </label>
-                  <input
-                    id="post-newsletter-email"
-                    type="email"
-                    required
-                    placeholder="your@email.com"
-                    disabled={isSubmitting}
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    className="flex-1 h-11 min-w-0 bg-bg-primary border-2 border-fg-primary focus:border-accent focus:ring-2 focus:ring-accent/20 px-4 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-200 rounded-none placeholder:text-text-muted"
-                  />
+                  <div className="flex-1 floating-label-wrap">
+                    <label htmlFor="post-newsletter-email" className="sr-only">
+                      Email address
+                    </label>
+                    <input
+                      id="post-newsletter-email"
+                      type="email"
+                      required
+                      placeholder=" "
+                      disabled={isSubmitting}
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      className="w-full h-12 bg-bg-primary border-2 border-fg-primary focus:border-accent px-4 pt-3 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
+                    />
+                    <span className="floating-label">EMAIL</span>
+                  </div>
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -122,7 +128,7 @@ export function PostNewsletter() {
                 <div>
                   <p className="text-sm font-black text-fg-primary">You're in.</p>
                   <p className="text-xs text-text-muted mt-0.5">
-                    Look out for subject line:{' '}
+                    Look out for the welcome email soon. Subject line:{' '}
                     <span className="text-accent italic font-semibold">"yes that was me"</span>
                   </p>
                 </div>

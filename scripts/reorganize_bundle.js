@@ -1,9 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { workspacePaths } from './workspace-paths.js';
 
 async function main() {
-    const bundleDir = "C:\\Users\\Ollie\\Documents\\Projects\\ND3 Website\\Final Products\\Communication-Templates-Bundle";
+    const bundleDir = workspacePaths.productBundleSource;
     
     // 1. Create Printables/ and Editable-Templates/
     const printablesDir = path.join(bundleDir, "Printables");

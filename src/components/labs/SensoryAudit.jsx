@@ -310,7 +310,7 @@ export default function SensoryAudit({ noWrapper = false }) {
 
         {/* Aggregated Breakdown Grid */}
         <div className="border border-[var(--rule)] bg-black/20 p-5 space-y-4">
-          <span className="font-mono text-xs text-[var(--muted)] uppercase tracking-widest block font-bold">// 7-DOMAIN DRAIN SPECTRUM</span>
+          <span className="font-mono text-xs text-[var(--muted)] uppercase tracking-widest block font-bold">· 7-DOMAIN DRAIN SPECTRUM ·</span>
           
           <div className="grid grid-cols-2 sm:grid-cols-7 gap-2.5">
             {AUDIT_DOMAINS.map((domain) => {

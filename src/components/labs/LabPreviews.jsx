@@ -407,8 +407,8 @@ export function BannerShowcasePreview({ isActive }) {
           </div>
         )}
         {pulse === 3 && (
-          <svg viewBox="0 0 100 10" preserveAspectRatio="none" className="w-full h-3" style={{ stroke: 'var(--accent)', fill: 'none' }}>
-            <path d="M 0,5 Q 25,2 50,7 T 100,5" strokeWidth="1.2" strokeLinecap="round" />
+          <svg viewBox="0 0 100 10" preserveAspectRatio="none" className="lab-preview-svg w-full h-3" style={{ stroke: 'var(--accent)', fill: 'none' }}>
+            <path d="M 0,5 Q 25,2 50,7 T 100,5" strokeWidth="1.4" strokeLinecap="round" strokeDasharray="160" />
           </svg>
         )}
       </div>

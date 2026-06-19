@@ -45,7 +45,7 @@ export default function DopamineMenu({ noWrapper = false }) {
 
         <div className={`bg-bg-primary/75 border border-[var(--rule)] flex flex-col justify-between shadow-inner transition-all ${noWrapper ? 'p-4 min-h-[100px]' : 'p-5 min-h-[120px]'}`}>
           <div className="space-y-1 text-left">
-            <span className="text-xs font-mono uppercase text-[var(--accent)] font-bold tracking-widest">// {activeSnack.title}</span>
+            <span className="text-xs font-mono uppercase text-[var(--accent)] font-bold tracking-widest">· {activeSnack.title} ·</span>
             <p className="text-xs font-mono text-[var(--muted)] leading-relaxed">{activeSnack.body}</p>
           </div>
           <div className="text-[10px] font-mono text-[var(--muted)] tracking-wider mt-3 uppercase border-t border-[var(--rule)]/40 pt-2 flex justify-between">

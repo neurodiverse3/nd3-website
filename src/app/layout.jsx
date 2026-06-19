@@ -7,6 +7,7 @@ import { PageTransition } from '../components/PageTransition';
 import { BackToTop } from '../components/BackToTop';
 import { CartProvider } from '../context/CartContext';
 import { ThemeProvider } from '../context/ThemeContext';
+import { BrainStateProvider } from '../context/BrainStateContext';
 import { Inter, Outfit } from 'next/font/google';
 import { PWARegister } from '../components/PWARegister';
 import { ZeroTelemetryBanner } from '../components/ZeroTelemetryBanner';
@@ -27,7 +28,7 @@ const outfit = Outfit({
 
 
 export const metadata = {
-  title: 'neurodivers³ — writing for the wired-different brain',
+  title: 'neurodivers³ · Neurodivergent life, tools and stories.',
   description: 'An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.',
   metadataBase: new URL('https://neurodivers3.co.uk'),
   manifest: '/manifest.json',
@@ -40,7 +41,7 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'neurodivers³ — writing for the wired-different brain',
+    title: 'neurodivers³ · Neurodivergent life, tools and stories.',
     description: 'An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.',
     url: 'https://neurodivers3.co.uk/',
     siteName: 'neurodivers³ / neurodivers3',
@@ -51,13 +52,13 @@ export const metadata = {
         url: '/ollie.jpg',
         width: 1200,
         height: 630,
-        alt: 'neurodivers³ — writing for the wired-different brain',
+        alt: 'neurodivers³ · Neurodivergent life, tools and stories.',
       }
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'neurodivers³ — writing for the wired-different brain',
+    title: 'neurodivers³ · Neurodivergent life, tools and stories.',
     description: 'An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.',
     images: ['/ollie.jpg'],
   },
@@ -98,17 +99,24 @@ export default function RootLayout({ children }) {
     ]
   };
 
+  const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+
   return (
     <html lang="en-GB">
       <head>
+        {strapiUrl && (
+          <link rel="preconnect" href={strapiUrl} crossOrigin="anonymous" />
+        )}
+        <link rel="preconnect" href="https://buy.polar.sh" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${outfit.variable} font-sans bg-bg text-fg selection:bg-accent selection:text-bg overflow-x-hidden`}>
+      <body className={`${inter.variable} ${outfit.variable} font-sans bg-bg text-fg selection:bg-accent selection:text-bg overflow-x-clip`}>
         <ThemeProvider>
           <GlobalVisualSnow />
+          <BrainStateProvider>
           <CartProvider>
             <PWARegister />
             <ZeroTelemetryBanner />
@@ -122,6 +130,7 @@ export default function RootLayout({ children }) {
             </main>
             <Footer />
           </CartProvider>
+          </BrainStateProvider>
         </ThemeProvider>
       </body>
     </html>

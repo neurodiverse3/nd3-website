@@ -142,7 +142,16 @@ export const AudioNarration = ({ compact = false }) => {
   return (
     <div className={`flex ${compact ? 'flex-col items-start gap-3 p-4 bg-black/15 border border-border-rule/60' : 'flex-wrap items-center gap-3 p-3 bg-bg-primary/50 border border-border-rule'} rounded-none shadow-[2px_2px_0px_var(--rule)]`}>
       <span className="text-[9.5px] font-mono tracking-widest text-text-muted uppercase font-black flex items-center gap-1.5 ml-0.5">
-        <Volume2 size={12} className="text-accent-pink animate-pulse-slow shrink-0" /> 
+        {isPlaying && !isPaused ? (
+          <span className="audio-wave active text-accent-pink shrink-0" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        ) : (
+          <Volume2 size={12} className={`text-accent-pink ${isPlaying && isPaused ? 'animate-pulse-slow' : ''} shrink-0`} />
+        )}
         {isPlaying ? (isPaused ? 'PAUSED' : 'NARRATING...') : 'AUDIO NARRATION'}
       </span>
       

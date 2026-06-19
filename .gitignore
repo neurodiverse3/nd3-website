@@ -39,5 +39,13 @@ src/data/*.json
 .env*.local
 .env
 
+# Local-only workspace assets
+workspace/*
+!workspace/README.md
+
+# Local screenshots and video recordings
+screenshots/
+public/demos/*.webm
+public/store/covers/*.png.bak
 
 .vercel

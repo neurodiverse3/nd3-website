@@ -4,17 +4,18 @@ import Link from 'next/link';
 import { getPosts, getSiteSettings } from '../../lib/strapi';
 import { BlogArchiveClient } from '../../components/BlogArchiveClient';
 import { PostCover } from '../../components/PostCover';
+import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
   title: 'Blog · neurodivers³',
-  description: 'Honest writing on neurodivergent life — stories, tools and ideas from inside a late-diagnosed brain.',
+  description: 'Honest writing on neurodivergent life · stories, tools and ideas from inside a late-diagnosed brain.',
   openGraph: {
     title: 'Blog · neurodivers³',
-    description: 'Honest writing on neurodivergent life — stories, tools and ideas from inside a late-diagnosed brain.',
+    description: 'Honest writing on neurodivergent life · stories, tools and ideas from inside a late-diagnosed brain.',
   },
   twitter: {
     title: 'Blog · neurodivers³',
-    description: 'Honest writing on neurodivergent life — stories, tools and ideas from inside a late-diagnosed brain.',
+    description: 'Honest writing on neurodivergent life · stories, tools and ideas from inside a late-diagnosed brain.',
   }
 };
 
@@ -97,66 +98,28 @@ export default async function BlogPage(props) {
     : posts;
 
   return (
-    <div className="min-h-screen pt-[96px] md:pt-[120px] pb-16 md:pb-24 px-6 md:px-24 max-w-7xl mx-auto flex flex-col justify-start animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Header / Hero Area */}
-      <div className="relative w-full mb-16 border-b-4 border-fg-primary pb-12 pt-6">
-        {/* RSS Link - Top Right of Hero Area */}
-        <div className="absolute top-0 right-0 mt-2">
-          <a
-            href="/rss.xml"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3 py-1.5 border border-border-rule hover:border-accent text-text-muted hover:text-accent font-mono text-xs uppercase tracking-wider transition-all duration-200 focus-ring"
-            title="Subscribe to RSS Feed"
-          >
-            <Rss size={14} />
-            <span className="hidden sm:inline">RSS Feed</span>
-          </a>
-        </div>
-
-        <div>
-          {/* Eyebrow Chip */}
-          <div 
-            className="inline-block text-[11px] font-mono tracking-[0.25em] text-accent bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-8 select-none"
-            style={{ opacity: 0, animation: 'fadeInUp 0.6s ease forwards' }}
-          >
-            THE BLOG
-          </div>
-
-          {/* Headline Stack */}
-          <h1 className="text-6xl md:text-[8rem] font-black leading-[0.92] tracking-tighter uppercase mb-8 select-none">
-            <div 
-              className="block"
-              style={{ opacity: 0, animation: 'fadeInUp 0.6s ease forwards' }}
-            >
-              <span className="text-fg-primary">STORIES</span>
-              <span className="inline-block text-accent ml-0.5">.</span>
-            </div>
-            <div 
-              className="block italic text-accent"
-              style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.1s forwards' }}
-            >
-              <span>TOOLS</span>
-              <span className="inline-block ml-0.5" style={{ color: 'var(--accent)' }}>.</span>
-            </div>
-            <div 
-              className="block"
-              style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.2s forwards' }}
-            >
-              <span className="text-fg-primary">IDEAS</span>
-              <span className="inline-block text-accent ml-0.5">.</span>
-            </div>
-          </h1>
-
-          {/* Subheading */}
-          <p 
-            className="text-sm sm:text-base md:text-xl lg:text-2xl text-text-muted leading-relaxed font-normal w-full max-w-4xl"
-            style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.3s forwards', lineHeight: '1.6' }}
-          >
-            Honest writing on neurodivergent life — stories, tools and ideas from inside a late-diagnosed brain.
-          </p>
-        </div>
+    <div className="min-h-screen pt-[96px] md:pt-[120px] pb-16 md:pb-24 px-6 md:px-24 max-w-7xl mx-auto flex flex-col justify-start animate-in fade-in slide-in-from-bottom-4 duration-500 relative">
+      {/* RSS Link - Top Right of Hero Area */}
+      <div className="absolute top-[108px] right-[24px] md:right-[96px] z-20">
+        <a
+          href="/rss.xml"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-3 py-1.5 border border-border-rule hover:border-accent text-text-muted hover:text-accent font-mono text-xs uppercase tracking-wider transition-all duration-200 focus-ring"
+          title="Subscribe to RSS Feed"
+        >
+          <Rss size={14} />
+          <span className="hidden sm:inline">RSS Feed</span>
+        </a>
       </div>
+
+      <PageHeader
+        variant="section"
+        eyebrow="The Blog"
+        titleLabel="Blog"
+        titleAccent="Stories, Tools & Ideas"
+        subtitle="Honest writing on neurodivergent life · stories, tools and ideas from inside a late-diagnosed brain."
+      />
 
       {/* Featured Post Card */}
       {featuredPost && (

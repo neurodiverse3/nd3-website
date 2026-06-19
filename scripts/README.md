@@ -13,7 +13,7 @@ This script automatically generates interactive product demos from your Notion p
 
 ### 1. Auto-scan PDFs (default)
 
-The script automatically scans `./store-products-PDFs` and creates demos for every PDF found:
+The script automatically scans `workspace/content/product-pdfs` and creates demos for every PDF found:
 
 ```bash
 npm run generate-demos
@@ -43,7 +43,7 @@ export const demos = [
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `AUTO_SCAN_PDFS` | `true` | Automatically scan the PDF folder |
-| `PDF_FOLDER` | `"./store-products-PDFs"` | Where to look for PDFs |
+| `PDF_FOLDER` | `workspace/content/product-pdfs` | Where to look for PDFs |
 | `MAX_PAGES_PER_PDF` | `10` | Max pages per demo (set `null` for all) |
 | `VIEWPORT_SCALE` | `2.0` | PNG quality multiplier (1.0 = default, 2.0 = 2x resolution) |
 

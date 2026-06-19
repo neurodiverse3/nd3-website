@@ -59,6 +59,20 @@ const nextConfig = {
     '*.ngrok-free.dev',
     'localhost:3000'
   ],
+  async redirects() {
+    return [
+      {
+        source: '/refund-policy',
+        destination: '/terms',
+        permanent: true,
+      },
+      {
+        source: '/refunds',
+        destination: '/terms',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

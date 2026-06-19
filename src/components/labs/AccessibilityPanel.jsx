@@ -3,32 +3,17 @@ import React, { useState, useEffect } from 'react';
 import { Sliders, Eye, EyeOff, RotateCcw, Type, Move, ToggleLeft, ToggleRight, Moon, Sun, Sprout } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 
-// Custom toggle switch for premium look & feel
-const ToggleSwitch = ({ checked, onChange, ariaLabel }) => {
+// Reusable row for accessibility helper options (entire row is clickable to satisfy mobile target sizes and accessibility)
+const ToggleRow = ({ icon: Icon, title, description, checked, onChange, ariaLabel }) => {
   return (
     <button
       role="switch"
       aria-checked={checked}
       onClick={onChange}
-      className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out focus-ring items-center px-0.5 ${
-        checked ? 'bg-accent' : 'bg-text-muted/20 border-border-rule'
-      }`}
+      className="w-full flex items-start justify-between gap-4 text-left cursor-pointer focus-ring rounded-none bg-transparent border-0 p-0"
       aria-label={ariaLabel}
     >
-      <span
-        className={`pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out ${
-          checked ? 'translate-x-[18px]' : 'translate-x-0'
-        }`}
-      />
-    </button>
-  );
-};
-
-// Reusable row for accessibility helper options
-const ToggleRow = ({ icon: Icon, title, description, checked, onChange, ariaLabel }) => {
-  return (
-    <div className="flex items-start justify-between gap-4">
-      <div className="space-y-1">
+      <div className="space-y-1 pr-2">
         <div className="flex items-center gap-1.5">
           <Icon size={13} className="text-accent shrink-0" />
           <span className="font-sans text-[11px] text-fg-primary font-black tracking-wider uppercase">
@@ -40,9 +25,20 @@ const ToggleRow = ({ icon: Icon, title, description, checked, onChange, ariaLabe
         </p>
       </div>
       <div className="flex items-center h-5 shrink-0 pt-0.5">
-        <ToggleSwitch checked={checked} onChange={onChange} ariaLabel={ariaLabel} />
+        {/* ToggleSwitch visual representation */}
+        <div
+          className={`relative inline-flex h-5 w-9 shrink-0 rounded-full border border-transparent transition-colors duration-200 ease-in-out items-center px-0.5 ${
+            checked ? 'bg-accent' : 'bg-text-muted/20 border-border-rule'
+          }`}
+        >
+          <span
+            className={`pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out ${
+              checked ? 'translate-x-[18px]' : 'translate-x-0'
+            }`}
+          />
+        </div>
       </div>
-    </div>
+    </button>
   );
 };
 
@@ -56,6 +52,8 @@ export default function AccessibilityPanel({ mobile }) {
   const [highContrast, setHighContrast] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [readingRuler, setReadingRuler] = useState(false);
+  const [rulerHeight, setRulerHeight] = useState("28");
+  const [rulerColor, setRulerColor] = useState("theme");
 
   // Ruler vertical position tracking
   const [rulerY, setRulerY] = useState(0);
@@ -69,12 +67,16 @@ export default function AccessibilityPanel({ mobile }) {
     const savedContrast = localStorage.getItem('nd3-a11y-contrast') === 'true';
     const savedMotion = localStorage.getItem('nd3-a11y-reduced-motion') === 'true';
     const savedRuler = localStorage.getItem('nd3-a11y-reading-ruler') === 'true';
+    const savedRulerHeight = localStorage.getItem('nd3-a11y-ruler-height') || '28';
+    const savedRulerColor = localStorage.getItem('nd3-a11y-ruler-color') || 'theme';
 
     setFontScale(savedScale);
     setDyslexicFont(savedDyslexic);
     setHighContrast(savedContrast);
     setReducedMotion(savedMotion);
     setReadingRuler(savedRuler);
+    setRulerHeight(savedRulerHeight);
+    setRulerColor(savedRulerColor);
 
     applyFontScale(savedScale);
     applyDyslexicFont(savedDyslexic);
@@ -159,18 +161,32 @@ export default function AccessibilityPanel({ mobile }) {
     localStorage.setItem('nd3-a11y-reading-ruler', nextVal.toString());
   };
 
+  const handleRulerHeightChange = (height) => {
+    setRulerHeight(height);
+    localStorage.setItem('nd3-a11y-ruler-height', height);
+  };
+
+  const handleRulerColorChange = (color) => {
+    setRulerColor(color);
+    localStorage.setItem('nd3-a11y-ruler-color', color);
+  };
+
   const resetAllSettings = () => {
     setFontScale("normal");
     setDyslexicFont(false);
     setHighContrast(false);
     setReducedMotion(false);
     setReadingRuler(false);
+    setRulerHeight("28");
+    setRulerColor("theme");
 
     localStorage.setItem('nd3-a11y-font-scale', 'normal');
     localStorage.setItem('nd3-a11y-dyslexic', 'false');
     localStorage.setItem('nd3-a11y-contrast', 'false');
     localStorage.setItem('nd3-a11y-reduced-motion', 'false');
     localStorage.setItem('nd3-a11y-reading-ruler', 'false');
+    localStorage.setItem('nd3-a11y-ruler-height', '28');
+    localStorage.setItem('nd3-a11y-ruler-color', 'theme');
 
     applyFontScale("normal");
     applyDyslexicFont(false);
@@ -183,8 +199,21 @@ export default function AccessibilityPanel({ mobile }) {
       {/* 1. Mouse-Tracking Focus Reading Ruler */}
       {readingRuler && (
         <div 
-          className="fixed left-0 right-0 h-[28px] bg-[var(--accent)]/15 border-y-2 border-[var(--accent)]/45 pointer-events-none z-[9990] transition-[top] duration-75 select-none"
-          style={{ top: `${rulerY - 14}px` }}
+          className={`fixed left-0 right-0 pointer-events-none z-[9990] transition-[top] duration-75 select-none border-y-2 ${
+            rulerColor === 'theme' ? 'bg-[var(--accent)]/15 border-[var(--accent)]/45' : ''
+          }`}
+          style={{
+            top: `${rulerY - (parseInt(rulerHeight) || 28) / 2}px`,
+            height: `${rulerHeight}px`,
+            ...(rulerColor !== 'theme' && {
+              backgroundColor: rulerColor === 'pink' ? '#FF2E8826' : 
+                               rulerColor === 'amber' ? '#F59E0B26' : 
+                               rulerColor === 'green' ? '#10B98126' : '#3B82F626',
+              borderColor: rulerColor === 'pink' ? '#FF2E8873' : 
+                           rulerColor === 'amber' ? '#F59E0B73' : 
+                           rulerColor === 'green' ? '#10B98173' : '#3B82F673',
+            })
+          }}
         />
       )}
 
@@ -249,7 +278,7 @@ export default function AccessibilityPanel({ mobile }) {
                             onClick={() => setTheme(preset.id)}
                             className={`py-2 px-1 text-[10px] font-black border transition-all cursor-pointer rounded-none uppercase focus-ring flex items-center justify-center gap-1.5 ${
                               isActive
-                                ? 'border-accent text-accent bg-[var(--accent-soft)]'
+                                ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
                                 : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
                             }`}
                           >
@@ -283,7 +312,7 @@ export default function AccessibilityPanel({ mobile }) {
                             onClick={() => handleScaleChange(preset.id)}
                             className={`py-2 text-center font-black border transition-all cursor-pointer rounded-none uppercase focus-ring ${preset.style} ${
                               isActive
-                                ? 'border-accent text-accent bg-[var(--accent-soft)]'
+                                ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
                                 : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
                             }`}
                           >
@@ -324,14 +353,82 @@ export default function AccessibilityPanel({ mobile }) {
                   />
 
                   {/* Option D: Focus Reading Ruler */}
-                  <ToggleRow
-                    icon={Move}
-                    title="FOCUS READING RULER"
-                    description="Line tracking guide tracks cursor"
-                    checked={readingRuler}
-                    onChange={handleRulerToggle}
-                    ariaLabel="Toggle Focus Reading Ruler"
-                  />
+                  <div className="space-y-2">
+                    <ToggleRow
+                      icon={Move}
+                      title="FOCUS READING RULER"
+                      description="Line tracking guide tracks cursor"
+                      checked={readingRuler}
+                      onChange={handleRulerToggle}
+                      ariaLabel="Toggle Focus Reading Ruler"
+                    />
+                    
+                    {readingRuler && (
+                      <div className="pl-6 pt-2 pb-2 space-y-3 border-l-2 border-accent/30 ml-2.5 mt-1 animate-in slide-in-from-left-2 duration-200">
+                        {/* Ruler Height */}
+                        <div className="space-y-1">
+                          <span className="text-[9px] font-sans font-black text-text-muted uppercase tracking-wider block">
+                            RULER HEIGHT
+                          </span>
+                          <div className="grid grid-cols-4 gap-1 select-none font-sans">
+                            {[
+                              { id: '18', label: 'Thin' },
+                              { id: '28', label: 'Medium' },
+                              { id: '38', label: 'Thick' },
+                              { id: '48', label: 'Wide' }
+                            ].map((h) => {
+                              const isActive = rulerHeight === h.id;
+                              return (
+                                <button
+                                  key={h.id}
+                                  onClick={() => handleRulerHeightChange(h.id)}
+                                  className={`py-1 text-[9px] text-center font-black border transition-all cursor-pointer rounded-none uppercase focus-ring ${
+                                    isActive
+                                      ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
+                                      : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
+                                  }`}
+                                >
+                                  {h.label}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Ruler Color */}
+                        <div className="space-y-1">
+                          <span className="text-[9px] font-sans font-black text-text-muted uppercase tracking-wider block">
+                            RULER COLOR
+                          </span>
+                          <div className="grid grid-cols-5 gap-1 select-none font-sans">
+                            {[
+                              { id: 'theme', label: 'Theme', colorClass: 'bg-accent' },
+                              { id: 'pink', label: 'Pink', colorClass: 'bg-[#FF2E88]' },
+                              { id: 'amber', label: 'Amber', colorClass: 'bg-[#F59E0B]' },
+                              { id: 'green', label: 'Green', colorClass: 'bg-[#10B981]' },
+                              { id: 'blue', label: 'Blue', colorClass: 'bg-[#3B82F6]' }
+                            ].map((c) => {
+                              const isActive = rulerColor === c.id;
+                              return (
+                                <button
+                                  key={c.id}
+                                  onClick={() => handleRulerColorChange(c.id)}
+                                  className={`py-1 text-[8px] text-center font-black border transition-all cursor-pointer rounded-none uppercase focus-ring flex flex-col items-center justify-center gap-0.5 ${
+                                    isActive
+                                      ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
+                                      : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
+                                  }`}
+                                >
+                                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${c.colorClass}`} />
+                                  <span className="scale-[0.85]">{c.label}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
                   {/* Option E: Site animations reduced motion */}
                   <ToggleRow

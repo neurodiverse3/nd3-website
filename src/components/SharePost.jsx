@@ -8,12 +8,6 @@ const XIcon = ({ size = 11, color = "currentColor" }) => (
   </svg>
 );
 
-const BlueskyIcon = ({ size = 11, color = "#0085ff" }) => (
-  <svg viewBox="0 0 24 24" width={size} height={size} fill={color} aria-hidden="true">
-    <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266 1.056 1.81.535 2.37.777 4.54 1.072 6.075c.677 3.53 4.298 4.708 6.471 4.743-4.526.16-8.082 1.574-6.32 5.378 1.678 3.626 5.327 4.773 9.422 1.642.502-.383 1.05-1.002 1.355-1.48.305.478.853 1.097 1.355 1.48 4.095 3.13 7.744 1.984 9.422-1.642 1.762-3.804-1.794-5.218-6.32-5.378 2.173-.035 5.794-1.213 6.471-4.743.295-1.535.537-3.705.016-4.265-.505-.544-1.51-.866-4.146.995-2.752 1.942-5.711 5.881-6.798 7.995z"/>
-  </svg>
-);
-
 const FacebookIcon = ({ size = 11, color = "#1877F2" }) => (
   <svg viewBox="0 0 24 24" width={size} height={size} fill={color} aria-hidden="true">
     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -120,7 +114,6 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
 
   // Intent share anchors
   const xShare = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`;
-  const blueskyShare = `https://bsky.app/intent/compose?text=${encodeURIComponent(`"${title}"${dek ? ` — ${dek}` : ''} ${currentUrl}`)}`;
   const emailShare = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`Check out this post: "${title}"\n\n"${dek}"\n\nRead more here: ${currentUrl}`)}`;
   
   // More items
@@ -171,11 +164,6 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
           {/* X */}
           <a href={xShare} target="_blank" rel="noopener noreferrer" className={gridBtnClass} title="Share on X" aria-label="Share on X">
             <XIcon size={16} />
-          </a>
-
-          {/* Bluesky */}
-          <a href={blueskyShare} target="_blank" rel="noopener noreferrer" className={gridBtnClass} title="Share on Bluesky" aria-label="Share on Bluesky">
-            <BlueskyIcon size={16} />
           </a>
 
           {/* Email */}
@@ -261,11 +249,6 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
         {/* X */}
         <a href={xShare} target="_blank" rel="noopener noreferrer" className={baseChipClass}>
           <XIcon size={11} /> POST
-        </a>
-
-        {/* Bluesky */}
-        <a href={blueskyShare} target="_blank" rel="noopener noreferrer" className={baseChipClass}>
-          <BlueskyIcon size={11} /> BLUESKY
         </a>
 
         {/* Email */}
