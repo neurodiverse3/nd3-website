@@ -309,11 +309,28 @@ export default async function BlogPostPage({ params }) {
         {/* Reading progress header + auto hide Navbar */}
         <StickyBlogHeader title={post.title} readTime={readTimeVal} />
 
-        <div className="mx-auto px-6 md:px-12 pt-32 max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1600px] relative flex flex-col xl:flex-row gap-12 xl:gap-16 items-start">
+        {/* TITLE & EXCERPT CONTAINER (stretched full-width above the content grid on desktop) */}
+        <div className="mx-auto px-6 md:px-12 pt-32 pb-4 max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1600px] w-full flex flex-col xl:flex-row gap-12 xl:gap-16 items-start">
+          {/* Spacer on the left to align title with body text */}
+          {showToC && <div className="hidden xl:block w-60 shrink-0 select-none" />}
+          
+          <div className="flex-grow w-full max-w-[1060px] text-left">
+            <h1 className="text-[clamp(2.25rem,4.5vw,4.5rem)] font-black uppercase tracking-wide leading-[1.0] mb-6 text-fg-primary font-display">
+              {post.title}
+            </h1>
+            {post.excerpt && (
+              <p className="text-lg md:text-xl text-text-muted italic font-light leading-relaxed border-l-4 border-accent pl-6 font-sans">
+                {post.excerpt}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="mx-auto px-6 md:px-12 pt-4 xl:pt-8 max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1600px] relative flex flex-col xl:flex-row gap-12 xl:gap-16 items-start">
           
           {/* 1. LEFT COLUMN: OUTLINE / TOC (LIKE IT WAS BEFORE, STICKY ON DESKTOP) */}
           {showToC && (
-            <div className="hidden xl:block w-60 shrink-0 sticky top-8 select-none">
+            <div className="hidden xl:block w-60 shrink-0 sticky top-32 select-none">
               <TableOfContents headings={headings} isMobile={false} />
             </div>
           )}
@@ -361,17 +378,7 @@ export default async function BlogPostPage({ params }) {
               </div>
             </div>
 
-            {/* TITLE & EXCERPT */}
-            <div className="max-w-[760px] mx-auto mb-10 text-left">
-              <h1 className="text-[clamp(2rem,4vw,3.25rem)] font-black uppercase tracking-wide leading-[1.05] mb-6 text-fg-primary font-display">
-                {post.title}
-              </h1>
-              {post.excerpt && (
-                <p className="text-lg md:text-xl text-text-muted italic font-light leading-relaxed border-l-4 border-accent pl-6 font-sans">
-                  {post.excerpt}
-                </p>
-              )}
-            </div>
+
 
             {/* MOBILE/TABLET SIDEBAR CAROUSEL — pops sidebar widgets below title */}
             <div className="xl:hidden mb-10">
@@ -576,7 +583,7 @@ export default async function BlogPostPage({ params }) {
           </div>
 
           {/* 3. RIGHT COLUMN: BEAUTIFUL FLOATING UTILITY BOX IN THE FREE SPACE */}
-          <aside className="hidden xl:flex flex-col gap-6 w-64 shrink-0 sticky top-8 select-none">
+          <aside className="hidden xl:flex flex-col gap-6 w-64 shrink-0 sticky top-32 select-none">
             
             <div className="w-full sidebar-card p-5 flex flex-col gap-6 text-left relative overflow-hidden">
               
