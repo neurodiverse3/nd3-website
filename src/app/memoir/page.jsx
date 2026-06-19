@@ -6,13 +6,13 @@ import PageHeader from '../../components/PageHeader';
 export const revalidate = 60; // Revalidate every minute
 
 export const metadata = {
-  title: 'The Memoir · neurodivers³',
+  title: 'The Memoir — neurodivers3',
   description: 'A serial memoir in progress about late-diagnosed AuDHD, masking, burnout, and figuring out how to human.',
   alternates: {
     canonical: 'https://neurodivers3.co.uk/memoir',
   },
   openGraph: {
-    title: 'The Memoir · neurodivers³',
+    title: 'The Memoir — neurodivers3',
     description: 'A serial memoir in progress about late-diagnosed AuDHD, masking, burnout, and figuring out how to human.',
     url: 'https://neurodivers3.co.uk/memoir',
     type: 'book',
@@ -20,7 +20,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Memoir · neurodivers³',
+    title: 'The Memoir — neurodivers3',
     description: 'A serial memoir in progress about late-diagnosed AuDHD, masking, burnout, and figuring out how to human.',
     images: ['https://neurodivers3.co.uk/api/og?title=I%20thought%20I%20was%20just%20bad%20at%20being%20a%20human.&pillar=unmasked-life'],
   }

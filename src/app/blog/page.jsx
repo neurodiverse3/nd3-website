@@ -7,15 +7,15 @@ import { PostCover } from '../../components/PostCover';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Blog · neurodivers³',
-  description: 'Honest writing on neurodivergent life · stories, tools and ideas from inside a late-diagnosed brain.',
+  title: 'Blog — neurodivers3',
+  description: 'Honest writing on neurodivergent life: stories, tools and ideas from inside a late-diagnosed brain.',
   openGraph: {
-    title: 'Blog · neurodivers³',
-    description: 'Honest writing on neurodivergent life · stories, tools and ideas from inside a late-diagnosed brain.',
+    title: 'Blog — neurodivers3',
+    description: 'Honest writing on neurodivergent life: stories, tools and ideas from inside a late-diagnosed brain.',
   },
   twitter: {
-    title: 'Blog · neurodivers³',
-    description: 'Honest writing on neurodivergent life · stories, tools and ideas from inside a late-diagnosed brain.',
+    title: 'Blog — neurodivers3',
+    description: 'Honest writing on neurodivergent life: stories, tools and ideas from inside a late-diagnosed brain.',
   }
 };
 

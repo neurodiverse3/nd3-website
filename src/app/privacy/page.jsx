@@ -3,14 +3,14 @@ import Link from 'next/link';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Privacy Policy · neurodivers³',
+  title: 'Privacy Policy — neurodivers3',
   description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Gumroad payments.',
   openGraph: {
-    title: 'Privacy Policy · neurodivers³',
+    title: 'Privacy Policy — neurodivers3',
     description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Gumroad payments.',
   },
   twitter: {
-    title: 'Privacy Policy · neurodivers³',
+    title: 'Privacy Policy — neurodivers3',
     description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Gumroad payments.',
   }
 };

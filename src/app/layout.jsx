@@ -28,7 +28,7 @@ const outfit = Outfit({
 
 
 export const metadata = {
-  title: 'neurodivers³ · Neurodivergent life, tools and stories.',
+  title: 'neurodivers3 — Neurodivergent life, tools and stories',
   description: 'An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.',
   metadataBase: new URL('https://neurodivers3.co.uk'),
   manifest: '/manifest.json',
@@ -41,10 +41,10 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'neurodivers³ · Neurodivergent life, tools and stories.',
+    title: 'neurodivers3 — Neurodivergent life, tools and stories',
     description: 'An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.',
     url: 'https://neurodivers3.co.uk/',
-    siteName: 'neurodivers³ / neurodivers3',
+    siteName: 'neurodivers3',
     locale: 'en_GB',
     type: 'website',
     images: [
@@ -52,13 +52,13 @@ export const metadata = {
         url: '/ollie.jpg',
         width: 1200,
         height: 630,
-        alt: 'neurodivers³ · Neurodivergent life, tools and stories.',
+        alt: 'neurodivers3 — Neurodivergent life, tools and stories',
       }
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'neurodivers³ · Neurodivergent life, tools and stories.',
+    title: 'neurodivers3 — Neurodivergent life, tools and stories',
     description: 'An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.',
     images: ['/ollie.jpg'],
   },

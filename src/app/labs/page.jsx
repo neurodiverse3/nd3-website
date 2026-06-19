@@ -5,15 +5,15 @@ import { LabsClient } from '../../components/LabsClient';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Labs · neurodivers³',
-  description: 'Free, highly tactile, sensory-friendly utilities built for brains that need alternative visual paths · acoustic shields, and dopamine resets.',
+  title: 'Labs — neurodivers3',
+  description: 'Free, highly tactile, sensory-friendly utilities built for brains that need alternative visual paths: acoustic shields, and dopamine resets.',
   openGraph: {
-    title: 'Labs · neurodivers³',
-    description: 'Free, highly tactile, sensory-friendly utilities built for brains that need alternative visual paths · acoustic shields, and dopamine resets.',
+    title: 'Labs — neurodivers3',
+    description: 'Free, highly tactile, sensory-friendly utilities built for brains that need alternative visual paths: acoustic shields, and dopamine resets.',
   },
   twitter: {
-    title: 'Labs · neurodivers³',
-    description: 'Free, highly tactile, sensory-friendly utilities built for brains that need alternative visual paths · acoustic shields, and dopamine resets.',
+    title: 'Labs — neurodivers3',
+    description: 'Free, highly tactile, sensory-friendly utilities built for brains that need alternative visual paths: acoustic shields, and dopamine resets.',
   }
 };
 

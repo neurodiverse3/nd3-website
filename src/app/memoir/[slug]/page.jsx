@@ -19,22 +19,22 @@ export async function generateMetadata({ params }) {
 
   if (!chapter) {
     return {
-      title: 'Chapter not found · neurodivers³',
+      title: 'Chapter not found — neurodivers3',
     };
   }
 
   const pageTitle = chapter.seoTitle || chapter.title;
 
   return {
-    title: `${pageTitle} · neurodivers³`,
-    description: chapter.excerpt || "A serial memoir chapter from neurodivers³.",
+    title: `${pageTitle} — neurodivers3`,
+    description: chapter.excerpt || "A serial memoir chapter from neurodivers3.",
     openGraph: {
-      title: `${pageTitle} · neurodivers³`,
-      description: chapter.excerpt || "A serial memoir chapter from neurodivers³.",
+      title: `${pageTitle} — neurodivers3`,
+      description: chapter.excerpt || "A serial memoir chapter from neurodivers3.",
     },
     twitter: {
-      title: `${pageTitle} · neurodivers³`,
-      description: chapter.excerpt || "A serial memoir chapter from neurodivers³.",
+      title: `${pageTitle} — neurodivers3`,
+      description: chapter.excerpt || "A serial memoir chapter from neurodivers3.",
     }
   };
 }

@@ -22,15 +22,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!product) {
     return {
-      title: "Product Not Found · neurodivers³",
+      title: "Product Not Found — neurodivers3",
     };
   }
 
   return {
-    title: `${product.title} · neurodivers³`,
+    title: `${product.title} — neurodivers3`,
     description: product.cardBlurb,
     openGraph: {
-      title: `${product.title} · neurodivers³`,
+      title: `${product.title} — neurodivers3`,
       description: product.cardBlurb,
       images: [`/store/covers/${product.coverImage}`],
     },

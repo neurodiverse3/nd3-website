@@ -5,7 +5,7 @@ import { REFUND_LINE, LAUNCH_NOTE } from "@/lib/site";
 import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "Store · neurodivers³",
+  title: "Store — neurodivers3",
   description:
     "Small Notion templates and PDFs for specific neurodivergent moments. Not a productivity system. Buy the one tool you need for the moment you're in.",
 };

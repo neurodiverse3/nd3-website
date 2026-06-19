@@ -227,7 +227,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
           </h1>
 
           <p 
-            className="text-lg md:text-2xl text-text-muted font-normal max-w-[48ch] leading-relaxed mb-8 md:mb-12 select-text"
+            className="text-lg md:text-2xl text-text-muted font-normal max-w-3xl leading-relaxed mb-8 md:mb-12 select-text"
             style={{ 
               opacity: 0, 
               animation: 'fadeInUp 0.6s ease 0.2s forwards'
@@ -330,7 +330,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6 text-left">
             What you'll find here<span className="text-accent inline-block ml-0.5">.</span>
           </h2>
-          <p className="text-sm md:text-base text-text-muted max-w-[64ch] leading-relaxed mb-16 font-normal text-left">
+          <p className="text-sm md:text-base text-text-muted max-w-[80ch] leading-relaxed mb-16 font-normal text-left">
             Everything written here is mapped to one of three core pillars. Choose a pillar below to filter the archive, or browse everything further down.
           </p>
         </div>
@@ -517,7 +517,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6">
             Join us on socials<span className="text-accent inline-block ml-0.5">.</span>
           </h2>
-          <p className="text-sm md:text-base text-text-muted max-w-[54ch] leading-relaxed mb-12 font-normal">
+          <p className="text-sm md:text-base text-text-muted max-w-[72ch] leading-relaxed mb-12 font-normal">
             We share bite-sized dopamine menus, sensory accommodations, and daily unmasked reflections on our channels.
           </p>
 

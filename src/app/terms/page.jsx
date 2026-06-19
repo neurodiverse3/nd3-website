@@ -3,14 +3,14 @@ import Link from 'next/link';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Terms of Use · neurodivers³',
+  title: 'Terms of Use — neurodivers3',
   description: 'Terms of service and digital download refund guidelines aligned with the UK Consumer Rights Act 2015.',
   openGraph: {
-    title: 'Terms of Use · neurodivers³',
+    title: 'Terms of Use — neurodivers3',
     description: 'Terms of service and digital download refund guidelines aligned with the UK Consumer Rights Act 2015.',
   },
   twitter: {
-    title: 'Terms of Use · neurodivers³',
+    title: 'Terms of Use — neurodivers3',
     description: 'Terms of service and digital download refund guidelines aligned with the UK Consumer Rights Act 2015.',
   }
 };

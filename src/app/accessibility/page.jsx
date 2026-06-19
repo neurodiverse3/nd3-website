@@ -2,14 +2,14 @@ import React from 'react';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Accessibility · neurodivers³',
+  title: 'Accessibility — neurodivers3',
   description: 'Accessibility statement and commitment to building a deeply neuroinclusive and accessible website for all brains.',
   openGraph: {
-    title: 'Accessibility · neurodivers³',
+    title: 'Accessibility — neurodivers3',
     description: 'Accessibility statement and commitment to building a deeply neuroinclusive and accessible website for all brains.',
   },
   twitter: {
-    title: 'Accessibility · neurodivers³',
+    title: 'Accessibility — neurodivers3',
     description: 'Accessibility statement and commitment to building a deeply neuroinclusive and accessible website for all brains.',
   }
 };

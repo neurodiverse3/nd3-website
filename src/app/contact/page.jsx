@@ -4,15 +4,15 @@ import { Mail, ArrowRight } from 'lucide-react';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Contact · neurodivers³',
-  description: 'Get in touch with Ollie · founder of neurodivers³. Collaboration, press, or just saying hi.',
+  title: 'Contact — neurodivers3',
+  description: 'Get in touch with Ollie — founder of neurodivers3. Collaboration, press, or just saying hi.',
   openGraph: {
-    title: 'Contact · neurodivers³',
-    description: 'Get in touch with Ollie · founder of neurodivers³. Collaboration, press, or just saying hi.',
+    title: 'Contact — neurodivers3',
+    description: 'Get in touch with Ollie — founder of neurodivers3. Collaboration, press, or just saying hi.',
   },
   twitter: {
-    title: 'Contact · neurodivers³',
-    description: 'Get in touch with Ollie · founder of neurodivers³. Collaboration, press, or just saying hi.',
+    title: 'Contact — neurodivers3',
+    description: 'Get in touch with Ollie — founder of neurodivers3. Collaboration, press, or just saying hi.',
   }
 };
 
