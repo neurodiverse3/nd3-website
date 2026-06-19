@@ -130,14 +130,14 @@ export const PostCover = ({
     }
   } else if (aspect === '16:9') {
     aspectClass = 'aspect-[16/9]';
-    paddingClass = 'p-5 md:p-6';
+    paddingClass = 'p-4 sm:p-5';
     watermarkSizeClass = 'text-[12rem] md:text-[15rem]';
     if (titleLength > 75) {
-      titleSizeClass = 'text-sm sm:text-base md:text-lg leading-snug';
+      titleSizeClass = 'text-base sm:text-lg md:text-xl lg:text-2xl leading-snug';
     } else if (titleLength > 45) {
-      titleSizeClass = 'text-base sm:text-lg md:text-xl leading-tight';
+      titleSizeClass = 'text-lg sm:text-xl md:text-2xl lg:text-3xl leading-tight';
     } else {
-      titleSizeClass = 'text-lg sm:text-xl md:text-2xl leading-[0.95]';
+      titleSizeClass = 'text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-[0.95]';
     }
   } else {
     // Default 16:9 Featured Cover
