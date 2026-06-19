@@ -22,12 +22,36 @@ export default function HomeClient({ siteSettings, latestPosts }) {
   const latestWritingRef = React.useRef(null);
   const { brainState: selectedBrainState, setBrainState: setSelectedBrainState } = useBrainState();
 
+  const getDistinctPillars = (postsList) => {
+    const normalize = (p) => {
+      const k = p?.toLowerCase() || '';
+      if (k.includes('system') || k.includes('tool') || k.includes('templates')) return 'tools';
+      if (k.includes('glitch') || k.includes('digital')) return 'digital';
+      return 'unmasked';
+    };
+
+    const buckets = { unmasked: [], tools: [], digital: [] };
+    postsList.forEach(post => {
+      const key = normalize(post.pillar);
+      if (buckets[key]) buckets[key].push(post);
+    });
+
+    const result = [];
+    const maxLength = Math.max(buckets.unmasked.length, buckets.tools.length, buckets.digital.length);
+    for (let i = 0; i < maxLength; i++) {
+      if (buckets.unmasked[i]) result.push(buckets.unmasked[i]);
+      if (buckets.tools[i]) result.push(buckets.tools[i]);
+      if (buckets.digital[i]) result.push(buckets.digital[i]);
+    }
+    return result;
+  };
+
   const filteredPosts = selectedBrainState
     ? (latestPosts || []).filter(post => {
         const postState = (post.brainState || '').toLowerCase();
         return postState === selectedBrainState;
       })
-    : latestPosts;
+    : getDistinctPillars(latestPosts || []);
   
   // Scroll progress
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -731,7 +755,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                         brainState={post.brainState || 'hyperfocus'}
                         accentWord={post.accentWord}
                         accentOverride={post.accentOverride}
-                        aspect="4:3" 
+                        aspect="16:9" 
                         readTime={post.readTime || '5 MIN'}
                         date={formattedDate}
                         postNumber={postNumber}

@@ -58,7 +58,7 @@ export default function PageHeader({
         </div>
       )}
 
-      <h1 className="text-4xl md:text-[4.5rem] font-extrabold uppercase leading-[0.95] tracking-tight font-display text-fg">
+      <h1 className="text-4xl md:text-[4.5rem] font-extrabold uppercase leading-[0.95] tracking-wide font-display text-fg">
         {titleLabel}
         {titleAccent && (
           <>

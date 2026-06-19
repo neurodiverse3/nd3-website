@@ -53,13 +53,23 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
 
   const selectedPosts = [];
   const addedSlugs = new Set();
+  const addedPillars = new Set();
+
+  const normalizePillar = (p) => {
+    const k = p?.toLowerCase() || '';
+    if (k.includes('system') || k.includes('tool') || k.includes('templates')) return 'tools';
+    if (k.includes('glitch') || k.includes('digital')) return 'digital';
+    return 'unmasked';
+  };
 
   const tryAddPost = (post, selectionReason) => {
     if (!post) return false;
     const slug = post.slug?.current || post.slug;
-    if (!addedSlugs.has(slug)) {
+    const pKey = normalizePillar(post.pillar);
+    if (!addedSlugs.has(slug) && !addedPillars.has(pKey)) {
       selectedPosts.push({ post, selectionReason });
       addedSlugs.add(slug);
+      addedPillars.add(pKey);
       return true;
     }
     return false;
@@ -82,7 +92,7 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
     });
   };
 
-  // Step B: Prefer same pillar
+  // Step B: Prefer same pillar (only adds at most 1 due to distinct pillar restriction)
   const samePillarPosts = sortByDate(eligiblePosts.filter(p => p.pillar === currentPillar));
   for (const post of samePillarPosts) {
     if (selectedPosts.length >= 3) break;
@@ -98,12 +108,31 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
     }
   }
 
-  // Step D: Top up with most recent overall
+  // Step D: Top up with most recent overall (strictly distinct pillars)
   if (selectedPosts.length < 3) {
     const recentPosts = sortByDate(eligiblePosts);
     for (const post of recentPosts) {
       if (selectedPosts.length >= 3) break;
       tryAddPost(post, "recent");
+    }
+  }
+
+  // Step E: Fallback top up without distinct pillar constraint if still under 3
+  if (selectedPosts.length < 3) {
+    const tryAddPostNoPillarLimit = (post, selectionReason) => {
+      if (!post) return false;
+      const slug = post.slug?.current || post.slug;
+      if (!addedSlugs.has(slug)) {
+        selectedPosts.push({ post, selectionReason });
+        addedSlugs.add(slug);
+        return true;
+      }
+      return false;
+    };
+    const recentPosts = sortByDate(eligiblePosts);
+    for (const post of recentPosts) {
+      if (selectedPosts.length >= 3) break;
+      tryAddPostNoPillarLimit(post, "recent-fallback");
     }
   }
 

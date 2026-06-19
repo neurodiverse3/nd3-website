@@ -155,7 +155,49 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
     setVisibleCount(12);
   };
 
-  const paginatedPosts = filteredPosts.slice(0, visibleCount);
+  const interleavePosts = (postsList) => {
+    const normalize = (p) => {
+      const k = p?.toLowerCase() || '';
+      if (k.includes('system') || k.includes('tool') || k.includes('templates')) return 'tools';
+      if (k.includes('glitch') || k.includes('digital')) return 'digital';
+      return 'unmasked';
+    };
+
+    const buckets = { unmasked: [], tools: [], digital: [] };
+    postsList.forEach(post => {
+      const key = normalize(post.pillar);
+      if (buckets[key]) buckets[key].push(post);
+    });
+
+    const result = [];
+    const keys = ['unmasked', 'tools', 'digital'];
+    let index = 0;
+    
+    while (buckets.unmasked.length > 0 || buckets.tools.length > 0 || buckets.digital.length > 0) {
+      let added = false;
+      for (let offset = 0; offset < 3; offset++) {
+        const key = keys[(index + offset) % 3];
+        if (buckets[key] && buckets[key].length > 0) {
+          result.push(buckets[key].shift());
+          index = (index + offset + 1) % 3;
+          added = true;
+          break;
+        }
+      }
+      if (!added) {
+        const remainingKey = keys.find(k => buckets[k] && buckets[k].length > 0);
+        if (remainingKey) {
+          result.push(buckets[remainingKey].shift());
+        } else {
+          break;
+        }
+      }
+    }
+    return result;
+  };
+
+  const displayedPosts = activePillar ? filteredPosts : interleavePosts(filteredPosts);
+  const paginatedPosts = displayedPosts.slice(0, visibleCount);
 
   return (
     <>
@@ -328,7 +370,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                     brainState={stateValue}
                     accentWord={post.accentWord}
                     accentOverride={post.accentOverride}
-                    aspect="4:3" 
+                    aspect="16:9" 
                     readTime={post.readTime || '5 MIN'}
                     date={formattedDate}
                     postNumber={postNumber}
