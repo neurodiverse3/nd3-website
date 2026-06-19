@@ -310,11 +310,8 @@ export default async function BlogPostPage({ params }) {
         <StickyBlogHeader title={post.title} readTime={readTimeVal} />
 
         {/* TITLE & EXCERPT CONTAINER (stretched full-width above the content grid on desktop) */}
-        <div className="mx-auto px-6 md:px-12 pt-32 pb-4 max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1600px] w-full flex flex-col xl:flex-row gap-12 xl:gap-16 items-start">
-          {/* Spacer on the left to align title with body text */}
-          {showToC && <div className="hidden xl:block w-60 shrink-0 select-none" />}
-          
-          <div className="flex-grow w-full max-w-[1060px] text-left">
+        <div className="mx-auto px-6 md:px-12 pt-32 pb-4 max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1600px] w-full text-left">
+          <div className="w-full max-w-[1120px]">
             <h1 className="text-[clamp(2.25rem,4.5vw,4.5rem)] font-black uppercase tracking-wide leading-[1.0] mb-6 text-fg-primary font-display">
               {post.title}
             </h1>
