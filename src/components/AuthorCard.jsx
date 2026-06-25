@@ -101,10 +101,10 @@ export default function AuthorCard({ author = {}, socials = {} }) {
   const twitter   = socials.twitter   || "neurodivers3";
 
   return (
-    <div className="w-full sidebar-card p-6 md:p-8 relative text-left">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+    <div className="w-full sidebar-card p-6 md:p-8 relative text-center sm:text-left">
+      <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6">
         {/* Round Avatar Container */}
-        <div className="relative w-16 h-16 md:w-20 md:h-20 shrink-0 border-2 border-accent-pink select-none overflow-hidden bg-zinc-900 rounded-full">
+        <div className="relative w-16 h-16 md:w-20 md:h-20 shrink-0 border-2 border-accent-pink select-none overflow-hidden bg-zinc-900 rounded-full mx-auto sm:mx-0">
           <Image
             src={photoUrl}
             alt={name}
@@ -116,7 +116,7 @@ export default function AuthorCard({ author = {}, socials = {} }) {
         </div>
 
         {/* Content Area */}
-        <div className="flex-grow space-y-3">
+        <div className="flex-grow space-y-3 flex flex-col items-center sm:items-start">
           <div>
             <h3 className="text-sm md:text-base font-mono tracking-widest text-accent-pink uppercase font-black whitespace-nowrap">
               WRITTEN BY OLLIE
@@ -128,7 +128,7 @@ export default function AuthorCard({ author = {}, socials = {} }) {
           </div>
 
           {/* Social and Navigation Links Stack */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-2">
             <Link
               href="/about"
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 border border-border-rule/70 bg-bg-primary/40 text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:text-accent-pink hover:border-accent-pink transition-all duration-200 focus-ring"

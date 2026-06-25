@@ -129,10 +129,10 @@ export const Footer = () => {
   }
 
   return (
-    <footer className="relative bg-bg-primary border-t border-border-rule pt-24 md:pt-28 pb-12 overflow-hidden">
+    <footer className="relative bg-bg-primary border-t border-border-rule pt-24 md:pt-28 pb-28 md:pb-12 overflow-hidden">
       {/* Static Utility Badge Bar */}
       <div className="absolute top-0 left-0 w-full bg-bg-primary border-b border-border-rule z-10 py-3.5 px-6 select-none">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center md:justify-between gap-4">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center md:justify-between gap-2 gap-y-3.5 md:gap-4">
           {PILLARS.map((pillar, idx) => (
             <Link
               key={idx}
@@ -161,27 +161,27 @@ export const Footer = () => {
           <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))]">Read</h3>
           <ul className="flex flex-col gap-3 text-[14px] font-medium text-text-muted w-full items-start">
             <li>
-              <Link href="/blog" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Blog
               </Link>
             </li>
             <li>
-              <Link href="/memoir" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/memoir" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Memoir
               </Link>
             </li>
             <li>
-              <Link href="/labs" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/labs" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Labs
               </Link>
             </li>
             <li>
-              <Link href="/store" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/store" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Store
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/about" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 About
               </Link>
             </li>
@@ -193,17 +193,17 @@ export const Footer = () => {
           <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))]">Pillars</h3>
           <ul className="flex flex-col gap-3 text-[14px] font-medium text-text-muted w-full items-start">
             <li>
-              <Link href="/blog?pillar=unmasked-life" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog?pillar=unmasked-life" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Unmasked Life
               </Link>
             </li>
             <li>
-              <Link href="/blog?pillar=tools-templates" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog?pillar=tools-templates" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Tools & Templates
               </Link>
             </li>
             <li>
-              <Link href="/blog?pillar=digital-life" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog?pillar=digital-life" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Digital Life
               </Link>
             </li>
@@ -215,27 +215,27 @@ export const Footer = () => {
           <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))]">Legal</h3>
           <ul className="grid grid-cols-2 gap-3 md:flex md:flex-col md:gap-3 text-[14px] font-medium text-text-muted w-full items-start">
             <li>
-              <Link href="/privacy" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/privacy" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link href="/terms" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/terms" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Terms of Use
               </Link>
             </li>
             <li>
-              <Link href="/accessibility" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/accessibility" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Accessibility
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/contact" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Contact
               </Link>
             </li>
             <li>
-              <a href="/sitemap.xml" className="hover:text-fg-primary transition-colors focus-ring">
+              <a href="/sitemap.xml" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Sitemap
               </a>
             </li>

@@ -840,7 +840,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                           <span>{getBrainStateLabel(post.brainState || 'hyperfocus')}</span>
                         </div>
                         {post.excerpt && (
-                          <p className="text-sm text-text-muted leading-relaxed font-normal line-clamp-4">
+                          <p className="text-sm text-text-muted leading-relaxed font-normal line-clamp-3 md:line-clamp-4">
                             {post.excerpt}
                           </p>
                         )}

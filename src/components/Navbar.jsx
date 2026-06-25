@@ -206,16 +206,16 @@ export const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed right-0 top-0 bottom-0 w-4/5 max-w-[360px] h-full bg-bg-primary border-l border-border-rule p-8 z-50 md:hidden flex flex-col justify-between shadow-2xl"
+              className="fixed right-0 top-0 bottom-0 w-4/5 max-w-[360px] h-full bg-bg-primary border-l border-border-rule p-8 pb-28 z-[9999] md:hidden flex flex-col justify-between shadow-2xl"
             >
               {/* Drawer Top */}
-              <div className="flex justify-between items-center">
-                <Link href="/" className="text-xl font-black uppercase tracking-tighter text-fg-primary focus-ring">
-                  <LogoWordmark className="h-7 text-fg-primary" />
+              <div className="flex justify-between items-start gap-4">
+                <Link href="/" className="text-xl font-black uppercase tracking-tighter text-fg-primary focus-ring pr-2 shrink min-w-0">
+                  <LogoWordmark className="h-5 md:h-7 text-fg-primary w-full max-w-full" />
                 </Link>
                 <button 
                   onClick={() => setIsMenuOpen(false)} 
-                  className="text-text-muted hover:text-link p-1"
+                  className="text-text-muted hover:text-link p-1 shrink-0"
                   aria-label="Close menu"
                 >
                   <X size={28} />

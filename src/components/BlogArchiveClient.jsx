@@ -396,7 +396,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                     
                     {/* Dedicated Text Wrapper with min-height and line clamping to ensure vertical alignment */}
                     <div className="min-h-[100px] sm:min-h-[120px] flex flex-col justify-start">
-                      <p className="text-sm md:text-base text-text-muted leading-relaxed mb-6 font-normal line-clamp-5">
+                      <p className="text-sm md:text-base text-text-muted leading-relaxed mb-6 font-normal line-clamp-3 md:line-clamp-5">
                         {post.excerpt}
                       </p>
                     </div>

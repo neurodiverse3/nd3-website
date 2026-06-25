@@ -394,7 +394,7 @@ export default async function BlogPostPage({ params }) {
         {/* TITLE & EXCERPT CONTAINER (stretched full-width above the content grid on desktop) */}
         <div className="mx-auto px-6 md:px-24 xl:px-16 2xl:px-32 pt-32 pb-4 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] w-full text-left">
           <div className="w-full">
-            <h1 className="text-[clamp(2rem,3.8vw,3.75rem)] font-black uppercase tracking-wide leading-[1.0] mb-6 text-fg-primary font-display">
+            <h1 className="text-[clamp(2.5rem,6vw,4rem)] font-black uppercase tracking-wide leading-[1.0] mb-6 text-fg-primary font-display">
               {post.title}
             </h1>
             {post.excerpt && (
@@ -426,14 +426,12 @@ export default async function BlogPostPage({ params }) {
                 ← Back to blog
               </Link>
 
-              <div className="flex flex-wrap items-center gap-3 text-xs font-mono font-bold uppercase tracking-[0.15em] text-text-muted mb-4">
-                <span>{formattedDate}</span>
-                <span>·</span>
-                <Link href={`/blog?pillar=${post.pillar}`} className="text-accent hover:underline font-black focus-ring">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-3 text-xs font-mono font-bold uppercase tracking-[0.15em] text-text-muted mb-4">
+                <span className="whitespace-nowrap">{formattedDate}</span>
+                <Link href={`/blog?pillar=${post.pillar}`} className="text-accent hover:underline font-black focus-ring whitespace-nowrap flex items-center before:content-['·'] before:opacity-40 before:mr-4">
                   {getPillarLabel(post.pillar)}
                 </Link>
-                <span>·</span>
-                <Link href={`/blog?state=${post.brainState || post.state}`} className="text-accent hover:underline font-black focus-ring">
+                <Link href={`/blog?state=${post.brainState || post.state}`} className="text-accent hover:underline font-black focus-ring whitespace-nowrap flex items-center before:content-['·'] before:opacity-40 before:mr-4">
                   {getBrainStateLabel(post.brainState || post.state)}
                 </Link>
               </div>
@@ -510,20 +508,20 @@ export default async function BlogPostPage({ params }) {
                   <span>
                     Part <span className="font-bold text-accent">{post.series.index}</span> of {seriesPosts.length} in <span className="italic font-bold">'{post.series.name}'</span>
                   </span>
-                  <div className="flex gap-4 uppercase tracking-widest text-xs md:text-sm font-bold shrink-0">
+                  <div className="flex gap-4 uppercase tracking-widest text-[10px] md:text-sm font-bold shrink-0">
                     {prevSeriesPost ? (
-                      <Link href={`/blog/${prevSeriesPost.slug}`} className="hover:text-accent focus-ring">
+                      <Link href={`/blog/${prevSeriesPost.slug}`} className="hover:text-accent focus-ring text-right">
                         ← Part {post.series.index - 1}
                       </Link>
                     ) : (
-                      <span className="opacity-40 select-none">← Prev</span>
+                      <span className="opacity-40 select-none text-right">← Prev</span>
                     )}
                     {nextSeriesPost ? (
-                      <Link href={`/blog/${nextSeriesPost.slug}`} className="hover:text-accent focus-ring">
+                      <Link href={`/blog/${nextSeriesPost.slug}`} className="hover:text-accent focus-ring text-left">
                         Part {post.series.index + 1} →
                       </Link>
                     ) : (
-                      <span className="opacity-40 select-none">Next →</span>
+                      <span className="opacity-40 select-none text-left">Next →</span>
                     )}
                   </div>
                 </div>
@@ -594,11 +592,11 @@ export default async function BlogPostPage({ params }) {
 
             {/* SERIES SEQUENTIAL END-OF-POST NAVIGATION BLOCK */}
             {post.series?.name && seriesPosts.length > 0 && (
-              <div className="max-w-[760px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 mt-16 pt-10 border-t border-border-rule/60 mb-16 no-print">
+              <div className="max-w-[760px] mx-auto flex flex-col md:flex-row gap-6 mt-16 pt-10 border-t border-border-rule/60 mb-16 no-print">
                 {prevSeriesPost ? (
                   <Link
                     href={`/blog/${prevSeriesPost.slug}`}
-                    className="group border border-border-rule hover:border-fg-primary p-5 flex flex-col justify-between text-left bg-surface/40 hover:-translate-y-0.5 transition-all duration-200"
+                    className="group border border-border-rule hover:border-fg-primary p-5 flex flex-col justify-between text-left bg-surface/40 hover:-translate-y-0.5 transition-all duration-200 flex-1"
                   >
                     <span className="text-xs md:text-sm font-mono uppercase tracking-widest text-text-muted mb-2 block">PREVIOUS IN SERIES</span>
                     <h4 className="text-sm font-black uppercase text-fg-primary group-hover:text-accent transition-colors line-clamp-2 leading-snug">
@@ -609,7 +607,7 @@ export default async function BlogPostPage({ params }) {
                     </span>
                   </Link>
                 ) : (
-                  <div className="border border-dashed border-border-rule/40 p-5 flex items-center justify-center text-center text-text-muted/40 font-mono text-xs md:text-sm uppercase select-none">
+                  <div className="border border-dashed border-border-rule/40 p-5 flex items-center justify-center text-center text-text-muted/40 font-mono text-xs md:text-sm uppercase select-none flex-1">
                     Start of Series
                   </div>
                 )}
@@ -617,18 +615,18 @@ export default async function BlogPostPage({ params }) {
                 {nextSeriesPost ? (
                   <Link
                     href={`/blog/${nextSeriesPost.slug}`}
-                    className="group border border-border-rule hover:border-fg-primary p-5 flex flex-col justify-between text-left bg-surface/40 hover:-translate-y-0.5 transition-all duration-200"
+                    className="group border border-border-rule hover:border-fg-primary p-5 flex flex-col justify-between text-left md:text-right bg-surface/40 hover:-translate-y-0.5 transition-all duration-200 flex-1"
                   >
-                    <span className="text-xs md:text-sm font-mono uppercase tracking-widest text-text-muted mb-2 block text-right">NEXT IN SERIES</span>
-                    <h4 className="text-sm font-black uppercase text-fg-primary group-hover:text-accent transition-colors line-clamp-2 leading-snug text-right">
+                    <span className="text-xs md:text-sm font-mono uppercase tracking-widest text-text-muted mb-2 block md:text-right text-left">NEXT IN SERIES</span>
+                    <h4 className="text-sm font-black uppercase text-fg-primary group-hover:text-accent transition-colors line-clamp-2 leading-snug md:text-right text-left">
                       {nextSeriesPost.title}
                     </h4>
-                    <span className="text-xs md:text-sm font-mono text-accent uppercase tracking-wider block mt-4 font-bold text-right">
+                    <span className="text-xs md:text-sm font-mono text-accent uppercase tracking-wider block mt-4 font-bold md:text-right text-left">
                       Part {post.series.index + 1} of {seriesPosts.length}
                     </span>
                   </Link>
                 ) : (
-                  <div className="border border-dashed border-border-rule/40 p-5 flex items-center justify-center text-center text-text-muted/40 font-mono text-xs md:text-sm uppercase select-none">
+                  <div className="border border-dashed border-border-rule/40 p-5 flex items-center justify-center text-center text-text-muted/40 font-mono text-xs md:text-sm uppercase select-none flex-1">
                     End of Series
                   </div>
                 )}

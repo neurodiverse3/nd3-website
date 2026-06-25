@@ -54,7 +54,7 @@ export function StickyBlogHeader({ title, readTime }) {
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-20 lg:h-24 flex items-center justify-between gap-6 relative">
         {/* Left Side: Article Title */}
-        <div className="flex-grow max-w-[70%]">
+        <div className="flex-grow max-w-[70%] pr-4 md:pr-0">
           <span className="text-xs md:text-sm font-mono tracking-widest text-accent-pink uppercase block font-bold mb-1">
             CURRENTLY READING
           </span>

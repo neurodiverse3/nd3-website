@@ -228,7 +228,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
   return (
     <div className="flex flex-col gap-3 py-6 border-y border-border-rule/60 my-6 select-none w-full no-print">
       {/* Primary share row */}
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-3">
         <span className="text-xs md:text-sm font-black uppercase tracking-[0.25em] text-text-muted mr-1">
           SHARE:
         </span>
@@ -269,7 +269,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
 
       {/* Expandable "More" sharing tools grid */}
       {showMore && (
-        <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-dashed border-border-rule/50 animate-in fade-in duration-300">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-3 pt-3 border-t border-dashed border-border-rule/50 animate-in fade-in duration-300">
           
           <a href={linkedinShare} target="_blank" rel="noopener noreferrer" className={baseChipClass}>
             <LinkedInIcon size={11} /> LINKEDIN

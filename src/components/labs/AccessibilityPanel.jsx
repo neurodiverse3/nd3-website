@@ -257,13 +257,236 @@ export default function AccessibilityPanel({ mobile }) {
     applyHighContrast(false);
     applyReducedMotion(false);
   };
+  const panelContent = (
+    <>
+      <div className="flex items-center justify-between border-b border-border-rule pb-3 mb-4">
+        <span className="font-sans text-xs text-accent font-black tracking-widest uppercase">PREFERENCES</span>
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={resetAllSettings}
+            className="text-[10px] font-mono font-bold px-2 py-1 border border-red-500/30 text-red-500 hover:text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-1 cursor-pointer focus-ring rounded-none bg-transparent"
+            title="Reset accessibility overrides"
+          >
+            <RotateCcw size={10} className="shrink-0" /> RESET
+          </button>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="p-1 text-text-muted hover:text-fg-primary cursor-pointer focus-ring rounded-none bg-transparent border-0 flex items-center justify-center"
+            aria-label="Close preferences panel"
+          >
+            <Sliders size={14} className="rotate-90 text-accent shrink-0" />
+          </button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        {/* Category 1: Appearance */}
+        <div>
+          <span className="font-mono text-[11px] md:text-xs text-text-muted font-bold tracking-widest uppercase block mb-3 select-none">
+            APPEARANCE
+          </span>
+          
+          <div className="space-y-4">
+            {/* Site Theme */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5">
+                <Sun size={13} className="text-accent shrink-0" />
+                <span className="font-sans text-xs md:text-sm text-fg-primary font-black tracking-wider uppercase">
+                  SITE THEME:
+                </span>
+              </div>
+              <div className="flex flex-col gap-1.5 select-none font-mono mt-1">
+                {[
+                  { id: 'void', label: 'VOID', dotColor: 'bg-[#FF2E88]' },
+                  { id: 'parchment', label: 'PARCHMENT', dotColor: 'bg-[#D0006F]' },
+                  { id: 'incubation', label: 'INCUBATION', dotColor: 'bg-[#5A8A60]' }
+                ].map((preset) => {
+                  const isActive = theme === preset.id;
+                  return (
+                    <button
+                      key={preset.id}
+                      onClick={() => setTheme(preset.id)}
+                      className={`w-full py-2 px-3 text-[10px] md:text-xs font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring flex items-center justify-between ${
+                        isActive
+                          ? 'border-accent bg-accent/10 text-fg-primary'
+                          : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className={`w-2 h-2 rounded-full shrink-0 ${preset.dotColor}`} />
+                        <span>{preset.label}</span>
+                      </span>
+                      {isActive && <span className="text-[9px] font-bold tracking-wider opacity-85 text-accent">ACTIVE</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Option A: Global Font Scale */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5">
+                <Type size={13} className="text-accent shrink-0" />
+                <span className="font-sans text-xs md:text-sm text-fg-primary font-black tracking-wider uppercase">
+                  GLOBAL TEXT SIZE:
+                </span>
+              </div>
+              <div className="grid grid-cols-4 gap-1 select-none font-mono mt-1">
+                {[
+                  { id: 'normal', label: '100%' },
+                  { id: 'large', label: '112%' },
+                  { id: 'xlarge', label: '125%' },
+                  { id: 'xxlarge', label: '137%' }
+                ].map((preset) => {
+                  const isActive = fontScale === preset.id;
+                  return (
+                    <button
+                      key={preset.id}
+                      onClick={() => handleScaleChange(preset.id)}
+                      className={`py-2 text-center text-[10px] md:text-xs font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring ${
+                        isActive
+                          ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
+                          : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
+                      }`}
+                    >
+                      {preset.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Category 2: Assistive Tools */}
+        <div className="border-t border-border-rule/60 pt-4">
+          <span className="font-mono text-[11px] md:text-xs text-text-muted font-bold tracking-widest uppercase block mb-3 select-none">
+            ASSISTIVE TOOLS
+          </span>
+          
+          <div className="space-y-4">
+            {/* Option B: Dyslexia Friendly text override */}
+            <ToggleRow
+              icon={Type}
+              title="DYSLEXIC FRIENDLY"
+              description="Enlarge letter gaps & line spaces"
+              checked={dyslexicFont}
+              onChange={handleDyslexicToggle}
+              ariaLabel="Toggle Dyslexic Font spacing"
+            />
+
+            {/* Option C: Contrast filter scale overlay */}
+            <ToggleRow
+              icon={Eye}
+              title="HIGH CONTRAST TEXT"
+              description="Maximize text/background contrast"
+              checked={highContrast}
+              onChange={handleContrastToggle}
+              ariaLabel="Toggle High Contrast Mode"
+            />
+
+            {/* Option D: Focus Reading Ruler */}
+            <div className="space-y-2">
+              <ToggleRow
+                icon={Move}
+                title="FOCUS READING RULER"
+                description="Line tracking guide tracks cursor"
+                checked={readingRuler}
+                onChange={handleRulerToggle}
+                ariaLabel="Toggle Focus Reading Ruler"
+              />
+              
+              {readingRuler && (
+                <div className="pl-6 pt-2 pb-2 space-y-3 border-l-2 border-accent/30 ml-2.5 mt-1 animate-in slide-in-from-left-2 duration-200">
+                  {/* Ruler Height */}
+                  <div className="space-y-1">
+                    <span className="text-[10px] md:text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1 select-none">
+                      RULER HEIGHT
+                    </span>
+                    <div className="grid grid-cols-4 gap-1 select-none font-mono">
+                      {[
+                        { id: '18', label: 'Thin' },
+                        { id: '28', label: 'Medium' },
+                        { id: '38', label: 'Thick' },
+                        { id: '48', label: 'Wide' }
+                      ].map((h) => {
+                        const isActive = rulerHeight === h.id;
+                        return (
+                          <button
+                            key={h.id}
+                            onClick={() => handleRulerHeightChange(h.id)}
+                            className={`py-1 text-[10px] md:text-xs text-center font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring ${
+                              isActive
+                                ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
+                                : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
+                            }`}
+                          >
+                            {h.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Ruler Color */}
+                  <div className="space-y-1">
+                    <span className="text-[10px] md:text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1 select-none">
+                      RULER COLOR
+                    </span>
+                    <div className="grid grid-cols-5 gap-1 select-none font-mono">
+                      {[
+                        { id: 'theme', label: 'Theme', colorClass: 'bg-accent' },
+                        { id: 'pink', label: 'Pink', colorClass: 'bg-[#FF2E88]' },
+                        { id: 'amber', label: 'Amber', colorClass: 'bg-[#F59E0B]' },
+                        { id: 'green', label: 'Green', colorClass: 'bg-[#10B981]' },
+                        { id: 'blue', label: 'Blue', colorClass: 'bg-[#3B82F6]' }
+                      ].map((c) => {
+                        const isActive = rulerColor === c.id;
+                        return (
+                          <button
+                            key={c.id}
+                            onClick={() => handleRulerColorChange(c.id)}
+                            className={`py-1 text-[9px] md:text-[10px] text-center font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring flex flex-col items-center justify-center gap-0.5 ${
+                              isActive
+                                ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
+                                : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
+                            }`}
+                          >
+                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${c.colorClass}`} />
+                            <span className="scale-[0.85]">{c.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Option E: Site animations reduced motion */}
+            <ToggleRow
+              icon={EyeOff}
+              title="FORCE REDUCED MOTION"
+              description="Halt marquees and visual shakes"
+              checked={reducedMotion}
+              onChange={handleMotionToggle}
+              ariaLabel="Toggle Reduced Motion Override"
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   return (
     <>
       {/* 1. Mouse-Tracking Focus Reading Ruler */}
-      {readingRuler && (
+      {readingRuler && !mounted && (
         <div 
-          className={`fixed left-0 right-0 pointer-events-none z-[9990] transition-[top] duration-75 select-none border-y-2 ${
+          className={`fixed left-0 right-0 pointer-events-none z-[99999] transition-[top] duration-75 select-none border-y-2 ${
             rulerColor === 'theme' ? 'bg-[var(--accent)]/15 border-[var(--accent)]/45' : ''
           }`}
           style={{
@@ -298,243 +521,42 @@ export default function AccessibilityPanel({ mobile }) {
           {!mobile && <span className="text-xs md:text-sm font-black uppercase tracking-widest hidden xl:inline-block">PREFERENCES</span>}
         </button>
 
-        {/* 3. Backdrop for mobile view */}
-        {isOpen && (
-          <div 
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[150] md:hidden"
-            onClick={() => setIsOpen(false)}
-          />
-        )}
+        {/* 3. Dropdown Accessible Controls Drawer */}
+        {isOpen && mounted && (
+          <>
+            {/* Desktop popup (inline relative to button) */}
+            <div className="hidden md:block">
+              <div 
+                ref={panelRef}
+                role="dialog"
+                aria-modal="true"
+                aria-label="Sensory and Accessibility Preferences"
+                className="absolute right-0 top-full w-[340px] mt-2 max-h-[calc(100vh-100px)] overflow-y-auto sidebar-card p-5 text-left transition-all duration-300 z-[100] bg-black border border-border-rule rounded-none animate-in slide-in-from-top-2"
+              >
+                {panelContent}
+              </div>
+            </div>
 
-        {/* 4. Dropdown Accessible Controls Drawer */}
-        {isOpen && (
-          <div 
-            ref={panelRef}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Sensory and Accessibility Preferences"
-            className={`fixed inset-x-0 bottom-0 md:absolute md:inset-auto md:top-full md:right-0 md:w-[340px] md:mt-2 w-auto max-h-[85vh] md:max-h-[calc(100vh-100px)] overflow-y-auto sidebar-card p-6 md:p-5 text-left transition-all duration-300 z-[160] md:z-[100] bg-black border-t-2 border-accent md:border md:border-border-rule md:rounded-none animate-in slide-in-from-bottom md:slide-in-from-top-2 duration-300`}
-          >
-            
-            {/* Header branding */}
-            <div className="flex items-center justify-between border-b border-border-rule pb-3 mb-4">
-              <span className="font-sans text-xs text-accent font-black tracking-widest uppercase">PREFERENCES</span>
-              <div className="flex items-center gap-3">
-                <button 
-                  onClick={resetAllSettings}
-                  className="text-[10px] font-mono font-bold px-2 py-1 border border-red-500/30 text-red-500 hover:text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-1 cursor-pointer focus-ring rounded-none bg-transparent"
-                  title="Reset accessibility overrides"
-                >
-                  <RotateCcw size={10} className="shrink-0" /> RESET
-                </button>
-                <button
+            {/* Mobile modal (portaled) */}
+            {require('react-dom').createPortal(
+              <div className="md:hidden">
+                <div 
+                  className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[150]"
                   onClick={() => setIsOpen(false)}
-                  className="p-1 text-text-muted hover:text-fg-primary cursor-pointer focus-ring rounded-none bg-transparent border-0 flex items-center justify-center"
-                  aria-label="Close preferences panel"
+                />
+                <div 
+                  ref={panelRef}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label="Sensory and Accessibility Preferences"
+                  className="fixed inset-x-0 bottom-0 w-full max-h-[85vh] overflow-y-auto sidebar-card p-6 text-left transition-all duration-300 z-[160] bg-black border-t-2 border-accent animate-in slide-in-from-bottom"
                 >
-                  <Sliders size={14} className="rotate-90 text-accent shrink-0" />
-                </button>
-              </div>
-            </div>
- 
-            <div className="space-y-4">
-              {/* Category 1: Appearance */}
-              <div>
-                <span className="font-mono text-[11px] md:text-xs text-text-muted font-bold tracking-widest uppercase block mb-3 select-none">
-                  APPEARANCE
-                </span>
-                
-                <div className="space-y-4">
-                  {/* Site Theme */}
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-1.5">
-                      <Sun size={13} className="text-accent shrink-0" />
-                      <span className="font-sans text-xs md:text-sm text-fg-primary font-black tracking-wider uppercase">
-                        SITE THEME:
-                      </span>
-                    </div>
-                    <div className="flex flex-col gap-1.5 select-none font-mono mt-1">
-                      {[
-                        { id: 'void', label: 'VOID', dotColor: 'bg-[#FF2E88]' },
-                        { id: 'parchment', label: 'PARCHMENT', dotColor: 'bg-[#D0006F]' },
-                        { id: 'incubation', label: 'INCUBATION', dotColor: 'bg-[#5A8A60]' }
-                      ].map((preset) => {
-                        const isActive = theme === preset.id;
-                        return (
-                          <button
-                            key={preset.id}
-                            onClick={() => setTheme(preset.id)}
-                            className={`w-full py-2 px-3 text-[10px] md:text-xs font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring flex items-center justify-between ${
-                              isActive
-                                ? 'border-accent bg-accent/10 text-fg-primary'
-                                : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
-                            }`}
-                          >
-                            <span className="flex items-center gap-2">
-                              <span className={`w-2 h-2 rounded-full shrink-0 ${preset.dotColor}`} />
-                              <span>{preset.label}</span>
-                            </span>
-                            {isActive && <span className="text-[9px] font-bold tracking-wider opacity-85 text-accent">ACTIVE</span>}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
- 
-                  {/* Option A: Global Font Scale */}
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-1.5">
-                      <Type size={13} className="text-accent shrink-0" />
-                      <span className="font-sans text-xs md:text-sm text-fg-primary font-black tracking-wider uppercase">
-                        GLOBAL TEXT SIZE:
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-4 gap-1 select-none font-mono mt-1">
-                      {[
-                        { id: 'normal', label: '100%' },
-                        { id: 'large', label: '112%' },
-                        { id: 'xlarge', label: '125%' },
-                        { id: 'xxlarge', label: '137%' }
-                      ].map((preset) => {
-                        const isActive = fontScale === preset.id;
-                        return (
-                          <button
-                            key={preset.id}
-                            onClick={() => handleScaleChange(preset.id)}
-                            className={`py-2 text-center text-[10px] md:text-xs font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring ${
-                              isActive
-                                ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
-                                : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
-                            }`}
-                          >
-                            {preset.label}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  {panelContent}
                 </div>
-              </div>
-
-              {/* Category 2: Assistive Tools */}
-              <div className="border-t border-border-rule/60 pt-4">
-                <span className="font-mono text-[11px] md:text-xs text-text-muted font-bold tracking-widest uppercase block mb-3 select-none">
-                  ASSISTIVE TOOLS
-                </span>
-                
-                <div className="space-y-4">
-                  {/* Option B: Dyslexia Friendly text override */}
-                  <ToggleRow
-                    icon={Type}
-                    title="DYSLEXIC FRIENDLY"
-                    description="Enlarge letter gaps & line spaces"
-                    checked={dyslexicFont}
-                    onChange={handleDyslexicToggle}
-                    ariaLabel="Toggle Dyslexic Font spacing"
-                  />
- 
-                  {/* Option C: Contrast filter scale overlay */}
-                  <ToggleRow
-                    icon={Eye}
-                    title="HIGH CONTRAST TEXT"
-                    description="Maximize text/background contrast"
-                    checked={highContrast}
-                    onChange={handleContrastToggle}
-                    ariaLabel="Toggle High Contrast Mode"
-                  />
- 
-                  {/* Option D: Focus Reading Ruler */}
-                  <div className="space-y-2">
-                    <ToggleRow
-                      icon={Move}
-                      title="FOCUS READING RULER"
-                      description="Line tracking guide tracks cursor"
-                      checked={readingRuler}
-                      onChange={handleRulerToggle}
-                      ariaLabel="Toggle Focus Reading Ruler"
-                    />
-                    
-                    {readingRuler && (
-                      <div className="pl-6 pt-2 pb-2 space-y-3 border-l-2 border-accent/30 ml-2.5 mt-1 animate-in slide-in-from-left-2 duration-200">
-                        {/* Ruler Height */}
-                        <div className="space-y-1">
-                          <span className="text-[10px] md:text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1 select-none">
-                            RULER HEIGHT
-                          </span>
-                          <div className="grid grid-cols-4 gap-1 select-none font-mono">
-                            {[
-                              { id: '18', label: 'Thin' },
-                              { id: '28', label: 'Medium' },
-                              { id: '38', label: 'Thick' },
-                              { id: '48', label: 'Wide' }
-                            ].map((h) => {
-                              const isActive = rulerHeight === h.id;
-                              return (
-                                <button
-                                  key={h.id}
-                                  onClick={() => handleRulerHeightChange(h.id)}
-                                  className={`py-1 text-[10px] md:text-xs text-center font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring ${
-                                    isActive
-                                      ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
-                                      : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
-                                  }`}
-                                >
-                                  {h.label}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
- 
-                        {/* Ruler Color */}
-                        <div className="space-y-1">
-                          <span className="text-[10px] md:text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1 select-none">
-                            RULER COLOR
-                          </span>
-                          <div className="grid grid-cols-5 gap-1 select-none font-mono">
-                            {[
-                              { id: 'theme', label: 'Theme', colorClass: 'bg-accent' },
-                              { id: 'pink', label: 'Pink', colorClass: 'bg-[#FF2E88]' },
-                              { id: 'amber', label: 'Amber', colorClass: 'bg-[#F59E0B]' },
-                              { id: 'green', label: 'Green', colorClass: 'bg-[#10B981]' },
-                              { id: 'blue', label: 'Blue', colorClass: 'bg-[#3B82F6]' }
-                            ].map((c) => {
-                              const isActive = rulerColor === c.id;
-                              return (
-                                <button
-                                  key={c.id}
-                                  onClick={() => handleRulerColorChange(c.id)}
-                                  className={`py-1 text-[9px] md:text-[10px] text-center font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring flex flex-col items-center justify-center gap-0.5 ${
-                                    isActive
-                                      ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
-                                      : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
-                                  }`}
-                                >
-                                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${c.colorClass}`} />
-                                  <span className="scale-[0.85]">{c.label}</span>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
- 
-                  {/* Option E: Site animations reduced motion */}
-                  <ToggleRow
-                    icon={EyeOff}
-                    title="FORCE REDUCED MOTION"
-                    description="Halt marquees and visual shakes"
-                    checked={reducedMotion}
-                    onChange={handleMotionToggle}
-                    ariaLabel="Toggle Reduced Motion Override"
-                  />
-                </div>
-              </div>
-            </div>
-            
-          </div>
+              </div>,
+              document.body
+            )}
+          </>
         )}
       </div>
     </>

@@ -25,6 +25,7 @@ export default function ProductMediaShowcase({
           src={`/store/videos/${demoVideo}`}
           controls
           autoPlay
+          muted
           playsInline
           className="h-full w-full object-cover"
         />
