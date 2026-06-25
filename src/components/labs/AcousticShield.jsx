@@ -393,6 +393,7 @@ export default function AcousticShield({ noWrapper = false }) {
             <input 
               type="range" min="0" max="0.6" step="0.01" value={masterVolume}
               onChange={(e) => setMasterVolume(parseFloat(e.target.value))}
+              aria-label="Master Volume Control"
               className="w-full accent-[var(--accent)] h-1.5 bg-[var(--rule)] cursor-pointer rounded-none outline-none"
             />
           </div>
@@ -406,6 +407,7 @@ export default function AcousticShield({ noWrapper = false }) {
             <input 
               type="range" min="0" max="0.6" step="0.01" value={baseVolume}
               onChange={(e) => setBaseVolume(parseFloat(e.target.value))}
+              aria-label="Channel A: Brownian Rumble Volume"
               className="w-full accent-[var(--accent)] h-1.5 bg-[var(--rule)] cursor-pointer rounded-none outline-none"
             />
           </div>
@@ -419,6 +421,7 @@ export default function AcousticShield({ noWrapper = false }) {
             <input 
               type="range" min="0" max="0.5" step="0.01" value={midVolume}
               onChange={(e) => setMidVolume(parseFloat(e.target.value))}
+              aria-label="Channel B: Voice Masking Air-Hum Volume"
               className="w-full accent-[var(--accent)] h-1.5 bg-[var(--rule)] cursor-pointer rounded-none outline-none"
             />
           </div>
@@ -454,6 +457,7 @@ export default function AcousticShield({ noWrapper = false }) {
                 <input 
                   type="range" min="0.01" max="0.25" step="0.01" value={binauralVolume}
                   onChange={(e) => setBinauralVolume(parseFloat(e.target.value))}
+                  aria-label="Binaural Focus Intensity Volume"
                   className="w-full accent-[var(--accent)] h-1.5 bg-[var(--rule)] cursor-pointer rounded-none outline-none"
                 />
                 <span className="text-xs md:text-sm font-mono text-amber-500 uppercase tracking-widest block font-bold leading-normal">

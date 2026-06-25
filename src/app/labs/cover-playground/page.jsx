@@ -10,6 +10,7 @@ export default function CoverPlayground() {
   const [pillar, setPillar] = useState('unmasked-life');
   const [brainState, setBrainState] = useState('hyperfocus');
   const [aspect, setAspect] = useState('21:9');
+  const [pattern, setPattern] = useState('subtle');
 
   const concepts = [
     { id: 'diagnostic', name: 'Concept A: Brain State Diagnostic', desc: 'Resembles a retro-medical read-out of a wired-different brain, with SVG dopamine gauges and focus meters.' },
@@ -142,6 +143,25 @@ export default function CoverPlayground() {
               ))}
             </div>
           </div>
+
+          {/* Typographic Pattern Style */}
+          <div className="flex flex-col gap-1.5">
+            <label className="font-mono text-xs md:text-sm text-[#8A8A93] tracking-widest uppercase font-bold">TYPO COVER PATTERN:</label>
+            <select
+              value={pattern}
+              onChange={(e) => setPattern(e.target.value)}
+              className="w-full h-10 bg-black border border-border-rule focus:border-accent-pink px-3 py-1 text-xs text-white outline-none rounded-none font-mono focus-ring cursor-pointer"
+            >
+              <option value="subtle">Subtle Ambient Glow (New Default)</option>
+              <option value="grid">Grid Lines (Original)</option>
+              <option value="dots">Dotted Grid (Tactile)</option>
+              <option value="frame">Dashed Inset Frame (Brutalist)</option>
+              <option value="brackets">Corner Brackets (Crop Marks)</option>
+              <option value="contour">Contour Lines (Organic)</option>
+              <option value="stripes">Diagonal Stripes (Bauhaus)</option>
+              <option value="minimal">Minimal Editorial (Clean)</option>
+            </select>
+          </div>
         </aside>
 
         {/* Real-time Side-by-Side concepts view */}
@@ -169,6 +189,7 @@ export default function CoverPlayground() {
                   accentWord={accentWord}
                   aspect={aspect}
                   concept={c.id}
+                  pattern={pattern}
                 />
               </div>
             </div>

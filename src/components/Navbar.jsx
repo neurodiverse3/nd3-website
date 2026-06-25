@@ -3,15 +3,13 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { ShoppingBag, Menu, X, ArrowRight, Search } from 'lucide-react';
-import { useCart } from '../context/CartContext';
+import { Menu, X, ArrowRight, Search } from 'lucide-react';
 import { LogoWordmark } from './Logo';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SearchOverlay } from './SearchOverlay';
 import AccessibilityPanel from './labs/AccessibilityPanel';
 
 export const Navbar = () => {
-  const { cart, setIsCartOpen } = useCart();
   const [glitch, setGlitch] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -152,19 +150,7 @@ export const Navbar = () => {
                 <Search size={20} className="group-hover:scale-105 transition-transform" />
               </button>
 
-              {/* Shopping Bag Trigger */}
-              <button 
-                onClick={() => setIsCartOpen(true)} 
-                className="relative p-2.5 text-fg-primary hover:text-accent bg-transparent transition-all group cursor-pointer focus-ring rounded-none shrink-0"
-                aria-label="Open Shopping Bag"
-              >
-                <ShoppingBag size={20} className="group-hover:scale-105 transition-transform" />
-                {cart.length > 0 && (
-                  <span className="absolute top-0 right-0 bg-accent text-bg-primary text-xs md:text-sm font-black w-4.5 h-4.5 flex items-center justify-center rounded-full border border-bg-primary animate-in zoom-in duration-200">
-                    {cart.length}
-                  </span>
-                )}
-              </button>
+
 
               {/* Accessibility Controls */}
               <AccessibilityPanel />
@@ -184,17 +170,7 @@ export const Navbar = () => {
               {/* Mobile Accessibility Controls */}
               <AccessibilityPanel mobile />
 
-              {/* Mobile Shopping Bag */}
-              <button 
-                onClick={() => setIsCartOpen(true)} 
-                className="relative p-2 text-fg-primary hover:text-accent cursor-pointer"
-                aria-label="Open Shopping Bag"
-              >
-                <ShoppingBag size={22} />
-                {cart.length > 0 && (
-                  <span className="absolute top-0.5 right-0.5 bg-accent w-2.5 h-2.5 rounded-full border border-bg-primary"></span>
-                )}
-              </button>
+
 
               <button 
                 onClick={() => setIsMenuOpen(!isMenuOpen)} 

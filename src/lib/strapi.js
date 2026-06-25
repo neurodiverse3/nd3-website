@@ -41,7 +41,7 @@ async function fetchStrapi(path, params = {}) {
   const requestOptions = {
     headers,
     signal: controller.signal,
-    ...(typeof window === 'undefined' ? { next: { revalidate: 60 } } : {}),
+    ...(typeof window === 'undefined' ? { next: { revalidate: 86400 } } : {}),
   };
 
   try {

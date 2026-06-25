@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "The Toolkit — neurodivers3",
+  title: "The Toolkit - neurodivers3",
   description:
     "Tactile, visual-spatial, restartable planners and digital resources designed for autistic and ADHD brains.",
 };

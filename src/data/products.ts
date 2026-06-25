@@ -3,6 +3,10 @@ import type { Pillar } from "@/lib/site";
 export type ProductTier = "5" | "7" | "19" | "free";
 
 export type Product = {
+  /** Production Polar Product ID */
+  id: string;
+  /** Gradient color classes for UI display */
+  color: string;
   /** URL slug under /store/[slug] */
   slug: string;
   title: string;
@@ -42,16 +46,16 @@ export type Product = {
   demoVideo?: string;
 };
 
-// NOTE: checkoutUrl values are placeholders. Swap in real Polar product links
-// once each listing is created in the production organisation.
 export const PRODUCTS: Product[] = [
   {
+    id: "64a9bac6-6888-4603-9624-496fd058d1ef",
+    color: "from-teal-600 to-emerald-700",
     slug: "dopamine-menu-template",
     title: "Dopamine Menu Template",
     icon: "\uD83C\uDF6D",
     price: 5,
     priceLabel: "\u00A35",
-    ctaLabel: "Launch special \u00B7 \u00A35",
+    ctaLabel: "Buy now \u00B7 \u00A35",
     tier: "5",
     pillar: "Tools & Templates",
     format: "Notion template",
@@ -90,12 +94,14 @@ export const PRODUCTS: Product[] = [
     demoVideo: "nd3-preview-dopamine-menu-template.mp4",
   },
   {
+    id: "1f53de85-ed4e-4beb-a00f-afeb2f23bcd1",
+    color: "from-pink-600 to-rose-700",
     slug: "sensory-audit-workbook",
     title: "Sensory Audit Workbook",
     icon: "\uD83D\uDCD8",
     price: 5,
     priceLabel: "\u00A35",
-    ctaLabel: "Launch special \u00B7 \u00A35",
+    ctaLabel: "Buy now \u00B7 \u00A35",
     tier: "5",
     pillar: "Unmasked Life",
     format: "PDF workbook",
@@ -133,12 +139,14 @@ export const PRODUCTS: Product[] = [
     demoVideo: "nd3-preview-sensory-audit.mp4",
   },
   {
+    id: "ba59cf40-9a78-4062-bbb6-5ea5f536c73d",
+    color: "from-pink-600 to-rose-700",
     slug: "masking-recovery-pack",
     title: "Masking Recovery Pack",
     icon: "\uD83C\uDFAD",
     price: 5,
     priceLabel: "\u00A35",
-    ctaLabel: "Launch special \u00B7 \u00A35",
+    ctaLabel: "Buy now \u00B7 \u00A35",
     tier: "5",
     pillar: "Unmasked Life",
     format: "PDF + Notion template",
@@ -174,12 +182,14 @@ export const PRODUCTS: Product[] = [
     demoVideo: "nd3-preview-masking-pack.mp4",
   },
   {
+    id: "8e5a2386-1293-4bff-9f05-73bcef6a25fa",
+    color: "from-teal-600 to-emerald-700",
     slug: "communication-templates-bundle",
     title: "Communication Templates Bundle",
     icon: "\uD83D\uDCAC",
     price: 5,
     priceLabel: "\u00A35",
-    ctaLabel: "Launch special \u00B7 \u00A35",
+    ctaLabel: "Buy now \u00B7 \u00A35",
     tier: "5",
     pillar: "Tools & Templates",
     format: "PDFs + editable files",
@@ -216,12 +226,14 @@ export const PRODUCTS: Product[] = [
     demoVideo: "nd3-preview-communication-templates.mp4",
   },
   {
+    id: "69ee93a4-130e-4e78-89df-dcbe154c0d68",
+    color: "from-pink-600 to-rose-700",
     slug: "burnout-recovery-roadmap",
     title: "Burnout Recovery Roadmap",
     icon: "\uD83D\uDDFA\uFE0F",
     price: 7,
     priceLabel: "\u00A37",
-    ctaLabel: "Launch special \u00B7 \u00A37",
+    ctaLabel: "Buy now \u00B7 \u00A37",
     tier: "7",
     pillar: "Unmasked Life",
     format: "Notion workspace",
@@ -262,12 +274,14 @@ export const PRODUCTS: Product[] = [
     demoVideo: "nd3-preview-burnout-roadmap.mp4",
   },
   {
+    id: "1015a410-9289-4067-8f9f-d1d6e143d353",
+    color: "from-teal-600 to-emerald-700",
     slug: "neurodivergent-weekly-planner",
     title: "Neurodivergent Weekly Planner",
     icon: "\uD83D\uDEDF",
     price: 7,
     priceLabel: "\u00A37",
-    ctaLabel: "Launch special \u00B7 \u00A37",
+    ctaLabel: "Buy now \u00B7 \u00A37",
     tier: "7",
     pillar: "Tools & Templates",
     format: "Notion template",
@@ -303,12 +317,14 @@ export const PRODUCTS: Product[] = [
     demoVideo: "nd3-preview-weekly-planner.mp4",
   },
   {
+    id: "aa67927b-5e29-4969-a5e1-cb8790c8f82e",
+    color: "from-teal-600 to-emerald-700",
     slug: "the-toolkit",
     title: "The Toolkit",
     icon: "\uD83E\uDDF0",
     price: 19,
     priceLabel: "\u00A319",
-    ctaLabel: "Launch special \u00B7 \u00A319",
+    ctaLabel: "Buy now \u00B7 \u00A319",
     tier: "19",
     pillar: "Tools & Templates",
     format: "All six paid products",
@@ -344,6 +360,8 @@ export const PRODUCTS: Product[] = [
     demoVideo: "nd3-preview-toolkit.mp4",
   },
   {
+    id: "9c444fa8-97a2-4cf2-aa8d-439801cdfcc2",
+    color: "from-teal-600 to-emerald-700",
     slug: "1-page-dopamine-menu",
     title: "1-Page Dopamine Menu",
     icon: "\uD83D\uDCC4",

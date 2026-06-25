@@ -58,7 +58,7 @@ export default function PageHeader({
         </div>
       )}
 
-      <h1 className="text-4xl md:text-[4.5rem] font-extrabold uppercase leading-[0.95] tracking-wide font-display text-fg">
+      <h1 className="text-2xl sm:text-3xl md:text-[2.7rem] lg:text-[3.3rem] xl:text-[4rem] 2xl:text-[4.5rem] font-extrabold uppercase leading-[0.95] tracking-wide font-display text-fg">
         {titleLabel}
         {titleAccent && (
           <>
@@ -70,13 +70,14 @@ export default function PageHeader({
       </h1>
 
       {subtitle && (
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted font-normal">
+        <p className="mt-4 max-w-4xl text-base leading-relaxed text-muted font-normal">
           {subtitle}
         </p>
       )}
 
       {/* 1px rule, white at ~12% opacity (white/12) */}
-      <div className="w-full h-[1px] bg-white/12 mt-6" />
+      <div className="w-full h-[1px] bg-white/12 mt-8" />
     </header>
   );
 }
+

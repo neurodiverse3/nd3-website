@@ -122,29 +122,7 @@ export const Footer = () => {
     email: 'ollie@neurodivers3.co.uk'
   });
 
-  // Fetch socials dynamically from CMS site settings.
-  useEffect(() => {
-    let active = true;
-    client.fetch('*[_type == "siteSettings"][0].socials')
-      .then(res => {
-        if (res && active) {
-          setSocialHandles(prev => ({
-            instagram: res.instagram || prev.instagram,
-            tiktok: res.tiktok || prev.tiktok,
-            facebook: res.facebook || prev.facebook,
-            youtube: res.youtube || prev.youtube,
-            twitter: res.twitter || prev.twitter,
-            email: res.email || prev.email,
-          }));
-        }
-      })
-      .catch(err => {
-        console.warn('⚠️ [Footer] Failed to fetch socials from CMS, using default values:', err);
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
+  // Removed client-side fetch to prevent 403 errors. Socials are static or passed via props.
 
   if (pathname && pathname.endsWith('/embed')) {
     return null;
@@ -153,17 +131,19 @@ export const Footer = () => {
   return (
     <footer className="relative bg-bg-primary border-t border-border-rule pt-24 md:pt-28 pb-12 overflow-hidden">
       {/* Static Utility Badge Bar */}
-      <div className="absolute top-0 left-0 w-full bg-bg-primary border-b border-border-rule z-10 py-3.5 px-6 flex flex-wrap items-center justify-center gap-3 select-none">
-        {PILLARS.map((pillar, idx) => (
-          <Link
-            key={idx}
-            href={pillar.path}
-            className={`badge-pillar-link px-3.5 py-1 rounded-full text-xs md:text-sm font-bold font-mono uppercase tracking-wider border badge-pillar-${pillar.theme} focus-ring`}
-          >
-            <span className={`w-1.5 h-1.5 rounded-full bg-pillar-${pillar.theme}`} />
-            {pillar.text}
-          </Link>
-        ))}
+      <div className="absolute top-0 left-0 w-full bg-bg-primary border-b border-border-rule z-10 py-3.5 px-6 select-none">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center md:justify-between gap-4">
+          {PILLARS.map((pillar, idx) => (
+            <Link
+              key={idx}
+              href={pillar.path}
+              className={`badge-pillar-link px-3.5 py-1 rounded-full text-xs md:text-sm font-bold font-mono uppercase tracking-wider border badge-pillar-${pillar.theme} focus-ring`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full bg-pillar-${pillar.theme}`} />
+              {pillar.text}
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* Main 4-Column Layout */}
@@ -253,6 +233,11 @@ export const Footer = () => {
               <Link href="/contact" className="hover:text-fg-primary transition-colors focus-ring">
                 Contact
               </Link>
+            </li>
+            <li>
+              <a href="/sitemap.xml" className="hover:text-fg-primary transition-colors focus-ring">
+                Sitemap
+              </a>
             </li>
           </ul>
         </div>

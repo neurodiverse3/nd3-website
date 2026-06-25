@@ -9,6 +9,8 @@ import DataPersistencePanel from '../../../components/labs/DataPersistencePanel'
 import LabFullscreenWrapper from '../../../components/labs/LabFullscreenWrapper';
 import KeyboardShortcutsOverlay from '../../../components/labs/KeyboardShortcutsOverlay';
 
+export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
+
 const renderFallbackDescription = (text) => {
   if (!text) return <p>This experimental lab provides alternative visual-spatial paths, sensory-friendly utilities, and resets specifically tailored for neurodivergent brains.</p>;
   

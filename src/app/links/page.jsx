@@ -146,7 +146,7 @@ END:VCARD`;
       icon: <ShoppingBag className="w-5 h-5" />,
     },
     {
-      title: "Serial Memoir",
+      title: "Memoir in Progress",
       subtitle: "Figuring out how to human after a late diagnosis",
       href: "/memoir",
       icon: <BookOpen className="w-5 h-5" />,
@@ -206,7 +206,7 @@ END:VCARD`;
         <div className="text-center space-y-4">
           <div className="w-24 h-24 mx-auto border-4 border-fg-primary shadow-[4px_4px_0px_var(--accent)] relative overflow-hidden bg-bg-primary">
             <img
-              src="/ollie.jpg"
+              src="/ollie-profile-v2.jpg"
               alt="Ollie Clews"
               className="w-full h-full object-cover filter grayscale contrast-125"
               onError={(e) => {

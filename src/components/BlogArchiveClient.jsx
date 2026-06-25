@@ -93,8 +93,10 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
     return newPost;
   });
 
-  // Newest first sorting
+  // Newest first sorting (preserving pinned posts)
   const sortedPosts = [...processedPosts].sort((a, b) => {
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
     const dateA = new Date(a.date || a._createdAt || 0);
     const dateB = new Date(b.date || b._createdAt || 0);
     return dateB - dateA;
@@ -241,7 +243,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                 setActivePillar(null);
                 setVisibleCount(12);
               }}
-              className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none ${
+              className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none focus-ring focus:outline-none focus:relative focus:z-10 ${
                 activePillar === null 
                   ? 'bg-accent border-fg-primary text-[var(--accent-btn-text)] shadow-[2px_2px_0px_var(--fg)]' 
                   : 'border-border-rule text-[var(--muted)] hover:text-fg-primary hover:border-fg-primary'
@@ -258,7 +260,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                     setActivePillar(p.id);
                     setVisibleCount(12);
                   }}
-                  className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none ${
+                  className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none focus-ring focus:outline-none focus:relative focus:z-10 ${
                     isActive 
                       ? 'bg-accent border-fg-primary text-[var(--accent-btn-text)] shadow-[2px_2px_0px_var(--fg)]' 
                       : 'border-border-rule text-[var(--muted)] hover:text-fg-primary hover:border-fg-primary'
@@ -280,7 +282,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                 setActiveState(null);
                 setVisibleCount(12);
               }}
-              className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none ${
+              className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none focus-ring focus:outline-none focus:relative focus:z-10 ${
                 activeState === null 
                   ? 'bg-accent border-fg-primary text-[var(--accent-btn-text)] shadow-[2px_2px_0px_var(--fg)]' 
                   : 'border-border-rule text-[var(--muted)] hover:text-fg-primary hover:border-fg-primary'
@@ -297,7 +299,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                     setActiveState(s.id);
                     setVisibleCount(12);
                   }}
-                  className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none ${
+                  className={`inline-flex items-center justify-center h-9 px-4 text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer rounded-none leading-none focus-ring focus:outline-none focus:relative focus:z-10 ${
                     isActive 
                       ? 'bg-accent border-fg-primary text-[var(--accent-btn-text)] shadow-[2px_2px_0px_var(--fg)]' 
                       : 'border-border-rule text-[var(--muted)] hover:text-fg-primary hover:border-fg-primary'
@@ -328,16 +330,17 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
 
       {/* Grid of Cards */}
       {filteredPosts.length === 0 ? (
-        <div className="text-center py-24 border-2 border-dashed border-border-rule">
-          <p className="text-text-muted text-base max-w-xl mx-auto font-bold">
-            No posts match that combo yet. Try a different brain state, or{" "}
-            <button 
-              onClick={handleClearFilters} 
-              className="text-accent font-black hover:underline cursor-pointer bg-transparent border-none p-0 inline"
-            >
-              read everything →
-            </button>
+        <div className="text-center py-20 border-2 border-dashed border-border-rule bg-bg-primary/20 shadow-inner space-y-4">
+          <p className="text-xl font-display font-black uppercase text-fg-primary">No matching posts found</p>
+          <p className="text-text-muted text-sm max-w-md mx-auto font-sans leading-relaxed font-normal">
+            There are no essays matching your active combination of topic, brain-state, and search query. Try clearing filters to see everything.
           </p>
+          <button 
+            onClick={handleClearFilters} 
+            className="px-6 py-3 bg-accent text-[var(--accent-text,var(--bg))] font-black hover:bg-transparent hover:text-accent border-2 border-fg-primary transition-all cursor-pointer text-xs uppercase tracking-widest rounded-none shadow-[3px_3px_0px_var(--fg)] hover:shadow-none hover:translate-y-0.5 hover:translate-x-0.5"
+          >
+            Clear All Filters
+          </button>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -379,23 +382,14 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
 
                 <div className="px-6 md:px-10 pt-8 pb-8 flex flex-col justify-between flex-grow">
                   <div className="flex flex-col flex-grow">
-                    {/* Meta Row: Pillar + State + Read time + Date */}
+                    {/* Meta Row: State + Date */}
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs md:text-sm sm:text-xs md:text-sm uppercase tracking-[0.15em] mb-5 text-text-muted font-bold leading-none">
                       <button 
-                        onClick={(e) => handlePillarClick(e, post.pillar)}
-                        className="pillar-eyebrow text-accent hover:underline font-black cursor-pointer bg-transparent border-none p-0 inline-block align-baseline leading-none"
-                      >
-                        {getPillarLabel(post.pillar)}
-                      </button>
-                      <span className="opacity-40">/</span>
-                      <button 
                         onClick={(e) => handleStateClick(e, stateValue)}
-                        className="text-text-muted hover:text-fg-primary hover:underline font-black cursor-pointer bg-transparent border-none p-0 inline-block align-baseline leading-none"
+                        className="pillar-eyebrow text-accent hover:underline font-black cursor-pointer bg-transparent border-none p-0 inline-block align-baseline leading-none"
                       >
                         {getBrainStateLabel(stateValue)}
                       </button>
-                      <span className="opacity-40">/</span>
-                      <span className="inline-flex items-center gap-1 font-mono align-baseline leading-none"><Clock size={11} className="inline align-middle"/> {post.readTime || '5 MIN'}</span>
                       <span className="opacity-40">/</span>
                       <span className="inline-block align-baseline leading-none">{formattedDate}</span>
                     </div>
@@ -408,12 +402,14 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                     </div>
                   </div>
                   
-                  <Link 
-                    href={`/blog/${slug}`}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-3 mt-auto bg-transparent text-fg-primary font-black text-xs uppercase tracking-widest border-2 border-fg-primary shadow-[4px_4px_0px_var(--fg)] hover:-translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all rounded-none w-fit group"
-                  >
-                    READ POST <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform shrink-0" />
-                  </Link>
+                  <div className="mt-auto">
+                    <Link 
+                      href={`/blog/${slug}`}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-transparent text-fg-primary font-black text-xs uppercase tracking-widest border-2 border-fg-primary shadow-[4px_4px_0px_var(--fg)] hover:-translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all rounded-none w-fit group cursor-pointer"
+                    >
+                      READ POST <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform shrink-0" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             )

@@ -1,6 +1,8 @@
 import { getPosts, getMemoirChapters } from '../lib/strapi';
 import { PRODUCTS } from '../data/products';
 
+export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
+
 export default async function sitemap() {
   const baseUrl = 'https://neurodivers3.co.uk';
 
@@ -9,7 +11,14 @@ export default async function sitemap() {
     '',
     '/about',
     '/accessibility',
+    '/contact',
     '/labs',
+    '/labs/visual-snow-shield',
+    '/labs/sensory-audit',
+    '/labs/acoustic-shield',
+    '/labs/spoon-tracker',
+    '/labs/decision-coin',
+    '/labs/brown-noise-loop',
     '/store',
     '/memoir',
     '/privacy',
@@ -38,17 +47,23 @@ export default async function sitemap() {
 
   // 3. Dynamic Memoir Chapters
   const memoirChapters = await getMemoirChapters() || [];
+  const excludedMemoirSlugs = ['chapter-pipeline', 'memoir-manifesto', 'sample-chapter-stub', 'pipeline', 'manifesto'];
 
-  const memoirRoutes = memoirChapters.map((chapter) => {
-    const slug = chapter.slug?.current || chapter.slug;
-    const chapterDate = chapter.updatedAt || chapter.publishedAt || new Date().toISOString();
-    return {
-      url: `${baseUrl}/memoir/${slug}`,
-      lastModified: new Date(chapterDate).toISOString().split('T')[0],
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    };
-  });
+  const memoirRoutes = memoirChapters
+    .filter((chapter) => {
+      const slug = chapter.slug?.current || chapter.slug;
+      return slug && !excludedMemoirSlugs.includes(slug.toLowerCase());
+    })
+    .map((chapter) => {
+      const slug = chapter.slug?.current || chapter.slug;
+      const chapterDate = chapter.updatedAt || chapter.publishedAt || new Date().toISOString();
+      return {
+        url: `${baseUrl}/memoir/${slug}`,
+        lastModified: new Date(chapterDate).toISOString().split('T')[0],
+        changeFrequency: 'monthly',
+        priority: 0.6,
+      };
+    });
 
   // 4. Dynamic Store Products
   const storeRoutes = PRODUCTS.map((product) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Rss, ArrowRight } from 'lucide-react';
+import { Rss, ArrowRight, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { getPosts, getSiteSettings } from '../../lib/strapi';
 import { BlogArchiveClient } from '../../components/BlogArchiveClient';
@@ -8,18 +8,18 @@ import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
   title: 'Blog - neurodivers3',
-  description: 'Honest writing on neurodivergent life: stories, tools and ideas from inside a late-diagnosed brain.',
+  description: 'Honest writing on late diagnosis, burnout, masking, attention, and everyday life with a neurodivergent brain.',
   openGraph: {
     title: 'Blog - neurodivers3',
-    description: 'Honest writing on neurodivergent life: stories, tools and ideas from inside a late-diagnosed brain.',
+    description: 'Honest writing on late diagnosis, burnout, masking, attention, and everyday life with a neurodivergent brain.',
   },
   twitter: {
     title: 'Blog - neurodivers3',
-    description: 'Honest writing on neurodivergent life: stories, tools and ideas from inside a late-diagnosed brain.',
+    description: 'Honest writing on late diagnosis, burnout, masking, attention, and everyday life with a neurodivergent brain.',
   }
 };
 
-export const revalidate = 60; // Revalidate every minute
+export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
 
 const formatDateUK = (dateStr) => {
   if (!dateStr) return '';
@@ -118,14 +118,14 @@ export default async function BlogPage(props) {
         eyebrow="The Blog"
         titleLabel="Blog"
         titleAccent="Stories, Tools & Ideas"
-        subtitle="Honest writing on neurodivergent life · stories, tools and ideas from inside a late-diagnosed brain."
+        subtitle="Honest writing on late diagnosis, burnout, masking, attention, and everyday life with a neurodivergent brain."
       />
 
       {/* Featured Post Card */}
       {featuredPost && (
         <div className="mb-16">
           <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-accent bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
-            FEATURED READ
+            FEATURED POST
           </span>
           <div
             className="group grid grid-cols-1 lg:grid-cols-12 border-2 border-border-rule bg-bg-primary shadow-[8px_8px_0px_var(--rule)] rounded-none overflow-hidden text-left"
@@ -152,24 +152,15 @@ export default async function BlogPage(props) {
             {/* Content (Right side) */}
             <div className="lg:col-span-5 p-10 md:p-14 lg:p-16 flex flex-col justify-between">
               <div>
-                <div className="flex flex-wrap items-center gap-2.5 text-xs md:text-sm font-mono tracking-[0.15em] uppercase mb-6 text-text-muted">
-                  <Link 
-                    href={`/blog?pillar=${featuredPost.pillar}`}
-                    className="pillar-eyebrow text-accent hover:underline font-black"
-                  >
-                    {getPillarLabel(featuredPost.pillar)}
-                  </Link>
-                  <span>/</span>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs md:text-sm uppercase tracking-[0.15em] mb-6 text-text-muted font-bold leading-none">
                   <Link 
                     href={`/blog?state=${featuredPost.brainState}`}
-                    className="text-text-muted hover:text-fg-primary hover:underline font-black"
+                    className="pillar-eyebrow text-accent hover:underline font-black"
                   >
                     {getBrainStateLabel(featuredPost.brainState)}
                   </Link>
-                  <span>/</span>
-                  <span className="font-mono text-text-muted">{featuredPost.readTime || '5 MIN'}</span>
-                  <span>/</span>
-                  <span>{featuredDate}</span>
+                  <span className="opacity-40">/</span>
+                  <span className="inline-block">{featuredDate}</span>
                 </div>
 
                 <p className="text-base md:text-lg text-text-muted leading-relaxed font-normal mb-8 line-clamp-6">

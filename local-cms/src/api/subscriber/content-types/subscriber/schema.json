@@ -21,6 +21,9 @@
     },
     "subscribedAt": {
       "type": "datetime"
+    },
+    "firstName": {
+      "type": "string"
     }
   }
 }

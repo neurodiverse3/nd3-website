@@ -7,7 +7,7 @@ import RichTextRenderer from '../../../components/RichTextRenderer';
 import { ReadingProgress } from '../../../components/ReadingProgress';
 import { toSmartQuotes } from '../../../lib/typography';
 
-export const revalidate = 60; // Revalidate every minute
+export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

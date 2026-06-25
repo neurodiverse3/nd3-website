@@ -17,6 +17,8 @@ export function CheckoutButton({ product, className = "" }: Props) {
   return (
     <a
       href={product.checkoutUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       data-product={product.slug}
       className={[
         "inline-flex w-full items-center justify-center gap-2",
@@ -30,7 +32,6 @@ export function CheckoutButton({ product, className = "" }: Props) {
         className,
       ].join(" ")}
     >
-      <span aria-hidden="true">🛒</span>
       <span>{product.ctaLabel}</span>
     </a>
   );

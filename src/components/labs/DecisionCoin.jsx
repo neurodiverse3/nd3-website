@@ -239,6 +239,13 @@ export default function DecisionCoin({ noWrapper = false }) {
           </p>
         </div>
       )}
+
+      {/* Medical/Crisis Safety Warning */}
+      <div className="border border-amber-500/25 bg-amber-500/5 p-3 text-left leading-normal font-sans">
+        <p className="text-[11px] text-[var(--muted)] leading-relaxed font-normal">
+          <strong>Safety Note:</strong> This coin is a cognitive tool designed solely to help unblock minor executive paralysis (e.g. choosing a task, deciding what to eat, or choosing between rest and work). Do <strong>not</strong> use this tool to make high-stakes medical, legal, financial, or crisis-related decisions. For significant life or health choices, seek professional guidance.
+        </p>
+      </div>
     </div>
   );
 

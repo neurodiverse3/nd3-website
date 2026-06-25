@@ -15,6 +15,21 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef(null);
   const resultsContainerRef = useRef(null);
+  const [placeholderText, setPlaceholderText] = useState("SEARCH THE UNMASKED ARCHIVES...");
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const checkWidth = () => {
+      if (window.innerWidth < 768) {
+        setPlaceholderText("Search...");
+      } else {
+        setPlaceholderText("SEARCH THE UNMASKED ARCHIVES...");
+      }
+    };
+    checkWidth();
+    window.addEventListener('resize', checkWidth);
+    return () => window.removeEventListener('resize', checkWidth);
+  }, [isOpen]);
 
   // 1. Fetch and index all searchable content on mount
   useEffect(() => {
@@ -300,7 +315,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
               <input
                 ref={inputRef}
                 type="text"
-                placeholder="SEARCH THE UNMASKED ARCHIVES..."
+                placeholder={placeholderText}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 className="w-full pl-12 pr-12 py-2 bg-transparent text-fg-primary text-2xl md:text-4xl font-black uppercase tracking-tight outline-none placeholder:text-text-muted/40 font-display"
@@ -319,7 +334,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
  
             {/* QUICK KEYBOARD HINT */}
             <div className="flex justify-between items-center text-xs md:text-sm font-mono text-text-muted uppercase tracking-widest mb-6">
-              <span>{loading ? 'indexing files...' : `system ready: ${items.length} items loaded`}</span>
+              <span>{loading ? 'INDEXING FILES...' : `${items.length} SEARCHABLE ITEMS LOADED`}</span>
               <div className="hidden md:flex gap-4">
                 <span>[↑↓] navigate</span>
                 <span>[enter] select</span>
@@ -345,7 +360,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
               ) : query.trim() === '' ? (
                 /* Empty state / search prompts */
                 <div className="py-12 border border-dashed border-border-rule p-8 flex flex-col gap-6">
-                  <span className="text-xs font-mono text-accent font-bold uppercase tracking-widest">RECENT SEARCH SUGGESTIONS</span>
+                  <span className="text-xs font-mono text-accent font-bold uppercase tracking-widest">SUGGESTED SEARCHES</span>
                   <div className="flex flex-wrap gap-3">
                     {['unmasking', 'tabs', 'burnout', 'habit', 'menu', 'audit'].map(term => (
                       <button
@@ -400,7 +415,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
                           </div>
  
                           {/* Middle Row: Title */}
-                          <h4 className={`text-lg md:text-xl font-black uppercase tracking-tight mb-2 leading-tight transition-colors ${
+                          <h4 className={`text-lg md:text-xl font-black uppercase tracking-wide mb-2 leading-tight transition-colors ${
                             isActive ? 'text-accent' : 'text-fg-primary'
                           }`}>
                             {highlightText(item.title, query)}

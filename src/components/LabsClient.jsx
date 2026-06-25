@@ -20,7 +20,7 @@ const defaultLabs = [
     slug: "acoustic-shield",
     category: { title: "ACOUSTIC SHIELDS", slug: "acoustic" },
     tag: "AUDIO",
-    excerpt: "Brownian focus hum to mask ambient office noises and calm auditory nodes.",
+    excerpt: "An interactive client-side sound generator producing customized pink, white, and brown noise to mask distracting ambient sounds and quieten an overactive nervous system.",
     toolComponentKey: "acoustic-shield",
     setupTime: "30 sec",
     accessibility: "Full keyboard",
@@ -29,13 +29,13 @@ const defaultLabs = [
   },
   {
     _id: "default-2",
-    title: "Dopamine Snacks",
-    slug: "dopamine-snacks",
-    category: { title: "DOPAMINE RESETS", slug: "dopamine" },
-    tag: "FOCUS",
-    excerpt: "Roll for a sensory reset. Simple physical tasks that interrupt digital loops.",
-    toolComponentKey: "dopamine-menu",
-    setupTime: "10 sec",
+    title: "Sensory Audit",
+    slug: "sensory-audit",
+    category: { title: "VISUAL & SPACE", slug: "visual" },
+    tag: "SENSORY",
+    excerpt: "A guided 7-question environmental self-audit designed to identify hidden sensory drains in your workspace and output a single, high-impact adjustment to make today.",
+    toolComponentKey: "sensory-audit",
+    setupTime: "2 min",
     accessibility: "Full keyboard",
     mobileReady: true,
     noTracking: true,
@@ -46,7 +46,7 @@ const defaultLabs = [
     slug: "visual-snow-shield",
     category: { title: "VISUAL & SPACE", slug: "visual" },
     tag: "VISUAL",
-    excerpt: "Fine-grain fractal textures across your viewport to soften screen spikes and focus timebox.",
+    excerpt: "Overlay fine-grain, customizable fractal noise on your screen to reduce harsh light spikes, ease visual static, and soothe screen-induced sensory overload.",
     toolComponentKey: "visual-snow-shield",
     setupTime: "15 sec",
     accessibility: "Full keyboard",
@@ -55,13 +55,13 @@ const defaultLabs = [
   },
   {
     _id: "default-4",
-    title: "Brown Noise Loop",
-    slug: "brown-noise-loop",
-    category: { title: "ACOUSTIC SHIELDS", slug: "acoustic" },
-    tag: "AUDIO",
-    excerpt: "A client-side synthesized deep Brownian rumble with a warm, tactile timebox to lock in attention.",
-    toolComponentKey: "brown-noise-loop",
-    setupTime: "5 sec",
+    title: "Spoon Tracker",
+    slug: "spoon-tracker",
+    category: { title: "VISUAL & SPACE", slug: "visual" },
+    tag: "EXECUTIVE DYSFUNCTION",
+    excerpt: "A tactile, visual energy budget tool based on Spoon Theory. Drag and drop spoons throughout your day to visualize and manage your fluctuating cognitive capacity.",
+    toolComponentKey: "spoon-tracker",
+    setupTime: "15 sec",
     accessibility: "Full keyboard",
     mobileReady: true,
     noTracking: true,
@@ -72,7 +72,7 @@ const defaultLabs = [
     slug: "decision-coin",
     category: { title: "DOPAMINE RESETS", slug: "dopamine" },
     tag: "DECISIONS",
-    excerpt: "Tap to flip. Two custom labels. Useful for the decisions your brain refuses to make on its own.",
+    excerpt: "A simple, low-friction tool to break executive paralysis. Input two options and let the coin make the micro-choices your brain is currently too tired to process.",
     toolComponentKey: "decision-coin",
     setupTime: "5 sec",
     accessibility: "Full keyboard",
@@ -81,39 +81,13 @@ const defaultLabs = [
   },
   {
     _id: "default-6",
-    title: "Spoon Tracker",
-    slug: "spoon-tracker",
-    category: { title: "VISUAL & SPACE", slug: "visual" },
-    tag: "EXECUTIVE DYSFUNCTION",
-    excerpt: "Drag spoons in and out across the day. A visible energy budget for brains that need to see the maths.",
-    toolComponentKey: "spoon-tracker",
-    setupTime: "15 sec",
-    accessibility: "Full keyboard",
-    mobileReady: true,
-    noTracking: true,
-  },
-  {
-    _id: "default-7",
-    title: "Sensory Audit",
-    slug: "sensory-audit",
-    category: { title: "VISUAL & SPACE", slug: "visual" },
-    tag: "SENSORY",
-    excerpt: "A guided 7-question environmental self-audit. Outputs likely sensory drains and one targeted change.",
-    toolComponentKey: "sensory-audit",
-    setupTime: "2 min",
-    accessibility: "Full keyboard",
-    mobileReady: true,
-    noTracking: true,
-  },
-  {
-    _id: "default-8",
-    title: "Banner Designs",
-    slug: "banner-showcase",
-    category: { title: "VISUAL & SPACE", slug: "visual" },
-    tag: "EXPERIMENT",
-    excerpt: "Interactive prototyping for four new premium neurodiverse post header banner designs.",
-    toolComponentKey: "banner-showcase",
-    setupTime: "10 sec",
+    title: "Brown Noise Loop",
+    slug: "brown-noise-loop",
+    category: { title: "ACOUSTIC SHIELDS", slug: "acoustic" },
+    tag: "AUDIO",
+    excerpt: "A deep, client-side synthesized Brownian rumble paired with a highly visible focus timebox to help lock in attention and maintain focus during deep work sessions.",
+    toolComponentKey: "brown-noise-loop",
+    setupTime: "5 sec",
     accessibility: "Full keyboard",
     mobileReady: true,
     noTracking: true,
@@ -174,7 +148,12 @@ function LabsClientInner({ initialCategories, initialLabs }) {
   const getToolKey = (lab) => lab.toolComponentKey || lab.slug || '';
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
+      {/* Reassurance Strip */}
+      <div className="border border-dashed border-accent/40 bg-bg-primary p-4 text-center text-xs md:text-sm font-mono tracking-wider text-accent select-none">
+        FREE EXPERIMENTS · NO ACCOUNTS · NO TRACKING · DATA STAYS LOCAL WHERE POSSIBLE
+      </div>
+
       {/* Category Filter Tabs */}
       <div className="flex flex-wrap gap-3 border-b border-border-rule pb-6 text-left">
         {categories.map((cat) => {
@@ -199,12 +178,15 @@ function LabsClientInner({ initialCategories, initialLabs }) {
       {/* Search + Metadata Bar */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-sm font-mono text-text-muted uppercase tracking-[0.12em] pb-4 border-b border-dashed border-border-rule/60 select-none">
         <span>
-          FOUND {filteredLabs.length} PROTOTYPE{filteredLabs.length !== 1 && 'S'} MATCHING COMBO
+          {activeCategory === 'all' && !searchQuery
+            ? `SHOWING ${filteredLabs.length} PROTOTYPE${filteredLabs.length !== 1 ? 'S' : ''}`
+            : `FOUND ${filteredLabs.length} PROTOTYPE${filteredLabs.length !== 1 ? 'S' : ''} MATCHING COMBO`
+          }
         </span>
         <div className="flex items-center gap-3 w-full sm:w-auto">
-          {activeCategory !== "all" && (
+          {(activeCategory !== "all" || searchQuery) && (
             <button
-              onClick={() => setActiveCategory("all")}
+              onClick={() => { setActiveCategory("all"); setSearchQuery(""); }}
               className="text-accent hover:underline font-black cursor-pointer bg-transparent border-none text-sm uppercase font-mono tracking-wider"
             >
               RESET FILTER

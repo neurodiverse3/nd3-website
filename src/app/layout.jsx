@@ -2,10 +2,8 @@ import React from 'react';
 import '../index.css';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { CartSidebar } from '../components/CartSidebar';
 import { PageTransition } from '../components/PageTransition';
 import { BackToTop } from '../components/BackToTop';
-import { CartProvider } from '../context/CartContext';
 import { ThemeProvider } from '../context/ThemeContext';
 import { BrainStateProvider } from '../context/BrainStateContext';
 import { Inter, Outfit } from 'next/font/google';
@@ -49,7 +47,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: '/ollie.jpg',
+        url: '/ollie-profile-v2.jpg',
         width: 1200,
         height: 630,
         alt: 'neurodivers3 - Neurodivergent life, tools and stories',
@@ -60,7 +58,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'neurodivers3 - Neurodivergent life, tools and stories',
     description: 'An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.',
-    images: ['/ollie.jpg'],
+    images: ['/ollie-profile-v2.jpg'],
   },
 };
 
@@ -117,11 +115,9 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <GlobalVisualSnow />
           <BrainStateProvider>
-          <CartProvider>
             <PWARegister />
             <ZeroTelemetryBanner />
             <Navbar />
-            <CartSidebar />
             <BackToTop />
             <main id="main" className="min-h-screen">
               <PageTransition>
@@ -129,7 +125,6 @@ export default function RootLayout({ children }) {
               </PageTransition>
             </main>
             <Footer />
-          </CartProvider>
           </BrainStateProvider>
         </ThemeProvider>
       </body>

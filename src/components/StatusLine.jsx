@@ -4,18 +4,7 @@ import React from 'react';
 export const StatusLine = () => {
   const [statusLine, setStatusLine] = React.useState(null);
 
-  React.useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_STRAPI_API_URL) return;
-    let active = true;
-    import('../lib/strapi').then(({ client }) => {
-      client.fetch('*[_type == "siteSettings"][0].statusLine')
-        .then(res => {
-          if (active) setStatusLine(res);
-        })
-        .catch(() => {});
-    });
-    return () => { active = false; };
-  }, []);
+  // Removed client-side fetch to prevent 403 errors.
 
   const fallback = "IN PROGRESS · EST. 2026 · SUBSCRIBE FOR EARLY ACCESS";
   const content = (statusLine && (Array.isArray(statusLine) ? statusLine.join(' · ') : statusLine)) || fallback;

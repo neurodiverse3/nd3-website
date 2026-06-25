@@ -143,7 +143,7 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
 
               {/* Social Tweet Quick Share */}
               <div className="flex flex-col gap-1.5 justify-end">
-                <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest block font-bold">QUICK SOCIAL TRANSMISSION:</span>
+                <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest block font-bold">QUICK SOCIAL SHARE:</span>
                 <a
                   href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this amazing sensory-friendly neurodivergent tool: ${landingPageUrl} via @neurodivers3`)}`}
                   target="_blank"

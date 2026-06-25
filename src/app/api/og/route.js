@@ -192,7 +192,7 @@ export async function GET(request) {
                 fontWeight: 'bold',
               }}
             >
-              {eyebrow ? eyebrow : 'TRANSMISSION'}
+              {eyebrow ? eyebrow : 'ESSAY'}
             </div>
 
             {/* Replaced technical log block with simple POST № 001 line */}

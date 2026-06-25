@@ -40,7 +40,7 @@ export default function ProductMediaShowcase({
             <span>Show Cover</span>
           </button>
 
-          <div className="bg-[var(--accent)] text-[var(--accent-text,var(--bg))] border-2 border-[var(--fg)] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.18em]">
+          <div className="bg-[var(--accent)] text-[var(--accent-text,var(--bg))] border-2 border-[var(--fg)] px-4 py-2 font-mono text-sm font-bold uppercase tracking-[0.18em]">
             {priceLabel}
           </div>
         </div>
@@ -106,7 +106,7 @@ export default function ProductMediaShowcase({
       )}
 
       {/* Price label always visible in static mode */}
-      <div className="absolute right-3 top-3 z-[4] bg-[var(--accent)] text-[var(--accent-text,var(--bg))] border-2 border-[var(--fg)] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.18em]">
+      <div className="absolute right-3 top-3 z-[4] bg-[var(--accent)] text-[var(--accent-text,var(--bg))] border-2 border-[var(--fg)] px-4 py-2 font-mono text-sm font-bold uppercase tracking-[0.18em]">
         {priceLabel}
       </div>
     </div>

@@ -9,7 +9,7 @@ export const ZeroTelemetryBanner = () => {
 
   useEffect(() => {
     setMounted(true);
-    // Check if the user has already acknowledged the privacy transmission
+    // Check if the user has already acknowledged the privacy notice
     const acknowledged = localStorage.getItem('nd3_telemetry_acknowledged');
     if (!acknowledged) {
       // Small visual entry delay for snappiness
@@ -61,7 +61,7 @@ export const ZeroTelemetryBanner = () => {
             onClick={handleAcknowledge}
             className="w-full py-3 bg-transparent hover:bg-accent-pink-soft border-2 border-border-rule hover:border-accent-pink text-fg-primary hover:text-accent-pink flex items-center justify-center gap-2 font-black uppercase tracking-widest text-xs md:text-sm transition-all focus-ring rounded-none cursor-pointer"
           >
-            <span>Acknowledge Transmission</span>
+            <span>Understood</span>
             <ArrowRight size={10} />
           </button>
         </motion.div>

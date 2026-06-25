@@ -17,6 +17,8 @@ import AuthorCard from '../../../components/AuthorCard';
 import { toSmartQuotes } from '../../../lib/typography';
 import ReadingProgress from '../../../components/ReadingProgress';
 
+export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
+
 export async function generateStaticParams() {
   const posts = await getPosts();
   return posts.map((p) => ({ slug: p.slug }));
@@ -216,6 +218,86 @@ export default async function BlogPostPage({ params }) {
 
   const showToC = headings.length >= 3;
 
+  const bodyBlocks = Array.isArray(post.body) ? post.body : [];
+  const midpoint = Math.floor(bodyBlocks.length / 2);
+  let splitIndex = -1;
+
+  const getBlockText = (block) => {
+    if (!block) return '';
+    if (Array.isArray(block.children)) {
+      return block.children.map(c => c.text || '').join('');
+    }
+    return '';
+  };
+
+  const isH2 = (block) => {
+    if (!block) return false;
+    return (block._type === 'block' && block.style === 'h2') || 
+           (block.type === 'heading' && block.level === 2);
+  };
+
+  // 1. Specific slug split override
+  if (slug === '47-tabs-hyperfocus') {
+    const targetIdx = bodyBlocks.findIndex(block => {
+      if (isH2(block)) {
+        const txt = getBlockText(block).toLowerCase();
+        return txt.includes('kinder tab discipline');
+      }
+      return false;
+    });
+    if (targetIdx !== -1) {
+      splitIndex = targetIdx;
+    }
+  }
+
+  // 2. Search for any H2 heading in the middle third of the post
+  if (splitIndex === -1 && bodyBlocks.length > 0) {
+    const minRange = Math.floor(bodyBlocks.length / 3);
+    const maxRange = Math.floor((bodyBlocks.length * 2) / 3);
+    let bestH2Index = -1;
+    let minDistance = Infinity;
+
+    for (let i = minRange; i <= maxRange; i++) {
+      const block = bodyBlocks[i];
+      if (isH2(block)) {
+        const distance = Math.abs(i - midpoint);
+        if (distance < minDistance) {
+          minDistance = distance;
+          bestH2Index = i;
+        }
+      }
+    }
+    if (bestH2Index !== -1) {
+      splitIndex = bestH2Index;
+    }
+  }
+
+  // 3. Fallback to paragraph boundaries near the midpoint
+  if (splitIndex === -1 && bodyBlocks.length > 0) {
+    splitIndex = midpoint;
+    for (let i = midpoint; i > 0; i--) {
+      const b = bodyBlocks[i];
+      if (b && (
+        (b._type === 'block' && b.style === 'normal') ||
+        (b.type === 'paragraph') ||
+        b._type === 'block' || 
+        b.type === 'heading' || 
+        b.style === 'normal'
+      )) {
+        splitIndex = i;
+        break;
+      }
+    }
+  }
+
+  // If we still didn't find a split index, default to midpoint or length
+  if (splitIndex === -1) {
+    splitIndex = midpoint > 0 ? midpoint : bodyBlocks.length;
+  }
+
+  const firstHalf = bodyBlocks.slice(0, splitIndex);
+  const secondHalf = bodyBlocks.slice(splitIndex);
+
   let seriesPosts = [];
   let currentSeriesIndex = -1;
   let prevSeriesPost = null;
@@ -307,12 +389,12 @@ export default async function BlogPostPage({ params }) {
       <article className="relative min-h-screen bg-bg text-fg pb-24">
         <ReadingProgress />
         {/* Reading progress header + auto hide Navbar */}
-        <StickyBlogHeader title={post.title} readTime={readTimeVal} />
+        <StickyBlogHeader title={post.title} />
 
         {/* TITLE & EXCERPT CONTAINER (stretched full-width above the content grid on desktop) */}
-        <div className="mx-auto px-6 md:px-12 pt-32 pb-4 max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1600px] w-full text-left">
-          <div className="w-full max-w-[1120px]">
-            <h1 className="text-[clamp(2.25rem,4.5vw,4.5rem)] font-black uppercase tracking-wide leading-[1.0] mb-6 text-fg-primary font-display">
+        <div className="mx-auto px-4 md:px-6 pt-32 pb-4 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] w-full text-left">
+          <div className="w-full">
+            <h1 className="text-[clamp(2rem,3.8vw,3.75rem)] font-black uppercase tracking-wide leading-[1.0] mb-6 text-fg-primary font-display">
               {post.title}
             </h1>
             {post.excerpt && (
@@ -323,17 +405,17 @@ export default async function BlogPostPage({ params }) {
           </div>
         </div>
 
-        <div className="mx-auto px-6 md:px-12 pt-4 xl:pt-8 max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1600px] relative flex flex-col xl:flex-row gap-12 xl:gap-16 items-start">
+        <div className="mx-auto px-4 md:px-6 pt-4 xl:pt-8 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] relative flex flex-col xl:flex-row gap-6 xl:gap-8 items-start">
           
           {/* 1. LEFT COLUMN: OUTLINE / TOC (LIKE IT WAS BEFORE, STICKY ON DESKTOP) */}
           {showToC && (
             <div className="hidden xl:block w-60 shrink-0 sticky top-32 select-none">
-              <TableOfContents headings={headings} isMobile={false} />
+              <TableOfContents headings={headings} isMobile={false} pillar={post.pillar} />
             </div>
           )}
 
           {/* 2. CENTER: MAIN READING COLUMN */}
-          <div className="flex-grow w-full max-w-[760px] mx-auto xl:mx-0">
+          <div className="flex-grow w-full max-w-[820px] mx-auto xl:mx-0">
             
             {/* MOBILE & TABLET ONLY METADATA & UTILITIES FALLBACK */}
             <div className="xl:hidden w-full mb-8 text-left">
@@ -345,8 +427,6 @@ export default async function BlogPostPage({ params }) {
               </Link>
 
               <div className="flex flex-wrap items-center gap-3 text-xs font-mono font-bold uppercase tracking-[0.15em] text-text-muted mb-4">
-                <span>{readTimeVal}</span>
-                <span>·</span>
                 <span>{formattedDate}</span>
                 <span>·</span>
                 <Link href={`/blog?pillar=${post.pillar}`} className="text-accent hover:underline font-black focus-ring">
@@ -356,12 +436,10 @@ export default async function BlogPostPage({ params }) {
                 <Link href={`/blog?state=${post.brainState || post.state}`} className="text-accent hover:underline font-black focus-ring">
                   {getBrainStateLabel(post.brainState || post.state)}
                 </Link>
-                <span>·</span>
-                <span>№ {postNumberVal.toString().padStart(3, '0')}</span>
               </div>
 
               <div className="text-xs text-text-muted italic border-l-2 border-border-rule/80 pl-3 py-0.5">
-                By Ollie Clews
+                By Ollie
               </div>
 
               {formattedUpdateDate && (
@@ -370,9 +448,11 @@ export default async function BlogPostPage({ params }) {
                 </div>
               )}
 
-              <div className="mt-8">
-                <AudioNarration />
-              </div>
+              {!post.hideNarration && (
+                <div className="mt-8">
+                  <AudioNarration />
+                </div>
+              )}
             </div>
 
 
@@ -388,9 +468,9 @@ export default async function BlogPostPage({ params }) {
                   ← All posts
                 </Link>
 
-                {/* Date + Read Time pill */}
+                {/* Date pill */}
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule bg-surface/40 text-fg-primary font-mono text-xs md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">
-                  {formattedDate} · {readTimeVal}
+                  {formattedDate}
                 </span>
 
                 {/* Pillar tag */}
@@ -410,9 +490,11 @@ export default async function BlogPostPage({ params }) {
                 </Link>
 
                 {/* Audio Narration */}
-                <span className="inline-flex shrink-0">
-                  <AudioNarration compact={true} />
-                </span>
+                {!post.hideNarration && (
+                  <span className="inline-flex shrink-0">
+                    <AudioNarration compact={true} />
+                  </span>
+                )}
 
                 {/* Share buttons */}
                 <span className="inline-flex shrink-0">
@@ -451,22 +533,39 @@ export default async function BlogPostPage({ params }) {
             {/* MOBILE ONLY TABLE OF CONTENTS / OUTLINE DROPDOWN */}
             {showToC && (
               <div className="xl:hidden max-w-[760px] mx-auto">
-                <TableOfContents headings={headings} isMobile={true} />
+                <TableOfContents headings={headings} isMobile={true} pillar={post.pillar} />
               </div>
             )}
 
             {/* IMMERSIVE BRUTALIST BODY TEXT RENDERER */}
             <div id="blog-content" className="w-full">
-              <RichTextRenderer 
-                content={post.body} 
-                footnotes={footnotes} 
-                headings={headings}
-              />
-            </div>
 
-            {/* PROSE END SIGN-OFF IN VOICE */}
-            <div className="max-w-[760px] mx-auto text-lg md:text-xl text-fg-primary/90 font-light leading-relaxed mt-10 mb-12 text-left italic font-sans">
-              - Ollie
+              {firstHalf.length > 0 ? (
+                <>
+                  <RichTextRenderer 
+                    content={firstHalf} 
+                    footnotes={footnotes} 
+                    headings={headings}
+                  />
+                  
+                  {/* CENTRAL NEWSLETTER SIGNUP BLOCK (Mid-post) */}
+                  <div id="subscribe-block" className="max-w-[820px] mx-auto my-12 no-print">
+                    <PostNewsletter />
+                  </div>
+
+                  <RichTextRenderer 
+                    content={secondHalf} 
+                    footnotes={footnotes} 
+                    headings={headings}
+                  />
+                </>
+              ) : (
+                <RichTextRenderer 
+                  content={bodyBlocks} 
+                  footnotes={footnotes} 
+                  headings={headings}
+                />
+              )}
             </div>
 
             {/* FOOTNOTES BLOCK */}
@@ -492,30 +591,6 @@ export default async function BlogPostPage({ params }) {
                 </ol>
               </div>
             )}
-
-            {/* REUSABLE PREMIUM AUTHOR PROFILE CARD */}
-            <div className="max-w-[760px] mx-auto mt-16 mb-16">
-              <AuthorCard author={post.author || {}} socials={post.socials || {}} />
-            </div>
-
-            {/* MOBILE ONLY BOTTOM INLINE SHARE BAR */}
-            <div className="xl:hidden max-w-[760px] mx-auto my-8">
-              <SharePost title={post.title} slug={slug} dek={post.excerpt} />
-            </div>
-
-            {/* CENTRAL NEWSLETTER SIGNUP BLOCK */}
-            <div id="subscribe-block" className="max-w-[760px] mx-auto mt-16">
-              <PostNewsletter />
-            </div>
-
-            {/* CURATED DISCOVERY "KEEP READING" COMPONENT */}
-            <div className="w-full mt-16">
-              <RelatedPosts 
-                posts={allPosts} 
-                currentPost={post} 
-                manualPinSlug={post.manualPinSlug || null}
-              />
-            </div>
 
             {/* SERIES SEQUENTIAL END-OF-POST NAVIGATION BLOCK */}
             {post.series?.name && seriesPosts.length > 0 && (
@@ -560,85 +635,122 @@ export default async function BlogPostPage({ params }) {
               </div>
             )}
 
+            {/* MOBILE ONLY BOTTOM INLINE SHARE BAR */}
+            <div className="xl:hidden max-w-[760px] mx-auto my-8">
+              <SharePost title={post.title} slug={slug} dek={post.excerpt} />
+            </div>
+
+            {/* REUSABLE PREMIUM AUTHOR PROFILE CARD (Bottom of post before comments) */}
+            <div className="max-w-[760px] mx-auto mt-16 mb-6 no-print">
+              <AuthorCard author={post.author || {}} socials={post.socials || {}} />
+            </div>
+
             {/* REPLIES TIMELINE SECTION */}
-            {post.allowComments !== false ? (
-              <CommentSection postSlug={slug} postTitle={post.title} initialComments={comments} />
-            ) : (
-              <div className="max-w-[760px] mx-auto mt-16 mb-16 text-left">
-                <div className="p-4 bg-surface border border-border-rule/80 text-xs font-mono tracking-wide text-text-muted text-left">
-                  Comments have been paused for this transmission.{' '}
-                  <a
-                    href={`mailto:hello@neurodivers3.co.uk?subject=${encodeURIComponent(`Reply: ${post.title}`)}`}
-                    className="text-accent hover:underline font-bold focus-ring ml-1"
-                  >
-                    Reply by email instead →
-                  </a>
+            <div id="comments" className="max-w-[760px] mx-auto mt-16">
+              {post.allowComments !== false ? (
+                <CommentSection postSlug={slug} postTitle={post.title} initialComments={comments} />
+              ) : (
+                <div className="text-left">
+                  <div className="p-4 bg-surface border border-border-rule/80 text-xs font-mono tracking-wide text-text-muted text-left">
+                    Comments have been paused for this post.{' '}
+                    <a
+                      href={`mailto:hello@neurodivers3.co.uk?subject=${encodeURIComponent(`Reply: ${post.title}`)}`}
+                      className="text-accent hover:underline font-bold focus-ring ml-1"
+                    >
+                      Reply by email instead →
+                    </a>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
 
           </div>
 
           {/* 3. RIGHT COLUMN: BEAUTIFUL FLOATING UTILITY BOX IN THE FREE SPACE */}
           <aside className="hidden xl:flex flex-col gap-6 w-64 shrink-0 sticky top-32 select-none">
             
-            <div className="w-full sidebar-card p-5 flex flex-col gap-6 text-left relative overflow-hidden">
+            <div className="w-full sidebar-card p-3.5 flex flex-col gap-3 text-left relative overflow-hidden">
               
               {/* Gradient accent bar at the top */}
               <div className="absolute top-0 left-0 right-0 h-[3px] bg-grad-meta" />
 
-              {/* Back to Blog */}
+              {/* Return to Blog Button */}
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-200 self-start shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring mt-1"
+                className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 border border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-xs font-bold uppercase tracking-widest transition-all duration-200 text-center shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring mt-1"
               >
-                ← Back to blog
+                RETURN TO BLOG
               </Link>
 
-              {/* Compact Meta Info */}
-              <div className="space-y-4 border-t border-border-rule/80 pt-5 text-left">
+              {/* Section 1: Meta Details */}
+              <div className="space-y-3 border-t border-border-rule/80 pt-3 text-left">
                 <div>
-                  <span className="text-xs md:text-sm font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-1">
-                    DATE & READ TIME
+                  <span className="text-xs font-mono font-bold tracking-widest text-text-muted uppercase block mb-1">
+                    PUBLISHED
                   </span>
-                  <span className="text-xs font-sans font-bold text-fg-primary block">
-                    {formattedDate} · {readTimeVal}
+                  <span className="text-sm font-sans font-bold text-fg-primary block">
+                    {formattedDate}
                   </span>
                 </div>
                 <div>
-                  <span className="text-xs md:text-sm font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-2">
-                    METRICS
+                  <span className="text-xs font-mono font-bold tracking-widest text-text-muted uppercase block mb-2">
+                    CATEGORIES
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     <Link 
-                      href={`/blog?pillar=${post.pillar}`} 
-                      className={`text-xs md:text-sm font-mono font-black uppercase px-2 py-0.5 transition-all focus-ring ${getPillarTagClass(post.pillar)}`}
+                       href={`/blog?pillar=${post.pillar}`} 
+                      className={`text-xs font-mono font-black uppercase px-2 py-0.5 transition-all focus-ring ${getPillarTagClass(post.pillar)}`}
                     >
                       {getPillarLabel(post.pillar)}
                     </Link>
                     <Link 
-                      href={`/blog?state=${post.brainState || post.state}`} 
-                      className={`text-xs md:text-sm font-mono font-black uppercase px-2 py-0.5 transition-all focus-ring ${getBrainStateTagClass(post.brainState || post.state)}`}
+                       href={`/blog?state=${post.brainState || post.state}`} 
+                      className={`text-xs font-mono font-black uppercase px-2 py-0.5 transition-all focus-ring ${getBrainStateTagClass(post.brainState || post.state)}`}
                     >
                       {getBrainStateLabel(post.brainState || post.state)}
                     </Link>
                   </div>
                 </div>
-                <div className="text-xs md:text-sm font-mono tracking-widest text-text-muted uppercase font-bold flex items-center gap-2 pt-1">
-                  <span>BY</span>
-                  <span className="text-fg-primary font-black hover:text-accent transition-colors">
-                    OLLIE CLEWS
+                <div className="flex items-center gap-2 pt-1 border-t border-border-rule/40 pt-2.5">
+                  <span className="text-xs font-mono font-bold tracking-widest text-text-muted uppercase">
+                    BY
+                  </span>
+                  <span className="text-sm font-sans font-bold text-fg-primary uppercase">
+                    OLLIE
                   </span>
                 </div>
               </div>
 
-              {/* Compact Audio Narration player */}
-              <div className="border-t border-border-rule/80 pt-5">
-                <AudioNarration compact={true} />
-              </div>
+              {/* Section 2: Jump to Comments */}
+              {post.allowComments !== false && (
+                <div className="border-t border-border-rule/80 pt-3">
+                  <a
+                    href="#comments"
+                    className="w-full inline-flex items-center justify-between px-3 py-2 border border-border-rule bg-bg-primary/45 hover:bg-surface hover:text-accent hover:border-accent font-mono text-xs font-black uppercase tracking-widest transition-all duration-200 focus-ring text-center"
+                  >
+                    <span>💬 REPLIES</span>
+                    <span className="px-2 py-0.5 text-xs bg-accent/10 border border-accent/20 text-accent font-bold font-mono">
+                      {comments.length}
+                    </span>
+                  </a>
+                </div>
+              )}
 
-              {/* Vertical Share Stack */}
-              <div className="border-t border-border-rule/80 pt-5">
+              {/* Section 3: Audio Narration */}
+              {!post.hideNarration && (
+                <div className="pt-4 border-t border-border-rule/80">
+                  <span className="text-[10px] font-mono tracking-widest text-text-muted block mb-2 uppercase">
+                    AUDIO NARRATION
+                  </span>
+                  <AudioNarration compact={true} />
+                </div>
+              )}
+
+              {/* Section 4: Share */}
+              <div className="border-t border-border-rule/80 pt-3">
+                <span className="text-xs font-mono font-bold tracking-widest text-text-muted uppercase block mb-2">
+                  SHARE
+                </span>
                 <SharePost title={post.title} slug={slug} dek={post.excerpt} vertical={true} />
               </div>
 
@@ -647,6 +759,16 @@ export default async function BlogPostPage({ params }) {
           </aside>
 
         </div>
+
+        {/* RELATED READING SECTION (outside the columns to span full-width) */}
+        <div className="mx-auto px-4 md:px-6 mt-20 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] w-full text-left">
+          <RelatedPosts 
+            posts={allPosts} 
+            currentPost={post} 
+            manualPinSlug={post.manualPinSlug || null}
+          />
+        </div>
+
       </article>
     </>
   );

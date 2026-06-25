@@ -143,14 +143,11 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
   };
 
   if (vertical) {
-    const gridBtnClass = "w-10 h-10 border border-border-rule/70 bg-bg-primary/40 flex items-center justify-center text-text-muted hover:bg-accent-pink/10 hover:border-accent-pink hover:text-accent-pink transition-all duration-200 rounded-none cursor-pointer focus-ring mx-auto";
+    const gridBtnClass = "w-[38px] h-[38px] border border-border-rule/70 bg-bg-primary/40 flex items-center justify-center text-text-muted hover:bg-accent-pink/10 hover:border-accent-pink hover:text-accent-pink transition-all duration-200 rounded-none cursor-pointer focus-ring mx-auto";
 
     return (
       <div className="w-full no-print select-none">
-        <span className="text-xs md:text-sm font-mono tracking-[0.2em] text-text-muted uppercase block font-black mb-2.5 text-center">
-          SHARE
-        </span>
-        <div className="grid grid-cols-4 gap-2 justify-items-center">
+        <div className="grid grid-cols-4 gap-1.5 justify-items-center">
           {/* Copy Link */}
           <button
             onClick={copyLink}

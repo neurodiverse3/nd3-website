@@ -48,7 +48,7 @@ export default function AboutClient() {
           />
           <blockquote className="border-l-4 border-accent pl-6 py-2 mt-8">
             <p className="text-2xl md:text-3xl font-light text-fg leading-relaxed max-w-4xl font-sans">
-              Ollie is a late-diagnosed AuDHD’er, a recovering "weird kid", and the brain behind <span className="font-semibold text-accent">neurodivers³</span>.
+              Ollie is a late-diagnosed AuDHD adult, a recovering "weird kid", and the brain behind <span className="font-semibold text-accent">neurodivers³</span>.
             </p>
           </blockquote>
         </motion.section>
@@ -91,7 +91,7 @@ export default function AboutClient() {
               <div className="relative w-full aspect-square border border-border-rule bg-bg-primary/40 p-2 shadow-sm rounded-lg overflow-hidden group">
                 <div className="relative w-full h-full overflow-hidden rounded-md">
                   <Image 
-                    src="/ollie.jpg" 
+                    src="/ollie-profile-v2.jpg" 
                     alt="Ollie, mid-30s, looking slightly off-camera" 
                     fill 
                     sizes="260px"
@@ -276,7 +276,7 @@ export default function AboutClient() {
                 </p>
               </div>
               <Link href="/memoir" className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-accent hover:text-fg font-black">
-                Read the memoir <ArrowRight size={14} />
+                Visit the memoir page <ArrowRight size={14} />
               </Link>
             </div>
           </div>
@@ -357,7 +357,7 @@ export default function AboutClient() {
             </p>
           </div>
           <Link href="/memoir" className="inline-flex items-center gap-2 px-5 py-3 border border-accent text-accent hover:bg-accent hover:text-bg-primary font-mono text-xs uppercase tracking-widest font-black transition-all">
-            Read the memoir &rarr;
+            Visit the memoir page &rarr;
           </Link>
         </motion.section>
 
@@ -372,7 +372,7 @@ export default function AboutClient() {
               If you want to feel less alone: <Link href="/blog" className="text-accent underline font-medium">read a story</Link> and find the one that finally names something you've never had words for.
             </p>
             <p>
-              If you want the longer story: <Link href="/memoir" className="text-accent underline font-medium">start the memoir</Link>.
+              If you want the longer story: <Link href="/memoir" className="text-accent underline font-medium">visit the memoir page</Link> to join the newsletter and receive release updates.
             </p>
             <p>
               If you want something practical: grab a free template, <Link href="/store" className="text-accent underline font-medium">browse the tools</Link>, or try something on a bad day rather than waiting for a perfect one.

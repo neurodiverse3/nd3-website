@@ -4,14 +4,14 @@ import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
   title: 'Privacy Policy - neurodivers3',
-  description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Gumroad payments.',
+  description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Polar payments.',
   openGraph: {
     title: 'Privacy Policy - neurodivers3',
-    description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Gumroad payments.',
+    description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Polar payments.',
   },
   twitter: {
     title: 'Privacy Policy - neurodivers3',
-    description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Gumroad payments.',
+    description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Polar payments.',
   }
 };
 
@@ -50,13 +50,13 @@ export default function PrivacyPage() {
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>
-                    <strong className="text-[var(--fg)]">Email Address:</strong> Collected when you sign up for early transmissions or purchase a digital product. Used to deliver drafts, product links, and system updates. Processed via <span className="font-semibold text-[var(--fg)]">Resend</span>.
+                    <strong className="text-[var(--fg)]">Email Address:</strong> Collected when you sign up for our newsletter, receive email updates, or purchase a digital product. Used to deliver drafts, product links, and system updates. Processed via <span className="font-semibold text-[var(--fg)]">Resend</span>.
                   </li>
                   <li>
-                    <strong className="text-[var(--fg)]">Transaction & Billing Data:</strong> Collected when you purchase tools or courses in our toolkit. We do <strong>not</strong> store or see your raw credit card numbers. All billing and card processing is securely routed through <span className="font-semibold text-[var(--fg)]">Gumroad</span>.
+                    <strong className="text-[var(--fg)]">Transaction & Billing Data:</strong> Collected when you purchase digital products. We do <strong>not</strong> store or see your raw card details. Billing, checkout, and digital delivery are securely handled through Polar and its payment processors.
                   </li>
                   <li>
-                    <strong className="text-[var(--fg)]">Technical & Cookies Data:</strong> We do not run invasive behavioural tracking or targeted ads. We may collect basic diagnostic telemetry and essential browser cookies to persist your preferred reading theme (Void, Warm Charcoal, or Incubation) and manage your shopping cart state.
+                    <strong className="text-[var(--fg)]">Technical & Cookies Data:</strong> We do not run invasive behavioural tracking, targeted ads, or cross-site tracking. Some accessibility preferences, lab settings, and cart/basket state may be stored locally in your browser to persist your preferred reading theme (Void, Warm Charcoal, or Incubation) and manage your shopping basket state.
                   </li>
                 </ul>
               </div>
@@ -70,7 +70,7 @@ export default function PrivacyPage() {
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li><strong>Resend:</strong> Secure email infrastructure.</li>
-                  <li><strong>Gumroad:</strong> Secure, PCI-compliant checkout and digital distribution processor.</li>
+                  <li><strong>Polar:</strong> Secure, PCI-compliant checkout, billing, and digital delivery processor.</li>
                   <li><strong>Sanity CMS:</strong> Back-end database for writing logs and static configurations.</li>
                   <li><strong>Vercel:</strong> Standard hosting and request routing, processing basic server access logs.</li>
                 </ul>
@@ -105,7 +105,7 @@ export default function PrivacyPage() {
               <ul className="text-sm text-[var(--muted)] space-y-3 font-normal leading-relaxed">
                 <li className="flex items-start gap-2">
                   <span className="text-[var(--accent)] font-bold">✓</span>
-                  <span>Zero trackers or behavioural ad cookies</span>
+                  <span>Zero behavioural ad cookies or cross-site tracking</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[var(--accent)] font-bold">✓</span>
@@ -113,7 +113,7 @@ export default function PrivacyPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[var(--accent)] font-bold">✓</span>
-                  <span>Gumroad security for payments</span>
+                  <span>Polar checkout security for payments</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[var(--accent)] font-bold">✓</span>

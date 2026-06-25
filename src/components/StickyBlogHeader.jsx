@@ -58,16 +58,13 @@ export function StickyBlogHeader({ title, readTime }) {
           <span className="text-xs md:text-sm font-mono tracking-widest text-accent-pink uppercase block font-bold mb-1">
             CURRENTLY READING
           </span>
-          <h2 className="text-sm md:text-base font-black uppercase tracking-tight text-fg-primary truncate font-display leading-tight">
+          <h2 className="text-sm md:text-base font-black uppercase tracking-wide text-fg-primary truncate font-display leading-tight">
             {title}
           </h2>
         </div>
 
-        {/* Right Side: Reading time + "↑ Top" obvious pill button */}
-        <div className="flex items-center gap-4 md:gap-6 shrink-0">
-          <span className="hidden sm:inline-block text-xs md:text-sm font-mono tracking-widest text-text-muted uppercase font-bold">
-            {readTime} Read
-          </span>
+        {/* Right Side: "↑ Top" obvious pill button */}
+        <div className="flex items-center shrink-0">
           
           <button
             onClick={(e) => {

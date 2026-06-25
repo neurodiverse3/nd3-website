@@ -22,19 +22,139 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!product) {
     return {
-      title: "Product Not Found — neurodivers3",
+      title: "Product Not Found - neurodivers3",
     };
   }
 
   return {
-    title: `${product.title} — neurodivers3`,
+    title: `${product.title} - neurodivers3`,
     description: product.cardBlurb,
     openGraph: {
-      title: `${product.title} — neurodivers3`,
+      title: `${product.title} - neurodivers3`,
       description: product.cardBlurb,
       images: [`/store/covers/${product.coverImage}`],
     },
   };
+}
+
+interface FAQItem {
+  q: string;
+  a: string;
+}
+
+function getFAQsForProduct(slug: string, isFree: boolean): FAQItem[] {
+  const faqs: FAQItem[] = [];
+
+  // 1. Delivery FAQ
+  if (isFree) {
+    faqs.push({
+      q: "How do I receive my free download?",
+      a: "Immediately after entering your email, Polar will direct you to a download page, and you will receive an automated email with the direct link. No payment or card details are required."
+    });
+  } else {
+    faqs.push({
+      q: "How do I receive my downloads?",
+      a: "Immediately after payment completes, Polar will direct you to a download page, and you will receive an automated email receipt containing your direct download links. Notion links are provided inside a README text file."
+    });
+  }
+
+  // 2. Refund FAQ (Only for paid)
+  if (!isFree) {
+    faqs.push({
+      q: "What is your refund policy?",
+      a: "neurodivers³ offers a voluntary 14-day refund window on all digital products, no questions asked. If this tool does not fit your focus needs, just email us at hello@neurodivers3.co.uk within 14 days of purchase for a full refund."
+    });
+  }
+
+  // 3. Product type specific FAQs
+  if (slug === "the-toolkit") {
+    faqs.push(
+      {
+        q: "How are the six tools delivered?",
+        a: "You will receive a single ZIP file containing all PDF workbooks, plain text files, and a master README containing the duplication links for all four Notion workspaces. You can duplicate them all or just the ones you need."
+      },
+      {
+        q: "Can I share these templates with my household?",
+        a: "Yes. The personal license covers your single household. Anyone living under your roof is welcome to use these tools to build a collaborative sensory or planning routine."
+      },
+      {
+        q: "What if I already bought one of the individual tools?",
+        a: "If you want to upgrade to the Toolkit but already bought an individual tool, just buy the Toolkit and email hello@neurodivers3.co.uk with both receipts. We will happily refund the individual item price."
+      }
+    );
+  } else if (slug === "1-page-dopamine-menu") {
+    faqs.push(
+      {
+        q: "Is this a physical or digital product?",
+        a: "This is a digital download. You will receive a high-resolution, print-friendly PDF file that you can print at home or use on a tablet/screen."
+      },
+      {
+        q: "Why is this resource free?",
+        a: "The 1-Page Dopamine Menu is the smallest version of our menu format. It is offered free so you can try out the structure and see if it works for your brain before deciding if you want the fully editable Notion template."
+      },
+      {
+        q: "Will you spam my inbox if I sign up?",
+        a: "Never. We send a maximum of two emails a month: honest, lived-experience essays on neurodivergence, plus notice of new templates or updates. You can unsubscribe with a single click at any time."
+      }
+    );
+  } else if (slug === "sensory-audit-workbook" || slug === "communication-templates-bundle") {
+    faqs.push(
+      {
+        q: "Is this a physical workbook or digital?",
+        a: slug === "sensory-audit-workbook"
+          ? "This is a digital download. You will receive a high-resolution, print-ready PDF that you can print at home or fill out digitally on your tablet, phone, or computer."
+          : "This is a digital download. You will receive a ZIP containing the print-ready PDF, plus plain text (.txt), Markdown (.md), and Word (.docx) files so you can copy and customize the templates in any app."
+      },
+      {
+        q: "How do I fill out the PDF on screen?",
+        a: "The PDF is fully interactive and contains fillable form fields. You can open it in any modern web browser or PDF reader (such as Adobe Acrobat or Apple Books) and type your responses directly into the fields."
+      },
+      {
+        q: "What document sizes are provided?",
+        a: "We provide both A4 and US Letter sizes of the PDF to ensure perfect margins when printing, no matter where you are located."
+      }
+    );
+  } else if (slug === "masking-recovery-pack") {
+    faqs.push(
+      {
+        q: "What files are included in the recovery pack?",
+        a: "You get a ZIP containing a 12-page PDF (for acute, low-energy recovery protocols) and a README text file containing the direct duplication link for the Notion-based tracking database."
+      },
+      {
+        q: "Do I need to use both the PDF and Notion parts?",
+        a: "No. The PDF is designed for the acute, low-energy recovery days when you need something offline, simple, and tactile. The Notion tracker is for when your energy returns and you want to notice patterns. Use whichever fits your capacity."
+      },
+      {
+        q: "Do I need a paid Notion plan?",
+        a: "No. The Notion tracker is fully compatible with the free personal Notion plan. You can duplicate it in one click."
+      }
+    );
+  } else {
+    faqs.push(
+      {
+        q: "Do I need a paid Notion plan?",
+        a: "No. All Notion templates in the store are fully compatible with the free personal Notion plan. You can duplicate them to your workspace with a single click."
+      },
+      {
+        q: "Can I customize the database and layout?",
+        a: "Yes, 100%. Once duplicated to your workspace, you own the template. You can add databases, rename properties, change icons, or integrate it into your existing setups."
+      },
+      {
+        q: "What if I am completely new to Notion?",
+        a: "We build our templates to be as low-friction as possible. The workspace includes simple, inline 'Start Here' guides and is stripped of complex, fragile multi-database relationships. It is designed to be easy to use, even on high-fog days."
+      }
+    );
+  }
+
+  // 4. Update FAQ (For all paid)
+  if (!isFree) {
+    faqs.push({
+      q: "Do I get updates when templates change?",
+      a: "Yes. When we refine our templates or workbooks based on what we learn, past buyers receive automatic updates and fresh download links for free where the platform supports it."
+    });
+  }
+
+  return faqs;
 }
 
 export default async function ProductDetailPage({ params }: Props) {
@@ -49,13 +169,11 @@ export default async function ProductDetailPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-6xl px-6 pb-24 pt-[96px] text-[var(--fg)] md:pt-[120px]">
-      {/* ---- Breadcrumb / Back button ---- */}
-      <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
-        <Link href="/store" className="transition-colors hover:text-[var(--accent)]">
-          Store
+      {/* ---- Back button ---- */}
+      <nav aria-label="Back" className="mb-6">
+        <Link href="/store" className="inline-flex items-center gap-2 font-mono text-sm font-bold uppercase tracking-[0.1em] text-[var(--fg)] transition-all hover:-translate-x-1 hover:text-[var(--accent)]">
+          ← Back to Store
         </Link>
-        <span>·</span>
-        <span className="text-[var(--fg)]">{product.title}</span>
       </nav>
 
       {/* ---- Main Title & Tagline ---- */}
@@ -144,14 +262,14 @@ export default async function ProductDetailPage({ params }: Props) {
           {/* For You / Not This Panels */}
           <section className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {/* For You */}
-            <div className="border-2 border-[var(--fg)] bg-[var(--surface)] p-6 shadow-[4px_4px_0px_var(--fg)] space-y-4">
-              <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--fg)]">
+            <div className="border-2 border-[var(--accent)] bg-[var(--accent)]/5 p-6 shadow-[4px_4px_0px_var(--accent)] space-y-4">
+              <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-[var(--fg)]">
                 This is for you if:
               </h3>
               <ul className="space-y-3">
                 {product.forYou.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-xs text-[var(--fg)]/80 leading-relaxed font-sans">
-                    <span aria-hidden="true" className="text-[var(--fg)] shrink-0 font-mono">→</span>
+                  <li key={idx} className="flex items-start gap-3 text-sm text-[var(--fg)] leading-relaxed font-sans">
+                    <span aria-hidden="true" className="text-[var(--accent)] shrink-0 font-mono font-bold">→</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -159,14 +277,14 @@ export default async function ProductDetailPage({ params }: Props) {
             </div>
 
             {/* Not This */}
-            <div className="border-2 border-dashed border-[var(--fg)]/70 p-6 space-y-4">
-              <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--fg)]/70">
+            <div className="border-2 border-dashed border-[var(--fg)]/50 bg-[var(--fg)]/5 p-6 space-y-4">
+              <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-[var(--fg)]/80">
                 This is not:
               </h3>
               <ul className="space-y-3">
                 {product.notThis.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-xs text-[var(--fg)]/70 leading-relaxed font-sans">
-                    <span aria-hidden="true" className="text-[var(--fg)]/50 shrink-0 font-mono">✕</span>
+                  <li key={idx} className="flex items-start gap-3 text-sm text-[var(--fg)]/80 leading-relaxed font-sans">
+                    <span aria-hidden="true" className="text-[var(--fg)]/50 shrink-0 font-mono font-bold">✕</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -186,7 +304,7 @@ export default async function ProductDetailPage({ params }: Props) {
               </p>
               <Link
                 href="/store/dopamine-menu-template"
-                className="inline-flex w-full items-center justify-center border-2 border-[var(--fg)] bg-[var(--accent)] text-[var(--accent-text,var(--bg))] font-bold text-xs uppercase py-3 tracking-wider hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_var(--fg)] transition-all active:translate-x-0 active:translate-y-0 active:shadow-none"
+                className="inline-flex w-full items-center justify-center border-2 border-[var(--fg)] bg-[var(--accent)] text-[var(--accent-text,var(--bg))] font-bold text-xs py-3 tracking-wider hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_var(--fg)] transition-all active:translate-x-0 active:translate-y-0 active:shadow-none"
               >
                 View Full Template (£5) →
               </Link>
@@ -222,51 +340,23 @@ export default async function ProductDetailPage({ params }: Props) {
               Frequently Asked Questions
             </h2>
             <div className="border-t border-[var(--fg)]/10">
-              <details className="group border-b border-[var(--fg)]/10 py-4">
-                <summary className="flex justify-between items-center cursor-pointer list-none select-none font-bold text-base text-[var(--fg)] outline-none focus-visible:text-[var(--accent)]">
-                  <span>How do I receive my downloads?</span>
-                  <span className="text-xl transition-transform duration-200 group-open:rotate-45 text-[var(--accent)] font-mono" aria-hidden="true">+</span>
-                </summary>
-                <div className="mt-3 text-sm text-[var(--fg)]/85 leading-relaxed font-sans">
-                  Immediately after payment completes, Polar will direct you to a download page, and you will receive an automated email receipt containing the direct signed download link. For Notion templates, the link is provided inside a README file.
-                </div>
-              </details>
-
-              <details className="group border-b border-[var(--fg)]/10 py-4">
-                <summary className="flex justify-between items-center cursor-pointer list-none select-none font-bold text-base text-[var(--fg)] outline-none focus-visible:text-[var(--accent)]">
-                  <span>What is your refund policy?</span>
-                  <span className="text-xl transition-transform duration-200 group-open:rotate-45 text-[var(--accent)] font-mono" aria-hidden="true">+</span>
-                </summary>
-                <div className="mt-3 text-sm text-[var(--fg)]/85 leading-relaxed font-sans">
-                  Every paid product is refundable for 14 days, no questions asked. Just email us at hello@neurodivers3.co.uk within 14 days of your purchase.
-                </div>
-              </details>
-
-              <details className="group border-b border-[var(--fg)]/10 py-4">
-                <summary className="flex justify-between items-center cursor-pointer list-none select-none font-bold text-base text-[var(--fg)] outline-none focus-visible:text-[var(--accent)]">
-                  <span>Do I need a paid Notion plan?</span>
-                  <span className="text-xl transition-transform duration-200 group-open:rotate-45 text-[var(--accent)] font-mono" aria-hidden="true">+</span>
-                </summary>
-                <div className="mt-3 text-sm text-[var(--fg)]/85 leading-relaxed font-sans">
-                  No. All Notion templates in the store are compatible with the free personal Notion plan. You can duplicate them in one click.
-                </div>
-              </details>
-
-              <details className="group border-b border-[var(--fg)]/10 py-4">
-                <summary className="flex justify-between items-center cursor-pointer list-none select-none font-bold text-base text-[var(--fg)] outline-none focus-visible:text-[var(--accent)]">
-                  <span>Do I get updates when templates change?</span>
-                  <span className="text-xl transition-transform duration-200 group-open:rotate-45 text-[var(--accent)] font-mono" aria-hidden="true">+</span>
-                </summary>
-                <div className="mt-3 text-sm text-[var(--fg)]/85 leading-relaxed font-sans">
-                  Yes. When we make updates to templates or workbooks, past buyers receive automatic updates for free where the delivery platform allows.
-                </div>
-              </details>
+              {getFAQsForProduct(product.slug, product.isFree || false).map((faq, idx) => (
+                <details key={idx} className="group border-b border-[var(--fg)]/10 py-4">
+                  <summary className="flex justify-between items-center cursor-pointer list-none select-none font-bold text-base text-[var(--fg)] outline-none focus-visible:text-[var(--accent)]">
+                    <span>{faq.q}</span>
+                    <span className="text-xl transition-transform duration-200 group-open:rotate-45 text-[var(--accent)] font-mono" aria-hidden="true">+</span>
+                  </summary>
+                  <div className="mt-3 text-sm text-[var(--fg)]/85 leading-relaxed font-sans">
+                    {faq.a}
+                  </div>
+                </details>
+              ))}
             </div>
           </section>
         </div>
 
         {/* Right Column (Sticky on desktop, hidden on mobile) */}
-        <aside className="hidden min-[920px]:block sticky top-[88px] w-[360px] shrink-0">
+        <aside className="hidden min-[920px]:block sticky top-[120px] w-[360px] shrink-0">
           <BuyPanel product={product} />
         </aside>
       </div>
@@ -288,7 +378,7 @@ function BuyPanel({ product, compact = false }: { product: Product; compact?: bo
     return (
       <div className="flex items-center gap-3">
         <div className="flex flex-col flex-shrink-0">
-          <span className="text-[9px] font-mono uppercase tracking-widest text-[var(--muted)]">Rate</span>
+          <span className="text-[9px] font-mono uppercase tracking-widest text-[var(--muted)]">Price</span>
           <span className="text-xl font-black text-[var(--accent)] font-display leading-none">
             {product.priceLabel}
           </span>
@@ -303,12 +393,12 @@ function BuyPanel({ product, compact = false }: { product: Product; compact?: bo
   return (
     <div className="border-2 border-[var(--fg)] bg-[var(--surface,var(--bg))] p-6 md:p-8 space-y-6 shadow-[6px_6px_0px_var(--fg)]">
       {/* Price tag */}
-      <div className="flex justify-between items-baseline border-b border-[var(--fg)]/10 pb-4">
-        <span className="font-mono text-xs text-[var(--muted)] uppercase tracking-widest">RATE</span>
-        <div className="flex items-center gap-2">
-          <span className="text-3xl font-black text-[var(--accent)] font-display">{product.priceLabel}</span>
+      <div className="flex flex-col gap-3 border-b border-[var(--fg)]/10 pb-6">
+        <span className="font-mono text-sm font-bold text-[var(--muted)] uppercase tracking-widest">PRICE</span>
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-4xl font-black text-[var(--accent)] font-display">{product.priceLabel}</span>
           {!isFree && (
-            <span className="bg-[var(--accent)] text-[var(--accent-text,var(--bg))] border border-[var(--fg)]/30 text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider">
+            <span className="bg-[var(--accent)] text-[var(--accent-text,var(--bg))] border border-[var(--fg)]/30 text-xs font-bold px-3 py-1 uppercase tracking-wider">
               Launch special
             </span>
           )}

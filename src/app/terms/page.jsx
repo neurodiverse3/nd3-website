@@ -46,13 +46,13 @@ export default function TermsPage() {
               <h2 className="text-2xl font-black uppercase tracking-tight text-[var(--fg)] mb-4">2. Digital Products & Refund Policy</h2>
               <div className="text-[var(--muted)] text-base leading-relaxed space-y-4 font-normal">
                 <p>
-                  Our toolkit contains instantly downloadable PDFs, templates, and digital planners.
+                  Our store contains instantly downloadable PDFs, templates, and digital planners.
                 </p>
                 <p>
-                  <strong className="text-[var(--fg)]">UK Consumer Rights Act 2015 & Statutory Cancellation:</strong> Under UK consumer protection rules, you have a statutory right to cancel digital contracts within 14 days. However, because our digital assets are available for immediate download and consumption, <span className="font-semibold text-[var(--fg)]">you explicitly agree and acknowledge that by clicking "Purchase" and obtaining access to the download links, your 14-day cooling-off/cancellation period is waived.</span>
+                  <strong className="text-[var(--fg)]">Refund Policy:</strong> neurodivers³ offers a voluntary 14-day refund window on digital products, no questions asked. This is offered in addition to your statutory rights.
                 </p>
                 <p>
-                  Consequently, all digital sales are final. Refunds will only be issued if the digital file is proven to be corrupted, defective, or misdescribed under statutory quality guarantees. If you encounter any technical issues with your file, contact us immediately.
+                  Because products are digital downloads, you may be asked during checkout to consent to immediate access and acknowledge that statutory cancellation rights may be affected once the download begins. This does not remove the voluntary neurodivers³ 14-day refund promise stated above.
                 </p>
               </div>
             </div>
@@ -64,7 +64,7 @@ export default function TermsPage() {
                   All writing, custom designs, tools, SVG graphics, and software scripts on this platform are owned by Ollie (trading as neurodivers³). 
                 </p>
                 <p>
-                  Purchasing a toolkit item grants you a <span className="font-semibold text-[var(--fg)]">single-user, personal, non-transferable license</span>. You may print and use the files for your own individual routines. You may <strong>not</strong> redistribute, share, resell, relicense, or modify our templates to sell or share as your own templates.
+                  Purchasing a store item grants you a <span className="font-semibold text-[var(--fg)]">personal, single-household, non-transferable license</span>. You may print and use the files for your own individual or household routines. You may <strong>not</strong> redistribute, share, resell, relicense, or modify our templates to sell or share as your own templates.
                 </p>
               </div>
             </div>
@@ -77,7 +77,7 @@ export default function TermsPage() {
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>Attempting to bypass security mechanisms, database projections, or access-control schemes.</li>
-                  <li>Scraping content or writing logs in bulk for the purpose of training machine learning systems or publishing duplicates.</li>
+                  <li>Scraping, bulk copying, or using site content to train machine learning systems without permission.</li>
                   <li>Using our contact avenues to send unsolicited advertisements or junk email.</li>
                 </ul>
               </div>
@@ -101,11 +101,11 @@ export default function TermsPage() {
               <ul className="text-sm text-[var(--muted)] space-y-3 font-normal leading-relaxed">
                 <li className="flex items-start gap-2">
                   <span className="text-[var(--accent)] font-bold">✓</span>
-                  <span>Instant downloads, non-refundable once accessed.</span>
+                  <span>Voluntary 14-day refund window on digital products.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[var(--accent)] font-bold">✓</span>
-                  <span>Personal, single-user license only.</span>
+                  <span>Personal, single-household license only.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[var(--accent)] font-bold">✓</span>
@@ -117,7 +117,7 @@ export default function TermsPage() {
             <div className="bg-bg-primary border border-[var(--rule)] p-6 shadow-[4px_4px_0px_var(--rule)] text-sm">
               <h3 className="font-bold uppercase text-[var(--fg)] mb-2">Help & File Support</h3>
               <p className="text-[var(--muted)] leading-relaxed mb-4">
-                Did your file fail to download? Don't worry. Contact us and we will manually verify the Gumroad receipt and email you a fresh copy.
+                Did your file fail to download? Don't worry. Contact us and we will manually verify the Polar receipt and email you a fresh copy.
               </p>
               <a 
                 href="mailto:ollie@neurodivers3.co.uk" 

@@ -193,6 +193,11 @@ function parsePostBody(bodyText) {
     const rawLine = lines[i];
     const trimmedLine = rawLine.trim();
 
+    // Skip standalone horizontal rules/separators
+    if (trimmedLine === '---') {
+      continue;
+    }
+
     // 1. Code block handling
     if (trimmedLine.startsWith('```')) {
       if (inCodeBlock) {
@@ -380,6 +385,9 @@ async function run() {
     // Extract body content after </aside>
     const bodyStartIndex = postContent.indexOf('</aside>') + 8;
     let bodyText = postContent.substring(bodyStartIndex).trim();
+
+    // Standardize sign-off to em-dash: change "- Ollie" or "• Ollie" to "— Ollie"
+    bodyText = bodyText.replace(/[-•\u2022]\s+Ollie\b/g, '— Ollie');
 
     // Map fields
     const rawSlug = slugMatch ? slugMatch[1].trim() : '';

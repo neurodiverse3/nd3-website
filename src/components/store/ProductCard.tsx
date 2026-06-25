@@ -21,7 +21,7 @@ export function ProductCard({ product }: Props) {
 
   return (
     <article
-      className={`group relative flex ${
+      className={`group relative flex h-full ${
         isBundle ? "flex-col md:flex-row md:col-span-2" : "flex-col"
       } border-2 border-[var(--fg)] bg-[var(--surface,var(--bg))] text-[var(--fg)] transition-all duration-200 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_var(--fg)] active:translate-x-0 active:translate-y-0 active:shadow-none focus-within:-translate-x-1 focus-within:-translate-y-1 focus-within:shadow-[6px_6px_0px_var(--fg)]`}
     >
@@ -36,7 +36,7 @@ export function ProductCard({ product }: Props) {
 
       <div className={`relative ${
         isBundle ? "w-full aspect-[4/3] md:w-[320px] shrink-0 border-b-2 md:border-b-0 md:border-r-2" : "w-full aspect-square border-b-2"
-      } border-[var(--fg)] overflow-hidden bg-[var(--bg)]`}>
+      } border-[var(--fg)] overflow-hidden bg-[var(--bg)] flex items-center justify-center`}>
         <img
           src={`/store/covers/${product.coverImage}`}
           alt={`${product.title} · product cover`}
@@ -65,13 +65,20 @@ export function ProductCard({ product }: Props) {
           </p>
         </div>
 
-        <div className="flex items-center justify-between pt-4 mt-auto border-t border-[var(--fg)]/10">
-          <span className="font-mono text-lg font-bold text-[var(--link)]">
+        <div className="flex items-center justify-between pt-4 mt-auto border-t border-[var(--fg)]/10 gap-2">
+          <span className="font-mono text-lg font-bold text-[var(--link)] shrink-0">
             {product.priceLabel}
           </span>
-          <span className="text-sm font-bold uppercase tracking-[0.14em] text-[var(--link)] group-hover:underline">
-            View details →
-          </span>
+          <div className="flex items-center gap-3 relative z-20">
+            <a
+              href={product.checkoutUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-4 py-2.5 bg-[var(--accent)] text-[var(--accent-text,var(--bg))] border-2 border-[var(--fg)] font-bold text-xs uppercase tracking-[0.08em] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[2px_2px_0px_var(--fg)] active:translate-x-0 active:translate-y-0 active:shadow-none focus-visible:outline-none focus-ring"
+            >
+              {product.isFree ? "Get free" : "Buy now"}
+            </a>
+          </div>
         </div>
       </div>
     </article>

@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { LogoWordmark } from './Logo';
+import { Brain, Terminal, Wrench } from 'lucide-react';
 
 
 const getPillarLabel = (pillar) => {
@@ -52,10 +53,11 @@ export const PostCover = ({
   readTime = '',
   date = '',
   postNumber = '',
-  maxW = ''
+  maxW = '',
+  pattern = 'subtle' // 'subtle' | 'grid' | 'dots' | 'frame' | 'brackets'
 }) => {
   const titleLength = title ? title.trim().length : 0;
-
+  
   // 1. Aspect sizing configs & typography scaling to prevent card visual overflows
   let aspectClass = 'aspect-[16/9]';
   let titleSizeClass = 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[0.95]';
@@ -86,7 +88,7 @@ export const PostCover = ({
     }
   } else if (aspect === '4:3') {
     aspectClass = 'aspect-[4/3]';
-    paddingClass = 'p-4 md:p-6';
+    paddingClass = 'p-6 md:p-7';
     watermarkSizeClass = 'text-[12rem] md:text-[16rem]';
     if (titleLength > 48) {
       titleSizeClass = 'text-[15px] sm:text-[17px] md:text-[19px] lg:text-[21px] leading-snug';
@@ -130,14 +132,14 @@ export const PostCover = ({
     }
   } else if (aspect === '16:9') {
     aspectClass = 'aspect-[16/9]';
-    paddingClass = 'p-4 sm:p-5';
+    paddingClass = 'p-6 sm:p-7';
     watermarkSizeClass = 'text-[12rem] md:text-[15rem]';
     if (titleLength > 75) {
-      titleSizeClass = 'text-base sm:text-lg md:text-xl lg:text-2xl leading-snug';
+      titleSizeClass = 'text-[11px] sm:text-xs md:text-sm lg:text-base leading-snug';
     } else if (titleLength > 45) {
-      titleSizeClass = 'text-lg sm:text-xl md:text-2xl lg:text-3xl leading-tight';
+      titleSizeClass = 'text-xs sm:text-sm md:text-base lg:text-lg leading-tight';
     } else {
-      titleSizeClass = 'text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-[0.95]';
+      titleSizeClass = 'text-sm sm:text-base md:text-lg lg:text-xl leading-[0.95]';
     }
   } else {
     // Default 16:9 Featured Cover
@@ -182,8 +184,6 @@ export const PostCover = ({
   if (!pillarAccentColor) {
     if (theme === 'parchment') {
       pillarAccentColor = `var(--pillar-label-${pillarKey})`;
-    } else if (pillarKey === 'tools') {
-      pillarAccentColor = 'var(--pillar-card-text)'; // force white on tools or in Parchment
     } else {
       pillarAccentColor = `var(--pillar-${pillarKey})`; // keep dynamic identity color
     }
@@ -196,7 +196,7 @@ export const PostCover = ({
     ? `№ ${postNumber.toString().padStart(3, '0')}` 
     : `№ ${(getHash(title || '') % 100 + 1).toString().padStart(3, '0')}`;
 
-  const eyebrow = `TRANSMISSION · ${displayPostNumber}`;
+  const eyebrow = `ESSAY · ${displayPostNumber}`;
 
   // Deterministic seed for generative modes
   const seed = getHash(title || 'ND3');
@@ -264,7 +264,7 @@ export const PostCover = ({
 
         {/* Title area (typeset cleanly in Outifit display but balanced, so it is a caption box!) */}
         <div className="z-10 bg-black/85 border border-[#1F1F22] p-4 flex flex-col gap-1 w-full text-left backdrop-blur-md">
-          <h2 className="font-display font-black text-lg md:text-xl uppercase leading-tight tracking-tight text-white select-text">
+          <h2 className="font-display font-black text-lg md:text-xl uppercase leading-tight tracking-wide text-white select-text">
             {words.map((word, idx) => {
               const isAccented = idx === accentIndex;
               return (
@@ -308,7 +308,16 @@ export const PostCover = ({
           ))}
           {/* Intersecting rays */}
           {[...Array(12)].map((_, i) => (
-            <line key={i} x1="200" y1="100" x2={200 + 150 * Math.cos(i * Math.PI / 6)} y2={100 + 150 * Math.sin(i * Math.PI / 6)} stroke="url(#focusAccent)" strokeWidth="1.5" opacity="0.4" />
+            <line 
+              key={i} 
+              x1="200" 
+              y1="100" 
+              x2={Math.round((200 + 150 * Math.cos(i * Math.PI / 6)) * 10000) / 10000} 
+              y2={Math.round((100 + 150 * Math.sin(i * Math.PI / 6)) * 10000) / 10000} 
+              stroke="url(#focusAccent)" 
+              strokeWidth="1.5" 
+              opacity="0.4" 
+            />
           ))}
           {/* Target box */}
           <rect x="150" y="50" width="100" height="100" fill="none" stroke="#FF2E88" strokeWidth="2" opacity="0.8" strokeDasharray="10,5" />
@@ -335,7 +344,18 @@ export const PostCover = ({
           {/* Chaotic crossing lines */}
           {[...Array(30)].map((_, i) => {
             const y = 10 + (i * 6);
-            return <line key={i} x1="0" y1={y} x2="400" y2={y + (Math.sin(i)*20)} stroke="url(#burnRays)" strokeWidth={0.5 + (i%3)} opacity={0.2 + (i%4)*0.1} />
+            return (
+              <line 
+                key={i} 
+                x1="0" 
+                y1={y} 
+                x2="400" 
+                y2={Math.round((y + (Math.sin(i) * 20)) * 10000) / 10000} 
+                stroke="url(#burnRays)" 
+                strokeWidth={0.5 + (i % 3)} 
+                opacity={0.2 + (i % 4) * 0.1} 
+              />
+            );
           })}
           {/* Central void sphere */}
           <circle cx="200" cy="100" r="70" fill="#000" />
@@ -462,7 +482,7 @@ export const PostCover = ({
 
           {/* Floating title block with glassmorphism */}
           <div className="bg-black/80 backdrop-blur-md border border-white/20 p-6 md:p-8 flex flex-col gap-2 w-full max-w-[90%] mt-auto shadow-2xl">
-            <h2 className="font-display font-black text-2xl md:text-4xl lg:text-5xl uppercase leading-[0.95] tracking-tight text-white select-text text-left">
+            <h2 className="font-display font-black text-2xl md:text-4xl lg:text-5xl uppercase leading-[0.95] tracking-wide text-white select-text text-left">
               {words.map((word, idx) => {
                 const isAccented = idx === accentIndex;
                 return (
@@ -509,7 +529,7 @@ export const PostCover = ({
           <div>
             {/* Cover node label removed */}
             
-            <h2 className="font-display font-black text-xl md:text-2xl uppercase leading-none tracking-tight text-white text-left break-words">
+            <h2 className="font-display font-black text-xl md:text-2xl uppercase leading-none tracking-wide text-white text-left break-words">
               {words.map((word, idx) => {
                 const isAccented = idx === accentIndex;
                 return (
@@ -540,11 +560,12 @@ export const PostCover = ({
   const textMutedColor = theme === 'parchment' ? 'text-[var(--fg)]/70' : 'text-white/70';
   const textMutedStrongColor = theme === 'parchment' ? 'text-[var(--fg)]/80' : 'text-white/80';
   const themeAccentColor = pillarAccentColor;
+  const patternColor = themeAccentColor || (theme === 'parchment' ? 'var(--fg)' : 'white');
 
 
 
-  const displayEyebrow = eyebrow ? eyebrow : 'TRANSMISSION';
-  const displayEyebrow11 = eyebrow ? eyebrow : 'TRANSMISSION';
+  const displayEyebrow = eyebrow ? eyebrow : 'ESSAY';
+  const displayEyebrow11 = eyebrow ? eyebrow : 'ESSAY';
 
   const is11 = aspect === '1:1';
   
@@ -577,7 +598,6 @@ export const PostCover = ({
     <div 
       className={`relative w-full overflow-hidden post-cover ${themeTextColor} font-sans select-none ${aspectClass}`}
       data-pillar={pillarKey}
-      style={{ contentVisibility: 'auto' }}
     >
       {/* Dynamic Faint ³ Background Watermark */}
       <div 
@@ -586,26 +606,89 @@ export const PostCover = ({
         ³
       </div>
 
-      {/* Brutalist Grid Lines */}
-      <div className={`absolute top-[28%] left-0 right-0 h-[1px] ${gridLineColor} z-0`}></div>
-      <div className={`absolute left-[28%] top-0 bottom-0 w-[1px] ${gridLineColor} z-0`}></div>
+      {/* Dynamic Background Pattern */}
+      {pattern === 'subtle' && (
+        <div 
+          className="absolute inset-0 z-0 pointer-events-none"
+          style={{
+            background: `radial-gradient(circle at 75% 25%, ${themeAccentColor}, transparent 70%)`,
+            opacity: theme === 'parchment' ? 0.08 : 0.14
+          }}
+        />
+      )}
+      {pattern === 'grid' && (
+        <>
+          <div className={`absolute top-[28%] left-0 right-0 h-[1px] ${gridLineColor} z-0`}></div>
+          <div className={`absolute left-[28%] top-0 bottom-0 w-[1px] ${gridLineColor} z-0`}></div>
+        </>
+      )}
+      {pattern === 'dots' && (
+        <div 
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.14]"
+          style={{
+            backgroundImage: `radial-gradient(${theme === 'parchment' ? 'var(--fg)' : 'white'} 1px, transparent 1.5px)`,
+            backgroundSize: '16px 16px',
+          }}
+        />
+      )}
+      {pattern === 'frame' && (
+        <div className={`absolute inset-3 sm:inset-4 border border-dashed ${gridLineColor} pointer-events-none z-0`} />
+      )}
+      {pattern === 'brackets' && (
+        <>
+          <div className={`absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 ${gridLineColor} pointer-events-none z-0`} />
+          <div className={`absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 ${gridLineColor} pointer-events-none z-0`} />
+          <div className={`absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 ${gridLineColor} pointer-events-none z-0`} />
+          <div className={`absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 ${gridLineColor} pointer-events-none z-0`} />
+        </>
+      )}
+      {pattern === 'stripes' && (
+        <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-[0.08]" xmlns="http://www.w3.org/2000/svg">
+          <line x1="-50" y1="50" x2="150" y2="-150" stroke={theme === 'parchment' ? 'var(--fg)' : 'white'} strokeWidth="15" />
+          <line x1="-50" y1="100" x2="200" y2="-150" stroke={theme === 'parchment' ? 'var(--fg)' : 'white'} strokeWidth="15" />
+          <line x1="-50" y1="150" x2="250" y2="-150" stroke={theme === 'parchment' ? 'var(--fg)' : 'white'} strokeWidth="15" />
+        </svg>
+      )}
+      {pattern === 'contour' && (
+        <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-[0.07]" viewBox="0 0 400 200" fill="none" stroke={theme === 'parchment' ? 'var(--fg)' : 'white'} strokeWidth="1.5" xmlns="http://www.w3.org/2000/svg">
+          <path d="M-20,180 Q60,160 120,220" />
+          <path d="M-20,140 Q80,110 160,220" />
+          <path d="M-20,100 Q100,60 200,220" />
+          <path d="M-20,60 Q120,10 240,220" />
+          <path d="M60,-20 Q180,60 280,220" />
+          <path d="M140,-20 Q240,110 320,220" />
+          <path d="M220,-20 Q300,160 360,220" />
+        </svg>
+      )}
+      {pattern === 'minimal' && null}
 
       {/* Inner Centered Content Container */}
       <div className={`relative z-10 w-full h-full mx-auto flex flex-col justify-between ${paddingClass} ${maxW ? `${maxW} px-6 md:px-12` : ''}`}>
         {/* Top Header Row */}
         <div className="flex flex-row justify-between items-center w-full select-none gap-2">
-          <div className="flex justify-end items-center ml-auto text-right shrink-0">
+          {/* Logo / Branding on the Left */}
+          <div className="flex items-start justify-start select-none">
             <LogoWordmark className="logo h-5 md:h-6 w-auto opacity-90 text-[var(--pillar-card-text)]" />
+          </div>
+
+          {/* Coloured Pillar Icon on the Right */}
+          <div className="flex items-center justify-end shrink-0">
+            {pillarKey === 'unmasked' && (
+              <Brain className="h-5 w-5 md:h-6 md:w-6" style={{ color: themeAccentColor, filter: 'drop-shadow(0 0 4px currentColor)' }} />
+            )}
+            {pillarKey === 'digital' && (
+              <Terminal className="h-5 w-5 md:h-6 md:w-6" style={{ color: themeAccentColor, filter: 'drop-shadow(0 0 4px currentColor)' }} />
+            )}
+            {pillarKey === 'tools' && (
+              <Wrench className="h-5 w-5 md:h-6 md:w-6" style={{ color: themeAccentColor, filter: 'drop-shadow(0 0 4px currentColor)' }} />
+            )}
           </div>
         </div>
 
-        {/* The hairline rule - 1px horizontal rule between eyebrow and title */}
-        <div className={`w-full h-[1px] ${gridLineColor} ${aspect === '4:3' ? 'my-2' : 'my-3 md:my-5'}`}></div>
-
         {/* Main Title Align Top-Left */}
-        <div className={`flex-grow flex items-center justify-start text-left select-none ${aspect === '4:3' ? 'mt-2 mb-2' : 'mt-4 mb-4'}`}>
+        <div className={`flex-grow flex items-center justify-start text-left select-none ${(aspect === '4:3' || aspect === '16:9') ? 'mt-2 mb-2' : 'mt-4 mb-4'}`}>
           <h2 
-            className={`font-black uppercase font-display leading-[0.95] tracking-tighter text-left w-full break-words max-w-[92%] ${titleSizeClass}`}
+            className={`font-black uppercase font-display tracking-wide text-left w-full break-words max-w-[96%] ${titleSizeClass}`}
           >
             {words.map((word, idx) => {
               const isAccented = idx === accentIndex;

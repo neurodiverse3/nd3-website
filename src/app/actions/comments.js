@@ -33,7 +33,7 @@ export async function getComments(postSlug) {
     const res = await fetch(`${STRAPI_URL}/api/comments?${query}`, {
       headers: STRAPI_TOKEN ? { Authorization: `Bearer ${STRAPI_TOKEN}` } : {},
       // Use a short cache window to keep pages statically buildable.
-      next: { revalidate: 60 },
+      next: { revalidate: 86400 },
     });
 
     if (!res.ok) {
@@ -66,7 +66,7 @@ export async function addComment(postSlug, prevState, formData) {
   }
 
   if (!postSlug) {
-    return { success: false, error: 'Target transmission slug is missing.' };
+    return { success: false, error: 'Target post slug is missing.' };
   }
 
   const name = formData.get('name')?.toString()?.trim();
@@ -110,7 +110,6 @@ export async function addComment(postSlug, prevState, formData) {
           name,
           emailHash,
           content,
-          createdAt,
           approved: false, // Held for moderation in Strapi admin panel
         },
       }),

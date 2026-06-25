@@ -37,6 +37,7 @@ export default function ContactPage() {
       href: 'mailto:ollie@neurodivers3.co.uk',
       icon: <Mail size={18} className="shrink-0" />,
       note: 'Best for collabs, press, and thoughtful questions.',
+      ariaLabel: 'Send email to Ollie at ollie@neurodivers3.co.uk',
     },
     {
       id: 'instagram',
@@ -49,6 +50,7 @@ export default function ContactPage() {
         </svg>
       ),
       note: 'Photos, reels, day-to-day unmasking.',
+      ariaLabel: "Visit Ollie's Instagram profile @neurodivers3",
     },
     {
       id: 'tiktok',
@@ -57,6 +59,7 @@ export default function ContactPage() {
       href: 'https://tiktok.com/@neurodivers3',
       icon: <TikTokIcon size={18} />,
       note: 'Short-form video. Brain states in real time.',
+      ariaLabel: "Visit Ollie's TikTok profile @neurodivers3",
     },
     {
       id: 'x',
@@ -65,6 +68,7 @@ export default function ContactPage() {
       href: 'https://x.com/neurodivers3',
       icon: <XIcon size={16} />,
       note: 'Microblog thoughts and link drops.',
+      ariaLabel: "Visit Ollie's X profile @neurodivers3",
     },
     {
       id: 'facebook',
@@ -77,25 +81,26 @@ export default function ContactPage() {
         </svg>
       ),
       note: 'Community updates and platform resources.',
+      ariaLabel: "Visit Ollie's Facebook page @neurodivers3",
     },
   ];
 
   const faqs = [
     {
       q: 'Can I pitch a collaboration or sponsored post?',
-      a: 'Yes - email is the best route. Be upfront about what you\'re proposing. I only partner with things I\'d genuinely use.',
+      a: "I'm happy to hear from people, guests, collab invites, etc.",
     },
     {
       q: 'Can I share or quote your writing?',
-      a: 'Yes, with attribution and a link back. For anything beyond excerpts, drop an email first.',
+      a: 'Absolutely. You are welcome to quote excerpts with clear attribution and a link back to neurodivers3.co.uk. For syndication or republishing full essays, please email us first to discuss.',
     },
     {
       q: 'I\'m a journalist / researcher. Can I interview you?',
-      a: 'Probably yes. Email me with your publication and topic. AuDHD diagnosis journeys, neurodivergent productivity, and digital accessibility are all fair game.',
+      a: 'Yes. I am happy to speak on late-diagnosed AuDHD lived experience, unmasked digital design, and building calmer digital spaces. Please email with your publication details, deadline, and specific questions.',
     },
     {
       q: 'How long do replies take?',
-      a: 'Honest answer: variable. Executive function is real. I aim for within a week on emails, sooner if it\'s urgent - just say so.',
+      a: 'Variable. This is a slow-launch project run by a single brain. I protect my focus and recovery time, which means email replies can take up to a week. If you have a file delivery emergency or a time-sensitive press query, please mark the subject line clearly and I will do my best to triage it sooner.',
     },
   ];
 
@@ -125,6 +130,7 @@ export default function ContactPage() {
                 href={ch.href}
                 target={ch.id !== 'email' ? '_blank' : undefined}
                 rel={ch.id !== 'email' ? 'noopener noreferrer' : undefined}
+                aria-label={ch.ariaLabel}
                 className="group border-2 border-border-rule hover:border-fg-primary p-6 flex items-start gap-5 bg-bg-primary/40 hover:-translate-y-0.5 hover:translate-x-0.5 active:translate-y-0 active:translate-x-0 transition-all duration-200 shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--fg)] cursor-pointer rounded-none text-left"
                 style={{ opacity: 0, animation: `fadeInUp 0.5s ease ${0.15 + idx * 0.08}s forwards` }}
               >
@@ -187,7 +193,7 @@ export default function ContactPage() {
               NEWSLETTER
             </span>
             <p className="text-sm text-text-muted font-normal leading-relaxed mb-4">
-              For updates, new writing, and early access to memoir chapters · the newsletter is the best place to be.
+              For updates, new writing, and first fragments of the memoir · the newsletter is the best place to be.
             </p>
             <Link
               href="/#newsletter"

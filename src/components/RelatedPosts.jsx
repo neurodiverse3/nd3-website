@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { PostCover } from './PostCover';
 
 const getPillarLabel = (pillar) => {
   if (!pillar) return '';
@@ -147,7 +148,7 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <span className="text-xs md:text-sm font-mono tracking-[0.25em] text-accent-pink uppercase block font-bold">
-            CURATED DISCOVERY
+            RELATED READING
           </span>
           <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-fg-primary mt-1.5 leading-none font-display">
             Keep reading.
@@ -157,7 +158,7 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
           href="/blog"
           className="text-xs md:text-sm font-mono tracking-widest text-text-muted hover:text-accent-pink transition-colors flex items-center gap-1.5 uppercase font-bold focus-ring"
         >
-          All transmissions <ArrowRight size={12} className="ml-0.5" />
+          All posts <ArrowRight size={12} className="ml-0.5" />
         </Link>
       </div>
 
@@ -172,51 +173,60 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
           let eyebrow = getPillarLabel(post.pillar);
           let isPinkLabel = true;
 
-          if (selectionReason === "brainState") {
-            eyebrow = "YOU MIGHT ALSO LIKE";
-            isPinkLabel = false;
-          } else if (selectionReason === "pinned") {
+          if (selectionReason === "pinned") {
             eyebrow = "PINNED FEATURED";
-            isPinkLabel = true;
           }
 
           return (
-            <Link
+            <div
               key={post._id || post.id}
-              href={`/blog/${slug}`}
-              className="group border-2 border-border-rule hover:border-fg-primary p-6 flex flex-col justify-between min-h-[280px] bg-surface/40 hover:-translate-y-1 hover:translate-x-1 transition-all duration-300 shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--fg)] cursor-pointer rounded-none text-left"
+              className="group border-2 border-border-rule hover:border-fg-primary focus-within:border-fg-primary bg-bg-primary flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 focus-within:-translate-y-1.5 shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--fg)] focus-within:shadow-[6px_6px_0px_var(--fg)] rounded-none text-left overflow-hidden cursor-pointer"
             >
-              <div className="space-y-3">
-                {/* Category / Relationship Eyebrow */}
-                <div className="text-xs md:text-sm font-mono tracking-widest uppercase flex items-center gap-1.5 flex-wrap font-bold leading-none">
-                  {isPinkLabel ? (
-                    <span className="text-accent-pink">{eyebrow}</span>
-                  ) : (
-                    <span className="text-text-muted italic">{eyebrow}</span>
+              <Link 
+                href={`/blog/${slug}`}
+                className="border-b-2 border-border-rule group-hover:border-fg-primary transition-colors block cursor-pointer"
+              >
+                <PostCover 
+                  title={post.title} 
+                  pillar={post.pillar} 
+                  brainState={stateValue || 'hyperfocus'}
+                  accentWord={post.accentWord}
+                  accentOverride={post.accentOverride}
+                  aspect="16:9" 
+                  readTime={null}
+                  date={formattedDate}
+                  postNumber={post.postNumber || 1}
+                />
+              </Link>
+
+              <div className="px-6 py-6 flex flex-col justify-between flex-grow gap-4">
+                <div className="flex flex-col">
+                  {/* Category / Relationship Eyebrow */}
+                  <div className="text-xs font-mono tracking-widest uppercase flex items-center gap-1.5 flex-wrap font-bold leading-none mb-3">
+                    {isPinkLabel ? (
+                      <span className="text-accent-pink">{eyebrow}</span>
+                    ) : (
+                      <span className="text-text-muted italic">{eyebrow}</span>
+                    )}
+                  </div>
+                  {post.excerpt && (
+                    <p className="text-sm text-text-muted leading-relaxed font-normal line-clamp-3">
+                      {post.excerpt}
+                    </p>
                   )}
                 </div>
 
-                <h3 className="text-base md:text-lg font-black uppercase tracking-tight text-fg-primary group-hover:text-accent-pink transition-colors leading-snug line-clamp-3 font-display">
-                  {post.title}
-                </h3>
-
-                {post.excerpt && (
-                  <p className="text-xs text-text-muted leading-relaxed line-clamp-3 font-normal font-sans">
-                    {post.excerpt}
-                  </p>
-                )}
-              </div>
-
-              {/* Card Footer tags */}
-              <div className="flex flex-wrap items-center justify-between mt-6 pt-4 border-t border-border-rule/40 text-xs md:text-sm font-bold uppercase tracking-widest text-text-muted font-mono gap-2 leading-none">
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="text-accent-pink">{getPillarLabel(post.pillar)}</span>
-                  <span>/</span>
-                  <span>{getBrainStateLabel(stateValue)}</span>
+                <div className="text-xs font-black tracking-widest text-text-muted uppercase font-mono group-hover:text-accent-pink transition-colors pt-4 border-t border-border-rule/40 flex items-center justify-between w-full mt-2">
+                  <span>{formattedDate}</span>
+                  <Link 
+                    href={`/blog/${slug}`}
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-accent text-[var(--accent-text,var(--bg))] font-black text-xs uppercase tracking-widest border-2 border-fg-primary shadow-[2px_2px_0px_var(--fg)] hover:shadow-[3px_3px_0px_var(--fg)] hover:-translate-y-0.5 hover:translate-x-0.5 transition-all rounded-none w-fit shrink-0 cursor-pointer"
+                  >
+                    READ POST →
+                  </Link>
                 </div>
-                <span>{formattedDate}</span>
               </div>
-            </Link>
+            </div>
           );
         })}
       </div>

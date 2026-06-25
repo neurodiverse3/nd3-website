@@ -1,6 +1,6 @@
 import { getPosts } from '../../lib/strapi';
 
-export const revalidate = 3600; // Cache for 1 hour
+export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
 
 function convertStrapiBlocksToHtml(blocks) {
   if (!blocks || !Array.isArray(blocks)) return '';

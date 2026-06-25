@@ -46,7 +46,7 @@ const formatCommentDate = (isoString) => {
   });
 };
 
-export default function CommentSection({ postSlug, postTitle = "Transmission", initialComments = [] }) {
+export default function CommentSection({ postSlug, postTitle = "Post", initialComments = [] }) {
   const [comments, setComments] = useState(initialComments);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -274,6 +274,10 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
           </a>
         </div>
         
+        <p className="text-xs text-text-muted font-normal leading-relaxed mb-6 font-sans">
+          Comments are moderated. Your email will not be published.
+        </p>
+        
         {submitSuccess && (
           <div className="p-4 bg-green-500/10 border-2 border-green-600/50 text-green-400 text-xs font-mono font-bold flex items-start gap-2.5 mb-6 animate-in fade-in zoom-in-95 duration-200">
             <CheckCircle2 size={16} className="shrink-0 mt-0.5" />
@@ -347,7 +351,7 @@ export default function CommentSection({ postSlug, postTitle = "Transmission", i
               onChange={(e) => setContent(e.target.value)}
               className="w-full bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-5 pb-3 outline-none text-fg-primary text-sm font-light leading-relaxed shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none resize-y min-h-[100px]"
             />
-            <label htmlFor="content-input" className="floating-label" style={{ top: '1.1rem' }}>REPLY</label>
+            <label htmlFor="content-input" className="floating-label">REPLY</label>
           </div>
 
           <button

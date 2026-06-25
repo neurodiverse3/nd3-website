@@ -1,9 +1,11 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function BackToTop() {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -25,6 +27,10 @@ export function BackToTop() {
       behavior: 'smooth',
     });
   };
+
+  const isBlogPostPage = pathname?.startsWith('/blog/') && pathname !== '/blog';
+
+  if (isBlogPostPage) return null;
 
   return (
     <AnimatePresence>

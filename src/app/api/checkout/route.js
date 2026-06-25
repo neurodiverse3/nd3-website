@@ -137,7 +137,10 @@ export async function GET(request) {
     const data = await response.json();
     return new Response(JSON.stringify({ 
       status: data.status, 
-      metadata: data.metadata 
+      metadata: data.metadata,
+      product_id: data.product_id,
+      product: data.product,
+      products: data.products
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },

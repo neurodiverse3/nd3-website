@@ -3,7 +3,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useCart } from "@/context/CartContext";
+
 import {
   CheckCircle2,
   AlertCircle,
@@ -41,7 +41,29 @@ type PurchasedItem = {
 function SuccessPageContent() {
   const searchParams = useSearchParams();
   const checkoutId = searchParams.get("checkout_id");
-  const { securedDownloads, saveSecuredDownloads, clearCart } = useCart() as any;
+  const [securedDownloads, setSecuredDownloads] = useState<any[]>([]);
+
+  // Load secured downloads from localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('nd3_secured_downloads');
+      if (stored) {
+        setSecuredDownloads(JSON.parse(stored));
+      }
+    } catch (e) {
+      console.warn("localStorage is not available: ", e);
+    }
+  }, []);
+
+  // Save secured downloads to localStorage when changed
+  const saveSecuredDownloads = (newDownloads: any[]) => {
+    setSecuredDownloads(newDownloads);
+    try {
+      localStorage.setItem('nd3_secured_downloads', JSON.stringify(newDownloads));
+    } catch (e) {
+      console.warn("Failed to write to localStorage: ", e);
+    }
+  };
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -129,35 +151,51 @@ function SuccessPageContent() {
 
         if (data.status === "succeeded" || data.status === "confirmed") {
           const metadata = data.metadata || {};
-          const productSlugs = metadata.product_slugs
-            ? (metadata.product_slugs as string).split(",")
-            : [];
-          const productIds = metadata.product_ids
-            ? (metadata.product_ids as string).split(",")
-            : [];
-          const productNames = metadata.product_names
-            ? (metadata.product_names as string).split(",")
-            : [];
+          let productSlugs: string[] = [];
+          let productIds: string[] = [];
+          let productNames: string[] = [];
 
-          if (productSlugs.length === 0) {
+          if (metadata.product_slugs) {
+            // Cart checkout (multi-product metadata workaround)
+            productSlugs = (metadata.product_slugs as string).split(",");
+            productIds = metadata.product_ids ? (metadata.product_ids as string).split(",") : [];
+            productNames = metadata.product_names ? (metadata.product_names as string).split(",") : [];
+          } else {
+            // Direct checkout (Option B - single product native Polar link)
+            const targetProductId = data.product_id || data.product?.id;
+            if (targetProductId) {
+              const matchedProduct = PRODUCTS.find(p => p.id === targetProductId);
+              if (matchedProduct) {
+                productSlugs = [matchedProduct.slug];
+                productIds = [matchedProduct.id];
+                productNames = [matchedProduct.title];
+              } else {
+                // Try to find by name from Polar if available
+                const pName = data.product?.name || "Digital Product";
+                productSlugs = ["digital-product"];
+                productIds = [targetProductId];
+                productNames = [pName];
+              }
+            }
+          }
+
+          if (productIds.length === 0) {
             throw new Error(
-              "Payment verified, but no product items were recorded in metadata."
+              "Payment verified, but no product items could be resolved from the transaction."
             );
           }
 
           // Build item objects using rich static data as lookup
-          const newItems = productSlugs.map((slug, idx) => {
-            const matchedProduct = PRODUCTS.find((p) => p.slug === slug);
-            
-            // Fallback parameters if not found in PRODUCTS
-            const title = matchedProduct?.title || productNames[idx] || slug.toUpperCase().replaceAll("-", " ");
+          const newItems = productIds.map((id, idx) => {
+            const matchedProduct = PRODUCTS.find((p) => p.id === id);
+            const title = matchedProduct?.title || productNames[idx] || "Digital Product";
             const color = matchedProduct?.pillar === "Unmasked Life" 
               ? "from-pink-600 to-rose-700" 
               : "from-teal-600 to-emerald-700";
             const tag = matchedProduct?.format || "DIGITAL DOWNLOAD";
 
             return {
-              id: productIds[idx] || `prod-${slug}`,
+              id: id,
               title,
               color,
               tag,
@@ -172,14 +210,15 @@ function SuccessPageContent() {
             };
           });
 
-          // Save to local downloads storage and clear cart
+          // Save to local downloads storage
           const downloads = (securedDownloads || []) as any[];
           const existingFiltered = downloads.filter(
             (d: any) => !productIds.includes(d.id)
           );
           saveSecuredDownloads([...newItems, ...existingFiltered]);
           setPurchasedItems(newItems);
-          clearCart();
+          
+
 
           // Celebrate with sparkles
           triggerBirthdaySparkles();

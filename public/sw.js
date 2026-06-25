@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nd3-cache-v2';
+const CACHE_NAME = 'nd3-cache-v3';
 const ASSETS_TO_CACHE = [
   '/',
   '/labs',
@@ -8,7 +8,7 @@ const ASSETS_TO_CACHE = [
   '/privacy',
   '/terms',
   '/favicon.svg',
-  '/ollie.jpg',
+  '/ollie-profile.jpg',
   '/logo-primary-flat.svg'
 ];
 
