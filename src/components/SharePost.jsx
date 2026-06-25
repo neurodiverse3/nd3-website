@@ -50,7 +50,7 @@ const ThreadsIcon = ({ size = 11, color = "currentColor" }) => (
   </svg>
 );
 
-const baseChipClass = "flex items-center gap-1.5 px-3 py-1.5 border border-border-rule bg-[#09090b] text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:bg-accent-pink hover:border-accent-pink hover:text-[#09090b] transition-all duration-200 rounded-none cursor-pointer select-none group";
+const baseChipClass = "flex items-center gap-1.5 px-3 py-1.5 border border-border-rule bg-surface/80 text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:bg-accent-pink hover:border-accent-pink hover:text-[#09090b] transition-all duration-200 rounded-none cursor-pointer select-none group";
 
 export function SharePost({ title, slug, dek = '', vertical = false }) {
   const [copied, setCopied] = useState(false);

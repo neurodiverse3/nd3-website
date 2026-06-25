@@ -21,8 +21,8 @@ export const LogoWordmark = ({ className = "" }) => {
         neurodivers
       </text>
       <text 
-        x="274" 
-        y="38" 
+        x="268" 
+        y="32" 
         fontFamily="var(--font-display), system-ui, -apple-system, sans-serif" 
         fontSize="34" 
         fontWeight="900" 
@@ -55,8 +55,8 @@ export const LogoPrimaryFlat = ({ className = "" }) => {
         neurodivers
       </text>
       <text 
-        x="320" 
-        y="44" 
+        x="312" 
+        y="36" 
         fontFamily="var(--font-display), system-ui, -apple-system, sans-serif" 
         fontSize="40" 
         fontWeight="900" 

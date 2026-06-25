@@ -52,7 +52,7 @@ export const ZeroTelemetryBanner = () => {
           <h4 className="text-sm font-black uppercase tracking-tight text-fg-primary mb-2">
             100% Tracking-Consent Free
           </h4>
-          <p className="text-xs text-text-muted leading-relaxed font-normal mb-5 font-mono">
+          <p className="text-xs text-fg-primary/70 leading-relaxed font-normal mb-5 font-mono">
             This platform deploys no tracking scripts, analytics pixels, or cookie consent walls. The browser only stores essential visual configuration flags (Theme) and active shopping items (Cart). Private by biology, secure by default.
           </p>
 

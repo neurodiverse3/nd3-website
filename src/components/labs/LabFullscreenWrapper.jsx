@@ -53,16 +53,13 @@ export default function LabFullscreenWrapper({ slug }) {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <span className="text-xs md:text-sm font-mono font-bold text-[var(--muted)] uppercase tracking-widest">
-          INTERACTIVE WORKSPACE
-        </span>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
         <button
           onClick={toggleFullscreen}
           className="inline-flex items-center justify-center gap-2 px-4 py-2 border-2 border-fg-primary bg-[var(--accent)] text-[var(--accent-text,var(--bg))] text-xs md:text-sm font-mono font-bold uppercase tracking-wider cursor-pointer transition-all rounded-none hover:-translate-y-0.5 hover:translate-x-0.5 hover:shadow-[3px_3px_0px_var(--fg)] active:translate-x-0 active:translate-y-0 active:shadow-none self-start sm:self-auto"
           aria-label="Enter fullscreen"
         >
-          <Maximize2 size={12} /> FULLSCREEN MODE (F)
+          <Maximize2 size={12} /> FULLSCREEN MODE
         </button>
       </div>
       <div 
@@ -72,7 +69,7 @@ export default function LabFullscreenWrapper({ slug }) {
           backgroundSize: '24px 24px'
         }}
       >
-        <div className="absolute top-2 right-2 font-mono text-xs md:text-sm text-[var(--muted)] opacity-40 select-none" aria-hidden="true">· GRID CALIBRATED ·</div>
+
         <LabEmbedder slug={slug} />
       </div>
     </div>

@@ -301,7 +301,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
                   </div>
 
                   {/* CTA - purely visual now, real link is the absolute overlay */}
-                  <div className="w-full mt-4 py-3 bg-transparent text-fg-primary border border-border-rule group-hover:border-accent font-black uppercase text-sm tracking-wider transition-all flex items-center justify-center gap-2 rounded-none group-hover:bg-accent group-hover:text-[var(--accent-btn-text)] group-hover:border-accent">
+                  <div className="w-full mt-4 py-3 bg-bg-primary text-fg-primary border-2 border-fg-primary group-hover:bg-accent group-hover:text-[var(--accent-btn-text)] group-hover:border-accent font-black uppercase text-xs tracking-[0.2em] transition-all flex items-center justify-center gap-2 rounded-none shadow-[4px_4px_0px_var(--rule)] group-hover:shadow-[2px_2px_0px_var(--fg)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
                     OPEN LAB <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform duration-200" />
                   </div>
                 </div>

@@ -112,6 +112,7 @@ export default async function MemoirPage() {
           titleLabel="Memoir"
           titleAccent="I Thought I Was Just Bad at Being a Human"
           subtitle="A memoir in progress about late-diagnosed AuDHD, masking, burnout, and the slow work of learning how to human. First fragments will go to newsletter subscribers."
+          className="mb-16 md:mb-20"
         />
 
         {/* Desktop 2-column layout & Mobile single column stacked */}
@@ -121,7 +122,7 @@ export default async function MemoirPage() {
           <div className="flex flex-col gap-12 text-left">
             
             {/* 3. Lead-in callout */}
-            <div className="border border-[var(--accent-label,var(--accent))] bg-accent-pink-soft p-6 shadow-[4px_4px_0px_rgba(255,46,136,0.15)]">
+            <div className="border border-[var(--accent-label,var(--accent))] bg-accent-pink-soft p-6 shadow-[4px_4px_0px_rgba(255,46,136,0.15)] text-left">
               <span className="block text-xs font-mono tracking-widest text-[var(--accent-label,var(--accent))] uppercase mb-2 select-none">
                 WHAT THIS WILL BECOME
               </span>
@@ -153,8 +154,8 @@ export default async function MemoirPage() {
             </div>
 
             {/* 5. Mid-page pink callout */}
-            <div className="py-6 text-center select-none">
-              <h2 className="text-3xl md:text-5xl font-black uppercase text-[var(--accent-label,var(--accent))] font-display tracking-tighter leading-none">
+            <div className="py-8 text-center select-none">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-[var(--accent-label,var(--accent))] font-display tracking-tighter leading-[1.1] pb-2">
                 I THOUGHT I WAS JUST BAD AT BEING A HUMAN.
               </h2>
             </div>
@@ -259,10 +260,7 @@ export default async function MemoirPage() {
           <MemoirNewsletter variant="sidebar" />
         </div>
 
-        {/* 13. Bottom Full-width Horizontal Newsletter CTA */}
-        <div className="w-full mt-12 md:mt-16 animate-in fade-in duration-300">
-          <MemoirNewsletter variant="horizontal" />
-        </div>
+
       </div>
     </>
   );

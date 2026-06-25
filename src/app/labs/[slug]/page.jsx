@@ -497,25 +497,12 @@ export default async function LabSlugPage(props) {
 
   return (
     <div className="min-h-screen pt-[96px] md:pt-[120px] pb-16 md:pb-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col justify-start text-left">
-      {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm font-mono text-[var(--muted)] uppercase tracking-wider mb-6">
-        <Link href="/labs" className="hover:text-[var(--accent)] transition-colors">
-          LABS
-        </Link>
-        <span>/</span>
-        <Link href={`/labs?category=${lab.category?.slug || ''}`} className="hover:text-[var(--accent)] transition-colors">
-          {lab.category?.title || 'EXPERIMENT'}
-        </Link>
-        <span>/</span>
-        <span className="text-[var(--fg)]">{lab.title}</span>
-      </nav>
-
       {/* Back button */}
       <Link 
         href="/labs" 
-        className="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-[var(--muted)] hover:text-[var(--accent)] transition-colors mb-8 self-start cursor-pointer font-mono"
+        className="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-[var(--muted)] hover:text-[var(--accent)] transition-colors mb-12 self-start cursor-pointer font-mono"
       >
-        <ArrowLeft size={12} /> BACK TO EXPERIMENTAL PLAYGROUND
+        <ArrowLeft size={12} /> BACK TO LABS
       </Link>
 
       {/* Header */}

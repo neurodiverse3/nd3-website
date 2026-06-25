@@ -245,7 +245,7 @@ export const Footer = () => {
 
       {/* Bottom bar with copyright & reactive social buttons */}
       <div className="max-w-7xl mx-auto px-6 mt-12 pt-6 border-t border-border-rule flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-        <div className="text-[14px] font-bold tracking-[0.05em] text-text-muted uppercase select-none">
+        <div className="text-[14px] font-bold tracking-[0.05em] text-fg-primary/80 uppercase select-none">
           © 2026 NEURODIVERS³
         </div>
         

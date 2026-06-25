@@ -405,7 +405,7 @@ export default function BrownNoiseLoop({ noWrapper = false }) {
           <Volume2 size={18} className="text-[var(--accent)] animate-pulse" /> BROWN NOISE LOOP
         </h3>
         <span className="text-xs font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5 tracking-wider">
-          SYNTH // CLIENT-SIDE
+          SYNTH
         </span>
       </div>
 
@@ -435,7 +435,7 @@ export default function BrownNoiseLoop({ noWrapper = false }) {
         <div className="flex flex-col justify-between border border-[var(--rule)] bg-black/20 p-4 shadow-sm">
           <div className="space-y-3">
             <h4 className="text-xs font-black uppercase tracking-wider text-[var(--muted)] font-mono">
-              // AUDIO EMISSION
+              AUDIO EMISSION
             </h4>
             
             <button
