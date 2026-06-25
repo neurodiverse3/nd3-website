@@ -326,9 +326,9 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
                 placeholder=" "
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full h-12 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-3 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
+                className="w-full h-14 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-5 pt-4 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
               />
-              <label htmlFor="name-input" className="floating-label">NAME</label>
+              <label htmlFor="name-input" className="floating-label !left-5">NAME</label>
             </div>
 
             <div className="floating-label-wrap">
@@ -340,9 +340,9 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
                 placeholder=" "
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-12 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-3 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
+                className="w-full h-14 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-5 pt-4 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
               />
-              <label htmlFor="email-input" className="floating-label">EMAIL</label>
+              <label htmlFor="email-input" className="floating-label !left-5">EMAIL</label>
             </div>
           </div>
 
@@ -355,7 +355,7 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
               placeholder=" "
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-5 pb-3 outline-none text-fg-primary text-sm font-light leading-relaxed shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none resize-y min-h-[100px]"
+              className="w-full bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-5 pt-6 pb-3 outline-none text-fg-primary text-sm font-light leading-relaxed shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none resize-y min-h-[100px]"
             />
             <label htmlFor="content-input" className="floating-label">REPLY</label>
           </div>

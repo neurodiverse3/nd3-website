@@ -136,7 +136,7 @@ export default function AuthorCard({ author = {}, socials = {} }) {
               <Compass size={11} className="text-accent-pink" /> ABOUT ME
             </Link>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <a
                 href={`https://tiktok.com/@${tiktok}`}
                 target="_blank"

@@ -271,7 +271,7 @@ export default function AccessibilityPanel({ mobile }) {
           </button>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-1 text-text-muted hover:text-fg-primary cursor-pointer focus-ring rounded-none bg-transparent border-0 flex items-center justify-center"
+            className="p-1 text-text-muted hover:text-fg-primary cursor-pointer focus-ring rounded-none bg-transparent border-0 flex items-center justify-center h-7"
             aria-label="Close preferences panel"
           >
             <Sliders size={14} className="rotate-90 text-accent shrink-0" />
@@ -433,7 +433,7 @@ export default function AccessibilityPanel({ mobile }) {
                     <span className="text-[10px] md:text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1 select-none">
                       RULER COLOR
                     </span>
-                    <div className="grid grid-cols-5 gap-1 select-none font-mono">
+                    <div className="grid grid-cols-3 xs:grid-cols-5 gap-1 select-none font-mono">
                       {[
                         { id: 'theme', label: 'Theme', colorClass: 'bg-accent' },
                         { id: 'pink', label: 'Pink', colorClass: 'bg-[#FF2E88]' },
@@ -446,7 +446,7 @@ export default function AccessibilityPanel({ mobile }) {
                           <button
                             key={c.id}
                             onClick={() => handleRulerColorChange(c.id)}
-                            className={`py-1 text-[9px] md:text-[10px] text-center font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring flex flex-col items-center justify-center gap-0.5 ${
+                            className={`py-2 px-1 text-[9px] md:text-[10px] text-center font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring flex flex-col items-center justify-center gap-1 ${
                               isActive
                                 ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
                                 : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
@@ -484,7 +484,7 @@ export default function AccessibilityPanel({ mobile }) {
   return (
     <>
       {/* 1. Mouse-Tracking Focus Reading Ruler */}
-      {readingRuler && !mounted && (
+      {readingRuler && mounted && (
         <div 
           className={`fixed left-0 right-0 pointer-events-none z-[99999] transition-[top] duration-75 select-none border-y-2 ${
             rulerColor === 'theme' ? 'bg-[var(--accent)]/15 border-[var(--accent)]/45' : ''
@@ -549,9 +549,11 @@ export default function AccessibilityPanel({ mobile }) {
                   role="dialog"
                   aria-modal="true"
                   aria-label="Sensory and Accessibility Preferences"
-                  className="fixed inset-x-0 bottom-0 w-full max-h-[85vh] overflow-y-auto sidebar-card p-6 text-left transition-all duration-300 z-[160] bg-black border-t-2 border-accent animate-in slide-in-from-bottom"
+                  className="fixed inset-x-0 bottom-0 w-full max-h-[85vh] overflow-y-auto sidebar-card p-6 pb-12 text-left transition-all duration-300 z-[160] bg-black border-t-2 border-accent animate-in slide-in-from-bottom flex flex-col items-center"
                 >
-                  {panelContent}
+                  <div className="w-full max-w-md mx-auto">
+                    {panelContent}
+                  </div>
                 </div>
               </div>,
               document.body

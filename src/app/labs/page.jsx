@@ -38,6 +38,7 @@ export default async function LabsPage() {
         titleLabel="Labs"
         titleAccent="Prototypes"
         subtitle="Free, highly tactile, sensory-friendly utilities built for brains that need alternative visual paths · acoustic shields, and dopamine resets."
+        className="mb-12 md:mb-16"
       />
 
       {/* Main Listing & Filtering Client Interface */}
