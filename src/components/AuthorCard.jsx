@@ -91,7 +91,7 @@ const XIcon = ({ size = 14, className = "" }) => (
 
 export default function AuthorCard({ author = {}, socials = {} }) {
   const name = "Ollie";
-  const photoUrl = "/ollie.jpg"; // Premium local asset
+  const photoUrl = "/ollie-profile-v2.jpg"; // Premium local asset
 
   // Social handles - single source of truth, mirrors the homepage.
   const instagram = socials.instagram || "neurodivers3";

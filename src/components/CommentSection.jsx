@@ -60,6 +60,12 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
   const [particles, setParticles] = useState([]);
   const submitButtonRef = useRef(null);
 
+  // Prevent hydration mismatch by deferring local date formatting to client mount
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   // Synchronise comments if initialComments update (on route/post slug navigation)
   useEffect(() => {
     setComments(initialComments);
@@ -246,7 +252,7 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
                       {c.name}
                     </span>
                     <time className="text-xs md:text-sm font-mono text-text-muted uppercase tracking-wider">
-                      {formatCommentDate(c.createdAt)}
+                      {isClient ? formatCommentDate(c.createdAt) : ''}
                     </time>
                   </div>
                   

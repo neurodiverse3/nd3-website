@@ -392,7 +392,7 @@ export default async function BlogPostPage({ params }) {
         <StickyBlogHeader title={post.title} />
 
         {/* TITLE & EXCERPT CONTAINER (stretched full-width above the content grid on desktop) */}
-        <div className="mx-auto px-4 md:px-6 pt-32 pb-4 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] w-full text-left">
+        <div className="mx-auto px-6 md:px-24 xl:px-16 2xl:px-32 pt-32 pb-4 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] w-full text-left">
           <div className="w-full">
             <h1 className="text-[clamp(2rem,3.8vw,3.75rem)] font-black uppercase tracking-wide leading-[1.0] mb-6 text-fg-primary font-display">
               {post.title}
@@ -405,7 +405,7 @@ export default async function BlogPostPage({ params }) {
           </div>
         </div>
 
-        <div className="mx-auto px-4 md:px-6 pt-4 xl:pt-8 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] relative flex flex-col xl:flex-row gap-6 xl:gap-8 items-start">
+        <div className="mx-auto px-6 md:px-24 xl:px-16 2xl:px-32 pt-4 xl:pt-8 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] relative flex flex-col xl:flex-row gap-8 xl:gap-12 2xl:gap-16 items-start">
           
           {/* 1. LEFT COLUMN: OUTLINE / TOC (LIKE IT WAS BEFORE, STICKY ON DESKTOP) */}
           {showToC && (
@@ -761,7 +761,7 @@ export default async function BlogPostPage({ params }) {
         </div>
 
         {/* RELATED READING SECTION (outside the columns to span full-width) */}
-        <div className="mx-auto px-4 md:px-6 mt-20 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] w-full text-left">
+        <div className="mx-auto px-6 md:px-24 xl:px-16 2xl:px-32 mt-20 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] w-full text-left">
           <RelatedPosts 
             posts={allPosts} 
             currentPost={post} 
