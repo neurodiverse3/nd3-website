@@ -362,11 +362,11 @@ export default async function ProductDetailPage({ params }: Props) {
       </div>
 
       {/* Module 5.2: Mobile sticky checkout bar — fixed to viewport bottom */}
-      <div className="min-[920px]:hidden fixed bottom-0 left-0 right-0 z-50 border-t-2 border-[var(--fg)] bg-[var(--surface,var(--bg))] p-3 shadow-[0_-4px_16px_rgba(0,0,0,0.4)]">
+      <div className="min-[920px]:hidden fixed bottom-0 left-0 right-0 z-50 border-t-2 border-[var(--fg)] bg-[var(--surface,var(--bg))] p-4 shadow-[0_-4px_16px_rgba(0,0,0,0.4)]">
         <BuyPanel product={product} compact />
       </div>
       {/* Spacer so content doesn't hide behind the fixed bar */}
-      <div className="min-[920px]:hidden h-24" aria-hidden="true" />
+      <div className="min-[920px]:hidden h-28" aria-hidden="true" />
     </main>
   );
 }

@@ -306,7 +306,13 @@ html.prefers-reduced-motion-override .lab-card-premium:hover svg path:not([data-
 html {
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   scroll-behavior: smooth;
-  scroll-padding-top: 120px;
+  scroll-padding-top: 72px;
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 120px;
+  }
 }
 
 body {

@@ -260,7 +260,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             NEURODIVERGENT LIFE, TOOLS AND STORIES
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-[6rem] lg:text-[7rem] xl:text-[7.8rem] font-black leading-[1.05] tracking-[-0.02em] uppercase mb-2 md:mb-3 select-none">
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-[6rem] lg:text-[7rem] xl:text-[7.8rem] font-black leading-[1.05] tracking-[-0.02em] uppercase mb-2 md:mb-3 select-none">
             <div 
               className="block"
               style={{ opacity: 0, animation: 'fadeInUp 0.6s ease forwards' }}
@@ -503,7 +503,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
       {/* 7. Founder Block - Meet Ollie */}
       <section className="py-12 md:py-16 lg:py-20 px-6 md:px-24 max-w-7xl mx-auto border-b border-border-rule">
-        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
           {/* Photo container */}
           <div className="w-full aspect-square md:w-[400px] h-auto md:h-[400px] relative overflow-hidden shrink-0 border-4 border-fg-primary shadow-[10px_10px_0px_var(--rule)] hover:shadow-[12px_12px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 transition-all duration-300 bg-bg-primary">
             {photoUrl ? (
@@ -571,7 +571,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               href="https://tiktok.com/@neurodivers3" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none focus-visible:outline-none"
+              className="group p-3 sm:p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center rounded-none focus-visible:outline-none"
             >
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="shrink-0"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.74-3.94-1.78-.22-.22-.41-.47-.59-.73v7.02c0 3.74-2.07 6.97-5.46 8.22-3.39 1.25-7.39.4-9.87-2.12-2.48-2.52-3.13-6.52-1.61-9.76 1.52-3.24 5.05-5.18 8.62-4.77v4.07c-2-.31-4.04.57-5.01 2.37-.97 1.8-.6 4.09.91 5.46 1.52 1.37 3.86 1.34 5.35-.07.97-.96 1.44-2.34 1.37-3.7V0h.03z"/></svg>
@@ -583,7 +583,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               href="https://instagram.com/neurodivers3" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none focus-visible:outline-none"
+              className="group p-3 sm:p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center rounded-none focus-visible:outline-none"
             >
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -595,7 +595,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               href="https://youtube.com/@neurodivers3" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none focus-visible:outline-none"
+              className="group p-3 sm:p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center rounded-none focus-visible:outline-none"
             >
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
@@ -607,7 +607,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               href="https://facebook.com/neurodivers3" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none focus-visible:outline-none"
+              className="group p-3 sm:p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center rounded-none focus-visible:outline-none"
             >
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
@@ -621,7 +621,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               href="https://x.com/neurodivers3" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none focus-visible:outline-none"
+              className="group p-3 sm:p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center rounded-none focus-visible:outline-none"
             >
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
@@ -667,7 +667,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                 />
 
                 <div className="flex flex-col gap-4 w-full">
-                  <div className="flex flex-col sm:flex-row gap-4 w-full">
+                  <div className="flex flex-col xs:flex-row gap-3 xs:gap-4 w-full">
                     <div className="flex-1 relative">
                       <label htmlFor="firstname-input" className="sr-only">First name (optional)</label>
                       <input

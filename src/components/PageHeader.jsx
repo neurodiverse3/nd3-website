@@ -16,7 +16,7 @@ export default function PageHeader({
           </div>
         )}
 
-        <h1 className="text-5xl md:text-[8rem] font-black leading-[1.05] tracking-[-0.02em] uppercase mb-4 md:mb-8 font-display">
+        <h1 className="text-3xl sm:text-5xl md:text-[8rem] font-black leading-[1.05] tracking-[-0.02em] uppercase mb-4 md:mb-8 font-display">
           <div className="block">
             <span className="text-fg">UNMASKED</span>
             <span className="inline-block text-accent ml-0.5">.</span>

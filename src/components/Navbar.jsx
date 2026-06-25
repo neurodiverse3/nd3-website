@@ -206,7 +206,7 @@ export const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed right-0 top-0 bottom-0 w-4/5 max-w-[360px] h-full bg-bg-primary border-l border-border-rule p-8 pb-28 z-[9999] md:hidden flex flex-col justify-between shadow-2xl"
+              className="fixed right-0 top-0 bottom-0 w-4/5 max-w-[360px] min-w-[280px] h-full bg-bg-primary border-l border-border-rule p-6 sm:p-8 pb-28 z-[9999] md:hidden flex flex-col justify-between shadow-2xl"
             >
               {/* Drawer Top */}
               <div className="flex justify-between items-start gap-4">
