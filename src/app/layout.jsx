@@ -10,6 +10,7 @@ import { Inter, Outfit } from 'next/font/google';
 import { PWARegister } from '../components/PWARegister';
 import { ZeroTelemetryBanner } from '../components/ZeroTelemetryBanner';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
 import GlobalVisualSnow from '../components/labs/GlobalVisualSnow';
 
 const inter = Inter({
@@ -132,6 +133,7 @@ export default function RootLayout({ children }) {
               </PageTransition>
             </main>
             <Footer />
+            <Analytics />
           </BrainStateProvider>
         </ThemeProvider>
       </body>
