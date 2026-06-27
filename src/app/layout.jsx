@@ -1,4 +1,3 @@
-import React from 'react';
 import '../index.css';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
@@ -9,7 +8,6 @@ import { BrainStateProvider } from '../context/BrainStateContext';
 import { Inter, Outfit } from 'next/font/google';
 import { PWARegister } from '../components/PWARegister';
 import { ZeroTelemetryBanner } from '../components/ZeroTelemetryBanner';
-import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
 import GlobalVisualSnow from '../components/labs/GlobalVisualSnow';
 

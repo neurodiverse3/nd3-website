@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Loader2,
@@ -40,7 +40,7 @@ export function UnsubscribeForm() {
         setStatus("error");
         setErrorMessage(res.error || "Something went wrong. Please try again.");
       }
-    } catch (err) {
+    } catch {
       setStatus("error");
       setErrorMessage("A connection error occurred. Please try again.");
     } finally {

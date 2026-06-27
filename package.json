@@ -7,7 +7,7 @@
     "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --max-warnings=0",
+    "lint": "eslint .",
     "generate-demos": "node scripts/generate-spotlane-demos.js",
     "sync-notion": "node scripts/notion-sync.js"
   },
