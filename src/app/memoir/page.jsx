@@ -3,7 +3,7 @@ import { Sparkles, Flame, Layers, Volume2, History } from 'lucide-react';
 import MemoirNewsletter from '../../components/MemoirNewsletter';
 import PageHeader from '../../components/PageHeader';
 
-export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
+export const revalidate = 60; // Cache for 1 minute, revalidated on-demand
 
 export const metadata = {
   title: 'Memoir in Progress | I Thought I Was Just Bad at Being a Human | neurodivers³',

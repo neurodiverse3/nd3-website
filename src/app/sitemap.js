@@ -1,7 +1,7 @@
 import { getPosts, getMemoirChapters, getLabs } from '../lib/strapi';
 import { PRODUCTS } from '../data/products';
 
-export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
+export const revalidate = 60; // Cache for 1 minute, revalidated on-demand
 
 export default async function sitemap() {
   const baseUrl = 'https://neurodivers3.co.uk';

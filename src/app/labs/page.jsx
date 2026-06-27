@@ -17,7 +17,7 @@ export const metadata = {
   }
 };
 
-export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
+export const revalidate = 60; // Cache for 1 minute, revalidated on-demand
 
 export default async function LabsPage() {
   let sanityLabs = [];

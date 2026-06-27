@@ -33,7 +33,7 @@ export async function getComments(postSlug) {
     const res = await fetch(`${STRAPI_URL}/api/comments?${query}`, {
       headers: STRAPI_TOKEN ? { Authorization: `Bearer ${STRAPI_TOKEN}` } : {},
       // Use a short cache window to keep pages statically buildable.
-      next: { revalidate: 86400 },
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) {

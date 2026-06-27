@@ -10,7 +10,7 @@ import DataPersistencePanel from '../../../components/labs/DataPersistencePanel'
 import LabFullscreenWrapper from '../../../components/labs/LabFullscreenWrapper';
 import KeyboardShortcutsOverlay from '../../../components/labs/KeyboardShortcutsOverlay';
 
-export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
+export const revalidate = 60; // Cache for 1 minute, revalidated on-demand
 
 const parseInlineMarkdown = (text) => {
   if (!text) return '';

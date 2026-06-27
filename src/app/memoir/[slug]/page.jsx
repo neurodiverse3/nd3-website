@@ -7,7 +7,7 @@ import RichTextRenderer from '../../../components/RichTextRenderer';
 import ReadingProgress from '../../../components/ReadingProgress';
 import { toSmartQuotes } from '../../../lib/typography';
 
-export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
+export const revalidate = 60; // Cache for 1 minute, revalidated on-demand
 
 export async function generateStaticParams() {
   try {
