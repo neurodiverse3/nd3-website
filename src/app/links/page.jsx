@@ -14,7 +14,7 @@ import {
   FileText
 } from "lucide-react";
 
-const Instagram = ({ size = 20, className = "" }) => (
+const Instagram = ({ size = 24, className = "" }) => (
   <svg
     viewBox="0 0 24 24"
     width={size}
@@ -33,7 +33,7 @@ const Instagram = ({ size = 20, className = "" }) => (
   </svg>
 );
 
-const Youtube = ({ size = 20, className = "" }) => (
+const Youtube = ({ size = 24, className = "" }) => (
   <svg
     viewBox="0 0 24 24"
     width={size}
@@ -51,20 +51,16 @@ const Youtube = ({ size = 20, className = "" }) => (
   </svg>
 );
 
-const Twitter = ({ size = 20, className = "" }) => (
+const Twitter = ({ size = 24, className = "" }) => (
   <svg
     viewBox="0 0 24 24"
     width={size}
     height={size}
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
     className={className}
     aria-hidden="true"
   >
-    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
 );
 
@@ -72,6 +68,7 @@ export default function LinksPage() {
   const [qrCodeUrl, setQrCodeUrl] = useState("");
   const [showQrModal, setShowQrModal] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     // Generate QR code for the current URL
@@ -121,7 +118,6 @@ END:VCARD`;
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(email);
       } else {
-        // Fallback for older browsers or non-secure contexts
         const ta = document.createElement("textarea");
         ta.value = email;
         ta.style.position = "fixed";
@@ -141,25 +137,25 @@ END:VCARD`;
   const mainLinks = [
     {
       title: "Digital Store",
-      subtitle: "Tactile, low-friction ADHD & autistic planners",
+      subtitle: "Tactile, low-friction ADHD and autistic planners built for energy, not urgency.",
       href: "/store",
       icon: <ShoppingBag className="w-5 h-5" />,
     },
     {
       title: "Memoir in Progress",
-      subtitle: "Figuring out how to human after a late diagnosis",
+      subtitle: "Figuring out how to human after a late-in-life AuDHD diagnosis.",
       href: "/memoir",
       icon: <BookOpen className="w-5 h-5" />,
     },
     {
       title: "Interactive Labs",
-      subtitle: "Focus tools, visual snow filters & spoon trackers",
+      subtitle: "Free focus loops, visual snow shields, and drag-and-drop spoon trackers.",
       href: "/labs",
       icon: <Layers className="w-5 h-5" />,
     },
     {
-      title: "The Blog Archive",
-      subtitle: "Deep dives on masking, burnout & neurodivergence",
+      title: "The Honest Blog",
+      subtitle: "Deep, unmasked dives on autistic burnout, masking, and systems that work.",
       href: "/blog",
       icon: <FileText className="w-5 h-5" />,
     },
@@ -168,90 +164,115 @@ END:VCARD`;
   const socialLinks = [
     {
       name: "TikTok",
+      label: "Follow on TikTok",
       href: "https://tiktok.com/@neurodivers3",
       icon: (
-        <span className="font-mono font-bold text-sm tracking-tighter">TT</span>
+        <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor" aria-hidden="true">
+          <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.74-3.94-1.78-.22-.22-.41-.47-.59-.73v7.02c0 3.74-2.07 6.97-5.46 8.22-3.39 1.25-7.39.4-9.87-2.12-2.48-2.52-3.13-6.52-1.61-9.76 1.52-3.24 5.05-5.18 8.62-4.77v4.07c-2-.31-4.04.57-5.01 2.37-.97 1.8-.6 4.09.91 5.46 1.52 1.37 3.86 1.34 5.35-.07.97-.96 1.44-2.34 1.37-3.7V0h.03z" />
+        </svg>
       ),
     },
     {
       name: "Instagram",
+      label: "Follow on Instagram",
       href: "https://instagram.com/neurodivers3",
-      icon: <Instagram className="w-5 h-5" />,
+      icon: <Instagram className="w-6 h-6" />,
     },
     {
       name: "YouTube",
+      label: "Subscribe on YouTube",
       href: "https://youtube.com/@neurodivers3",
-      icon: <Youtube className="w-5 h-5" />,
+      icon: <Youtube className="w-6 h-6" />,
     },
     {
       name: "Facebook",
+      label: "Follow on Facebook",
       href: "https://facebook.com/neurodivers3",
       icon: (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
         </svg>
       ),
     },
     {
-      name: "X / Twitter",
+      name: "X",
+      label: "Follow on X (formerly Twitter)",
       href: "https://x.com/neurodivers3",
-      icon: <Twitter className="w-5 h-5" />,
+      icon: <Twitter className="w-6 h-6" />,
     },
   ];
 
   return (
-    <main className="min-h-screen bg-bg-primary text-fg-primary flex flex-col justify-between pt-[96px] md:pt-[120px] pb-12 px-6">
-      <div className="w-full max-w-md mx-auto space-y-8 flex-1 flex flex-col justify-center">
+    <main className="min-h-screen bg-bg-primary text-fg-primary flex flex-col justify-between pt-[96px] md:pt-[120px] pb-12 px-6 select-none">
+      <div className="w-full max-w-md mx-auto flex flex-col justify-start gap-8 pt-4 pb-12">
         {/* Profile Card Header */}
-        <div className="text-center space-y-4">
-          <div className="w-24 h-24 mx-auto border-4 border-fg-primary shadow-[4px_4px_0px_var(--accent)] relative overflow-hidden bg-bg-primary">
-            <img
-              src="/ollie-profile-v2.jpg"
-              alt="Ollie Clews"
-              className="w-full h-full object-cover filter grayscale contrast-125"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-bg-primary text-fg-primary font-mono font-bold text-3xl uppercase tracking-tighter select-none">
-              n³
-            </div>
+        <div className="text-center flex flex-col items-center">
+          <div className="w-24 h-24 border-4 border-fg-primary shadow-[4px_4px_0px_var(--accent)] relative overflow-hidden bg-bg-primary flex items-center justify-center mb-5">
+            {!imageError ? (
+              <img
+                src="/ollie-profile-v2.jpg"
+                alt="Ollie Clews"
+                className="w-full h-full object-cover transition-all duration-500 filter grayscale-0 hover:grayscale contrast-125"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="font-mono font-bold text-3xl uppercase tracking-tighter select-none text-fg-primary">
+                n³
+              </div>
+            )}
           </div>
           
-          <div className="space-y-1">
-            <h1 className="text-2xl font-display font-black uppercase tracking-tight">
-              Ollie Clews
-            </h1>
-            <p className="text-xs font-mono uppercase tracking-widest text-[var(--accent-label,var(--accent))]">
-              neurodivers³ · founder
-            </p>
-          </div>
+          <h1 className="text-2xl md:text-3xl font-display font-black uppercase tracking-tight text-fg-primary leading-none">
+            Ollie Clews
+          </h1>
+          <p className="text-xs font-mono uppercase tracking-widest text-[var(--accent-label,var(--accent))] mt-3">
+            neurodivers³ · founder
+          </p>
           
-          <p className="text-sm text-text-muted leading-relaxed font-sans max-w-[32ch] mx-auto">
-            Building tiny, resilient, restartable systems for the wired-different brain.
+          <p className="text-sm text-text-muted leading-relaxed font-sans max-w-[32ch] mt-4">
+            AuDHD founder writing honestly about the parts of neurodivergent life that don't usually make the manual.
           </p>
         </div>
 
         {/* Action Bar (Download Contact & QR Code Sharing) */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3">
           <button
             onClick={downloadVCard}
-            className="flex items-center justify-center gap-2 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] p-3 text-xs font-bold uppercase tracking-wider transition-all duration-150 active:translate-x-0 active:translate-y-0 shadow-[4px_4px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 cursor-pointer"
+            className="flex items-center justify-center gap-2 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-btn-text,var(--bg))] p-3 text-xs font-bold uppercase tracking-wider transition-all duration-150 shadow-[4px_4px_0px_var(--fg-primary)] hover:shadow-[6px_6px_0px_var(--fg-primary)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 cursor-pointer rounded-none focus-ring whitespace-nowrap"
           >
-            <Download size={14} /> Contact Card
+            <Download size={14} className="shrink-0" /> Contact Card
           </button>
           
           <button
             onClick={() => setShowQrModal(true)}
-            className="flex items-center justify-center gap-2 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] p-3 text-xs font-bold uppercase tracking-wider transition-all duration-150 active:translate-x-0 active:translate-y-0 shadow-[4px_4px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 cursor-pointer"
+            className="flex items-center justify-center gap-2 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-btn-text,var(--bg))] p-3 text-xs font-bold uppercase tracking-wider transition-all duration-150 shadow-[4px_4px_0px_var(--fg-primary)] hover:shadow-[6px_6px_0px_var(--fg-primary)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 cursor-pointer rounded-none focus-ring whitespace-nowrap"
           >
-            <QrCode size={14} /> Share Page
+            <QrCode size={14} className="shrink-0" /> Share Page
           </button>
         </div>
 
-        {/* Links List */}
-        <div className="space-y-4 pt-4">
-          <span className="text-xs md:text-sm font-mono font-bold text-text-muted uppercase tracking-[0.2em] block text-center">
+        {/* Social Icons - Centered horizontal axis with even spacing */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          {socialLinks.map((social, idx) => (
+            <a
+              key={idx}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 border-2 border-fg-primary flex flex-col items-center justify-center bg-[var(--accent-soft)] text-fg-primary hover:bg-accent hover:text-[var(--accent-btn-text,var(--bg))] transition-all duration-200 shadow-[3px_3px_0px_var(--fg-primary)] hover:shadow-[5px_5px_0px_var(--fg-primary)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 group focus-ring"
+              title={social.name}
+              aria-label={social.label}
+            >
+              <div className="transition-transform group-hover:scale-105 flex items-center justify-center">
+                {social.icon}
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {/* Links & Inquiries List - Spacious padding and uniform vertical spacing */}
+        <div className="space-y-4">
+          <span className="text-[11px] font-mono font-bold text-text-muted uppercase tracking-[0.25em] block text-center select-none mb-4">
             explore neurodivers³
           </span>
 
@@ -259,82 +280,54 @@ END:VCARD`;
             <Link
               key={idx}
               href={link.href}
-              className="flex items-center justify-between border-2 border-fg-primary p-4 bg-bg-primary hover:bg-bg-primary/80 transition-all duration-150 shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 group"
+              className="flex items-center justify-between border-2 border-fg-primary p-4 bg-bg-primary hover:bg-bg-primary/80 transition-all duration-150 shadow-[4px_4px_0px_var(--fg-primary)] hover:shadow-[6px_6px_0px_var(--accent)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 group focus-ring"
             >
               <div className="flex items-center gap-4 text-left">
-                <div className="w-10 h-10 border border-fg-primary flex items-center justify-center bg-[var(--accent-soft)] text-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-[var(--accent-text,var(--bg))] transition-colors shrink-0">
+                <div className="w-11 h-11 border-2 border-fg-primary flex items-center justify-center bg-[var(--accent-soft)] text-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-[var(--accent-btn-text,var(--bg))] transition-colors shrink-0">
                   {link.icon}
                 </div>
-                <div>
-                  <h2 className="font-bold text-sm uppercase tracking-tight text-fg-primary leading-tight">
+                <div className="space-y-1">
+                  <h2 className="font-display font-black text-xs md:text-sm uppercase tracking-wider text-fg-primary leading-tight">
                     {link.title}
                   </h2>
-                  <p className="text-xs text-text-muted mt-1 leading-tight font-sans">
+                  <p className="text-xs text-text-muted leading-relaxed font-sans">
                     {link.subtitle}
                   </p>
                 </div>
               </div>
-              <ExternalLink size={16} className="text-text-muted group-hover:text-fg-primary transition-colors shrink-0" />
+              <ExternalLink size={14} className="text-text-muted group-hover:text-fg-primary transition-colors shrink-0 ml-2" />
             </Link>
           ))}
-        </div>
 
-        {/* Email Accordion Card */}
-        <button
-          onClick={copyEmail}
-          className="w-full flex items-center justify-between border-2 border-fg-primary p-4 bg-bg-primary hover:bg-bg-primary/80 transition-all duration-150 shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 group cursor-pointer"
-        >
-          <div className="flex items-center gap-4 text-left">
-            <div className="w-10 h-10 border border-fg-primary flex items-center justify-center bg-[var(--accent-soft)] text-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-[var(--accent-text,var(--bg))] transition-colors shrink-0">
-              <Mail className="w-5 h-5" />
+          {/* Email Card - Integrated into the same stack for uniform spacing */}
+          <button
+            onClick={copyEmail}
+            className="w-full flex items-center justify-between border-2 border-fg-primary p-4 bg-bg-primary hover:bg-bg-primary/80 transition-all duration-150 shadow-[4px_4px_0px_var(--fg-primary)] hover:shadow-[6px_6px_0px_var(--accent)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 group cursor-pointer focus-ring"
+          >
+            <div className="flex items-center gap-4 text-left">
+              <div className="w-11 h-11 border-2 border-fg-primary flex items-center justify-center bg-[var(--accent-soft)] text-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-[var(--accent-btn-text,var(--bg))] transition-colors shrink-0">
+                <Mail className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <h2 className="font-display font-black text-xs md:text-sm uppercase tracking-wider text-fg-primary leading-tight">
+                  Support & Inquiries
+                </h2>
+                <p className="text-xs text-text-muted leading-relaxed font-sans">
+                  {copied ? "Copied to clipboard!" : "hello@neurodivers3.co.uk"}
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="font-bold text-sm uppercase tracking-tight text-fg-primary leading-tight">
-                Support & Inquiries
-              </h2>
-              <p className="text-xs text-text-muted mt-1 leading-tight font-sans">
-                {copied ? "Copied to clipboard!" : "hello@neurodivers3.co.uk"}
-              </p>
-            </div>
-          </div>
-          <span className="text-xs md:text-sm font-mono font-bold uppercase text-[var(--accent-label,var(--accent))] tracking-wider shrink-0">
-            {copied ? "COPIED ✓" : "COPY"}
-          </span>
-        </button>
-
-        {/* Social Grid */}
-        <div className="space-y-4 pt-4">
-          <span className="text-xs md:text-sm font-mono font-bold text-text-muted uppercase tracking-[0.2em] block text-center">
-            social channels
-          </span>
-          <div className="grid grid-cols-4 gap-3">
-            {socialLinks.map((social, idx) => (
-              <a
-                key={idx}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aspect-square border-2 border-fg-primary flex flex-col items-center justify-center gap-1.5 bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] transition-colors shadow-[3px_3px_0px_var(--rule)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-0 active:translate-y-0 group"
-                title={social.name}
-              >
-                <div className="text-fg-primary group-hover:text-[var(--accent-text,var(--bg))] transition-colors">
-                  {social.icon}
-                </div>
-                <span className="text-xs md:text-sm font-mono font-bold uppercase tracking-wider hidden sm:block">
-                  {social.name}
-                </span>
-              </a>
-            ))}
-          </div>
+            
+            <span className={`text-[10px] font-mono font-black uppercase tracking-wider px-2.5 py-1 border border-fg-primary transition-all shrink-0 ml-2 ${
+              copied 
+                ? 'bg-green-500/20 text-green-500 border-green-500/40 shadow-[1px_1px_0px_green]' 
+                : 'bg-[var(--accent-soft)] text-[var(--accent)] border-[var(--accent)]/30 group-hover:bg-[var(--accent)] group-hover:text-[var(--accent-btn-text,var(--bg))] group-hover:border-fg-primary shadow-[2px_2px_0px_var(--accent)] group-hover:shadow-none'
+            }`}>
+              {copied ? "COPIED ✓" : "COPY"}
+            </span>
+          </button>
         </div>
       </div>
-
-      {/* Footer Branding */}
-      <footer className="w-full text-center mt-12 pt-6 border-t border-border-rule max-w-md mx-auto">
-        <Link href="/" className="font-display font-black text-sm uppercase tracking-wider hover:text-[var(--accent)] transition-colors">
-          neurodivers³
-        </Link>
-      </footer>
 
       {/* QR Code Share Modal */}
       {showQrModal && (
@@ -353,7 +346,7 @@ END:VCARD`;
             </p>
             
             {qrCodeUrl ? (
-              <div className="border-4 border-black p-4 bg-white inline-block mb-6 shadow-md">
+              <div className="border-4 border-black p-4 bg-white inline-block mb-6 shadow-md animate-fade-in">
                 <img
                   src={qrCodeUrl}
                   alt="QR Code to links directory"

@@ -43,11 +43,11 @@ export default async function MemoirPage() {
       name: 'neurodivers³',
       url: 'https://neurodivers3.co.uk'
     },
-    bookFormat: 'https://schema.org/EBook',
+    bookFormat: 'EBook',
     workExample: {
       '@type': 'Book',
       name: 'I Thought I Was Just Bad at Being a Human',
-      bookFormat: 'https://schema.org/EBook',
+      bookFormat: 'EBook',
       creativeWorkStatus: 'InProgress'
     }
   };
@@ -105,14 +105,13 @@ export default async function MemoirPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <div className="min-h-screen pt-[96px] md:pt-[120px] pb-16 md:pb-24 px-6 md:px-24 max-w-7xl mx-auto flex flex-col justify-start">
+      <div className="min-h-screen pt-[112px] md:pt-[120px] pb-16 md:pb-24 px-6 md:px-24 max-w-7xl mx-auto flex flex-col justify-start">
         <PageHeader
           variant="section"
           eyebrow="A SLOW MEMOIR IN PROGRESS"
           titleLabel="Memoir"
           titleAccent="I Thought I Was Just Bad at Being a Human"
           subtitle="A memoir in progress about late-diagnosed AuDHD, masking, burnout, and the slow work of learning how to human. First fragments will go to newsletter subscribers."
-          className="mb-16 md:mb-20"
         />
 
         {/* Desktop 2-column layout & Mobile single column stacked */}
@@ -123,10 +122,10 @@ export default async function MemoirPage() {
             
             {/* 3. Lead-in callout */}
             <div className="border border-[var(--accent-label,var(--accent))] bg-accent-pink-soft p-6 shadow-[4px_4px_0px_rgba(255,46,136,0.15)] text-left">
-              <span className="block text-xs font-mono tracking-widest text-[var(--accent-label,var(--accent))] uppercase mb-2 select-none">
+              <span className="block text-xs font-mono tracking-widest text-[var(--accent-label,var(--accent))] uppercase mb-2 select-none text-left">
                 WHAT THIS WILL BECOME
               </span>
-              <p className="text-lg md:text-xl font-bold text-[var(--accent-label,var(--accent))] leading-relaxed">
+              <p className="text-lg md:text-xl font-bold text-[var(--accent-label,var(--accent))] leading-relaxed text-left">
                 A memoir-in-progress about wondering why I never quite fit, being diagnosed with autism and ADHD in adulthood, and slowly realising I was not broken — I was exhausted, masked, and missing the right language.
               </p>
             </div>
@@ -154,8 +153,8 @@ export default async function MemoirPage() {
             </div>
 
             {/* 5. Mid-page pink callout */}
-            <div className="py-8 text-center select-none">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-[var(--accent-label,var(--accent))] font-display tracking-tighter leading-[1.1] pb-2">
+            <div className="py-6 pb-8 text-center select-none">
+              <h2 className="text-3xl md:text-5xl font-black uppercase text-[var(--accent-label,var(--accent))] font-display tracking-tighter leading-[1.1] py-1">
                 I THOUGHT I WAS JUST BAD AT BEING A HUMAN.
               </h2>
             </div>
@@ -255,12 +254,10 @@ export default async function MemoirPage() {
           </aside>
         </div>
 
-        {/* 12. Mobile Stacked Early Chapters Card */}
-        <div className="block lg:hidden w-full mt-12 animate-in fade-in duration-300">
-          <MemoirNewsletter variant="sidebar" />
+        {/* 12. Bottom Full-width Horizontal Newsletter CTA */}
+        <div className="w-full mt-12 md:mt-16 animate-in fade-in duration-300">
+          <MemoirNewsletter variant="horizontal" />
         </div>
-
-
       </div>
     </>
   );

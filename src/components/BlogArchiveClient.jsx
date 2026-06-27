@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Clock, ChevronRight, X, Search } from 'lucide-react';
 import { PostCover } from './PostCover';
@@ -80,47 +80,53 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
   }, [urlPillar, urlState]);
 
   // Fallbacks if data doesn't have required tags
-  const processedPosts = initialPosts.map(post => {
-    const newPost = { ...post };
-    if (!newPost.pillar) {
-      newPost.pillar = 'unmasked-life';
-    } else {
-      newPost.pillar = normalizePillar(newPost.pillar);
-    }
-    if (!newPost.brainState && !newPost.state) {
-      newPost.brainState = 'hyperfocus';
-    }
-    return newPost;
-  });
+  const processedPosts = useMemo(() => {
+    return initialPosts.map(post => {
+      const newPost = { ...post };
+      if (!newPost.pillar) {
+        newPost.pillar = 'unmasked-life';
+      } else {
+        newPost.pillar = normalizePillar(newPost.pillar);
+      }
+      if (!newPost.brainState && !newPost.state) {
+        newPost.brainState = 'hyperfocus';
+      }
+      return newPost;
+    });
+  }, [initialPosts]);
 
   // Newest first sorting (preserving pinned posts)
-  const sortedPosts = [...processedPosts].sort((a, b) => {
-    if (a.pinned && !b.pinned) return -1;
-    if (!a.pinned && b.pinned) return 1;
-    const dateA = new Date(a.date || a._createdAt || 0);
-    const dateB = new Date(b.date || b._createdAt || 0);
-    return dateB - dateA;
-  });
+  const sortedPosts = useMemo(() => {
+    return [...processedPosts].sort((a, b) => {
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      const dateA = new Date(a.date || a._createdAt || 0);
+      const dateB = new Date(b.date || b._createdAt || 0);
+      return dateB - dateA;
+    });
+  }, [processedPosts]);
 
   // Filter posts
-  const filteredPosts = sortedPosts.filter(post => {
-    // 1. Topic Filter
-    if (activePillar && post.pillar !== activePillar) return false;
-    
-    // 2. State Filter
-    const stateVal = post.brainState || post.state;
-    if (activeState && stateVal !== activeState) return false;
-    
-    // 3. Search Query Filter
-    if (searchQuery.trim() !== '') {
-      const query = searchQuery.toLowerCase();
-      const matchTitle = post.title?.toLowerCase().includes(query);
-      const matchExcerpt = post.excerpt?.toLowerCase().includes(query);
-      return matchTitle || matchExcerpt;
-    }
-    
-    return true;
-  });
+  const filteredPosts = useMemo(() => {
+    return sortedPosts.filter(post => {
+      // 1. Topic Filter
+      if (activePillar && post.pillar !== activePillar) return false;
+      
+      // 2. State Filter
+      const stateVal = post.brainState || post.state;
+      if (activeState && stateVal !== activeState) return false;
+      
+      // 3. Search Query Filter
+      if (searchQuery.trim() !== '') {
+        const query = searchQuery.toLowerCase();
+        const matchTitle = post.title?.toLowerCase().includes(query);
+        const matchExcerpt = post.excerpt?.toLowerCase().includes(query);
+        return matchTitle || matchExcerpt;
+      }
+      
+      return true;
+    });
+  }, [sortedPosts, activePillar, activeState, searchQuery]);
 
   const pillarsList = [
     { id: 'unmasked-life', name: 'Unmasked Life' },
@@ -396,7 +402,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                     
                     {/* Dedicated Text Wrapper with min-height and line clamping to ensure vertical alignment */}
                     <div className="min-h-[100px] sm:min-h-[120px] flex flex-col justify-start">
-                      <p className="text-sm md:text-base text-text-muted leading-relaxed mb-6 font-normal line-clamp-3 md:line-clamp-5">
+                      <p className="text-base md:text-[17px] text-text-muted leading-relaxed mb-6 font-normal line-clamp-3 md:line-clamp-5">
                         {post.excerpt}
                       </p>
                     </div>
@@ -405,7 +411,7 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
                   <div className="mt-auto">
                     <Link 
                       href={`/blog/${slug}`}
-                      className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-transparent text-fg-primary font-black text-xs uppercase tracking-widest border-2 border-fg-primary shadow-[4px_4px_0px_var(--fg)] hover:-translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all rounded-none w-fit group cursor-pointer"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-transparent text-fg-primary font-black text-xs uppercase tracking-widest border-2 border-fg-primary shadow-[4px_4px_0px_var(--fg)] hover:-translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all rounded-none w-fit group cursor-pointer"
                     >
                       READ POST <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform shrink-0" />
                     </Link>

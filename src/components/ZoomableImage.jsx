@@ -1,5 +1,7 @@
 "use client";
+
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { X } from 'lucide-react';
 
 export const ZoomableImage = ({ src, alt, caption }) => {
@@ -37,9 +39,12 @@ export const ZoomableImage = ({ src, alt, caption }) => {
           onClick={() => setIsOpen(true)}
           className="w-full overflow-hidden border border-border-rule/60 bg-black/20"
         >
-          <img 
+          <Image 
             src={src} 
             alt={alt || 'Article Image'} 
+            width={1200}
+            height={800}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 900px, 1200px"
             className="w-full h-auto object-cover max-h-[70vh] transition-transform duration-500 hover:scale-[1.01]"
             loading="lazy"
           />
@@ -67,10 +72,13 @@ export const ZoomableImage = ({ src, alt, caption }) => {
           </button>
 
           <div className="relative max-w-7xl max-h-[85vh] flex flex-col items-center">
-            <img 
+            <Image 
               src={src} 
               alt={alt || 'Zoomed Image'} 
-              className="max-w-full max-h-[80vh] object-contain select-none shadow-2xl border-2 border-border-rule"
+              width={1920}
+              height={1080}
+              sizes="100vw"
+              className="max-w-full max-h-[80vh] w-auto h-auto object-contain select-none shadow-2xl border-2 border-border-rule"
             />
             {caption && (
               <p className="text-white/80 text-xs md:text-sm text-center mt-4 italic font-mono uppercase tracking-widest max-w-3xl">

@@ -1,4 +1,4 @@
-import { getPosts, getMemoirChapters } from '../lib/strapi';
+import { getPosts, getMemoirChapters, getLabs } from '../lib/strapi';
 import { PRODUCTS } from '../data/products';
 
 export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
@@ -6,24 +6,19 @@ export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
 export default async function sitemap() {
   const baseUrl = 'https://neurodivers3.co.uk';
 
-  // 1. Core Pages
+  // 1. Core Pages (without hardcoded labs subroutes)
   const routes = [
     '',
     '/about',
     '/accessibility',
     '/contact',
     '/labs',
-    '/labs/visual-snow-shield',
-    '/labs/sensory-audit',
-    '/labs/acoustic-shield',
-    '/labs/spoon-tracker',
-    '/labs/decision-coin',
-    '/labs/brown-noise-loop',
     '/store',
     '/memoir',
     '/privacy',
     '/terms',
     '/blog',
+    '/links',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
@@ -32,7 +27,12 @@ export default async function sitemap() {
   }));
 
   // 2. Dynamic Blog Posts
-  const posts = await getPosts() || [];
+  let posts = [];
+  try {
+    posts = await getPosts() || [];
+  } catch (err) {
+    console.warn('⚠️ [Sitemap] Failed to fetch posts from Strapi:', err);
+  }
 
   const blogRoutes = posts.map((post) => {
     const slug = post.slug?.current || post.slug;
@@ -46,7 +46,12 @@ export default async function sitemap() {
   });
 
   // 3. Dynamic Memoir Chapters
-  const memoirChapters = await getMemoirChapters() || [];
+  let memoirChapters = [];
+  try {
+    memoirChapters = await getMemoirChapters() || [];
+  } catch (err) {
+    console.warn('⚠️ [Sitemap] Failed to fetch memoir chapters from Strapi:', err);
+  }
   const excludedMemoirSlugs = ['chapter-pipeline', 'memoir-manifesto', 'sample-chapter-stub', 'pipeline', 'manifesto'];
 
   const memoirRoutes = memoirChapters
@@ -75,5 +80,34 @@ export default async function sitemap() {
     };
   });
 
-  return [...routes, ...blogRoutes, ...memoirRoutes, ...storeRoutes];
+  // 5. Dynamic Lab Pages (merged with fallbacks)
+  let labs = [];
+  try {
+    labs = await getLabs() || [];
+  } catch (err) {
+    console.warn('⚠️ [Sitemap] Failed to fetch labs from Strapi:', err);
+  }
+  const fallbackLabSlugs = [
+    'visual-snow-shield',
+    'sensory-audit',
+    'acoustic-shield',
+    'spoon-tracker',
+    'decision-coin',
+    'brown-noise-loop',
+  ];
+  const dynamicLabSlugs = labs.map((lab) => lab.slug?.current || lab.slug).filter(Boolean);
+  const allLabSlugs = Array.from(new Set([...fallbackLabSlugs, ...dynamicLabSlugs]));
+
+  const labRoutes = allLabSlugs.map((slug) => {
+    const matchedLab = labs.find((l) => (l.slug?.current || l.slug) === slug);
+    const labDate = matchedLab?.updatedAt || matchedLab?.publishedAt || new Date().toISOString();
+    return {
+      url: `${baseUrl}/labs/${slug}`,
+      lastModified: new Date(labDate).toISOString().split('T')[0],
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    };
+  });
+
+  return [...routes, ...blogRoutes, ...memoirRoutes, ...storeRoutes, ...labRoutes];
 }

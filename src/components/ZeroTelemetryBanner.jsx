@@ -34,26 +34,21 @@ export const ZeroTelemetryBanner = () => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 30, scale: 0.95 }}
           transition={{ type: "spring", stiffness: 120, damping: 18 }}
-          className="fixed bottom-6 right-6 z-50 max-w-sm w-[calc(100vw-3rem)] border-2 border-fg-primary p-6 shadow-[6px_6px_0px_var(--accent)] bg-bg-primary rounded-none text-left"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-6 z-50 max-w-sm w-[calc(100vw-3rem)] border-2 border-fg-primary p-6 shadow-[6px_6px_0px_var(--accent)] bg-bg-primary rounded-none text-left"
           role="status"
           aria-live="polite"
         >
           {/* Banner Header Accent */}
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-7 h-7 bg-accent-pink-soft border border-accent-pink/30 flex items-center justify-center text-accent-pink rounded-none shrink-0">
-              <ShieldCheck size={14} />
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-6 h-6 bg-accent-pink-soft border border-accent-pink/30 flex items-center justify-center text-accent-pink rounded-none shrink-0 mt-0.5">
+              <ShieldCheck size={12} />
             </div>
-            <span className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-accent-pink font-mono">
-              SECURE CORE: ZERO TELEMETRY
+            <span className="text-sm font-black uppercase tracking-[0.1em] text-accent-pink font-mono leading-tight">
+              Private by default - no tracking, ever
             </span>
           </div>
-
-          {/* Copy description */}
-          <h4 className="text-sm font-black uppercase tracking-tight text-fg-primary mb-2">
-            100% Tracking-Consent Free
-          </h4>
-          <p className="text-xs text-fg-primary/70 leading-relaxed font-normal mb-5 font-mono">
-            This platform deploys no tracking scripts, analytics pixels, or cookie consent walls. The browser only stores essential visual configuration flags (Theme) and active shopping items (Cart). Private by biology, secure by default.
+          <p className="text-xs text-text-muted leading-relaxed font-normal mb-5 font-mono">
+            We don't use tracking scripts, analytics pixels, or cookie consent pop-ups. Your browser only stores what's needed to use the site: your theme preference and your cart. That's it.
           </p>
 
           {/* Action Trigger Button */}
@@ -61,7 +56,7 @@ export const ZeroTelemetryBanner = () => {
             onClick={handleAcknowledge}
             className="w-full py-3 bg-transparent hover:bg-accent-pink-soft border-2 border-border-rule hover:border-accent-pink text-fg-primary hover:text-accent-pink flex items-center justify-center gap-2 font-black uppercase tracking-widest text-xs md:text-sm transition-all focus-ring rounded-none cursor-pointer"
           >
-            <span>Understood</span>
+            <span>Got it</span>
             <ArrowRight size={10} />
           </button>
         </motion.div>

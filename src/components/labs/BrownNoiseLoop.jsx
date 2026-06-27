@@ -371,6 +371,10 @@ export default function BrownNoiseLoop({ noWrapper = false }) {
       canvas.width = canvas.parentElement.clientWidth || 380;
       canvas.height = 100;
       if (audioActive) {
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+          animationFrameRef.current = null;
+        }
         startVisualizer();
       } else {
         // Draw static grid when offline
@@ -395,6 +399,12 @@ export default function BrownNoiseLoop({ noWrapper = false }) {
         }
       }
     }
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
+    };
   }, [audioActive, disableVisuals]);
 
   const content = (
@@ -404,9 +414,6 @@ export default function BrownNoiseLoop({ noWrapper = false }) {
         <h3 className="text-lg font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
           <Volume2 size={18} className="text-[var(--accent)] animate-pulse" /> BROWN NOISE LOOP
         </h3>
-        <span className="text-xs font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5 tracking-wider">
-          SYNTH
-        </span>
       </div>
 
       {/* Dynamic Wave Visualizer Canvas */}
@@ -435,7 +442,7 @@ export default function BrownNoiseLoop({ noWrapper = false }) {
         <div className="flex flex-col justify-between border border-[var(--rule)] bg-black/20 p-4 shadow-sm">
           <div className="space-y-3">
             <h4 className="text-xs font-black uppercase tracking-wider text-[var(--muted)] font-mono">
-              AUDIO EMISSION
+              AUDIO CONTROLS
             </h4>
             
             <button

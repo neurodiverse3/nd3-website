@@ -1,6 +1,6 @@
 "use client";
-import React from 'react';
-import { useTheme } from '../context/ThemeContext';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
 import { LogoWordmark } from './Logo';
 import { Brain, Terminal, Wrench } from 'lucide-react';
 
@@ -56,6 +56,8 @@ export const PostCover = ({
   maxW = '',
   pattern = 'subtle' // 'subtle' | 'grid' | 'dots' | 'frame' | 'brackets'
 }) => {
+  const themeContext = useContext(ThemeContext);
+  const theme = themeContext?.theme || 'void';
   const titleLength = title ? title.trim().length : 0;
   
   // 1. Aspect sizing configs & typography scaling to prevent card visual overflows
@@ -135,11 +137,11 @@ export const PostCover = ({
     paddingClass = 'p-6 sm:p-7';
     watermarkSizeClass = 'text-[12rem] md:text-[15rem]';
     if (titleLength > 75) {
-      titleSizeClass = 'text-[11px] sm:text-xs md:text-sm lg:text-base leading-snug';
+      titleSizeClass = 'text-base sm:text-xs md:text-sm lg:text-base leading-snug';
     } else if (titleLength > 45) {
-      titleSizeClass = 'text-xs sm:text-sm md:text-base lg:text-lg leading-tight';
+      titleSizeClass = 'text-lg sm:text-sm md:text-base lg:text-lg leading-tight';
     } else {
-      titleSizeClass = 'text-sm sm:text-base md:text-lg lg:text-xl leading-[0.95]';
+      titleSizeClass = 'text-xl sm:text-base md:text-lg lg:text-xl leading-[0.95]';
     }
   } else {
     // Default 16:9 Featured Cover
@@ -168,15 +170,7 @@ export const PostCover = ({
     accentIndex = words.length - 1;
   }
 
-  let theme = 'void';
-  try {
-    const themeContext = useTheme();
-    if (themeContext) {
-      theme = themeContext.theme;
-    }
-  } catch (e) {
-    // Graceful fallback for SSR / pre-render
-  }
+  // Theme-dependent calculations can proceed directly with 'theme' variable
 
   const pillarKey = mapPillarKey(pillar);
   
@@ -692,12 +686,24 @@ export const PostCover = ({
           >
             {words.map((word, idx) => {
               const isAccented = idx === accentIndex;
+              if (isAccented) {
+                const match = word.match(/^(\W*)(.*?)(\W*)$/);
+                if (match) {
+                  const [, prefix, core, suffix] = match;
+                  return (
+                    <React.Fragment key={idx}>
+                      {idx > 0 && ' '}
+                      {prefix}
+                      <span style={{ color: themeAccentColor }}>{core}</span>
+                      {suffix}
+                    </React.Fragment>
+                  );
+                }
+              }
               return (
                 <React.Fragment key={idx}>
                   {idx > 0 && ' '}
-                  <span style={isAccented ? { color: themeAccentColor } : undefined}>
-                    {word}
-                  </span>
+                  <span>{word}</span>
                 </React.Fragment>
               );
             })}

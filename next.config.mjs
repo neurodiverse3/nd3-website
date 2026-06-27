@@ -57,7 +57,8 @@ const nextConfig = {
   allowedDevOrigins: [
     'lemon-fineness-remark.ngrok-free.dev',
     '*.ngrok-free.dev',
-    'localhost:3000'
+    'localhost:3000',
+    '192.168.1.40'
   ],
   async redirects() {
     return [

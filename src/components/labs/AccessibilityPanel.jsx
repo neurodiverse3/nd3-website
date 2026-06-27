@@ -16,11 +16,11 @@ const ToggleRow = ({ icon: Icon, title, description, checked, onChange, ariaLabe
       <div className="space-y-1 pr-2">
         <div className="flex items-center gap-1.5">
           <Icon size={13} className="text-accent shrink-0" />
-          <span className="font-sans text-xs md:text-sm text-fg-primary font-black tracking-wider uppercase">
+          <span className="font-sans text-sm md:text-base text-fg-primary font-black tracking-wider uppercase">
             {title}
           </span>
         </div>
-        <p className="text-xs md:text-sm text-text-muted leading-relaxed font-sans font-medium">
+        <p className="text-sm md:text-base text-text-muted leading-relaxed font-sans font-medium">
           {description}
         </p>
       </div>
@@ -264,17 +264,17 @@ export default function AccessibilityPanel({ mobile }) {
         <div className="flex items-center gap-3">
           <button 
             onClick={resetAllSettings}
-            className="text-[10px] font-mono font-bold px-2 py-1 border border-red-500/30 text-red-500 hover:text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-1 cursor-pointer focus-ring rounded-none bg-transparent"
+            className="text-xs font-sans font-black px-2 py-1 border border-red-500/30 text-red-500 hover:text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-1 cursor-pointer focus-ring rounded-none bg-transparent"
             title="Reset accessibility overrides"
           >
-            <RotateCcw size={10} className="shrink-0" /> RESET
+            <RotateCcw size={11} className="shrink-0" /> RESET
           </button>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-1 text-text-muted hover:text-fg-primary cursor-pointer focus-ring rounded-none bg-transparent border-0 flex items-center justify-center h-7"
+            className="h-[24px] w-[24px] text-text-muted hover:text-fg-primary cursor-pointer focus-ring rounded-none bg-transparent border-0 flex items-center justify-center p-0"
             aria-label="Close preferences panel"
           >
-            <Sliders size={14} className="rotate-90 text-accent shrink-0" />
+            <Sliders size={12} className="rotate-90 text-accent shrink-0" />
           </button>
         </div>
       </div>
@@ -282,7 +282,7 @@ export default function AccessibilityPanel({ mobile }) {
       <div className="space-y-4">
         {/* Category 1: Appearance */}
         <div>
-          <span className="font-mono text-[11px] md:text-xs text-text-muted font-bold tracking-widest uppercase block mb-3 select-none">
+          <span className="font-sans text-xs text-text-muted font-black tracking-widest uppercase block mb-3 select-none">
             APPEARANCE
           </span>
           
@@ -295,10 +295,10 @@ export default function AccessibilityPanel({ mobile }) {
                   SITE THEME:
                 </span>
               </div>
-              <div className="flex flex-col gap-1.5 select-none font-mono mt-1">
+              <div className="flex flex-col gap-1.5 select-none font-sans mt-1">
                 {[
                   { id: 'void', label: 'VOID', dotColor: 'bg-[#FF2E88]' },
-                  { id: 'parchment', label: 'PARCHMENT', dotColor: 'bg-[#D0006F]' },
+                  { id: 'parchment', label: 'PARCHMENT', dotColor: 'bg-[#A8005A]' },
                   { id: 'incubation', label: 'INCUBATION', dotColor: 'bg-[#5A8A60]' }
                 ].map((preset) => {
                   const isActive = theme === preset.id;
@@ -306,17 +306,17 @@ export default function AccessibilityPanel({ mobile }) {
                     <button
                       key={preset.id}
                       onClick={() => setTheme(preset.id)}
-                      className={`w-full py-2 px-3 text-[10px] md:text-xs font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring flex items-center justify-between ${
+                      className={`w-full py-2.5 px-3 text-xs md:text-sm font-black border transition-all cursor-pointer rounded-none uppercase focus-ring flex items-center justify-between ${
                         isActive
-                          ? 'border-accent bg-accent/10 text-fg-primary'
-                          : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
+                          ? 'border-accent bg-accent/10 text-fg-primary font-black'
+                          : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent font-bold'
                       }`}
                     >
                       <span className="flex items-center gap-2">
                         <span className={`w-2 h-2 rounded-full shrink-0 ${preset.dotColor}`} />
                         <span>{preset.label}</span>
                       </span>
-                      {isActive && <span className="text-[9px] font-bold tracking-wider opacity-85 text-accent">ACTIVE</span>}
+                      {isActive && <span className="text-[10px] font-black tracking-wider text-accent">ACTIVE</span>}
                     </button>
                   );
                 })}
@@ -331,7 +331,7 @@ export default function AccessibilityPanel({ mobile }) {
                   GLOBAL TEXT SIZE:
                 </span>
               </div>
-              <div className="grid grid-cols-4 gap-1 select-none font-mono mt-1">
+              <div className="grid grid-cols-4 gap-1 select-none font-sans mt-1">
                 {[
                   { id: 'normal', label: '100%' },
                   { id: 'large', label: '112%' },
@@ -343,7 +343,7 @@ export default function AccessibilityPanel({ mobile }) {
                     <button
                       key={preset.id}
                       onClick={() => handleScaleChange(preset.id)}
-                      className={`py-2 text-center text-[10px] md:text-xs font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring ${
+                      className={`py-2 text-center text-xs md:text-sm font-black border transition-all cursor-pointer rounded-none uppercase focus-ring ${
                         isActive
                           ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
                           : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
@@ -360,7 +360,7 @@ export default function AccessibilityPanel({ mobile }) {
 
         {/* Category 2: Assistive Tools */}
         <div className="border-t border-border-rule/60 pt-4">
-          <span className="font-mono text-[11px] md:text-xs text-text-muted font-bold tracking-widest uppercase block mb-3 select-none">
+          <span className="font-sans text-xs text-text-muted font-black tracking-widest uppercase block mb-3 select-none">
             ASSISTIVE TOOLS
           </span>
           
@@ -400,10 +400,10 @@ export default function AccessibilityPanel({ mobile }) {
                 <div className="pl-6 pt-2 pb-2 space-y-3 border-l-2 border-accent/30 ml-2.5 mt-1 animate-in slide-in-from-left-2 duration-200">
                   {/* Ruler Height */}
                   <div className="space-y-1">
-                    <span className="text-[10px] md:text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1 select-none">
+                    <span className="text-xs font-sans font-black text-text-muted uppercase tracking-wider block mb-1 select-none">
                       RULER HEIGHT
                     </span>
-                    <div className="grid grid-cols-4 gap-1 select-none font-mono">
+                    <div className="grid grid-cols-4 gap-1 select-none font-sans">
                       {[
                         { id: '18', label: 'Thin' },
                         { id: '28', label: 'Medium' },
@@ -415,7 +415,7 @@ export default function AccessibilityPanel({ mobile }) {
                           <button
                             key={h.id}
                             onClick={() => handleRulerHeightChange(h.id)}
-                            className={`py-1 text-[10px] md:text-xs text-center font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring ${
+                            className={`py-1 text-xs md:text-sm text-center font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring ${
                               isActive
                                 ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
                                 : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
@@ -430,10 +430,10 @@ export default function AccessibilityPanel({ mobile }) {
 
                   {/* Ruler Color */}
                   <div className="space-y-1">
-                    <span className="text-[10px] md:text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1 select-none">
+                    <span className="text-xs font-sans font-black text-text-muted uppercase tracking-wider block mb-1.5 select-none">
                       RULER COLOR
                     </span>
-                    <div className="grid grid-cols-3 xs:grid-cols-5 gap-1 select-none font-mono">
+                    <div className="flex flex-wrap gap-1.5 select-none font-sans">
                       {[
                         { id: 'theme', label: 'Theme', colorClass: 'bg-accent' },
                         { id: 'pink', label: 'Pink', colorClass: 'bg-[#FF2E88]' },
@@ -446,14 +446,14 @@ export default function AccessibilityPanel({ mobile }) {
                           <button
                             key={c.id}
                             onClick={() => handleRulerColorChange(c.id)}
-                            className={`py-2 px-1 text-[9px] md:text-[10px] text-center font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring flex flex-col items-center justify-center gap-1 ${
+                            className={`flex-grow px-2.5 py-1 text-xs text-center font-bold border transition-all cursor-pointer rounded-none uppercase focus-ring flex items-center justify-center gap-1.5 ${
                               isActive
                                 ? 'border-accent bg-accent text-[var(--accent-btn-text)]'
                                 : 'border-border-rule text-text-muted hover:border-fg-primary hover:text-fg-primary bg-transparent'
                             }`}
                           >
-                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${c.colorClass}`} />
-                            <span className="scale-[0.85]">{c.label}</span>
+                            <span className={`w-2 h-2 rounded-full shrink-0 ${c.colorClass}`} />
+                            <span>{c.label}</span>
                           </button>
                         );
                       })}
@@ -484,7 +484,7 @@ export default function AccessibilityPanel({ mobile }) {
   return (
     <>
       {/* 1. Mouse-Tracking Focus Reading Ruler */}
-      {readingRuler && mounted && (
+      {readingRuler && !mounted && (
         <div 
           className={`fixed left-0 right-0 pointer-events-none z-[99999] transition-[top] duration-75 select-none border-y-2 ${
             rulerColor === 'theme' ? 'bg-[var(--accent)]/15 border-[var(--accent)]/45' : ''
@@ -510,7 +510,7 @@ export default function AccessibilityPanel({ mobile }) {
           ref={triggerRef}
           onClick={() => setIsOpen(!isOpen)}
           className={mobile 
-            ? `relative p-2 text-fg-primary hover:text-accent cursor-pointer ${isOpen ? 'text-accent' : ''}`
+            ? `relative h-11 w-11 flex items-center justify-center text-fg-primary hover:text-accent cursor-pointer p-0 ${isOpen ? 'text-accent' : ''}`
             : `relative p-2.5 text-fg-primary hover:text-accent bg-transparent transition-all group cursor-pointer focus-ring rounded-none flex items-center gap-1.5 border border-transparent hover:border-border-rule px-3 shrink-0 ${isOpen ? 'text-accent border-border-rule' : ''}`
           }
           title="Open Sensory & Site Accessibility Controls"
@@ -531,7 +531,7 @@ export default function AccessibilityPanel({ mobile }) {
                 role="dialog"
                 aria-modal="true"
                 aria-label="Sensory and Accessibility Preferences"
-                className="absolute right-0 top-full w-[340px] mt-2 max-h-[calc(100vh-100px)] overflow-y-auto sidebar-card p-5 text-left transition-all duration-300 z-[100] bg-black border border-border-rule rounded-none animate-in slide-in-from-top-2"
+                className="absolute right-0 top-full w-[340px] mt-2 max-h-[calc(100vh-100px)] overflow-y-auto sidebar-card p-5 pb-10 text-left transition-all duration-300 z-[100] bg-black border border-border-rule rounded-none animate-in slide-in-from-top-2"
               >
                 {panelContent}
               </div>
@@ -549,11 +549,9 @@ export default function AccessibilityPanel({ mobile }) {
                   role="dialog"
                   aria-modal="true"
                   aria-label="Sensory and Accessibility Preferences"
-                  className="fixed inset-x-0 bottom-0 w-full max-h-[85vh] overflow-y-auto sidebar-card p-6 pb-12 text-left transition-all duration-300 z-[160] bg-black border-t-2 border-accent animate-in slide-in-from-bottom flex flex-col items-center"
+                  className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100vw-3rem)] max-w-sm max-h-[80vh] overflow-y-auto sidebar-card p-6 pb-20 text-left transition-all duration-300 z-[160] bg-black border-2 border-accent animate-in fade-in zoom-in-95 duration-200"
                 >
-                  <div className="w-full max-w-md mx-auto">
-                    {panelContent}
-                  </div>
+                  {panelContent}
                 </div>
               </div>,
               document.body

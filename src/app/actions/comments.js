@@ -85,7 +85,8 @@ export async function addComment(postSlug, prevState, formData) {
     return { success: false, error: 'Name must be between 2 and 50 characters.' };
   }
 
-  if (!email || !email.includes('@') || email.length > 100) {
+  const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!email || !EMAIL_REGEX.test(email) || email.length > 100) {
     return { success: false, error: 'Please enter a valid email address.' };
   }
 

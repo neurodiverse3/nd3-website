@@ -66,8 +66,8 @@ export function PostNewsletter() {
           Newsletter
         </span>
 
-        <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-fg-primary mb-4 leading-none font-display">
-          GET IT BY EMAIL<span className="text-accent inline-block ml-0.5">.</span>
+        <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight md:tracking-tighter text-fg-primary mb-4 leading-none font-display">
+          GET IT BY EMAIL<span className="text-accent">.</span>
         </h2>
         
         <p className="text-base md:text-lg text-text-muted leading-relaxed font-normal mb-6 max-w-[480px]">

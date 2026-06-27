@@ -346,9 +346,6 @@ export default function AcousticShield({ noWrapper = false }) {
         <h3 className="text-lg font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
           <ShieldAlert size={18} className="text-[var(--accent)]" /> ACOUSTIC SHIELD
         </h3>
-        <span className="text-xs font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5 tracking-wider">
-          SYNTH
-        </span>
       </div>
 
       <p className="text-sm text-[var(--muted)] leading-relaxed">
@@ -381,7 +378,7 @@ export default function AcousticShield({ noWrapper = false }) {
         {/* Left Side: Mixer Sliders */}
         <div className="space-y-4 border border-[var(--rule)] bg-black/20 p-4 shadow-inner">
           <span className="text-xs font-mono text-[var(--muted)] uppercase tracking-widest flex items-center gap-1.5 font-bold">
-            <Sliders size={12} className="text-[var(--accent)]" /> AUDIO MIXER
+            <Sliders size={12} className="text-[var(--accent)]" /> MULTICHANNEL AUDIO MIXER
           </span>
 
           {/* Slider 1: Master Gain */}

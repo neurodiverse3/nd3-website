@@ -10,23 +10,33 @@ export function DecisionCoinPreview({ isActive }) {
 
   useEffect(() => {
     if (!isActive) {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
       return;
     }
     intervalRef.current = setInterval(() => {
       setIsFlipping(true);
-      const targetSide = Math.random() > 0.5 ? 'A' : 'B';
-      const extraFlips = Math.floor(Math.random() * 3) + 4;
-      const currentBase = Math.floor(rotation / 360) * 360;
-      const addedDegrees = extraFlips * 180 + (targetSide === 'A' ? 0 : 180);
-      setRotation(currentBase + addedDegrees);
-      setTimeout(() => {
-        setCoinSide(targetSide);
-        setIsFlipping(false);
-      }, 600);
+      setRotation(prev => {
+        const targetSide = Math.random() > 0.5 ? 'A' : 'B';
+        const extraFlips = Math.floor(Math.random() * 3) + 4;
+        const currentBase = Math.floor(prev / 360) * 360;
+        const addedDegrees = extraFlips * 180 + (targetSide === 'A' ? 0 : 180);
+        setTimeout(() => {
+          setCoinSide(targetSide);
+          setIsFlipping(false);
+        }, 600);
+        return currentBase + addedDegrees;
+      });
     }, 2000);
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, [isActive, rotation]);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [isActive]);
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-black/60 relative">

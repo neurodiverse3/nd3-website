@@ -246,14 +246,14 @@ export default function SensoryAudit({ noWrapper = false }) {
               <button
                 key={scale.score}
                 onClick={() => selectRating(scale.score)}
-                className={`p-4 border text-left cursor-pointer transition-all flex flex-col justify-between h-28 rounded-none ${
+                className={`p-4 border text-left cursor-pointer transition-all flex flex-col justify-start gap-3 min-h-[140px] h-auto rounded-none ${
                   isCurrentVal
                     ? 'border-[var(--accent)] bg-accent-pink-soft text-white shadow-[2px_2px_0px_var(--accent)]'
                     : 'border-[var(--rule)] hover:border-[var(--muted)] bg-black/25 text-[var(--muted)] hover:text-white'
                 }`}
               >
-                <span className="font-mono text-2xl font-black">{scale.score}</span>
-                <div className="space-y-0.5">
+                <span className="font-mono text-2xl font-black leading-none">{scale.score}</span>
+                <div className="space-y-1">
                   <span className={`text-xs font-mono font-bold block ${isCurrentVal ? 'text-[var(--accent)]' : 'text-white'}`}>
                     {scale.label}
                   </span>

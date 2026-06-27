@@ -89,13 +89,9 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
       </div>
 
       {/* Share / Embed administrative block */}
-      <div className="w-full no-print flex flex-col gap-3 font-sans text-xs">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--rule)] pt-6">
-          <span className="font-mono text-xs text-[var(--muted)] uppercase tracking-wider">
-            Tactile Sharing & Embed Integration
-          </span>
-
-          <div className="flex flex-wrap gap-3">
+      <div className="w-full no-print flex flex-col gap-3 font-sans text-xs items-center">
+        <div className="flex flex-wrap items-center justify-center gap-3 border-t border-[var(--rule)] pt-6 w-full">
+          <div className="flex flex-wrap justify-center gap-3">
             <button
               onClick={() => setShowSharePanel(!showSharePanel)}
               className="px-4 py-2.5 border-2 border-fg-primary bg-bg-primary hover:bg-[var(--accent)] hover:text-[var(--accent-text,var(--bg))] text-[var(--fg)] font-black uppercase text-xs md:text-sm tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-[3px_3px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-0 active:translate-y-0"
@@ -141,17 +137,43 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
                 </div>
               </div>
 
-              {/* Social Tweet Quick Share */}
-              <div className="flex flex-col gap-1.5 justify-end">
+              {/* Social Quick Share Grid */}
+              <div className="flex flex-col gap-1.5">
                 <span className="font-mono text-xs md:text-sm text-[var(--muted)] uppercase tracking-widest block font-bold">QUICK SOCIAL SHARE:</span>
-                <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this amazing sensory-friendly neurodivergent tool: ${landingPageUrl} via @neurodivers3`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full h-[34px] border-2 border-fg-primary hover:border-[var(--accent)] bg-black text-white hover:text-[var(--accent)] text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all select-none hover:bg-[var(--accent-soft)]"
-                >
-                  <XIcon size={12} /> SHARE ON X / TWITTER
-                </a>
+                <div className="grid grid-cols-2 gap-2">
+                  <a
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this amazing sensory-friendly neurodivergent tool: ${landingPageUrl} via @neurodivers3`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-[34px] border-2 border-fg-primary hover:border-[var(--accent)] bg-black text-white hover:text-[var(--accent)] text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all select-none hover:bg-[var(--accent-soft)]"
+                  >
+                    <XIcon size={12} /> SHARE ON X
+                  </a>
+                  <a
+                    href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Check out this amazing sensory-friendly neurodivergent tool: ${landingPageUrl}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-[34px] border-2 border-fg-primary hover:border-green-500 bg-black text-white hover:text-green-400 text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all select-none hover:bg-green-500/10"
+                  >
+                    WHATSAPP
+                  </a>
+                  <a
+                    href={`https://www.reddit.com/submit?url=${encodeURIComponent(landingPageUrl)}&title=${encodeURIComponent(`Check out this sensory-friendly neurodivergent tool!`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-[34px] border-2 border-fg-primary hover:border-orange-500 bg-black text-white hover:text-orange-400 text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all select-none hover:bg-orange-500/10"
+                  >
+                    REDDIT
+                  </a>
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(landingPageUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-[34px] border-2 border-fg-primary hover:border-blue-600 bg-black text-white hover:text-blue-400 text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all select-none hover:bg-blue-600/10"
+                  >
+                    FACEBOOK
+                  </a>
+                </div>
               </div>
 
             </div>
@@ -177,7 +199,7 @@ export default function LabEmbedder({ slug, hideChrome = false, inline = false }
                   {copiedEmbed ? 'COPIED' : 'COPY CODE'}
                 </button>
               </div>
-              <p className="text-xs md:text-sm text-[var(--muted)] italic leading-relaxed font-sans mt-1">
+              <p className="text-xs md:text-sm text-[var(--muted)] leading-relaxed font-sans mt-1">
                 💡 Paste this code inside the HTML/Embed editor of your custom Wordpress, Squarespace, Ghost, or Medium blog post to display this interactive sensory tool right inline for your readers.
               </p>
             </div>

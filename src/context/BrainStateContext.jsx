@@ -17,8 +17,10 @@ export const getBrainStateInfo = (stateId) => {
 
 export const BrainStateProvider = ({ children }) => {
   const [brainState, setBrainStateState] = useState(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const saved = localStorage.getItem('nd3-brain-state');
     if (saved) setBrainStateState(saved);
   }, []);
@@ -32,8 +34,12 @@ export const BrainStateProvider = ({ children }) => {
     setBrainStateState(stateId);
   };
 
+  // Only expose the active brainState to children after mounting
+  // to guarantee 100% hydration matching (always null during SSR and first paint).
+  const activeBrainState = isMounted ? brainState : null;
+
   return (
-    <BrainStateContext.Provider value={{ brainState, setBrainState }}>
+    <BrainStateContext.Provider value={{ brainState: activeBrainState, setBrainState }}>
       {children}
     </BrainStateContext.Provider>
   );

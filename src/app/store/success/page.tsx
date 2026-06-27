@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+// @ts-ignore
 import { useSearchParams } from "next/navigation";
 
 import {
@@ -210,9 +211,17 @@ function SuccessPageContent() {
             };
           });
 
-          // Save to local downloads storage
-          const downloads = (securedDownloads || []) as any[];
-          const existingFiltered = downloads.filter(
+          // Save to local downloads storage - read directly from localStorage to prevent stale closures
+          let currentDownloads: any[] = [];
+          try {
+            const stored = localStorage.getItem('nd3_secured_downloads');
+            if (stored) {
+              currentDownloads = JSON.parse(stored);
+            }
+          } catch (e) {
+            console.warn("Failed to read from localStorage inside verifyCheckout: ", e);
+          }
+          const existingFiltered = currentDownloads.filter(
             (d: any) => !productIds.includes(d.id)
           );
           saveSecuredDownloads([...newItems, ...existingFiltered]);
@@ -327,6 +336,7 @@ function SuccessPageContent() {
         {particles.map((p) => (
           <span
             key={p.id}
+            aria-hidden="true"
             className="absolute inline-block select-none pointer-events-none font-sans"
             style={{
               left: p.x,

@@ -1,11 +1,14 @@
 import React from 'react';
 
 export const LogoWordmark = ({ className = "" }) => {
+  const hasHeight = /\b(h-\d+|h-\[.*?\])\b/.test(className);
+  const defaultHeight = hasHeight ? "" : "h-8 md:h-10";
+
   return (
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 300 70" 
-      className={`h-8 md:h-10 w-auto select-none ${className}`}
+      className={`${defaultHeight} aspect-[300/70] select-none ${className}`}
       role="img"
       aria-label="neurodivers three"
     >
@@ -18,28 +21,21 @@ export const LogoWordmark = ({ className = "" }) => {
         fill="currentColor" 
         letterSpacing="-0.02em"
       >
-        neurodivers
-      </text>
-      <text 
-        x="268" 
-        y="32" 
-        fontFamily="var(--font-display), system-ui, -apple-system, sans-serif" 
-        fontSize="34" 
-        fontWeight="900" 
-        fill="var(--accent)"
-      >
-        3
+        neurodivers<tspan dx="2" dy="-14" fontSize="34" fontWeight="900" fill="var(--accent-label, var(--accent))">3</tspan>
       </text>
     </svg>
   );
 };
 
 export const LogoPrimaryFlat = ({ className = "" }) => {
+  const hasHeight = /\b(h-\d+|h-\[.*?\])\b/.test(className);
+  const defaultHeight = hasHeight ? "" : "h-12";
+
   return (
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 360 80" 
-      className={`h-12 w-auto select-none ${className}`}
+      className={`${defaultHeight} aspect-[360/80] select-none ${className}`}
       role="img"
       aria-label="neurodivers three"
     >
@@ -52,19 +48,8 @@ export const LogoPrimaryFlat = ({ className = "" }) => {
         fill="currentColor" 
         letterSpacing="-0.02em"
       >
-        neurodivers
-      </text>
-      <text 
-        x="312" 
-        y="36" 
-        fontFamily="var(--font-display), system-ui, -apple-system, sans-serif" 
-        fontSize="40" 
-        fontWeight="900" 
-        fill="var(--accent)"
-      >
-        3
+        neurodivers<tspan dx="2" dy="-16" fontSize="40" fontWeight="900" fill="var(--accent-label, var(--accent))">3</tspan>
       </text>
     </svg>
   );
 };
-

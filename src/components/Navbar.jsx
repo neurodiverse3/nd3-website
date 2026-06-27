@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -16,6 +16,65 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const drawerRef = useRef(null);
+
+  // Focus trap and Escape key listener for mobile drawer accessibility
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const previousActiveElement = document.activeElement;
+    const drawer = drawerRef.current;
+    
+    if (drawer) {
+      const focusableElements = drawer.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex="0"]'
+      );
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsMenuOpen(false);
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        if (!drawer) return;
+        const focusableElements = Array.from(
+          drawer.querySelectorAll(
+            'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex="0"]'
+          )
+        );
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      if (previousActiveElement instanceof HTMLElement) {
+        previousActiveElement.focus();
+      }
+    };
+  }, [isMenuOpen]);
 
   // Global keyboard shortcut to open search on "/" key
   useEffect(() => {
@@ -111,7 +170,7 @@ export const Navbar = () => {
             {/* Logo Left */}
             <Link 
               href="/"
-              className={`cursor-pointer transition-all duration-75 focus-ring select-none ${
+              className={`cursor-pointer transition-all duration-75 focus-ring select-none min-h-[44px] flex items-center ${
                 glitch ? 'translate-x-0.5 skew-x-6' : ''
               }`}
             >
@@ -157,11 +216,11 @@ export const Navbar = () => {
             </div>
 
             {/* Hamburger Mobile Trigger */}
-            <div className="flex items-center gap-1.5 md:hidden">
+            <div className="flex items-center gap-3 md:hidden">
               {/* Mobile Search Button */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="relative p-2 text-fg-primary hover:text-accent cursor-pointer"
+                className="relative h-11 w-11 flex items-center justify-center text-fg-primary hover:text-accent cursor-pointer focus-ring rounded-none bg-transparent border-0 p-0"
                 aria-label="Open Site Search"
               >
                 <Search size={22} />
@@ -170,11 +229,9 @@ export const Navbar = () => {
               {/* Mobile Accessibility Controls */}
               <AccessibilityPanel mobile />
 
-
-
               <button 
                 onClick={() => setIsMenuOpen(!isMenuOpen)} 
-                className="text-fg-primary hover:text-accent p-1 cursor-pointer"
+                className="text-fg-primary hover:text-accent h-11 w-11 flex items-center justify-center cursor-pointer focus-ring rounded-none bg-transparent border-0 p-0"
                 aria-expanded={isMenuOpen}
                 aria-controls="mobile-drawer"
                 aria-label="Toggle Navigation Menu"
@@ -202,6 +259,10 @@ export const Navbar = () => {
             {/* Drawer Container */}
             <motion.div
               id="mobile-drawer"
+              ref={drawerRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation menu"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -209,13 +270,13 @@ export const Navbar = () => {
               className="fixed right-0 top-0 bottom-0 w-4/5 max-w-[360px] min-w-[280px] h-full bg-bg-primary border-l border-border-rule p-6 sm:p-8 pb-28 z-[9999] md:hidden flex flex-col justify-between shadow-2xl"
             >
               {/* Drawer Top */}
-              <div className="flex justify-between items-start gap-4">
-                <Link href="/" className="text-xl font-black uppercase tracking-tighter text-fg-primary focus-ring pr-2 shrink min-w-0">
-                  <LogoWordmark className="h-5 md:h-7 text-fg-primary w-full max-w-full" />
+              <div className="flex justify-between items-center gap-4">
+                <Link href="/" className="focus-ring flex items-center min-h-[44px] justify-start">
+                  <LogoWordmark className="h-5 text-fg-primary" />
                 </Link>
                 <button 
                   onClick={() => setIsMenuOpen(false)} 
-                  className="text-text-muted hover:text-link p-1 shrink-0"
+                  className="text-text-muted hover:text-link p-1 shrink-0 flex items-center justify-center min-h-[44px]"
                   aria-label="Close menu"
                 >
                   <X size={28} />
@@ -256,7 +317,7 @@ export const Navbar = () => {
                   Join the list →
                 </button>
                 <div className="text-xs md:text-sm text-text-muted tracking-widest uppercase text-center font-mono">
-                  For the unmasked.
+                  Neurodivergent life, tools and stories.
                 </div>
               </div>
             </motion.div>

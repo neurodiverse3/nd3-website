@@ -1,25 +1,25 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-const ThemeContext = createContext(undefined);
+export const ThemeContext = createContext(undefined);
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setThemeState] = useState('void');
 
-  const applyTheme = (newTheme) => {
+  const applyTheme = useCallback((newTheme) => {
     const root = document.documentElement;
     const themeValue = newTheme === 'warm-charcoal' ? 'parchment' : newTheme;
     root.classList.remove('theme-void', 'theme-warm-charcoal', 'theme-incubation', 'theme-parchment');
     root.classList.add(`theme-${themeValue}`);
     root.setAttribute('data-theme', themeValue);
-  };
+  }, []);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('nd3-theme') || 'void';
     const resolvedTheme = savedTheme === 'warm-charcoal' ? 'parchment' : savedTheme;
     setThemeState(resolvedTheme);
     applyTheme(resolvedTheme);
-  }, []);
+  }, [applyTheme]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -38,7 +38,7 @@ export const ThemeProvider = ({ children }) => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [applyTheme]);
 
 
 

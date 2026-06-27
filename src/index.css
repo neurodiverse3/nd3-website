@@ -100,7 +100,7 @@
   --muted: #D4E4D8;       /* A11Y-7: brighter mid-tone sage for scannability (>= 4.5:1 on dark sage) */
   --accent: #5A8A60;
   --accent-label: #8FC096;
-  --accent-btn-text: #ffffff; /* white for high contrast on green button */
+  --accent-btn-text: #000000; /* A11Y-2: pure black for maximum contrast on green button (gives 5.20:1, passing AA) */
   --grad-hero: linear-gradient(135deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
   --grad-progress: linear-gradient(90deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
   --grad-meta: linear-gradient(90deg, #5A8A60 0%, #3FB07C 55%, #2DD4BF 100%);
@@ -123,21 +123,21 @@
   --surface: #F4F0E6;
   --fg: #221E1A;          /* warm ink */
   --muted: #585148;       /* passes 5:1 on cream (A11Y-4) */
-  --accent: #D0006F;      /* A11Y-1: deeper berry magenta (passes 4.5:1 on cream) */
-  --accent-label: #B3005C;
-  --link: #D0006F;        /* text + links (AA on cream) */
-  --accent-text: #221E1A;  /* dark ink for text on the pink accent fill (A11Y-2) */
-  --accent-btn-text: #221E1A; /* dark ink for high contrast on berry-pink button */
-  --grad-hero: linear-gradient(135deg, #D0006F 0%, #8A0F3C 100%);
-  --grad-progress: linear-gradient(90deg, #D0006F 0%, #8A0F3C 100%);
-  --grad-meta: linear-gradient(90deg, #D0006F 0%, #8A0F3C 100%);
+  --accent: #A8005A;      /* A11Y-1/3: deeper berry magenta (gives 6.05:1 on cream, passing AA) */
+  --accent-label: #A8005A;
+  --link: #A8005A;        /* text + links (gives 6.05:1 on cream, passing AA) */
+  --accent-text: #ffffff;  /* A11Y-2: white text on the berry accent fill for readability */
+  --accent-btn-text: #ffffff; /* A11Y-1: white text for high contrast on berry button (gives 7.47:1, passing AAA) */
+  --grad-hero: linear-gradient(135deg, #A8005A 0%, #7A0A33 100%);
+  --grad-progress: linear-gradient(90deg, #A8005A 0%, #7A0A33 100%);
+  --grad-meta: linear-gradient(90deg, #A8005A 0%, #7A0A33 100%);
 
   /* Override accent-pink to use AA-compliant link color on cream (A11Y-5) */
   --color-accent-pink: var(--link);
-  --color-accent-pink-soft: rgba(208, 0, 111, 0.12);
+  --color-accent-pink-soft: rgba(168, 0, 90, 0.12);
 
   /* Fallbacks for Parchment */
-  --accent-soft: rgba(208, 0, 111, 0.12);
+  --accent-soft: rgba(168, 0, 90, 0.12);
   --rule: #DDD7CD;
 
   /* Pillar labels token set (AA-safe dark values on Parchment cream bg) */
@@ -618,11 +618,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 .badge-state-hyperfocus:hover { border-color: #4dde82 !important; }
 :root[data-theme="parchment"] .badge-state-hyperfocus {
-  color: #047857 !important;
-  background-color: rgba(4, 120, 87, 0.06) !important;
-  border-color: rgba(4, 120, 87, 0.15) !important;
+  color: #036648 !important;
+  background-color: rgba(3, 102, 72, 0.06) !important;
+  border-color: rgba(3, 102, 72, 0.15) !important;
 }
-:root[data-theme="parchment"] .badge-state-hyperfocus:hover { border-color: #047857 !important; }
+:root[data-theme="parchment"] .badge-state-hyperfocus:hover { border-color: #036648 !important; }
 
 .badge-state-masking {
   color: #f4b942 !important;
@@ -631,11 +631,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 .badge-state-masking:hover { border-color: #f4b942 !important; }
 :root[data-theme="parchment"] .badge-state-masking {
-  color: #b45309 !important;
-  background-color: rgba(180, 83, 9, 0.06) !important;
-  border-color: rgba(180, 83, 9, 0.15) !important;
+  color: #924008 !important;
+  background-color: rgba(146, 64, 8, 0.06) !important;
+  border-color: rgba(146, 64, 8, 0.15) !important;
 }
-:root[data-theme="parchment"] .badge-state-masking:hover { border-color: #b45309 !important; }
+:root[data-theme="parchment"] .badge-state-masking:hover { border-color: #924008 !important; }
 
 .badge-state-spiralling {
   color: #a78bfa !important;

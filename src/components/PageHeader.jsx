@@ -53,12 +53,12 @@ export default function PageHeader({
   return (
     <header className="relative w-full flex flex-col items-start text-left mt-4 mb-12 select-none">
       {eyebrow && (
-        <div className="inline-block text-xs md:text-sm font-mono tracking-[0.2em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-[10px] py-[4px] uppercase border border-accent/15 rounded-[6px] mb-3 select-none">
+        <div className="inline-block text-xs md:text-sm font-mono tracking-[0.2em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-[10px] py-[4px] uppercase border border-accent/15 rounded-[6px] mb-5 md:mb-6 select-none">
           {eyebrow}
         </div>
       )}
 
-      <h1 className="text-2xl sm:text-3xl md:text-[2.7rem] lg:text-[3.3rem] xl:text-[4rem] 2xl:text-[4.5rem] font-extrabold uppercase leading-[0.95] tracking-wide font-display text-fg">
+      <h1 className="text-3xl sm:text-4xl md:text-[2.7rem] lg:text-[3.3rem] xl:text-[4rem] 2xl:text-[4.5rem] font-extrabold uppercase leading-[0.95] tracking-wide font-display text-fg">
         {titleLabel}
         {titleAccent && (
           <>

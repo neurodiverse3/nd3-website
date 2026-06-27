@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -42,53 +42,57 @@ const formatDateUK = (dateStr) => {
   }
 };
 
+const getDistinctPillars = (postsList) => {
+  const normalize = (p) => {
+    const k = p?.toLowerCase() || '';
+    if (k.includes('system') || k.includes('tool') || k.includes('templates')) return 'tools';
+    if (k.includes('glitch') || k.includes('digital')) return 'digital';
+    return 'unmasked';
+  };
+
+  const buckets = { unmasked: [], tools: [], digital: [] };
+  postsList.forEach(post => {
+    const key = normalize(post.pillar);
+    if (buckets[key]) buckets[key].push(post);
+  });
+
+  const result = [];
+  const maxLength = Math.max(buckets.unmasked.length, buckets.tools.length, buckets.digital.length);
+  for (let i = 0; i < maxLength; i++) {
+    if (buckets.unmasked[i]) result.push(buckets.unmasked[i]);
+    if (buckets.tools[i]) result.push(buckets.tools[i]);
+    if (buckets.digital[i]) result.push(buckets.digital[i]);
+  }
+  return result;
+};
+
 export default function HomeClient({ siteSettings, latestPosts }) {
   const router = useRouter();
   const moodSectionRef = React.useRef(null);
   const latestWritingRef = React.useRef(null);
   const { brainState: selectedBrainState, setBrainState: setSelectedBrainState } = useBrainState();
 
-  const getDistinctPillars = (postsList) => {
-    const normalize = (p) => {
-      const k = p?.toLowerCase() || '';
-      if (k.includes('system') || k.includes('tool') || k.includes('templates')) return 'tools';
-      if (k.includes('glitch') || k.includes('digital')) return 'digital';
-      return 'unmasked';
-    };
+  const sortedPosts = useMemo(() => {
+    return latestPosts ? [...latestPosts].sort((a, b) => {
+      // Pinned posts go first
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      
+      // Otherwise sort by date/createdAt descending
+      const dateA = new Date(a.date || a._createdAt || 0);
+      const dateB = new Date(b.date || b._createdAt || 0);
+      return dateB.getTime() - dateA.getTime();
+    }) : [];
+  }, [latestPosts]);
 
-    const buckets = { unmasked: [], tools: [], digital: [] };
-    postsList.forEach(post => {
-      const key = normalize(post.pillar);
-      if (buckets[key]) buckets[key].push(post);
-    });
-
-    const result = [];
-    const maxLength = Math.max(buckets.unmasked.length, buckets.tools.length, buckets.digital.length);
-    for (let i = 0; i < maxLength; i++) {
-      if (buckets.unmasked[i]) result.push(buckets.unmasked[i]);
-      if (buckets.tools[i]) result.push(buckets.tools[i]);
-      if (buckets.digital[i]) result.push(buckets.digital[i]);
-    }
-    return result;
-  };
-
-  const sortedPosts = latestPosts ? [...latestPosts].sort((a, b) => {
-    // Pinned posts go first
-    if (a.pinned && !b.pinned) return -1;
-    if (!a.pinned && b.pinned) return 1;
-    
-    // Otherwise sort by date/createdAt descending
-    const dateA = new Date(a.date || a._createdAt || 0);
-    const dateB = new Date(b.date || b._createdAt || 0);
-    return dateB.getTime() - dateA.getTime();
-  }) : [];
-
-  const filteredPosts = selectedBrainState
-    ? sortedPosts.filter(post => {
-        const postState = (post.brainState || '').toLowerCase();
-        return postState === selectedBrainState;
-      })
-    : getDistinctPillars(sortedPosts);
+  const filteredPosts = useMemo(() => {
+    return selectedBrainState
+      ? sortedPosts.filter(post => {
+          const postState = (post.brainState || '').toLowerCase();
+          return postState === selectedBrainState;
+        })
+      : getDistinctPillars(sortedPosts);
+  }, [selectedBrainState, sortedPosts]);
   
   // Scroll progress
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -233,10 +237,14 @@ export default function HomeClient({ siteSettings, latestPosts }) {
   const [hoveredFeatured, setHoveredFeatured] = useState(null);
 
   const handleMoodClick = (e, stateId) => {
-    e.preventDefault();
-    setSelectedBrainState(stateId);
-    if (latestWritingRef.current) {
-      latestWritingRef.current.scrollIntoView({ behavior: 'smooth' });
+    // On mobile, let the default link navigate directly to prevent a long scroll gap on the homepage.
+    // On desktop, intercept the click and smooth-scroll down to the filtered articles section.
+    if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+      e.preventDefault();
+      setSelectedBrainState(stateId);
+      if (latestWritingRef.current) {
+        latestWritingRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -251,22 +259,22 @@ export default function HomeClient({ siteSettings, latestPosts }) {
       </div>
 
       {/* 2. Hero Section */}
-      <section className="relative min-h-[100svh] h-auto flex flex-col px-6 md:px-24 overflow-hidden border-b border-border-rule py-4 md:py-6">
-        <div className="max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center relative z-10 items-start text-left pt-[72px] md:pt-[84px] pb-2">
+      <section className="relative min-h-0 md:min-h-[100svh] h-auto flex flex-col px-6 md:px-24 overflow-hidden border-b border-border-rule py-12 md:py-16 lg:py-20">
+        <div className="max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center relative z-10 items-start text-left pt-16 md:pt-[84px] pb-2">
           <div
-            className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-3 md:mb-4 select-none"
+            className="inline-block text-xs md:text-sm font-mono tracking-[0.16em] md:tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-2.5 py-1 uppercase border border-border-rule mb-4 md:mb-4 select-none max-w-full leading-normal"
             style={{ opacity: 0, animation: 'fadeInUp 0.6s ease forwards' }}
           >
             NEURODIVERGENT LIFE, TOOLS AND STORIES
           </div>
 
-          <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-[6rem] lg:text-[7rem] xl:text-[7.8rem] font-black leading-[1.05] tracking-[-0.02em] uppercase mb-2 md:mb-3 select-none">
+          <h1 className="text-[2.65rem] sm:text-5xl md:text-[6rem] lg:text-[7rem] xl:text-[7.8rem] font-black leading-[1.05] tracking-[-0.02em] uppercase mb-3 md:mb-3 select-none">
             <div 
               className="block"
               style={{ opacity: 0, animation: 'fadeInUp 0.6s ease forwards' }}
             >
               <span className="text-fg-primary">UNMASKED</span>
-              <span className="inline-block text-accent ml-0.5">.</span>
+              <span className="text-accent">.</span>
             </div>
             <div 
               className="block italic home-hero-gradient"
@@ -276,19 +284,19 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               }}
             >
               <span>UNFILTERED</span>
-              <span className="inline-block ml-0.5" style={{ color: 'var(--accent)' }}>.</span>
+              <span style={{ color: 'var(--accent)' }}>.</span>
             </div>
             <div 
               className="block"
               style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.2s forwards' }}
             >
               <span className="text-fg-primary">UNAPOLOGETIC</span>
-              <span className="inline-block text-accent ml-0.5">.</span>
+              <span className="text-accent">.</span>
             </div>
           </h1>
 
           <p 
-            className="text-base md:text-lg lg:text-xl text-text-muted font-normal max-w-3xl leading-relaxed mb-5 md:mb-6 select-text"
+            className="text-base md:text-lg lg:text-xl text-text-muted font-normal max-w-3xl leading-relaxed mb-6 md:mb-6 select-text"
             style={{ 
               opacity: 0, 
               animation: 'fadeInUp 0.6s ease 0.2s forwards'
@@ -305,7 +313,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                 const element = document.getElementById('pillars');
                 if (element) element.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-8 py-5 bg-accent text-[var(--accent-text,var(--bg))] border-2 border-fg-primary font-black rounded-none shadow-[4px_4px_0px_var(--fg)] flex items-center gap-3 uppercase tracking-wider text-base cursor-pointer hover:-translate-y-1 hover:translate-x-1 active:translate-y-0 active:translate-x-0 transition-all duration-200 focus-ring"
+              className="px-6 py-3.5 md:px-8 md:py-5 bg-accent text-[var(--accent-text,var(--bg))] border-2 border-fg-primary font-black rounded-none shadow-[4px_4px_0px_var(--fg)] flex items-center gap-2.5 md:gap-3 uppercase tracking-wider text-sm md:text-base cursor-pointer hover:-translate-y-1 hover:translate-x-1 active:translate-y-0 active:translate-x-0 transition-all duration-200 focus-ring"
             >
               Start here <ArrowRight size={20} />
             </button>
@@ -314,7 +322,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
         {/* Hero Footer: ghosted ³ glyph bottom-right */}
         <div 
-          className="absolute bottom-24 right-24 text-[240px] sm:text-[360px] md:text-[480px] font-black leading-none text-accent select-none pointer-events-none z-0 hidden min-[480px]:block"
+          className="absolute bottom-24 right-[-30px] sm:right-12 md:right-24 text-[240px] sm:text-[360px] md:text-[480px] font-black leading-none text-accent select-none pointer-events-none z-0 hidden min-[480px]:block"
           style={{ opacity: 0.06 }}
           aria-hidden="true"
         >
@@ -324,12 +332,12 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
       {/* 3. Mood Section - How's the brain today? */}
       <section ref={moodSectionRef} className="border-b border-border-rule bg-bg-primary">
-        <div className="max-w-7xl mx-auto pt-16 md:pt-[64px] pb-8 md:pb-12 px-6 md:px-24">
+        <div className="max-w-7xl mx-auto pt-12 md:pt-16 lg:pt-20 pb-8 md:pb-12 px-6 md:px-24">
           <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
             PICK A MODE. READ WHAT FITS.
           </span>
-          <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-left">
-            How's your brain today<span className="text-accent inline-block ml-3">?</span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tight md:tracking-tighter uppercase text-left">
+            How's your brain today<span className="text-accent ml-1">?</span>
           </h2>
         </div>
 
@@ -362,7 +370,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                       <span className={`text-2xl md:text-3xl font-black tracking-tight uppercase leading-none transition-colors duration-300 font-display ${selectedBrainState === state.id ? 'text-accent' : 'text-fg-primary group-hover:text-link'}`}>
                         {state.label}
                       </span>
-                      <span className="text-xs md:text-sm text-text-muted mt-1 tracking-wide font-normal group-hover:text-fg-primary transition-colors duration-300">
+                      <span className="text-sm md:text-base text-text-muted mt-1 tracking-wide font-normal group-hover:text-fg-primary transition-colors duration-300">
                         {state.hint}
                       </span>
                     </div>
@@ -388,8 +396,8 @@ export default function HomeClient({ siteSettings, latestPosts }) {
           <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
             THE THREE TOPIC PILLARS
           </span>
-          <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-4 md:mb-5 text-left">
-            What you'll find here<span className="text-accent inline-block ml-0.5">.</span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tight md:tracking-tighter uppercase mb-4 md:mb-5 text-left">
+            What you'll find here<span className="text-accent">.</span>
           </h2>
           <p className="text-base md:text-[17px] text-text-muted max-w-none lg:whitespace-nowrap leading-relaxed mb-12 md:mb-14 font-normal text-left">
             Everything written here is mapped to one of three core pillars. Choose a pillar below to filter the archive, or browse everything further down.
@@ -401,7 +409,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             <Link
               key={pillar.id}
               href={pillar.archiveHref}
-              className="group border-2 border-border-rule hover:border-fg-primary bg-bg-primary p-7 md:p-8 flex flex-col transition-all duration-300 ease-out hover:-translate-y-1.5 shadow-[6px_6px_0px_var(--rule)] hover:shadow-[10px_10px_0px_var(--accent)] rounded-none text-left min-h-[260px] cursor-pointer"
+              className="group border-2 border-border-rule/85 hover:border-accent bg-bg-primary p-7 md:p-8 flex flex-col transition-all duration-300 ease-out hover:-translate-y-1.5 shadow-[6px_6px_0px_var(--accent-soft,var(--rule))] hover:shadow-[10px_10px_0px_var(--accent)] rounded-none text-left min-h-[260px] cursor-pointer"
               style={{ 
                 opacity: 0, 
                 animation: `fadeInUp 0.5s ease ${0.2 + index * 0.1}s forwards`
@@ -415,7 +423,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               </div>
               
               <div className="flex items-center mt-auto pt-5 border-t border-border-rule/40">
-                <span className="inline-flex items-center gap-2 border border-border-rule px-4 py-2 text-[13px] font-black uppercase tracking-widest text-text-muted transition-all duration-300 group-hover:border-accent group-hover:bg-[var(--accent-soft)] group-hover:text-link">
+                <span className="inline-flex items-center gap-2 border border-[var(--accent)]/50 bg-[var(--accent-soft)]/20 px-4 py-2 text-[13px] font-black uppercase tracking-widest text-[var(--accent)] transition-all duration-300 group-hover:border-accent group-hover:bg-[var(--accent-soft)] group-hover:text-link">
                   Explore category <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
                 </span>
               </div>
@@ -427,8 +435,8 @@ export default function HomeClient({ siteSettings, latestPosts }) {
       <section className="py-12 md:py-16 lg:py-20 px-6 md:px-24 max-w-7xl mx-auto border-b border-border-rule">
         <div className="mb-12 md:mb-14">
           <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">FEATURED READING</span>
-          <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase">
-            Read these first<span className="text-accent inline-block ml-0.5">.</span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tight md:tracking-tighter uppercase">
+            Read these first<span className="text-accent">.</span>
           </h2>
         </div>
 
@@ -447,7 +455,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                     {item.num}
                   </span>
                   <div className="space-y-1 flex-1 min-w-0">
-                    <h3 className="text-lg md:text-xl font-black tracking-wide text-fg-primary group-hover:text-link transition-colors">
+                    <h3 className="text-base sm:text-lg md:text-xl font-black tracking-wide text-fg-primary group-hover:text-link transition-colors leading-snug break-words">
                       {item.title}
                     </h3>
                     <p className="text-base md:text-[17px] text-text-muted leading-relaxed font-normal">
@@ -455,7 +463,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                     </p>
                   </div>
                 </div>
-                <span className="inline-flex items-center justify-center gap-2 border border-border-rule px-4 py-2 text-xs md:text-sm font-black uppercase tracking-widest text-text-muted transition-all duration-300 group-hover:border-accent group-hover:bg-[var(--accent-soft)] group-hover:text-link whitespace-nowrap self-start md:self-center md:min-w-[176px] shrink-0">
+                <span className="inline-flex items-center justify-center gap-2 border border-[var(--accent)]/50 bg-[var(--accent-soft)]/20 px-4 py-2 text-xs md:text-sm font-black uppercase tracking-widest text-[var(--accent)] transition-all duration-300 group-hover:border-accent group-hover:bg-[var(--accent-soft)] group-hover:text-link whitespace-nowrap self-start md:self-center md:min-w-[176px] shrink-0">
                   Read article <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>
@@ -481,8 +489,8 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             <span className="relative z-10 inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] border border-border-rule px-3 py-1 uppercase select-none">
               SERIAL MEMOIR IN PROGRESS
             </span>
-            <h2 className="relative z-10 text-4xl md:text-6xl font-black tracking-tighter uppercase mt-8 mb-6 text-fg-primary leading-none group-hover:text-link transition-colors duration-300">
-              {memoir.headline.replace(/\.$/, '').toUpperCase()}<span className="text-accent inline-block ml-0.5">.</span>
+            <h2 className="relative z-10 text-4xl md:text-6xl font-black tracking-tight md:tracking-tighter uppercase mt-8 mb-6 text-fg-primary leading-none group-hover:text-link transition-colors duration-300">
+              {memoir.headline.replace(/\.$/, '').toUpperCase()}<span className="text-accent">.</span>
             </h2>
             
             <p className="relative z-10 text-lg md:text-xl font-normal leading-relaxed text-text-muted mb-10 max-w-2xl mx-auto">
@@ -503,7 +511,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
       {/* 7. Founder Block - Meet Ollie */}
       <section className="py-12 md:py-16 lg:py-20 px-6 md:px-24 max-w-7xl mx-auto border-b border-border-rule">
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
           {/* Photo container */}
           <div className="w-full aspect-square md:w-[400px] h-auto md:h-[400px] relative overflow-hidden shrink-0 border-4 border-fg-primary shadow-[10px_10px_0px_var(--rule)] hover:shadow-[12px_12px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 transition-all duration-300 bg-bg-primary">
             {photoUrl ? (
@@ -514,7 +522,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                   fill
                   sizes="(max-width: 768px) 100vw, 400px"
                   onLoad={() => setPhotoLoaded(true)}
-                  className="object-cover filter grayscale contrast-125 brightness-90 hover:grayscale-0 transition-all duration-500"
+                  className="object-cover transition-all duration-500 filter grayscale-0 hover:grayscale contrast-125 brightness-90"
                   priority
                 />
                 {/* Grain overlay */}
@@ -537,8 +545,8 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">
               Founder’s Note
             </span>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6 leading-none text-fg-primary">
-              HI, I'M {founder.name.replace(/\.$/, '').toUpperCase()}<span className="text-accent inline-block ml-0.5">.</span>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight md:tracking-tighter uppercase mb-6 leading-none text-fg-primary">
+              HI, I'M {founder.name.replace(/\.$/, '').toUpperCase()}<span className="text-accent">.</span>
             </h2>
             <p className="text-lg md:text-xl text-text-muted leading-relaxed font-normal mb-8 max-w-2xl">
               {founder.bio}
@@ -559,8 +567,8 @@ export default function HomeClient({ siteSettings, latestPosts }) {
           <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
             ELSEWHERE ONLINE
           </span>
-          <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6">
-            Join me on socials<span className="text-accent inline-block ml-0.5">.</span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tight md:tracking-tighter uppercase mb-6">
+            Join me on socials<span className="text-accent">.</span>
           </h2>
           <p className="text-sm md:text-base text-text-muted max-w-none leading-relaxed mb-12 font-normal">
             Find me elsewhere online for shorter updates, works in progress, and the bits that do not become full posts.
@@ -571,7 +579,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               href="https://tiktok.com/@neurodivers3" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group p-3 sm:p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center rounded-none focus-visible:outline-none"
+              className="group p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none focus-visible:outline-none"
             >
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="shrink-0"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.74-3.94-1.78-.22-.22-.41-.47-.59-.73v7.02c0 3.74-2.07 6.97-5.46 8.22-3.39 1.25-7.39.4-9.87-2.12-2.48-2.52-3.13-6.52-1.61-9.76 1.52-3.24 5.05-5.18 8.62-4.77v4.07c-2-.31-4.04.57-5.01 2.37-.97 1.8-.6 4.09.91 5.46 1.52 1.37 3.86 1.34 5.35-.07.97-.96 1.44-2.34 1.37-3.7V0h.03z"/></svg>
@@ -583,7 +591,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               href="https://instagram.com/neurodivers3" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group p-3 sm:p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center rounded-none focus-visible:outline-none"
+              className="group p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none focus-visible:outline-none"
             >
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -595,7 +603,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               href="https://youtube.com/@neurodivers3" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group p-3 sm:p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center rounded-none focus-visible:outline-none"
+              className="group p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none focus-visible:outline-none"
             >
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
@@ -607,7 +615,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               href="https://facebook.com/neurodivers3" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group p-3 sm:p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center rounded-none focus-visible:outline-none"
+              className="group p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none focus-visible:outline-none"
             >
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
@@ -621,7 +629,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               href="https://x.com/neurodivers3" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group p-3 sm:p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center rounded-none focus-visible:outline-none"
+              className="col-span-2 sm:col-span-1 justify-self-center w-full max-w-[calc(50%-12px)] sm:max-w-none group p-6 border-2 border-border-rule hover:border-fg-primary focus-visible:border-accent bg-bg-primary/20 hover:bg-[var(--accent-soft)] focus-visible:bg-[var(--accent-soft)] shadow-[4px_4px_0px_var(--rule)] hover:shadow-[6px_6px_0px_var(--accent)] focus-visible:shadow-[6px_6px_0px_var(--accent)] hover:-translate-y-1 hover:translate-x-1 focus-visible:-translate-y-1 focus-visible:translate-x-1 transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center rounded-none focus-visible:outline-none"
             >
               <span className="text-text-muted group-hover:text-link transition-colors">
                 <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
@@ -642,8 +650,8 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-6 select-none">
               Newsletter
             </span>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4 leading-none font-display">
-              GET IT BY EMAIL<span className="text-accent inline-block ml-0.5">.</span>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight md:tracking-tighter uppercase mb-4 leading-none font-display">
+              GET IT BY EMAIL<span className="text-accent">.</span>
             </h2>
             <p className="text-base text-text-muted leading-relaxed font-normal mb-8">
               New writing, tools, templates, and site updates, sent straight to your inbox.
@@ -667,7 +675,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                 />
 
                 <div className="flex flex-col gap-4 w-full">
-                  <div className="flex flex-col xs:flex-row gap-3 xs:gap-4 w-full">
+                  <div className="flex flex-col sm:flex-row gap-4 w-full">
                     <div className="flex-1 relative">
                       <label htmlFor="firstname-input" className="sr-only">First name (optional)</label>
                       <input
@@ -713,16 +721,16 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                       required
                       className="mt-1 h-4 w-4 shrink-0 rounded-none border-2 border-fg-primary bg-bg-primary text-accent focus:ring-accent accent-accent cursor-pointer"
                     />
-                    <label htmlFor="home-newsletter-consent" className="text-xs text-text-muted select-none cursor-pointer leading-tight">
+                    <label htmlFor="home-newsletter-consent" className="text-sm text-text-muted select-none cursor-pointer leading-tight">
                       I’m happy to subscribe to neurodivers³ and receive updates.
                     </label>
                   </div>
                 </div>
 
-                <p className="text-xs text-text-muted text-center leading-relaxed font-normal">
+                <p className="text-sm text-text-muted text-center leading-relaxed font-normal">
                   Get early access to new tools, templates, and writing before they land on the site.
                 </p>
-                <p className="text-xs md:text-sm text-text-muted text-center leading-relaxed font-normal font-mono uppercase mt-1">
+                <p className="text-sm text-text-muted text-center leading-relaxed font-normal font-mono uppercase mt-1">
                   No spam. Unsubscribe in one click.
                 </p>
 
@@ -755,11 +763,11 @@ export default function HomeClient({ siteSettings, latestPosts }) {
       {/* 9. Latest Writing */}
       {latestPosts && latestPosts.length > 0 && (
         <section ref={latestWritingRef} className="py-12 md:py-16 lg:py-20 px-6 md:px-24 max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-14 gap-4">
+          <div className="flex flex-col justify-between items-start mb-12 md:mb-14 gap-4">
             <div>
               <span className="inline-block text-xs md:text-sm font-mono tracking-[0.25em] text-[var(--accent-label,var(--accent))] bg-[var(--accent-soft)] px-3 py-1 uppercase border border-border-rule mb-4 select-none">Latest Writing</span>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase">
-                FRESH OFF THE KEYBOARD<span className="text-accent inline-block ml-0.5">.</span>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tight md:tracking-tighter uppercase">
+                FRESH OFF THE KEYBOARD<span className="text-accent">.</span>
               </h2>
               {selectedBrainState && (
                 <div className="flex items-center gap-2 mt-4 animate-in fade-in slide-in-from-left-2 duration-300">
@@ -776,10 +784,6 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                 </div>
               )}
             </div>
-            <Link href="/blog" className="inline-flex items-center justify-center gap-2 border border-accent px-5 py-3 text-sm font-black uppercase tracking-[0.2em] text-link bg-[var(--accent-soft)] hover:border-fg-primary hover:text-fg-primary transition-all duration-300 group whitespace-nowrap">
-              All posts
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
           </div>
 
           {filteredPosts.length === 0 ? (
@@ -840,7 +844,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                           <span>{getBrainStateLabel(post.brainState || 'hyperfocus')}</span>
                         </div>
                         {post.excerpt && (
-                          <p className="text-sm text-text-muted leading-relaxed font-normal line-clamp-3 md:line-clamp-4">
+                          <p className="text-base text-text-muted leading-relaxed font-normal line-clamp-3 md:line-clamp-4">
                             {post.excerpt}
                           </p>
                         )}
@@ -852,7 +856,7 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                         </time>
                         <Link 
                           href={`/blog/${slug}`}
-                          className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-accent text-[var(--accent-text,var(--bg))] font-black text-xs uppercase tracking-widest border-2 border-fg-primary shadow-[2px_2px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all rounded-none w-fit shrink-0"
+                          className="inline-flex items-center justify-center gap-2 px-4 py-2 min-h-[44px] bg-accent text-[var(--accent-text,var(--bg))] font-black text-xs uppercase tracking-widest border-2 border-fg-primary shadow-[2px_2px_0px_var(--fg)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all rounded-none w-fit shrink-0"
                         >
                           READ POST →
                         </Link>
@@ -863,6 +867,13 @@ export default function HomeClient({ siteSettings, latestPosts }) {
               })}
             </div>
           )}
+
+          <div className="mt-12 flex justify-start">
+            <Link href="/blog" className="inline-flex items-center justify-center gap-2 border border-accent px-5 py-3 text-sm md:text-base font-black uppercase tracking-[0.2em] text-link bg-[var(--accent-soft)] hover:border-fg-primary hover:text-fg-primary transition-all duration-300 group whitespace-nowrap">
+              <strong>View all posts</strong>
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </section>
       )}
     </div>

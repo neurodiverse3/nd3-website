@@ -167,8 +167,57 @@ export default async function ProductDetailPage({ params }: Props) {
 
   const paidProducts = PRODUCTS.filter((p) => !p.isFree && !p.isBundle);
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title,
+    "image": `https://neurodivers3.co.uk/store/covers/${product.coverImage}`,
+    "description": product.cardBlurb,
+    "offers": {
+      "@type": "Offer",
+      "url": `https://neurodivers3.co.uk/store/${product.slug}`,
+      "priceCurrency": "GBP",
+      "price": product.price,
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://neurodivers3.co.uk"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Store",
+        "item": "https://neurodivers3.co.uk/store"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": product.title,
+        "item": `https://neurodivers3.co.uk/store/${product.slug}`
+      }
+    ]
+  };
+
   return (
-    <main className="mx-auto max-w-6xl px-6 pb-24 pt-[96px] text-[var(--fg)] md:pt-[120px]">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <main className="mx-auto max-w-6xl px-6 pb-24 pt-[96px] text-[var(--fg)] md:pt-[120px]">
       {/* ---- Back button ---- */}
       <nav aria-label="Back" className="mb-6">
         <Link href="/store" className="inline-flex items-center gap-2 font-mono text-sm font-bold uppercase tracking-[0.1em] text-[var(--fg)] transition-all hover:-translate-x-1 hover:text-[var(--accent)]">
@@ -368,6 +417,7 @@ export default async function ProductDetailPage({ params }: Props) {
       {/* Spacer so content doesn't hide behind the fixed bar */}
       <div className="min-[920px]:hidden h-28" aria-hidden="true" />
     </main>
+    </>
   );
 }
 

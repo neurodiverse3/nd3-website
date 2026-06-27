@@ -103,12 +103,12 @@ const XIcon = ({ size = 14, className = "" }) => (
   </svg>
 );
 
-const PILLARS = [
-  { text: 'Neurodivergent Life', theme: 'unmasked', path: '/memoir' },
-  { text: 'Tools & Templates', theme: 'tools', path: '/store' },
-  { text: 'Honest Stories', theme: 'unmasked', path: '/blog' },
-  { text: 'Digital Life', theme: 'digital', path: '/labs' },
-  { text: 'Unmasked & Unfiltered', theme: 'unmasked', path: '/about' }
+const BRAIN_STATES = [
+  { text: 'Burned out', path: '/blog?state=burned-out', rgb: '255, 46, 136' },
+  { text: 'Hyperfocused', path: '/blog?state=hyperfocus', rgb: '0, 240, 255' },
+  { text: 'Masking', path: '/blog?state=masking', rgb: '192, 38, 211' },
+  { text: 'Spiralling', path: '/blog?state=spiraling', rgb: '255, 172, 28' },
+  { text: 'On a roll', path: '/blog?state=on-a-roll', rgb: '45, 212, 191' }
 ];
 
 export const Footer = () => {
@@ -122,195 +122,226 @@ export const Footer = () => {
     email: 'ollie@neurodivers3.co.uk'
   });
 
-  // Removed client-side fetch to prevent 403 errors. Socials are static or passed via props.
-
   if (pathname && pathname.endsWith('/embed')) {
     return null;
   }
 
   return (
-    <footer className="relative bg-bg-primary border-t border-border-rule pt-24 md:pt-28 pb-28 md:pb-12 overflow-hidden">
-      {/* Static Utility Badge Bar */}
-      <div className="absolute top-0 left-0 w-full bg-bg-primary border-b border-border-rule z-10 py-3.5 px-6 select-none">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center md:justify-between gap-2 gap-y-3.5 md:gap-4">
-          {PILLARS.map((pillar, idx) => (
-            <Link
-              key={idx}
-              href={pillar.path}
-              className={`badge-pillar-link px-3.5 py-1 rounded-full text-xs md:text-sm font-bold font-mono uppercase tracking-wider border badge-pillar-${pillar.theme} focus-ring`}
-            >
-              <span className={`w-1.5 h-1.5 rounded-full bg-pillar-${pillar.theme}`} />
-              {pillar.text}
-            </Link>
-          ))}
+    <footer className="relative bg-bg-primary border-t border-border-rule pb-16 md:pb-8 overflow-hidden">
+      {/* Prominent Top Social Bar (hidden on the links page to prevent content duplication) */}
+      {pathname !== '/links' && (
+        <div className="w-full bg-bg-primary border-b border-border-rule z-10 py-6 px-6 select-none no-print">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+            <span className="text-sm md:text-base font-mono font-bold tracking-[0.2em] text-text-muted uppercase text-center md:text-left shrink-0">
+              FOLLOW ME:
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 max-w-[260px] md:max-w-none">
+              <a 
+                href={`https://x.com/${socialHandles.twitter}`} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-12 h-12 border-2 border-fg-primary bg-[var(--accent-soft)] text-fg-primary hover:bg-accent hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group hover:-translate-x-1 hover:-translate-y-1 active:translate-x-0 active:translate-y-0 shadow-[3px_3px_0px_var(--fg-primary)] hover:shadow-[5px_5px_0px_var(--fg-primary)]"
+                aria-label="Follow on X (formerly Twitter)"
+              >
+                <XIcon size={18} className="group-hover:text-inherit" />
+              </a>
+              <a 
+                href={`https://instagram.com/${socialHandles.instagram}`} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-12 h-12 border-2 border-fg-primary bg-[var(--accent-soft)] text-fg-primary hover:bg-accent hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group hover:-translate-x-1 hover:-translate-y-1 active:translate-x-0 active:translate-y-0 shadow-[3px_3px_0px_var(--fg-primary)] hover:shadow-[5px_5px_0px_var(--fg-primary)]"
+                aria-label="Follow on Instagram"
+              >
+                <InstagramIcon size={18} className="group-hover:text-inherit" />
+              </a>
+              <a 
+                href={`https://tiktok.com/@${socialHandles.tiktok}`} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-12 h-12 border-2 border-fg-primary bg-[var(--accent-soft)] text-fg-primary hover:bg-accent hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group hover:-translate-x-1 hover:-translate-y-1 active:translate-x-0 active:translate-y-0 shadow-[3px_3px_0px_var(--fg-primary)] hover:shadow-[5px_5px_0px_var(--fg-primary)]"
+                aria-label="Follow on TikTok"
+              >
+                <TikTokIcon size={18} className="group-hover:text-inherit" />
+              </a>
+              <a 
+                href={`https://youtube.com/@${socialHandles.youtube}`} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-12 h-12 border-2 border-fg-primary bg-[var(--accent-soft)] text-fg-primary hover:bg-accent hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group hover:-translate-x-1 hover:-translate-y-1 active:translate-x-0 active:translate-y-0 shadow-[3px_3px_0px_var(--fg-primary)] hover:shadow-[5px_5px_0px_var(--fg-primary)]"
+                aria-label="Subscribe on YouTube"
+              >
+                <YoutubeIcon size={18} className="group-hover:text-inherit" />
+              </a>
+              <a 
+                href={`https://facebook.com/${socialHandles.facebook}`} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-12 h-12 border-2 border-fg-primary bg-[var(--accent-soft)] text-fg-primary hover:bg-accent hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group hover:-translate-x-1 hover:-translate-y-1 active:translate-x-0 active:translate-y-0 shadow-[3px_3px_0px_var(--fg-primary)] hover:shadow-[5px_5px_0px_var(--fg-primary)]"
+                aria-label="Follow on Facebook"
+              >
+                <FacebookIcon size={18} className="group-hover:text-inherit" />
+              </a>
+              <a 
+                href={`mailto:${socialHandles.email}`} 
+                className="w-12 h-12 border-2 border-fg-primary bg-[var(--accent-soft)] text-fg-primary hover:bg-accent hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group hover:-translate-x-1 hover:-translate-y-1 active:translate-x-0 active:translate-y-0 shadow-[3px_3px_0px_var(--fg-primary)] hover:shadow-[5px_5px_0px_var(--fg-primary)]"
+                aria-label="Send Email"
+              >
+                <Mail size={18} className="group-hover:text-inherit" />
+              </a>
+              <a 
+                href="/feed.xml" 
+                target="_blank" 
+                className="w-12 h-12 border-2 border-fg-primary bg-[var(--accent-soft)] text-fg-primary hover:bg-accent hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group hover:-translate-x-1 hover:-translate-y-1 active:translate-x-0 active:translate-y-0 shadow-[3px_3px_0px_var(--fg-primary)] hover:shadow-[5px_5px_0px_var(--fg-primary)]"
+                aria-label="Subscribe to RSS Feed"
+              >
+                <Rss size={18} className="group-hover:text-inherit" />
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Main 4-Column Layout */}
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 mt-8 relative z-10 text-left">
+      {/* Main 5-Column Layout */}
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-[minmax(180px,1.4fr)_repeat(4,minmax(120px,1fr))] gap-x-8 gap-y-10 lg:gap-y-12 mt-8 lg:mt-16 relative z-10 text-center lg:text-left justify-items-center lg:justify-items-start">
         {/* Column 1: Brand & Wordmark */}
-        <div className="flex flex-col gap-5 justify-start items-start col-span-2 md:col-span-1">
+        <div className="flex flex-col gap-4 justify-start items-center lg:items-start col-span-2 lg:col-span-1 text-center lg:text-left mb-4 lg:mb-0">
           <LogoPrimaryFlat className="text-fg-primary" />
-          <p className="text-[14px] font-light text-text-muted leading-relaxed max-w-[28ch]">
+          <p className="text-sm lg:text-base font-medium text-text-muted leading-relaxed max-w-[22ch]">
             Neurodivergent life, tools and stories.
           </p>
         </div>
 
-        {/* Column 2: Read */}
-        <div className="flex flex-col gap-4 col-span-1 items-start">
-          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))]">Read</h3>
-          <ul className="flex flex-col gap-3 text-[14px] font-medium text-text-muted w-full items-start">
+        {/* Column 2: Pillars */}
+        <div className="flex flex-col gap-2.5 col-span-1 items-center lg:items-start text-center lg:text-left">
+          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Pillars</h3>
+          <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
             <li>
-              <Link href="/blog" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link href="/memoir" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                Memoir
-              </Link>
-            </li>
-            <li>
-              <Link href="/labs" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                Labs
-              </Link>
-            </li>
-            <li>
-              <Link href="/store" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                Store
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                About
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Column 3: Pillars */}
-        <div className="flex flex-col gap-4 col-span-1 items-start">
-          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))]">Pillars</h3>
-          <ul className="flex flex-col gap-3 text-[14px] font-medium text-text-muted w-full items-start">
-            <li>
-              <Link href="/blog?pillar=unmasked-life" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog?pillar=unmasked-life" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Unmasked Life
               </Link>
             </li>
             <li>
-              <Link href="/blog?pillar=tools-templates" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                Tools & Templates
+              <Link href="/blog?pillar=digital-life" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                Digital Life
               </Link>
             </li>
             <li>
-              <Link href="/blog?pillar=digital-life" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                Digital Life
+              <Link href="/blog?pillar=tools-templates" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                Tools & Templates
               </Link>
             </li>
           </ul>
         </div>
 
-        {/* Column 4: Legal */}
-        <div className="flex flex-col gap-4 col-span-2 md:col-span-1 items-start">
-          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))]">Legal</h3>
-          <ul className="grid grid-cols-2 gap-3 md:flex md:flex-col md:gap-3 text-[14px] font-medium text-text-muted w-full items-start">
+        {/* Column 3: Explore */}
+        <div className="flex flex-col gap-2.5 col-span-1 items-center lg:items-start text-center lg:text-left">
+          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Explore</h3>
+          <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
             <li>
-              <Link href="/privacy" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                Privacy Policy
+              <Link href="/blog" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                Blog
               </Link>
             </li>
             <li>
-              <Link href="/terms" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                Terms of Use
+              <Link href="/labs" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                Labs
               </Link>
             </li>
             <li>
-              <Link href="/accessibility" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                Accessibility
+              <Link href="/store" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                Store
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/memoir" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                Memoir
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Column 4: Connect */}
+        <div className="flex flex-col gap-2.5 col-span-1 items-center lg:items-start text-center lg:text-left">
+          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Connect</h3>
+          <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
+            <li>
+              <Link href="/about" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Contact
               </Link>
             </li>
             <li>
-              <a href="/sitemap.xml" className="block py-1.5 md:py-0 hover:text-fg-primary transition-colors focus-ring">
-                Sitemap
-              </a>
+              <Link href="/links" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                Links + socials
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Column 5: Legal */}
+        <div className="flex flex-col gap-2.5 col-span-1 items-center lg:items-start text-center lg:text-left">
+          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Legal</h3>
+          <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
+            <li>
+              <Link href="/privacy" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                Terms of Use
+              </Link>
+            </li>
+            <li>
+              <Link href="/accessibility" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+                Accessibility
+              </Link>
             </li>
           </ul>
         </div>
       </div>
 
-      {/* Bottom bar with copyright & reactive social buttons */}
-      <div className="max-w-7xl mx-auto px-6 mt-12 pt-6 border-t border-border-rule flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-        <div className="text-[14px] font-bold tracking-[0.05em] text-fg-primary/80 uppercase select-none">
-          © 2026 NEURODIVERS³
+      {/* Softer "Entry Point" Chips Section */}
+      <div className="max-w-7xl mx-auto px-6 mt-10 pt-8 pb-6 border-t border-border-rule text-center relative z-10 no-print">
+        <div className="flex flex-col items-center gap-6">
+          <span className="text-xs md:text-sm font-mono font-bold tracking-[0.2em] text-text-muted uppercase">
+            Start where your brain’s at:
+          </span>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {BRAIN_STATES.map((state, idx) => (
+              <Link
+                key={idx}
+                href={state.path}
+                className="px-4 py-1.5 rounded-full text-[11px] md:text-xs font-bold font-mono uppercase tracking-wider border transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0 focus-ring flex items-center justify-center min-h-[36px] md:min-h-0"
+                style={{
+                  backgroundColor: `rgba(${state.rgb}, 0.08)`,
+                  borderColor: `rgba(${state.rgb}, 0.35)`,
+                  color: `rgb(${state.rgb})`
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = `rgba(${state.rgb}, 0.18)`;
+                  e.currentTarget.style.borderColor = `rgba(${state.rgb}, 0.65)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = `rgba(${state.rgb}, 0.08)`;
+                  e.currentTarget.style.borderColor = `rgba(${state.rgb}, 0.35)`;
+                }}
+              >
+                {state.text}
+              </Link>
+            ))}
+          </div>
         </div>
-        
-        {/* Sleek, neobrutalist theme-reactive social icon buttons */}
-        <div className="flex flex-wrap items-center gap-3">
-          <a 
-            href={`https://x.com/${socialHandles.twitter}`} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="w-10 h-10 border border-border-rule hover:border-fg-primary bg-bg-primary hover:bg-accent text-text-muted hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group"
-            aria-label="X / Twitter"
-          >
-            <XIcon size={16} className="group-hover:text-inherit" />
-          </a>
-          <a 
-            href={`https://instagram.com/${socialHandles.instagram}`} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="w-10 h-10 border border-border-rule hover:border-fg-primary bg-bg-primary hover:bg-accent text-text-muted hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group"
-            aria-label="Instagram"
-          >
-            <InstagramIcon size={16} className="group-hover:text-inherit" />
-          </a>
-          <a 
-            href={`https://tiktok.com/@${socialHandles.tiktok}`} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="w-10 h-10 border border-border-rule hover:border-fg-primary bg-bg-primary hover:bg-accent text-text-muted hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group"
-            aria-label="TikTok"
-          >
-            <TikTokIcon size={16} className="group-hover:text-inherit" />
-          </a>
-          <a 
-            href={`https://youtube.com/@${socialHandles.youtube}`} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="w-10 h-10 border border-border-rule hover:border-fg-primary bg-bg-primary hover:bg-accent text-text-muted hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group"
-            aria-label="YouTube"
-          >
-            <YoutubeIcon size={16} className="group-hover:text-inherit" />
-          </a>
-          <a 
-            href={`https://facebook.com/${socialHandles.facebook}`} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="w-10 h-10 border border-border-rule hover:border-fg-primary bg-bg-primary hover:bg-accent text-text-muted hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group"
-            aria-label="Facebook"
-          >
-            <FacebookIcon size={16} className="group-hover:text-inherit" />
-          </a>
-          <a 
-            href={`mailto:${socialHandles.email}`} 
-            className="w-10 h-10 border border-border-rule hover:border-fg-primary bg-bg-primary hover:bg-accent text-text-muted hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group"
-            aria-label="Email"
-          >
-            <Mail size={16} className="group-hover:text-inherit" />
-          </a>
-          <a 
-            href="/feed.xml" 
-            target="_blank" 
-            className="w-10 h-10 border border-border-rule hover:border-fg-primary bg-bg-primary hover:bg-accent text-text-muted hover:text-[var(--accent-text,var(--bg))] flex items-center justify-center transition-all duration-200 focus-ring group"
-            aria-label="RSS Feed"
-          >
-            <Rss size={16} className="group-hover:text-inherit" />
-          </a>
+      </div>
+
+      {/* Bottom bar with copyright */}
+      <div className="max-w-7xl mx-auto px-6 mt-6 py-4 border-t border-border-rule flex flex-col md:flex-row justify-between items-center gap-4 relative z-10 text-center select-none">
+        <div className="text-[12px] font-bold tracking-[0.05em] text-text-muted w-full text-center">
+          © 2026 neurodivers³ · All rights reserved
         </div>
       </div>
     </footer>

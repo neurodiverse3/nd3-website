@@ -20,14 +20,32 @@ import ReadingProgress from '../../../components/ReadingProgress';
 export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
 
 export async function generateStaticParams() {
-  const posts = await getPosts();
-  return posts.map((p) => ({ slug: p.slug }));
+  try {
+    const posts = await getPosts();
+    if (!posts || !Array.isArray(posts)) return [];
+    return posts.map((p) => {
+      const slugStr = typeof p.slug === 'object' && p.slug !== null
+        ? p.slug.current || p.slug.slug || ''
+        : p.slug;
+      return { slug: slugStr };
+    }).filter(item => item.slug);
+  } catch (err) {
+    console.warn('⚠️ [generateStaticParams Blog] Failed to fetch posts from Strapi:', err);
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  let post = await getPostBySlug(slug);
-  const allPosts = await getPosts();
+  let post = null;
+  let allPosts = [];
+
+  try {
+    post = await getPostBySlug(slug);
+    allPosts = await getPosts() || [];
+  } catch (err) {
+    console.warn(`⚠️ [generateMetadata Blog] Failed to fetch post details for "${slug}" from Strapi:`, err);
+  }
 
   if (!post) {
     return {
@@ -73,7 +91,7 @@ export async function generateMetadata({ params }) {
       title: `${resolvedTitle} - neurodivers3`,
       description: post.excerpt,
       type: 'article',
-      publishedTime: post.date || post._createdAt,
+      publishedTime: post.date || post._createdAt || new Date().toISOString(),
       images: [ogUrl],
     },
     twitter: {
@@ -174,13 +192,14 @@ const getBrainStateTagClass = (state) => {
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-  const comments = await getComments(slug);
   let post = await getPostBySlug(slug);
-  const allPosts = await getPosts();
 
   if (!post) {
     notFound();
   }
+
+  const comments = await getComments(slug);
+  const allPosts = await getPosts();
 
   // Format title and excerpt with typographic curly quotes
   post = {
@@ -326,7 +345,7 @@ export default async function BlogPostPage({ params }) {
     '@type': 'Article',
     headline: post.title,
     description: (post.excerpt || '').slice(0, 155),
-    datePublished: post.date || post._createdAt || '',
+    datePublished: post.date || post._createdAt || new Date().toISOString(),
     ...(post.lastUpdated ? { dateModified: post.lastUpdated } : {}),
     author: {
       '@type': 'Person',
@@ -392,11 +411,32 @@ export default async function BlogPostPage({ params }) {
         <StickyBlogHeader title={post.title} />
 
         {/* TITLE & EXCERPT CONTAINER (stretched full-width above the content grid on desktop) */}
-        <div className="mx-auto px-6 md:px-24 xl:px-16 2xl:px-32 pt-32 pb-4 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] w-full text-left">
+        <div className="mx-auto px-6 md:px-24 xl:px-16 2xl:px-32 pt-28 md:pt-32 pb-4 max-w-[1360px] xl:max-w-[1560px] 2xl:max-w-[1760px] w-full text-left">
           <div className="w-full">
-            <h1 className="text-[clamp(2.5rem,6vw,4rem)] font-black uppercase tracking-wide leading-[1.0] mb-6 text-fg-primary font-display">
+            {/* Back Button (Rendered at the very top of content on all viewports) */}
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-1.5 text-text-muted hover:text-accent transition-colors uppercase font-black text-xs md:text-sm tracking-widest mb-6 focus-ring"
+            >
+              <ArrowLeft size={14} className="shrink-0" /> Back to blog
+            </Link>
+
+            <h1 className="text-[clamp(2.35rem,6vw,4rem)] font-black uppercase tracking-tight md:tracking-tighter leading-[1.05] md:leading-[1.0] mb-6 text-fg-primary font-display">
               {post.title}
             </h1>
+
+            {/* Mobile & Tablet Metadata (Rendered directly under title) */}
+            <div className="xl:hidden flex flex-wrap items-center gap-x-4 gap-y-3 text-xs font-mono font-bold uppercase tracking-[0.15em] text-text-muted mb-6">
+              <span className="whitespace-nowrap">{formattedDate}</span>
+              <Link href={`/blog?pillar=${post.pillar}`} className="text-accent hover:underline font-black focus-ring whitespace-nowrap flex items-center before:content-['·'] before:opacity-40 before:mr-4">
+                {getPillarLabel(post.pillar)}
+              </Link>
+              <Link href={`/blog?state=${post.brainState || post.state}`} className="text-accent hover:underline font-black focus-ring whitespace-nowrap flex items-center before:content-['·'] before:opacity-40 before:mr-4">
+                {getBrainStateLabel(post.brainState || post.state)}
+              </Link>
+              <span className="text-text-muted before:content-['·'] before:opacity-40 before:mr-4 italic">By Ollie</span>
+            </div>
+
             {post.excerpt && (
               <p className="text-lg md:text-xl text-text-muted italic font-light leading-relaxed border-l-4 border-accent pl-6 font-sans">
                 {post.excerpt}
@@ -417,87 +457,22 @@ export default async function BlogPostPage({ params }) {
           {/* 2. CENTER: MAIN READING COLUMN */}
           <div className="flex-grow w-full max-w-[820px] mx-auto xl:mx-0">
             
-            {/* MOBILE & TABLET ONLY METADATA & UTILITIES FALLBACK */}
+            {/* MOBILE & TABLET ONLY UTILITIES FALLBACK */}
             <div className="xl:hidden w-full mb-8 text-left">
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-2 text-text-muted hover:text-accent transition-colors uppercase font-black text-xs md:text-sm tracking-widest mb-6 focus-ring"
-              >
-                ← Back to blog
-              </Link>
-
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-3 text-xs font-mono font-bold uppercase tracking-[0.15em] text-text-muted mb-4">
-                <span className="whitespace-nowrap">{formattedDate}</span>
-                <Link href={`/blog?pillar=${post.pillar}`} className="text-accent hover:underline font-black focus-ring whitespace-nowrap flex items-center before:content-['·'] before:opacity-40 before:mr-4">
-                  {getPillarLabel(post.pillar)}
-                </Link>
-                <Link href={`/blog?state=${post.brainState || post.state}`} className="text-accent hover:underline font-black focus-ring whitespace-nowrap flex items-center before:content-['·'] before:opacity-40 before:mr-4">
-                  {getBrainStateLabel(post.brainState || post.state)}
-                </Link>
-              </div>
-
-              <div className="text-xs text-text-muted italic border-l-2 border-border-rule/80 pl-3 py-0.5">
-                By Ollie
-              </div>
-
               {formattedUpdateDate && (
-                <div className="flex items-center gap-1.5 text-xs md:text-sm font-mono tracking-wider uppercase text-accent bg-[var(--accent-soft)] px-3.5 py-1 border border-border-rule mt-4 w-fit">
+                <div className="flex items-center gap-1.5 text-xs md:text-sm font-mono tracking-wider uppercase text-accent bg-[var(--accent-soft)] px-3.5 py-1 border border-border-rule mb-6 w-fit">
                   <AlertCircle size={10} /> Updated {formattedUpdateDate}
                 </div>
               )}
 
               {!post.hideNarration && (
-                <div className="mt-8">
+                <div className="mb-6">
                   <AudioNarration />
                 </div>
               )}
-            </div>
 
-
-
-            {/* MOBILE/TABLET SIDEBAR CAROUSEL - pops sidebar widgets below title */}
-            <div className="xl:hidden mb-10">
-              <div className="blog-sidebar-carousel max-w-[760px] mx-auto">
-                {/* Back to Blog */}
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-accent bg-[var(--accent-soft)] text-accent hover:bg-accent hover:text-bg-primary font-mono text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-200 shadow-[2px_2px_0px_var(--accent)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 focus-ring whitespace-nowrap"
-                >
-                  ← All posts
-                </Link>
-
-                {/* Date pill */}
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border-rule bg-surface/40 text-fg-primary font-mono text-xs md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">
-                  {formattedDate}
-                </span>
-
-                {/* Pillar tag */}
-                <Link
-                  href={`/blog?pillar=${post.pillar}`}
-                  className={`inline-flex items-center px-2.5 py-1.5 text-xs md:text-sm font-mono font-black uppercase transition-all focus-ring whitespace-nowrap ${getPillarTagClass(post.pillar)}`}
-                >
-                  {getPillarLabel(post.pillar)}
-                </Link>
-
-                {/* Brain State tag */}
-                <Link
-                  href={`/blog?state=${post.brainState || post.state}`}
-                  className={`inline-flex items-center px-2.5 py-1.5 text-xs md:text-sm font-mono font-black uppercase transition-all focus-ring whitespace-nowrap ${getBrainStateTagClass(post.brainState || post.state)}`}
-                >
-                  {getBrainStateLabel(post.brainState || post.state)}
-                </Link>
-
-                {/* Audio Narration */}
-                {!post.hideNarration && (
-                  <span className="inline-flex shrink-0">
-                    <AudioNarration compact={true} />
-                  </span>
-                )}
-
-                {/* Share buttons */}
-                <span className="inline-flex shrink-0">
-                  <SharePost title={post.title} slug={slug} dek={post.excerpt} vertical={false} />
-                </span>
+              <div className="border-t border-border-rule/40 pt-4 mb-6">
+                <SharePost title={post.title} slug={slug} dek={post.excerpt} vertical={false} />
               </div>
             </div>
 

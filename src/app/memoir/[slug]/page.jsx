@@ -2,12 +2,28 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Calendar, BookOpen } from 'lucide-react';
-import { getMemoirChapterBySlug } from '../../../lib/strapi';
+import { getMemoirChapterBySlug, getMemoirChapters } from '../../../lib/strapi';
 import RichTextRenderer from '../../../components/RichTextRenderer';
-import { ReadingProgress } from '../../../components/ReadingProgress';
+import ReadingProgress from '../../../components/ReadingProgress';
 import { toSmartQuotes } from '../../../lib/typography';
 
 export const revalidate = 86400; // Cache for 24 hours, revalidated on-demand
+
+export async function generateStaticParams() {
+  try {
+    const chapters = await getMemoirChapters();
+    if (!chapters || !Array.isArray(chapters)) return [];
+    return chapters.map((c) => {
+      const slugStr = typeof c.slug === 'object' && c.slug !== null
+        ? c.slug.current || c.slug.slug || ''
+        : c.slug;
+      return { slug: slugStr };
+    }).filter(item => item.slug);
+  } catch (err) {
+    console.warn('⚠️ [generateStaticParams Memoir] Failed to fetch memoir chapters from Strapi:', err);
+    return [];
+  }
+}
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

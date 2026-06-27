@@ -28,21 +28,42 @@ export default function SpoonTracker({ noWrapper = false }) {
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskCost, setNewTaskCost] = useState(1);
 
+  // Midnight auto-reset interval checker
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const todayStr = new Date().toDateString();
+    if (typeof window === 'undefined') return;
 
-      if (savedDate && savedDate !== todayStr) {
+    const checkDate = () => {
+      const todayStr = new Date().toDateString();
+      const currentSavedDate = localStorage.getItem('nd3-spoon-tracker-date');
+      
+      let parsedSavedDate = null;
+      if (currentSavedDate) {
+        try {
+          parsedSavedDate = JSON.parse(currentSavedDate);
+        } catch (e) {
+          parsedSavedDate = currentSavedDate;
+        }
+      }
+
+      if (parsedSavedDate && parsedSavedDate !== todayStr) {
         setSavedDate(todayStr);
         setSavedBanked(0);
         setSavedTasks([]);
         setBankedSpoonsCount(0);
         setSpentTasks([]);
-      } else if (!savedDate) {
+        console.log("🕛 [Spoon Tracker] Midnight reached. Energy budget reset for the new day.");
+      } else if (!parsedSavedDate) {
         setSavedDate(todayStr);
       }
-    }
-  }, []);
+    };
+
+    checkDate();
+
+    // Check every 30 seconds to catch midnight transition dynamically
+    const interval = setInterval(checkDate, 30000);
+
+    return () => clearInterval(interval);
+  }, [setSavedDate, setSavedBanked, setSavedTasks, setBankedSpoonsCount, setSpentTasks]);
 
   useEffect(() => { setSavedMax(maxSpoons); }, [maxSpoons]);
   useEffect(() => { setSavedBanked(bankedSpoonsCount); }, [bankedSpoonsCount]);
@@ -128,9 +149,6 @@ export default function SpoonTracker({ noWrapper = false }) {
         <h3 className="text-base font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
           <Battery size={16} className="text-[var(--accent)]" /> SPOON TRACKER
         </h3>
-        <span className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5 tracking-wider">
-          ENERGY · BUDGETING
-        </span>
       </div>
 
       <p className={`text-[13px] text-[var(--muted)] leading-relaxed ${noWrapper ? 'line-clamp-2 hover:line-clamp-none transition-all duration-300' : ''}`}>

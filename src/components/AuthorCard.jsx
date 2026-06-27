@@ -111,7 +111,6 @@ export default function AuthorCard({ author = {}, socials = {} }) {
             fill
             sizes="(max-width: 768px) 64px, 80px"
             className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"
-            unoptimized
           />
         </div>
 
@@ -141,50 +140,50 @@ export default function AuthorCard({ author = {}, socials = {} }) {
                 href={`https://tiktok.com/@${tiktok}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 border border-border-rule/70 bg-bg-primary/40 text-fg-primary hover:text-accent-pink hover:border-accent-pink flex items-center justify-center transition-all duration-200 focus-ring"
+                className="w-10 h-10 border border-border-rule/70 bg-bg-primary/40 text-fg-primary hover:text-accent-pink hover:border-accent-pink flex items-center justify-center transition-all duration-200 focus-ring"
                 title="TikTok"
               >
-                <TikTokIcon size={14} />
+                <TikTokIcon size={16} />
               </a>
 
               <a
                 href={`https://instagram.com/${instagram}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 border border-border-rule/70 bg-bg-primary/40 text-fg-primary hover:text-accent-pink hover:border-accent-pink flex items-center justify-center transition-all duration-200 focus-ring"
+                className="w-10 h-10 border border-border-rule/70 bg-bg-primary/40 text-fg-primary hover:text-accent-pink hover:border-accent-pink flex items-center justify-center transition-all duration-200 focus-ring"
                 title="Instagram"
               >
-                <InstagramIcon size={14} />
+                <InstagramIcon size={16} />
               </a>
 
               <a
                 href={`https://youtube.com/@${youtube}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 border border-border-rule/70 bg-bg-primary/40 text-fg-primary hover:text-accent-pink hover:border-accent-pink flex items-center justify-center transition-all duration-200 focus-ring"
+                className="w-10 h-10 border border-border-rule/70 bg-bg-primary/40 text-fg-primary hover:text-accent-pink hover:border-accent-pink flex items-center justify-center transition-all duration-200 focus-ring"
                 title="YouTube"
               >
-                <YoutubeIcon size={14} />
+                <YoutubeIcon size={16} />
               </a>
 
               <a
                 href={`https://facebook.com/${facebook}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 border border-border-rule/70 bg-bg-primary/40 text-fg-primary hover:text-accent-pink hover:border-accent-pink flex items-center justify-center transition-all duration-200 focus-ring"
+                className="w-10 h-10 border border-border-rule/70 bg-bg-primary/40 text-fg-primary hover:text-accent-pink hover:border-accent-pink flex items-center justify-center transition-all duration-200 focus-ring"
                 title="Facebook"
               >
-                <FacebookIcon size={14} />
+                <FacebookIcon size={16} />
               </a>
 
               <a
                 href={`https://x.com/${twitter}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 border border-border-rule/70 bg-bg-primary/40 text-fg-primary hover:text-accent-pink hover:border-accent-pink flex items-center justify-center transition-all duration-200 focus-ring"
+                className="w-10 h-10 border border-border-rule/70 bg-bg-primary/40 text-fg-primary hover:text-accent-pink hover:border-accent-pink flex items-center justify-center transition-all duration-200 focus-ring"
                 title="X (Twitter)"
               >
-                <XIcon size={14} />
+                <XIcon size={16} />
               </a>
             </div>
           </div>

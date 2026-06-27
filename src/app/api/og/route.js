@@ -240,11 +240,24 @@ export async function GET(request) {
           >
             {words.map((word, idx) => {
               const isAccented = idx === accentIndex;
+              if (isAccented) {
+                const match = word.match(/^(\W*)(.*?)(\W*)$/);
+                if (match) {
+                  const [, prefix, core, suffix] = match;
+                  return (
+                    <span key={idx} style={{ display: 'flex', marginRight: '22px' }}>
+                      {prefix ? <span style={{ color: themeTextColor }}>{prefix}</span> : null}
+                      <span style={{ color: themeAccentColor }}>{core}</span>
+                      {suffix ? <span style={{ color: themeTextColor }}>{suffix}</span> : null}
+                    </span>
+                  );
+                }
+              }
               return (
                 <span
                   key={idx}
                   style={{
-                    color: isAccented ? themeAccentColor : themeTextColor,
+                    color: themeTextColor,
                     marginRight: '22px',
                   }}
                 >

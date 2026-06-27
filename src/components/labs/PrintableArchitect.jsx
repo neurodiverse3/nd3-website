@@ -227,43 +227,62 @@ export default function PrintableArchitect() {
   };
 
   const handleUpdateSectionTitle = (sectionIdx, newVal) => {
-    setSheet(prev => {
-      const updated = { ...prev };
-      updated.sections[sectionIdx].title = newVal;
-      return updated;
-    });
+    setSheet(prev => ({
+      ...prev,
+      sections: prev.sections.map((sec, idx) => 
+        idx === sectionIdx ? { ...sec, title: newVal } : sec
+      )
+    }));
   };
 
   const handleUpdateChecklistItemText = (sectionIdx, itemIdx, newVal) => {
-    setSheet(prev => {
-      const updated = { ...prev };
-      updated.sections[sectionIdx].items[itemIdx].text = newVal;
-      return updated;
-    });
+    setSheet(prev => ({
+      ...prev,
+      sections: prev.sections.map((sec, secIdx) => {
+        if (secIdx !== sectionIdx) return sec;
+        return {
+          ...sec,
+          items: sec.items.map((item, itIdx) => 
+            itIdx === itemIdx ? { ...item, text: newVal } : item
+          )
+        };
+      })
+    }));
   };
 
   const handleUpdateNotesText = (sectionIdx, newVal) => {
-    setSheet(prev => {
-      const updated = { ...prev };
-      updated.sections[sectionIdx].text = newVal;
-      return updated;
-    });
+    setSheet(prev => ({
+      ...prev,
+      sections: prev.sections.map((sec, idx) => 
+        idx === sectionIdx ? { ...sec, text: newVal } : sec
+      )
+    }));
   };
 
   const handleAddChecklistItem = (sectionIdx) => {
-    setSheet(prev => {
-      const updated = { ...prev };
-      updated.sections[sectionIdx].items.push({ text: "Click to customise this goal item", checked: false });
-      return updated;
-    });
+    setSheet(prev => ({
+      ...prev,
+      sections: prev.sections.map((sec, secIdx) => {
+        if (secIdx !== sectionIdx) return sec;
+        return {
+          ...sec,
+          items: [...sec.items, { text: "Click to customise this goal item", checked: false }]
+        };
+      })
+    }));
   };
 
   const handleRemoveChecklistItem = (sectionIdx, itemIdx) => {
-    setSheet(prev => {
-      const updated = { ...prev };
-      updated.sections[sectionIdx].items.splice(itemIdx, 1);
-      return updated;
-    });
+    setSheet(prev => ({
+      ...prev,
+      sections: prev.sections.map((sec, secIdx) => {
+        if (secIdx !== sectionIdx) return sec;
+        return {
+          ...sec,
+          items: sec.items.filter((_, itIdx) => itIdx !== itemIdx)
+        };
+      })
+    }));
   };
 
   const handleExportPDF = async () => {
@@ -815,11 +834,18 @@ export default function PrintableArchitect() {
                                 type="checkbox" 
                                 defaultChecked={isBlank ? false : item.checked}
                                 onChange={(e) => {
-                                  setSheet(prev => {
-                                    const updated = { ...prev };
-                                    updated.sections[secIdx].items[itemIdx].checked = e.target.checked;
-                                    return updated;
-                                  });
+                                  setSheet(prev => ({
+                                    ...prev,
+                                    sections: prev.sections.map((sec, sIdx) => {
+                                      if (sIdx !== secIdx) return sec;
+                                      return {
+                                        ...sec,
+                                        items: sec.items.map((item, iIdx) => 
+                                          iIdx === itemIdx ? { ...item, checked: e.target.checked } : item
+                                        )
+                                      };
+                                    })
+                                  }));
                                 }}
                                 className="fillable-checkbox w-4 h-4 md:w-4.5 md:h-4.5 border-2 border-black rounded-none cursor-pointer accent-[#111] shrink-0" 
                               />

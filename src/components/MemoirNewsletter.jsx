@@ -64,12 +64,12 @@ export default function MemoirNewsletter({ variant = 'sidebar' }) {
             </span>
 
             {/* Headline */}
-            <h2 className="text-2xl md:text-3xl font-black tracking-tighter uppercase mb-4 leading-none text-white font-display">
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight md:tracking-tighter uppercase mb-4 leading-none text-white font-display">
               HEAR ABOUT IT FIRST.
             </h2>
 
             {/* Sub */}
-            <p className="text-base text-[#8A8A93] leading-relaxed font-sans max-w-xl">
+            <p className="text-base text-text-muted leading-relaxed font-sans max-w-xl">
               The memoir is not ready yet. But if you want to know when the first pieces arrive, join the newsletter and I’ll send them there first.
             </p>
           </div>
@@ -124,7 +124,7 @@ export default function MemoirNewsletter({ variant = 'sidebar' }) {
                       required
                       className="mt-1 h-4 w-4 shrink-0 rounded-none border border-white/20 bg-black text-accent focus:ring-accent accent-accent cursor-pointer"
                     />
-                    <label htmlFor="memoir-newsletter-consent-horiz" className="text-xs md:text-sm text-[#8A8A93] select-none cursor-pointer leading-relaxed font-sans">
+                    <label htmlFor="memoir-newsletter-consent-horiz" className="text-xs md:text-sm text-text-muted select-none cursor-pointer leading-relaxed font-sans">
                       I’m happy to receive neurodivers³ emails about the memoir, new writing, and related updates.
                     </label>
                   </div>
@@ -157,7 +157,7 @@ export default function MemoirNewsletter({ variant = 'sidebar' }) {
               <div className="p-6 border border-accent bg-[var(--accent-soft)] text-center animate-in fade-in zoom-in-95 duration-200">
                 <CheckCircle2 size={32} className="text-accent mx-auto mb-3" />
                 <h3 className="text-lg font-black uppercase text-white mb-1">You’re in.</h3>
-                <p className="text-sm text-[#8A8A93] leading-relaxed font-sans">
+                <p className="text-sm text-text-muted leading-relaxed font-sans">
                   The welcome email is on its way. If it does not appear soon, check spam or promotions.
                 </p>
               </div>
@@ -178,12 +178,12 @@ export default function MemoirNewsletter({ variant = 'sidebar' }) {
         </span>
 
         {/* Headline */}
-        <h2 className="text-2xl md:text-3xl font-black tracking-tighter uppercase mb-4 leading-none text-white font-display">
+        <h2 className="text-2xl md:text-3xl font-black tracking-tight md:tracking-tighter uppercase mb-4 leading-none text-white font-display">
           HEAR ABOUT IT FIRST.
         </h2>
 
         {/* Sub */}
-        <p className="text-base text-[#8A8A93] leading-relaxed mb-6 font-sans">
+        <p className="text-base text-text-muted leading-relaxed mb-6 font-sans">
           The memoir is still in planning. Join the newsletter to get first notes, release updates, and early fragments when they’re ready.
         </p>
 
@@ -230,7 +230,7 @@ export default function MemoirNewsletter({ variant = 'sidebar' }) {
                   required
                   className="mt-1 h-4 w-4 shrink-0 rounded-none border border-white/20 bg-black text-accent focus:ring-accent accent-accent cursor-pointer"
                 />
-                <label htmlFor="memoir-newsletter-consent" className="text-xs md:text-sm text-[#8A8A93] select-none cursor-pointer leading-relaxed font-sans">
+                <label htmlFor="memoir-newsletter-consent" className="text-xs md:text-sm text-text-muted select-none cursor-pointer leading-relaxed font-sans">
                   I’m happy to receive neurodivers³ emails about the memoir, new writing, and related updates.
                 </label>
               </div>
@@ -249,7 +249,7 @@ export default function MemoirNewsletter({ variant = 'sidebar' }) {
             </div>
 
             {/* Trust line */}
-            <p className="text-xs text-[#8A8A93] leading-relaxed mt-4 font-sans">
+            <p className="text-xs text-text-muted leading-relaxed mt-4 font-sans">
               No tracking pixels. No sales funnels. Unsubscribe in one click.
             </p>
 
@@ -268,7 +268,7 @@ export default function MemoirNewsletter({ variant = 'sidebar' }) {
           <div className="p-6 border border-accent bg-[var(--accent-soft)] text-center animate-in fade-in zoom-in-95 duration-200">
             <CheckCircle2 size={32} className="text-accent mx-auto mb-3" />
             <h3 className="text-lg font-black uppercase text-white mb-1">You’re in.</h3>
-            <p className="text-sm text-[#8A8A93] leading-relaxed font-sans">
+            <p className="text-sm text-text-muted leading-relaxed font-sans">
               The welcome email is on its way. If it does not appear soon, check spam or promotions.
             </p>
           </div>
@@ -276,7 +276,7 @@ export default function MemoirNewsletter({ variant = 'sidebar' }) {
       </div>
 
       {/* Status chip */}
-      <div className="mt-8 pt-6 border-t border-[#1F1F22] text-xs md:text-sm text-[#8A8A93] font-mono uppercase tracking-widest font-bold">
+      <div className="mt-8 pt-6 border-t border-[#1F1F22] text-xs md:text-sm text-text-muted font-mono uppercase tracking-widest font-bold">
         STATUS: BEING WRITTEN SLOWLY
       </div>
     </div>

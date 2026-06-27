@@ -6,6 +6,7 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { ZoomableImage } from './ZoomableImage';
 import { CodeBlock } from './CodeBlock';
 import LabEmbedder from './labs/LabEmbedder';
+import ErrorBoundary from './ErrorBoundary';
 import ProductCard from './ProductCard';
 import { applySmartQuotes } from '../lib/typography';
 
@@ -299,11 +300,13 @@ export function getPortableTextComponents({ footnotes, headings }) {
       },
       link: ({ children, value }) => {
         const href = value?.href || '';
+        const isValidHref = href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:');
+        const safeHref = isValidHref ? href : '#';
         return (
           <a 
-            href={href} 
-            target={href.startsWith('http') ? '_blank' : undefined}
-            rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            href={safeHref} 
+            target={safeHref.startsWith('http') ? '_blank' : undefined}
+            rel={safeHref.startsWith('http') ? 'noopener noreferrer' : undefined}
             className="text-accent-pink hover:underline font-black focus-ring"
           >
             {children}
@@ -471,7 +474,9 @@ export function getStrapiBlocksComponents() {
           <div className="text-xs md:text-sm font-mono font-bold uppercase tracking-widest text-accent-pink mb-3 block select-none">
             INTERACTIVE LAB EMBED
           </div>
-          <LabEmbedder slug={labSlug} inline={true} />
+          <ErrorBoundary>
+            <LabEmbedder slug={labSlug} inline={true} />
+          </ErrorBoundary>
         </div>
       );
     }
@@ -479,10 +484,54 @@ export function getStrapiBlocksComponents() {
 }
 
 // ----------------------------------------------------
+// Recursive helper to parse inline markdown (**bold**, *italic*, `code`) in Strapi text nodes
+// ----------------------------------------------------
+function parseMarkdownInTextNodes(nodes) {
+  if (!nodes) return nodes;
+  const isArray = Array.isArray(nodes);
+  const nodesArray = isArray ? nodes : [nodes];
+
+  const processed = nodesArray.flatMap(node => {
+    if (node && typeof node === 'object') {
+      if (typeof node.text === 'string' && (node.type === 'text' || !node.type)) {
+        const text = node.text;
+        if (!text) return [node];
+
+        const parts = text.split(/(\*\*.*?\*\*|\*.*?\*|`.*?`)/g);
+        if (parts.length === 1) return [node];
+
+        return parts.map(part => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            return { ...node, text: part.slice(2, -2), bold: true };
+          }
+          if (part.startsWith('*') && part.endsWith('*')) {
+            return { ...node, text: part.slice(1, -1), italic: true };
+          }
+          if (part.startsWith('`') && part.endsWith('`')) {
+            return { ...node, text: part.slice(1, -1), code: true };
+          }
+          return { ...node, text: part };
+        }).filter(n => n.text !== '');
+      }
+
+      if (Array.isArray(node.children)) {
+        return [{
+          ...node,
+          children: parseMarkdownInTextNodes(node.children)
+        }];
+      }
+    }
+    return [node];
+  });
+
+  return isArray ? processed : processed[0];
+}
+
+// ----------------------------------------------------
 // 3. MAIN DUAL RENDERER WRAPPER
 // ----------------------------------------------------
 export default function RichTextRenderer({ content, footnotes, headings }) {
-  if (!content) return null;
+  if (!content || (Array.isArray(content) && content.length === 0)) return null;
 
   // Pre-process content with Typographic Smart Quotes filter (UK convention)
   const processedContent = applySmartQuotes(content);
@@ -497,10 +546,11 @@ export default function RichTextRenderer({ content, footnotes, headings }) {
 
   // Render Strapi Blocks
   const blocks = getStrapiBlocksComponents();
+  const strapiContent = parseMarkdownInTextNodes(processedContent);
   
   return (
     <BlocksRenderer 
-      content={processedContent} 
+      content={strapiContent} 
       blocks={blocks}
       modifiers={{
         bold: ({ children }) => <strong className="font-bold text-fg-primary">{children}</strong>,
@@ -508,16 +558,20 @@ export default function RichTextRenderer({ content, footnotes, headings }) {
         code: ({ children }) => <code className="bg-bg-secondary px-1.5 py-0.5 font-mono text-accent-pink text-sm border border-border-rule rounded-sm">{children}</code>,
         underline: ({ children }) => <span className="underline decoration-accent-pink decoration-2">{children}</span>,
         strikethrough: ({ children }) => <span className="line-through">{children}</span>,
-        link: ({ children, href }) => (
-          <a
-            href={href}
-            target={href?.startsWith('http') ? '_blank' : undefined}
-            rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-            className="text-accent-pink hover:underline font-black focus-ring"
-          >
-            {children}
-          </a>
-        ),
+        link: ({ children, href }) => {
+          const isValidHref = href?.startsWith('http://') || href?.startsWith('https://') || href?.startsWith('mailto:');
+          const safeHref = isValidHref ? href : '#';
+          return (
+            <a
+              href={safeHref}
+              target={safeHref.startsWith('http') ? '_blank' : undefined}
+              rel={safeHref.startsWith('http') ? 'noopener noreferrer' : undefined}
+              className="text-accent-pink hover:underline font-black focus-ring"
+            >
+              {children}
+            </a>
+          );
+        },
       }}
     />
   );

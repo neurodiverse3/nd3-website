@@ -10,7 +10,8 @@ export async function subscribeNewsletter(prevState, formData) {
   const firstName = formData.get('firstName')?.toString()?.trim() || '';
   const source = formData.get('source') || 'newsletter_footer';
   
-  if (!email || !email.includes('@')) {
+  const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!email || !EMAIL_REGEX.test(email)) {
     return { success: false, error: 'Please enter a valid email address.' };
   }
 
@@ -19,6 +20,7 @@ export async function subscribeNewsletter(prevState, formData) {
   }
 
   // 1. Persist to Strapi CMS
+  let subscriberId = null;
   try {
     const res = await fetch(`${STRAPI_URL}/api/subscribers`, {
       method: 'POST',
@@ -39,7 +41,10 @@ export async function subscribeNewsletter(prevState, formData) {
     if (!res.ok) {
       throw new Error(`Strapi returned status ${res.status}`);
     }
-    console.log(`💾 [Strapi CMS] Subscriber ${email} saved successfully.`);
+    
+    const json = await res.json();
+    subscriberId = json?.data?.id;
+    console.log(`💾 [Strapi CMS] Subscriber ${email} saved successfully. ID: ${subscriberId}`);
   } catch (err) {
     return { success: false, error: `Subscription failed: unable to save subscriber (${err.message}).` };
   }
@@ -89,6 +94,26 @@ export async function subscribeNewsletter(prevState, formData) {
     return { success: true, message: 'You’re in.' };
   } catch (error) {
     console.error('❌ Resend API Error:', error);
+    
+    // Rollback: delete subscriber from Strapi if Resend failed
+    if (subscriberId) {
+      try {
+        const rollbackRes = await fetch(`${STRAPI_URL}/api/subscribers/${subscriberId}`, {
+          method: 'DELETE',
+          headers: {
+            ...(STRAPI_TOKEN ? { Authorization: `Bearer ${STRAPI_TOKEN}` } : {}),
+          },
+        });
+        if (rollbackRes.ok) {
+          console.log(`🧹 [Strapi CMS Rollback] Subscriber ${email} (ID: ${subscriberId}) deleted successfully due to email dispatch failure.`);
+        } else {
+          console.error(`⚠️ [Strapi CMS Rollback] Failed to delete subscriber ${email} (ID: ${subscriberId}): ${rollbackRes.status}`);
+        }
+      } catch (rollbackErr) {
+        console.error(`⚠️ [Strapi CMS Rollback] Error deleting subscriber ${email}:`, rollbackErr);
+      }
+    }
+
     return { success: false, error: 'Subscription failed. Please try again later.' };
   }
 }

@@ -26,11 +26,11 @@ export default function KeyboardShortcutsOverlay({ shortcuts = {} }) {
       {/* Floating Trigger Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-24 z-50 p-3 border border-[var(--rule)] bg-black/80 hover:border-[var(--accent)] text-[var(--muted)] hover:text-[var(--accent)] cursor-pointer transition-all rounded-none shadow-[4px_4px_0px_var(--rule)]"
+        className="fixed bottom-6 left-6 z-50 h-12 w-12 md:h-14 md:w-14 flex items-center justify-center border-2 border-fg-primary bg-accent text-[var(--accent-btn-text,var(--bg))] hover:bg-accent-pink hover:text-[#09090b] transition-all rounded-none shadow-[4px_4px_0px_var(--fg-primary)] cursor-pointer hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-0 active:translate-y-0"
         aria-label="Show keyboard shortcuts"
         title="Press ? to show shortcuts"
       >
-        <Keyboard size={16} />
+        <Keyboard className="h-5 w-5 md:h-6 md:w-6" />
       </button>
 
       {/* Overlay */}

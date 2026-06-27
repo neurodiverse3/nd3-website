@@ -180,9 +180,6 @@ export default function VisualSnow({ noWrapper = false, fullPage = false }) {
           <h3 className="text-lg font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
             <Eye size={18} className="text-[var(--accent)]" /> VISUAL SNOW SHIELD
           </h3>
-          <span className="text-xs font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5 tracking-wider">
-            VISUAL · COGNITIVE SHIELD
-          </span>
         </div>
 
         <p className="text-sm text-[var(--muted)] leading-relaxed">

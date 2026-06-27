@@ -117,9 +117,6 @@ export default function DecisionCoin({ noWrapper = false }) {
         <h3 className="text-base font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
           <Sparkles size={16} className="text-[var(--accent)]" /> DECISION COIN
         </h3>
-        <span className="text-xs md:text-sm font-mono text-[var(--muted)] uppercase border border-[var(--rule)] px-2 py-0.5 tracking-wider">
-          TACTILE • BRAIN HACK
-        </span>
       </div>
 
       <p className={`text-[13px] text-[var(--muted)] leading-relaxed ${noWrapper ? 'line-clamp-2 hover:line-clamp-none transition-all duration-300' : ''}`}>

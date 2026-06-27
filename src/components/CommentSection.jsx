@@ -3,6 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { addComment } from '../app/actions/comments';
 
+// Helper to strip HTML and script tags to prevent XSS
+const stripHtml = (text) => {
+  if (!text) return '';
+  return text.replace(/<[^>]*>/g, '');
+};
+
 // Helper to generate initials from name
 const getInitials = (name) => {
   if (!name) return '?';
@@ -257,7 +263,7 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
                   </div>
                   
                   <p className="text-text-muted text-sm leading-relaxed whitespace-pre-wrap font-sans font-light">
-                    {c.content}
+                    {stripHtml(c.content)}
                   </p>
                 </div>
               </div>
@@ -326,9 +332,9 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
                 placeholder=" "
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full h-14 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-5 pt-4 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
+                className="w-full h-14 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-4 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
               />
-              <label htmlFor="name-input" className="floating-label !left-5">NAME</label>
+              <label htmlFor="name-input" className="floating-label">NAME</label>
             </div>
 
             <div className="floating-label-wrap">
@@ -340,9 +346,9 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
                 placeholder=" "
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-14 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-5 pt-4 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
+                className="w-full h-14 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-4 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
               />
-              <label htmlFor="email-input" className="floating-label !left-5">EMAIL</label>
+              <label htmlFor="email-input" className="floating-label">EMAIL</label>
             </div>
           </div>
 
@@ -355,7 +361,7 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
               placeholder=" "
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-5 pt-6 pb-3 outline-none text-fg-primary text-sm font-light leading-relaxed shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none resize-y min-h-[100px]"
+              className="w-full bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-6 pb-4 outline-none text-fg-primary text-sm font-light leading-relaxed shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none resize-y min-h-[120px]"
             />
             <label htmlFor="content-input" className="floating-label">REPLY</label>
           </div>

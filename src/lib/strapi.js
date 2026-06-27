@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 
@@ -59,10 +61,7 @@ async function fetchStrapi(path, params = {}) {
     return await res.json();
   } catch (error) {
     clearTimeout(timeoutId);
-    console.warn(`[Strapi] ${path} fetch failed.`, error);
-    if (process.env.GITHUB_ACTIONS === 'true') {
-      console.warn(`[Strapi] Bypassing fetch error in GitHub Actions CI: ${error.message}`);
-    }
+    console.warn(`[Strapi] ${path} connection failed (CMS might be offline):`, error.message);
     return { data: [] };
   }
 }
@@ -101,13 +100,13 @@ export async function getPosts() {
   return (response?.data || []).map(normalizeData);
 }
 
-export async function getPostBySlug(slug) {
+export const getPostBySlug = cache(async (slug) => {
   const response = await fetchStrapi('posts', {
     'filters[slug][$eq]': slug,
     populate: 'coverImage,series',
   });
   return response?.data?.[0] ? normalizeData(response.data[0]) : null;
-}
+});
 
 export async function getRelatedPosts(pillar, excludeSlug, limit = 3) {
   const response = await fetchStrapi('posts', {
@@ -201,7 +200,7 @@ export async function getLabs() {
   });
 }
 
-export async function getLabBySlug(slug) {
+export const getLabBySlug = cache(async (slug) => {
   const response = await fetchStrapi('labs', {
     'filters[slug][$eq]': slug,
     populate: 'category',
@@ -216,7 +215,7 @@ export async function getLabBySlug(slug) {
     lab.category = normalizeData(lab.category.data);
   }
   return lab;
-}
+});
 
 export async function getLabCategories() {
   const response = await fetchStrapi('lab-categories');
@@ -231,12 +230,12 @@ export async function getMemoirChapters() {
   return (response?.data || []).map(normalizeData);
 }
 
-export async function getMemoirChapterBySlug(slug) {
+export const getMemoirChapterBySlug = cache(async (slug) => {
   const response = await fetchStrapi('memoir-chapters', {
     'filters[slug][$eq]': slug,
   });
   return response?.data?.[0] ? normalizeData(response.data[0]) : null;
-}
+});
 
 export async function getProducts() {
   const response = await fetchStrapi('products', {
@@ -245,9 +244,9 @@ export async function getProducts() {
   return (response?.data || []).map(normalizeData);
 }
 
-export async function getProductBySlug(slug) {
+export const getProductBySlug = cache(async (slug) => {
   const response = await fetchStrapi('products', {
     'filters[slug][$eq]': slug,
   });
   return response?.data?.[0] ? normalizeData(response.data[0]) : null;
-}
+});

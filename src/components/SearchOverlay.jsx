@@ -6,6 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getPosts, getLabs, getMemoirChapters } from '../lib/strapi';
 import { PRODUCTS } from '../data/products';
 
+// Module-level cache to persist indexed search items across overlay opens during the session
+let cachedSearchItems = null;
+let searchItemsPromise = null;
+
 export const SearchOverlay = ({ isOpen, onClose }) => {
   const router = useRouter();
   const [query, setQuery] = useState('');
@@ -31,143 +35,159 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
     return () => window.removeEventListener('resize', checkWidth);
   }, [isOpen]);
 
-  // 1. Fetch and index all searchable content on mount
+  // 1. Fetch and index all searchable content on mount (using module-level caching)
   useEffect(() => {
     if (!isOpen) return;
     
     const indexContent = async () => {
       setLoading(true);
       setIndexError('');
+      
+      if (cachedSearchItems) {
+        setItems(cachedSearchItems);
+        setLoading(false);
+        return;
+      }
+
       try {
-        const [sanityPosts, sanityLabs, sanityChapters] = await Promise.allSettled([
-          getPosts(),
-          getLabs(),
-          getMemoirChapters()
-        ]);
+        if (!searchItemsPromise) {
+          searchItemsPromise = (async () => {
+            const [sanityPosts, sanityLabs, sanityChapters] = await Promise.allSettled([
+              getPosts(),
+              getLabs(),
+              getMemoirChapters()
+            ]);
 
-        const allItems = [];
+            const allItems = [];
 
-        // --- BLOG POSTS ---
-        if (sanityPosts.status === 'fulfilled') {
-          const postsList = sanityPosts.value || [];
-          postsList.forEach(post => {
-            allItems.push({
-              id: `post-${post._id || post.id}`,
-              title: post.title,
-              excerpt: post.excerpt || '',
-              url: `/blog/${post.slug?.current || post.slug}`,
-              type: 'post',
-              badge: 'Post',
-              meta: (post.pillar === 'tiny-systems' || post.pillar === 'tools-templates') ? 'TOOLS & TEMPLATES' : (post.pillar === 'glitchwork' || post.pillar === 'digital-life') ? 'DIGITAL LIFE' : 'UNMASKED LIFE'
+            // --- BLOG POSTS ---
+            if (sanityPosts.status === 'fulfilled') {
+              const postsList = sanityPosts.value || [];
+              postsList.forEach(post => {
+                allItems.push({
+                  id: `post-${post._id || post.id}`,
+                  title: post.title,
+                  excerpt: post.excerpt || '',
+                  url: `/blog/${post.slug?.current || post.slug}`,
+                  type: 'post',
+                  badge: 'Post',
+                  meta: (post.pillar === 'tiny-systems' || post.pillar === 'tools-templates') ? 'TOOLS & TEMPLATES' : (post.pillar === 'glitchwork' || post.pillar === 'digital-life') ? 'DIGITAL LIFE' : 'UNMASKED LIFE'
+                });
+              });
+            } else {
+              console.warn('⚠️ Search indexing: Failed to fetch posts from Strapi:', sanityPosts.reason);
+            }
+
+            // --- MEMOIR CHAPTERS ---
+            if (sanityChapters.status === 'fulfilled' && sanityChapters.value?.length > 0) {
+              sanityChapters.value.forEach(chapter => {
+                allItems.push({
+                  id: `memoir-${chapter._id || chapter.id}`,
+                  title: `Chapter ${chapter.chapterNumber}: ${chapter.title}`,
+                  excerpt: chapter.excerpt || 'Read this chapter of the unmasked memoir.',
+                  url: `/memoir/${chapter.slug?.current || chapter.slug}`,
+                  type: 'memoir',
+                  badge: 'Memoir',
+                  meta: `Chapter ${chapter.chapterNumber}`
+                });
+              });
+            } else if (sanityChapters.status === 'rejected') {
+              console.warn('⚠️ Search indexing: Failed to fetch memoir chapters:', sanityChapters.reason);
+            }
+
+            // --- LAB TOOLS ---
+            if (sanityLabs.status === 'fulfilled') {
+              const labsList = sanityLabs.value || [];
+              labsList.forEach(lab => {
+                allItems.push({
+                  id: `lab-${lab._id || lab.id}`,
+                  title: lab.title,
+                  excerpt: lab.excerpt || '',
+                  url: lab.isExternal ? lab.externalUrl : `/labs/${lab.slug?.current || lab.slug}`,
+                  type: 'lab',
+                  badge: 'Lab',
+                  meta: lab.tag || 'Interactive'
+                });
+              });
+            } else {
+              console.warn('⚠️ Search indexing: Failed to fetch labs from Strapi:', sanityLabs.reason);
+            }
+
+            // --- STORE PRODUCTS ---
+            PRODUCTS.forEach(product => {
+              allItems.push({
+                id: `product-${product.slug}`,
+                title: product.title,
+                excerpt: product.cardBlurb || product.tagline || '',
+                url: `/store/${product.slug}`,
+                type: 'product',
+                badge: 'Product',
+                meta: `${product.priceLabel} · Resource`
+              });
             });
-          });
-        } else {
-          console.warn('⚠️ Search indexing: Failed to fetch posts from Strapi:', sanityPosts.reason);
+
+            // --- CORE STATIC PAGES ---
+            const staticPages = [
+              {
+                id: 'page-about',
+                title: 'About Ollie & neurodivers³',
+                excerpt: 'Meet Ollie, the late-diagnosed AuDHD founder of neurodivers³. Read the story behind the project.',
+                url: '/about',
+                type: 'page',
+                badge: 'Page',
+                meta: 'ABOUT US'
+              },
+              {
+                id: 'page-accessibility',
+                title: 'Accessibility Statement & Design Principles',
+                excerpt: 'How neurodivers³ is designed for ADHD, autistic, dyslexic, and sensory-sensitive users. WCAG 2.1 AA conforming.',
+                url: '/accessibility',
+                type: 'page',
+                badge: 'Page',
+                meta: 'A11Y STATEMENT'
+              },
+              {
+                id: 'page-contact',
+                title: 'Contact Ollie Clews',
+                excerpt: 'Get in touch for collaboration, inquiries, feedback, or general support.',
+                url: '/contact',
+                type: 'page',
+                badge: 'Page',
+                meta: 'GET IN TOUCH'
+              },
+              {
+                id: 'page-store',
+                title: 'Digital Resource Store',
+                excerpt: 'Tactile, low-friction planners, recovery packs, and workbooks built around fluctuating executive capacity.',
+                url: '/store',
+                type: 'page',
+                badge: 'Page',
+                meta: 'STORE HUB'
+              },
+              {
+                id: 'page-memoir',
+                title: 'Serial Memoir Hub',
+                excerpt: 'A serial memoir in progress about late-diagnosed AuDHD, masking, burnout, and figuring out how to human.',
+                url: '/memoir',
+                type: 'page',
+                badge: 'Page',
+                meta: 'MEMOIR'
+              }
+            ];
+            staticPages.forEach(p => allItems.push(p));
+
+            cachedSearchItems = allItems;
+            return allItems;
+          })();
         }
 
-        // --- MEMOIR CHAPTERS ---
-        if (sanityChapters.status === 'fulfilled' && sanityChapters.value?.length > 0) {
-          sanityChapters.value.forEach(chapter => {
-            allItems.push({
-              id: `memoir-${chapter._id || chapter.id}`,
-              title: `Chapter ${chapter.chapterNumber}: ${chapter.title}`,
-              excerpt: chapter.excerpt || 'Read this chapter of the unmasked memoir.',
-              url: `/memoir/${chapter.slug?.current || chapter.slug}`,
-              type: 'memoir',
-              badge: 'Memoir',
-              meta: `Chapter ${chapter.chapterNumber}`
-            });
-          });
-        } else if (sanityChapters.status === 'rejected') {
-          console.warn('⚠️ Search indexing: Failed to fetch memoir chapters:', sanityChapters.reason);
-        }
-
-        // --- LAB TOOLS ---
-        if (sanityLabs.status === 'fulfilled') {
-          const labsList = sanityLabs.value || [];
-          labsList.forEach(lab => {
-            allItems.push({
-              id: `lab-${lab._id || lab.id}`,
-              title: lab.title,
-              excerpt: lab.excerpt || '',
-              url: lab.isExternal ? lab.externalUrl : `/labs/${lab.slug?.current || lab.slug}`,
-              type: 'lab',
-              badge: 'Lab',
-              meta: lab.tag || 'Interactive'
-            });
-          });
-        } else {
-          console.warn('⚠️ Search indexing: Failed to fetch labs from Strapi:', sanityLabs.reason);
-        }
-
-        // --- STORE PRODUCTS ---
-        PRODUCTS.forEach(product => {
-          allItems.push({
-            id: `product-${product.slug}`,
-            title: product.title,
-            excerpt: product.cardBlurb || product.tagline || '',
-            url: `/store/${product.slug}`,
-            type: 'product',
-            badge: 'Product',
-            meta: `${product.priceLabel} · Resource`
-          });
-        });
-
-        // --- CORE STATIC PAGES ---
-        const staticPages = [
-          {
-            id: 'page-about',
-            title: 'About Ollie & neurodivers³',
-            excerpt: 'Meet Ollie, the late-diagnosed AuDHD founder of neurodivers³. Read the story behind the project.',
-            url: '/about',
-            type: 'page',
-            badge: 'Page',
-            meta: 'ABOUT US'
-          },
-          {
-            id: 'page-accessibility',
-            title: 'Accessibility Statement & Design Principles',
-            excerpt: 'How neurodivers³ is designed for ADHD, autistic, dyslexic, and sensory-sensitive users. WCAG 2.1 AA conforming.',
-            url: '/accessibility',
-            type: 'page',
-            badge: 'Page',
-            meta: 'A11Y STATEMENT'
-          },
-          {
-            id: 'page-contact',
-            title: 'Contact Ollie Clews',
-            excerpt: 'Get in touch for collaboration, inquiries, feedback, or general support.',
-            url: '/contact',
-            type: 'page',
-            badge: 'Page',
-            meta: 'GET IN TOUCH'
-          },
-          {
-            id: 'page-store',
-            title: 'Digital Resource Store',
-            excerpt: 'Tactile, low-friction planners, recovery packs, and workbooks built around fluctuating executive capacity.',
-            url: '/store',
-            type: 'page',
-            badge: 'Page',
-            meta: 'STORE HUB'
-          },
-          {
-            id: 'page-memoir',
-            title: 'Serial Memoir Hub',
-            excerpt: 'A serial memoir in progress about late-diagnosed AuDHD, masking, burnout, and figuring out how to human.',
-            url: '/memoir',
-            type: 'page',
-            badge: 'Page',
-            meta: 'MEMOIR'
-          }
-        ];
-        staticPages.forEach(p => allItems.push(p));
-
-        setItems(allItems);
+        const indexedItems = await searchItemsPromise;
+        setItems(indexedItems);
       } catch (err) {
         setItems([]);
         setIndexError('Search indexing failed. CMS content is unavailable.');
         console.error('Error indexing search items:', err);
+        searchItemsPromise = null; // Allow retry on failure
       } finally {
         setLoading(false);
       }

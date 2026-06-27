@@ -50,7 +50,7 @@ const ThreadsIcon = ({ size = 11, color = "currentColor" }) => (
   </svg>
 );
 
-const baseChipClass = "flex items-center gap-1.5 px-3 py-1.5 border border-border-rule bg-surface/80 text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:bg-accent-pink hover:border-accent-pink hover:text-[#09090b] transition-all duration-200 rounded-none cursor-pointer select-none group";
+const baseChipClass = "flex items-center justify-center gap-1.5 px-3 py-1.5 border border-[var(--accent)]/25 bg-[var(--accent-soft)] text-xs md:text-sm font-black uppercase tracking-widest text-fg-primary hover:bg-accent-pink hover:border-accent-pink hover:text-[#09090b] transition-all duration-200 rounded-none cursor-pointer select-none group w-full md:w-auto";
 
 export function SharePost({ title, slug, dek = '', vertical = false }) {
   const [copied, setCopied] = useState(false);
@@ -143,7 +143,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
   };
 
   if (vertical) {
-    const gridBtnClass = "w-[38px] h-[38px] border border-border-rule/70 bg-bg-primary/40 flex items-center justify-center text-text-muted hover:bg-accent-pink/10 hover:border-accent-pink hover:text-accent-pink transition-all duration-200 rounded-none cursor-pointer focus-ring mx-auto";
+    const gridBtnClass = "w-[38px] h-[38px] border border-[var(--accent)]/25 bg-[var(--accent-soft)] flex items-center justify-center text-fg-primary hover:bg-accent-pink hover:border-accent-pink hover:text-[#09090b] transition-all duration-200 rounded-none cursor-pointer focus-ring mx-auto";
 
     return (
       <div className="w-full no-print select-none">
@@ -228,8 +228,8 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
   return (
     <div className="flex flex-col gap-3 py-6 border-y border-border-rule/60 my-6 select-none w-full no-print">
       {/* Primary share row */}
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-3">
-        <span className="text-xs md:text-sm font-black uppercase tracking-[0.25em] text-text-muted mr-1">
+      <div className="grid grid-cols-2 md:flex md:flex-wrap md:items-center gap-2 md:gap-x-2 md:gap-y-3">
+        <span className="text-xs md:text-sm font-black uppercase tracking-[0.25em] text-text-muted col-span-2 mb-1 md:mb-0 md:mr-1 block md:inline text-left">
           SHARE:
         </span>
 
@@ -261,7 +261,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
         )}
 
         {/* More/Less toggle */}
-        <button onClick={() => setShowMore(!showMore)} className={baseChipClass}>
+        <button onClick={() => setShowMore(!showMore)} className={`${baseChipClass} ${canShare ? 'col-span-2 md:col-span-1' : ''}`}>
           {showMore ? <Minus size={11} className="group-hover:text-[#09090b]" /> : <Plus size={11} className="group-hover:text-[#09090b]" />}
           {showMore ? 'LESS' : 'MORE'}
         </button>
@@ -269,7 +269,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
 
       {/* Expandable "More" sharing tools grid */}
       {showMore && (
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-3 pt-3 border-t border-dashed border-border-rule/50 animate-in fade-in duration-300">
+        <div className="grid grid-cols-2 md:flex md:flex-wrap md:items-center gap-2 md:gap-x-2 md:gap-y-3 pt-3 border-t border-dashed border-border-rule/50 animate-in fade-in duration-300">
           
           <a href={linkedinShare} target="_blank" rel="noopener noreferrer" className={baseChipClass}>
             <LinkedInIcon size={11} /> LINKEDIN
@@ -309,7 +309,7 @@ export function SharePost({ title, slug, dek = '', vertical = false }) {
       {showMastodonInput && (
         <form 
           onSubmit={triggerMastodonShare}
-          className="p-4 border border-border-rule bg-[#09090b] flex flex-col sm:flex-row gap-3 items-center animate-in slide-in-from-top-2 duration-200 w-full max-w-md self-start text-left mt-1"
+          className="p-4 border border-border-rule bg-bg-primary/95 flex flex-col sm:flex-row gap-3 items-center animate-in slide-in-from-top-2 duration-200 w-full max-w-md self-start text-left mt-1"
         >
           <div className="flex-grow w-full">
             <label htmlFor="mastodon-server" className="block text-xs md:text-sm font-mono tracking-widest text-text-muted uppercase mb-1 font-bold">

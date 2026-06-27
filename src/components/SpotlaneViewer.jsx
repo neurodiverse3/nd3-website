@@ -42,14 +42,8 @@ export default function SpotlaneViewer({ slug, className = "" }) {
 
   // Hide site chrome, lock scroll, and inject print-prevention styles on mount
   useEffect(() => {
-    const toHide = document.querySelectorAll(
-      "nav, header, footer, #navbar, #footer, .sidebar, [role='banner'], [role='contentinfo']"
-    );
-    const originalDisplays = [];
-    toHide.forEach((el) => {
-      originalDisplays.push(el.style.display);
-      el.style.display = "none";
-    });
+    // Add active class to body to trigger layout hiding
+    document.body.classList.add("spotlane-active");
 
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -57,10 +51,21 @@ export default function SpotlaneViewer({ slug, className = "" }) {
     document.body.style.minHeight = "100vh";
     document.documentElement.style.backgroundColor = "#000";
 
-    // Inject print-prevention CSS stylesheet
+    // Inject styles for print prevention AND hiding site chrome via body class
     const style = document.createElement("style");
-    style.id = "spotlane-print-prevention";
+    style.id = "spotlane-viewer-styles";
     style.innerHTML = `
+      body.spotlane-active nav,
+      body.spotlane-active header,
+      body.spotlane-active footer,
+      body.spotlane-active #navbar,
+      body.spotlane-active #footer,
+      body.spotlane-active .sidebar,
+      body.spotlane-active [role='banner'],
+      body.spotlane-active [role='contentinfo'] {
+        display: none !important;
+      }
+      
       @media print {
         body, html, #main, #__next, .fixed, div, section, header, footer {
           display: none !important;
@@ -84,15 +89,13 @@ export default function SpotlaneViewer({ slug, className = "" }) {
     document.head.appendChild(style);
 
     return () => {
-      toHide.forEach((el, i) => {
-        el.style.display = originalDisplays[i];
-      });
+      document.body.classList.remove("spotlane-active");
       document.body.style.overflow = originalOverflow;
       document.body.style.backgroundColor = "";
       document.body.style.minHeight = "";
       document.documentElement.style.backgroundColor = "";
 
-      const el = document.getElementById("spotlane-print-prevention");
+      const el = document.getElementById("spotlane-viewer-styles");
       if (el) el.remove();
     };
   }, []);

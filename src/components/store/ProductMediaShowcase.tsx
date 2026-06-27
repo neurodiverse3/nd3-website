@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Image as ImageIcon } from "lucide-react";
 
 type Props = {
@@ -56,10 +57,12 @@ export default function ProductMediaShowcase({
       }`}
       onClick={demoVideo ? () => setIsPlaying(true) : undefined}
     >
-      <img
+      <Image
         src={`/store/covers/${coverImage}`}
         alt={`${title} cover image`}
-        className={`h-full w-full object-cover transition-transform duration-500 ${
+        fill
+        sizes="(max-width: 920px) 100vw, 560px"
+        className={`object-cover transition-transform duration-500 ${
           demoVideo ? "group-hover/media:scale-102" : ""
         }`}
       />

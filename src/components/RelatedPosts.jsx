@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { PostCover } from './PostCover';
@@ -40,106 +40,108 @@ const formatDateUK = (dateStr) => {
 };
 
 export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) {
-  if (!currentPost || posts.length === 0) return null;
+  const finalCards = useMemo(() => {
+    if (!currentPost || posts.length === 0) return [];
 
-  const currentSlug = currentPost.slug?.current || currentPost.slug;
-  const currentPillar = currentPost.pillar;
-  const currentState = currentPost.brainState || currentPost.state;
+    const currentSlug = currentPost.slug?.current || currentPost.slug;
+    const currentPillar = currentPost.pillar;
+    const currentState = currentPost.brainState || currentPost.state;
 
-  // 1. Filter out the current post
-  const eligiblePosts = posts.filter(p => {
-    const slug = p.slug?.current || p.slug;
-    return slug !== currentSlug;
-  });
-
-  const selectedPosts = [];
-  const addedSlugs = new Set();
-  const addedPillars = new Set();
-
-  const normalizePillar = (p) => {
-    const k = p?.toLowerCase() || '';
-    if (k.includes('system') || k.includes('tool') || k.includes('templates')) return 'tools';
-    if (k.includes('glitch') || k.includes('digital')) return 'digital';
-    return 'unmasked';
-  };
-
-  const tryAddPost = (post, selectionReason) => {
-    if (!post) return false;
-    const slug = post.slug?.current || post.slug;
-    const pKey = normalizePillar(post.pillar);
-    if (!addedSlugs.has(slug) && !addedPillars.has(pKey)) {
-      selectedPosts.push({ post, selectionReason });
-      addedSlugs.add(slug);
-      addedPillars.add(pKey);
-      return true;
-    }
-    return false;
-  };
-
-  // Step A: Handle manual pin if present
-  if (manualPinSlug) {
-    const pinned = eligiblePosts.find(p => (p.slug?.current || p.slug) === manualPinSlug);
-    if (pinned) {
-      tryAddPost(pinned, "pinned");
-    }
-  }
-
-  // Helper sorting function: chronological descending (newest first)
-  const sortByDate = (arr) => {
-    return [...arr].sort((a, b) => {
-      const dA = new Date(a.date || a._createdAt || 0);
-      const dB = new Date(b.date || b._createdAt || 0);
-      return dB - dA;
+    // 1. Filter out the current post
+    const eligiblePosts = posts.filter(p => {
+      const slug = p.slug?.current || p.slug;
+      return slug !== currentSlug;
     });
-  };
 
-  // Step B: Prefer same pillar (only adds at most 1 due to distinct pillar restriction)
-  const samePillarPosts = sortByDate(eligiblePosts.filter(p => p.pillar === currentPillar));
-  for (const post of samePillarPosts) {
-    if (selectedPosts.length >= 3) break;
-    tryAddPost(post, "pillar");
-  }
+    const selectedPosts = [];
+    const addedSlugs = new Set();
+    const addedPillars = new Set();
 
-  // Step C: Then same brain state (Mood Match / "You might also like")
-  if (selectedPosts.length < 3) {
-    const sameStatePosts = sortByDate(eligiblePosts.filter(p => (p.brainState || p.state) === currentState));
-    for (const post of sameStatePosts) {
-      if (selectedPosts.length >= 3) break;
-      tryAddPost(post, "brainState");
-    }
-  }
+    const normalizePillar = (p) => {
+      const k = p?.toLowerCase() || '';
+      if (k.includes('system') || k.includes('tool') || k.includes('templates')) return 'tools';
+      if (k.includes('glitch') || k.includes('digital')) return 'digital';
+      return 'unmasked';
+    };
 
-  // Step D: Top up with most recent overall (strictly distinct pillars)
-  if (selectedPosts.length < 3) {
-    const recentPosts = sortByDate(eligiblePosts);
-    for (const post of recentPosts) {
-      if (selectedPosts.length >= 3) break;
-      tryAddPost(post, "recent");
-    }
-  }
-
-  // Step E: Fallback top up without distinct pillar constraint if still under 3
-  if (selectedPosts.length < 3) {
-    const tryAddPostNoPillarLimit = (post, selectionReason) => {
+    const tryAddPost = (post, selectionReason) => {
       if (!post) return false;
       const slug = post.slug?.current || post.slug;
-      if (!addedSlugs.has(slug)) {
+      const pKey = normalizePillar(post.pillar);
+      if (!addedSlugs.has(slug) && !addedPillars.has(pKey)) {
         selectedPosts.push({ post, selectionReason });
         addedSlugs.add(slug);
+        addedPillars.add(pKey);
         return true;
       }
       return false;
     };
-    const recentPosts = sortByDate(eligiblePosts);
-    for (const post of recentPosts) {
-      if (selectedPosts.length >= 3) break;
-      tryAddPostNoPillarLimit(post, "recent-fallback");
-    }
-  }
 
-  // Retain exactly 3 cards maximum
-  const finalCards = selectedPosts.slice(0, 3);
-  if (finalCards.length === 0) return null;
+    // Step A: Handle manual pin if present
+    if (manualPinSlug) {
+      const pinned = eligiblePosts.find(p => (p.slug?.current || p.slug) === manualPinSlug);
+      if (pinned) {
+        tryAddPost(pinned, "pinned");
+      }
+    }
+
+    // Helper sorting function: chronological descending (newest first)
+    const sortByDate = (arr) => {
+      return [...arr].sort((a, b) => {
+        const dA = new Date(a.date || a._createdAt || 0);
+        const dB = new Date(b.date || b._createdAt || 0);
+        return dB - dA;
+      });
+    };
+
+    // Step B: Prefer same pillar (only adds at most 1 due to distinct pillar restriction)
+    const samePillarPosts = sortByDate(eligiblePosts.filter(p => p.pillar === currentPillar));
+    for (const post of samePillarPosts) {
+      if (selectedPosts.length >= 3) break;
+      tryAddPost(post, "pillar");
+    }
+
+    // Step C: Then same brain state (Mood Match / "You might also like")
+    if (selectedPosts.length < 3) {
+      const sameStatePosts = sortByDate(eligiblePosts.filter(p => (p.brainState || p.state) === currentState));
+      for (const post of sameStatePosts) {
+        if (selectedPosts.length >= 3) break;
+        tryAddPost(post, "brainState");
+      }
+    }
+
+    // Step D: Top up with most recent overall (strictly distinct pillars)
+    if (selectedPosts.length < 3) {
+      const recentPosts = sortByDate(eligiblePosts);
+      for (const post of recentPosts) {
+        if (selectedPosts.length >= 3) break;
+        tryAddPost(post, "recent");
+      }
+    }
+
+    // Step E: Fallback top up without distinct pillar constraint if still under 3
+    if (selectedPosts.length < 3) {
+      const tryAddPostNoPillarLimit = (post, selectionReason) => {
+        if (!post) return false;
+        const slug = post.slug?.current || post.slug;
+        if (!addedSlugs.has(slug)) {
+          selectedPosts.push({ post, selectionReason });
+          addedSlugs.add(slug);
+          return true;
+        }
+        return false;
+      };
+      const recentPosts = sortByDate(eligiblePosts);
+      for (const post of recentPosts) {
+        if (selectedPosts.length >= 3) break;
+        tryAddPostNoPillarLimit(post, "recent-fallback");
+      }
+    }
+
+    return selectedPosts.slice(0, 3);
+  }, [posts, currentPost, manualPinSlug]);
+
+  if (!currentPost || posts.length === 0 || finalCards.length === 0) return null;
 
   return (
     <div className="flex flex-col gap-10 mt-20 pt-12 border-t-4 border-fg-primary w-full text-left font-sans select-none no-print">
@@ -220,7 +222,7 @@ export function RelatedPosts({ posts = [], currentPost, manualPinSlug = null }) 
                   <span>{formattedDate}</span>
                   <Link 
                     href={`/blog/${slug}`}
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-accent text-[var(--accent-text,var(--bg))] font-black text-xs uppercase tracking-widest border-2 border-fg-primary shadow-[2px_2px_0px_var(--fg)] hover:shadow-[3px_3px_0px_var(--fg)] hover:-translate-y-0.5 hover:translate-x-0.5 transition-all rounded-none w-fit shrink-0 cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2 min-h-[44px] bg-accent text-[var(--accent-text,var(--bg))] font-black text-xs uppercase tracking-widest border-2 border-fg-primary shadow-[2px_2px_0px_var(--fg)] hover:shadow-[3px_3px_0px_var(--fg)] hover:-translate-y-0.5 hover:translate-x-0.5 transition-all rounded-none w-fit shrink-0 cursor-pointer"
                   >
                     READ POST →
                   </Link>

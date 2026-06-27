@@ -25,17 +25,17 @@ export default defineConfig([
     },
     rules: {
       ...jsxA11y.configs.recommended.rules,
-      'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/exhaustive-deps': 'warn',
       'react-hooks/set-state-in-effect': 'off',
       'react-hooks/purity': 'off',
       'react-hooks/immutability': 'off',
-      'no-unused-vars': 'off',
+      'no-unused-vars': 'warn',
       'no-empty': 'off',
       'no-useless-assignment': 'off',
       'no-useless-escape': 'off',
-      'jsx-a11y/label-has-associated-control': 'off',
-      'jsx-a11y/click-events-have-key-events': 'off',
-      'jsx-a11y/no-static-element-interactions': 'off',
+      'jsx-a11y/label-has-associated-control': 'warn',
+      'jsx-a11y/click-events-have-key-events': 'warn',
+      'jsx-a11y/no-static-element-interactions': 'warn',
     }
   },
 ])
