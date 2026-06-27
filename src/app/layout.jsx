@@ -31,8 +31,11 @@ export const metadata = {
   metadataBase: new URL('https://neurodivers3.co.uk'),
   manifest: '/manifest.json',
   icons: {
-    icon: '/favicon.svg?v=4',
-    shortcut: '/favicon.svg?v=4',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg?v=4', type: 'image/svg+xml' }
+    ],
+    shortcut: '/favicon.ico',
     apple: '/favicon.svg?v=4',
   },
   alternates: {
