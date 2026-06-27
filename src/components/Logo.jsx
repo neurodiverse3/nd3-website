@@ -21,7 +21,7 @@ export const LogoWordmark = ({ className = "" }) => {
         fill="currentColor" 
         letterSpacing="-0.02em"
       >
-        neurodivers<tspan dx="2" dy="-14" fontSize="34" fontWeight="900" fill="var(--accent-label, var(--accent))">3</tspan>
+        neurodivers<tspan dx="2" dy="12" fontSize="34" fontWeight="900" fill="var(--accent-label, var(--accent))">3</tspan>
       </text>
     </svg>
   );
@@ -48,7 +48,7 @@ export const LogoPrimaryFlat = ({ className = "" }) => {
         fill="currentColor" 
         letterSpacing="-0.02em"
       >
-        neurodivers<tspan dx="2" dy="-16" fontSize="40" fontWeight="900" fill="var(--accent-label, var(--accent))">3</tspan>
+        neurodivers<tspan dx="2" dy="14" fontSize="40" fontWeight="900" fill="var(--accent-label, var(--accent))">3</tspan>
       </text>
     </svg>
   );
