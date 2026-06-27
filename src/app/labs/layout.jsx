@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const metadata = {
-  title: 'Labs - neurodivers3',
+  title: 'Labs - neurodivers³',
   description: 'Interactive experimental prototype tools, including a Brownian focus hum drone, dyslexia readability filters, and instant dopamine menu generators.',
 };
 

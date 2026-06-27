@@ -200,21 +200,21 @@ export async function generateMetadata({ params }) {
 
   if (!lab) {
     return {
-      title: 'Lab not found - neurodivers3',
+      title: 'Lab not found - neurodivers³',
     };
   }
 
   const pageTitle = lab.seoTitle || lab.title;
 
   return {
-    title: `${pageTitle} - neurodivers3`,
+    title: `${pageTitle} - neurodivers³`,
     description: lab.excerpt || "Alternative visual-spatial paths, sensory-friendly utilities, and resets specifically tailored for neurodivergent brains.",
     openGraph: {
-      title: `${pageTitle} - neurodivers3`,
+      title: `${pageTitle} - neurodivers³`,
       description: lab.excerpt || "Alternative visual-spatial paths, sensory-friendly utilities, and resets specifically tailored for neurodivergent brains.",
     },
     twitter: {
-      title: `${pageTitle} - neurodivers3`,
+      title: `${pageTitle} - neurodivers³`,
       description: lab.excerpt || "Alternative visual-spatial paths, sensory-friendly utilities, and resets specifically tailored for neurodivergent brains.",
     }
   };

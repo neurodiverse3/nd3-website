@@ -7,14 +7,14 @@ import { PostCover } from '../../components/PostCover';
 import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
-  title: 'Blog - neurodivers3',
+  title: 'Blog - neurodivers³',
   description: 'Honest writing on late diagnosis, burnout, masking, attention, and everyday life with a neurodivergent brain.',
   openGraph: {
-    title: 'Blog - neurodivers3',
+    title: 'Blog - neurodivers³',
     description: 'Honest writing on late diagnosis, burnout, masking, attention, and everyday life with a neurodivergent brain.',
   },
   twitter: {
-    title: 'Blog - neurodivers3',
+    title: 'Blog - neurodivers³',
     description: 'Honest writing on late diagnosis, burnout, masking, attention, and everyday life with a neurodivergent brain.',
   }
 };

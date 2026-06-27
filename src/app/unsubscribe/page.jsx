@@ -3,14 +3,14 @@ import { UnsubscribeForm } from "../../components/UnsubscribeForm";
 import { Loader2 } from "lucide-react";
 
 export const metadata = {
-  title: "Unsubscribe - neurodivers3",
+  title: "Unsubscribe - neurodivers³",
   description: "Unsubscribe from the neurodivers³ newsletter.",
   openGraph: {
-    title: "Unsubscribe - neurodivers3",
+    title: "Unsubscribe - neurodivers³",
     description: "Unsubscribe from the neurodivers³ newsletter.",
   },
   twitter: {
-    title: "Unsubscribe - neurodivers3",
+    title: "Unsubscribe - neurodivers³",
     description: "Unsubscribe from the neurodivers³ newsletter.",
   },
 };

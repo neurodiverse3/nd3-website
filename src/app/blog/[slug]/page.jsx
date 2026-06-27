@@ -49,7 +49,7 @@ export async function generateMetadata({ params }) {
 
   if (!post) {
     return {
-      title: 'Post not found - neurodivers3',
+      title: 'Post not found - neurodivers³',
       description: 'The requested unmasked story could not be found.'
     };
   }
@@ -82,13 +82,13 @@ export async function generateMetadata({ params }) {
   const resolvedTitle = post.seoTitle || post.title;
 
   return {
-    title: `${resolvedTitle} - neurodivers3`,
+    title: `${resolvedTitle} - neurodivers³`,
     description: (post.excerpt || 'Accessibility tools and memoirs for brains that don\'t fit the standard manual.').slice(0, 155),
     alternates: {
       canonical: `https://neurodivers3.co.uk/blog/${slug}`,
     },
     openGraph: {
-      title: `${resolvedTitle} - neurodivers3`,
+      title: `${resolvedTitle} - neurodivers³`,
       description: post.excerpt,
       type: 'article',
       publishedTime: post.date || post._createdAt || new Date().toISOString(),
@@ -96,7 +96,7 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${resolvedTitle} - neurodivers3`,
+      title: `${resolvedTitle} - neurodivers³`,
       description: post.excerpt,
       images: [ogUrl],
     }

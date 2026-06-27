@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Got Lost in the Tabs - neurodivers3',
+  title: 'Got Lost in the Tabs - neurodivers³',
   description: 'The page you are looking for isn\'t here.',
 };
 
