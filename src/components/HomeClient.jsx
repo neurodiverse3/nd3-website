@@ -523,7 +523,6 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                   sizes="(max-width: 768px) 100vw, 400px"
                   onLoad={() => setPhotoLoaded(true)}
                   className="object-cover transition-all duration-500 filter grayscale-0 hover:grayscale contrast-125 brightness-90"
-                  priority
                 />
                 {/* Grain overlay */}
                 <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none mix-blend-overlay"></div>

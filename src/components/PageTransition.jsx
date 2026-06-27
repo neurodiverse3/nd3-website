@@ -5,9 +5,11 @@ import { usePathname } from 'next/navigation';
 
 export function PageTransition({ children }) {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setReduceMotion(mediaQuery.matches);
 
@@ -16,7 +18,7 @@ export function PageTransition({ children }) {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  if (reduceMotion) {
+  if (!mounted || reduceMotion) {
     return <div key={pathname}>{children}</div>;
   }
 

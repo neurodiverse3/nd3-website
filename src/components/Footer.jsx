@@ -106,7 +106,7 @@ const XIcon = ({ size = 14, className = "" }) => (
 const BRAIN_STATES = [
   { text: 'Burned out', path: '/blog?state=burned-out', rgb: '255, 46, 136' },
   { text: 'Hyperfocused', path: '/blog?state=hyperfocus', rgb: '0, 240, 255' },
-  { text: 'Masking', path: '/blog?state=masking', rgb: '192, 38, 211' },
+  { text: 'Masking', path: '/blog?state=masking', rgb: '225, 80, 240' },
   { text: 'Spiralling', path: '/blog?state=spiraling', rgb: '255, 172, 28' },
   { text: 'On a roll', path: '/blog?state=on-a-roll', rgb: '45, 212, 191' }
 ];

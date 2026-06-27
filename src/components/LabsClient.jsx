@@ -199,6 +199,7 @@ function LabsClientInner({ initialCategories, initialLabs }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search labs..."
+              aria-label="Search labs"
               className="w-full bg-bg-primary/40 border border-border-rule pl-8 pr-3 py-1.5 text-sm font-mono text-fg-primary placeholder:text-text-muted/50 outline-none focus:border-accent transition-colors rounded-none uppercase tracking-wider"
             />
           </div>
