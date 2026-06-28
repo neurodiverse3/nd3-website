@@ -24,10 +24,15 @@ export default async function LabsPage() {
   let sanityCategories = [];
 
   try {
-    sanityLabs = await getLabs();
-    sanityCategories = await getLabCategories();
+    const [labsRes, categoriesRes] = await Promise.all([
+      getLabs(),
+      getLabCategories()
+    ]);
+    sanityLabs = labsRes || [];
+    sanityCategories = categoriesRes || [];
   } catch (err) {
     console.error("Failed to fetch labs from CMS: ", err);
+    throw err;
   }
 
   return (

@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Clock, ChevronRight, X, Search } from 'lucide-react';
 import { PostCover } from './PostCover';
+import { useSearchParams } from 'next/navigation';
 
 const getPillarLabel = (pillar) => {
   if (!pillar) return '';
@@ -67,7 +68,11 @@ const normalizePillar = (p) => {
   return lower;
 };
 
-export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activeState: urlState }) => {
+export const BlogArchiveClient = ({ initialPosts }) => {
+  const searchParams = useSearchParams();
+  const urlPillar = searchParams.get('pillar');
+  const urlState = searchParams.get('state');
+
   const [searchQuery, setSearchQuery] = useState('');
   const [activePillar, setActivePillar] = useState(normalizePillar(urlPillar));
   const [activeState, setActiveState] = useState(urlState);
@@ -75,8 +80,8 @@ export const BlogArchiveClient = ({ initialPosts, activePillar: urlPillar, activ
 
   // Sync with URL query parameters if they change
   useEffect(() => {
-    if (urlPillar) setActivePillar(normalizePillar(urlPillar));
-    if (urlState) setActiveState(urlState);
+    setActivePillar(normalizePillar(urlPillar));
+    setActiveState(urlState);
   }, [urlPillar, urlState]);
 
   // Fallbacks if data doesn't have required tags

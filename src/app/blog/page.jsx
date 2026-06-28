@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Rss, ArrowRight, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { getPosts, getSiteSettings } from '../../lib/strapi';
@@ -65,13 +65,11 @@ const mapPillarKey = (pillar) => {
 };
 
 
-export default async function BlogPage(props) {
-  const searchParams = await props.searchParams;
-  const activePillar = searchParams?.pillar || null;
-  const activeState = searchParams?.state || null;
-
-  const posts = await getPosts();
-  const siteSettings = await getSiteSettings();
+export default async function BlogPage() {
+  const [posts, siteSettings] = await Promise.all([
+    getPosts(),
+    getSiteSettings()
+  ]);
   let featuredPost = siteSettings?.featuredPosts?.[0] || null;
 
   if (!featuredPost && posts.length > 0) {
@@ -180,11 +178,11 @@ export default async function BlogPage(props) {
       )}
 
       {/* Main Interactive Blog Archive Panel */}
-      <BlogArchiveClient 
-        initialPosts={gridPosts} 
-        activePillar={activePillar} 
-        activeState={activeState} 
-      />
+      <Suspense fallback={<div className="text-center py-12 font-mono text-sm text-text-muted animate-pulse">Loading Archive...</div>}>
+        <BlogArchiveClient 
+          initialPosts={gridPosts} 
+        />
+      </Suspense>
     </div>
   );
 }

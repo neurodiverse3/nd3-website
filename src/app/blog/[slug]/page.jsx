@@ -41,8 +41,12 @@ export async function generateMetadata({ params }) {
   let allPosts = [];
 
   try {
-    post = await getPostBySlug(slug);
-    allPosts = await getPosts() || [];
+    const [postResult, allPostsResult] = await Promise.all([
+      getPostBySlug(slug),
+      getPosts()
+    ]);
+    post = postResult;
+    allPosts = allPostsResult || [];
   } catch (err) {
     console.warn(`⚠️ [generateMetadata Blog] Failed to fetch post details for "${slug}" from Strapi:`, err);
   }
@@ -192,14 +196,16 @@ const getBrainStateTagClass = (state) => {
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-  let post = await getPostBySlug(slug);
+  
+  let [post, comments, allPosts] = await Promise.all([
+    getPostBySlug(slug),
+    getComments(slug),
+    getPosts()
+  ]);
 
   if (!post) {
     notFound();
   }
-
-  const comments = await getComments(slug);
-  const allPosts = await getPosts();
 
   // Format title and excerpt with typographic curly quotes
   post = {

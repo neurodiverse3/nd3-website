@@ -26,13 +26,21 @@ export default async function sitemap() {
     priority: route === '' ? 1.0 : route === '/blog' ? 0.8 : 0.5,
   }));
 
-  // 2. Dynamic Blog Posts
-  let posts = [];
-  try {
-    posts = await getPosts() || [];
-  } catch (err) {
-    console.warn('⚠️ [Sitemap] Failed to fetch posts from Strapi:', err);
-  }
+  // Fetch all CMS data in parallel
+  const [posts, memoirChapters, labs] = await Promise.all([
+    getPosts().catch((err) => {
+      console.warn('⚠️ [Sitemap] Failed to fetch posts from Strapi:', err);
+      return [];
+    }),
+    getMemoirChapters().catch((err) => {
+      console.warn('⚠️ [Sitemap] Failed to fetch memoir chapters from Strapi:', err);
+      return [];
+    }),
+    getLabs().catch((err) => {
+      console.warn('⚠️ [Sitemap] Failed to fetch labs from Strapi:', err);
+      return [];
+    }),
+  ]);
 
   const blogRoutes = posts.map((post) => {
     const slug = post.slug?.current || post.slug;
@@ -45,13 +53,7 @@ export default async function sitemap() {
     };
   });
 
-  // 3. Dynamic Memoir Chapters
-  let memoirChapters = [];
-  try {
-    memoirChapters = await getMemoirChapters() || [];
-  } catch (err) {
-    console.warn('⚠️ [Sitemap] Failed to fetch memoir chapters from Strapi:', err);
-  }
+
   const excludedMemoirSlugs = ['chapter-pipeline', 'memoir-manifesto', 'sample-chapter-stub', 'pipeline', 'manifesto'];
 
   const memoirRoutes = memoirChapters
@@ -80,13 +82,7 @@ export default async function sitemap() {
     };
   });
 
-  // 5. Dynamic Lab Pages (merged with fallbacks)
-  let labs = [];
-  try {
-    labs = await getLabs() || [];
-  } catch (err) {
-    console.warn('⚠️ [Sitemap] Failed to fetch labs from Strapi:', err);
-  }
+
   const fallbackLabSlugs = [
     'visual-snow-shield',
     'sensory-audit',

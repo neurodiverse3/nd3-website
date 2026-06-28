@@ -18,8 +18,10 @@ export const metadata = {
 export const revalidate = 60; // Cache for 1 minute, revalidated on-demand
 
 export default async function Page() {
-  const siteSettings = await getSiteSettings();
-  const allPosts = await getPosts();
+  const [siteSettings, allPosts] = await Promise.all([
+    getSiteSettings(),
+    getPosts()
+  ]);
 
   const featuredIds = Array.isArray(siteSettings.featuredPosts)
     ? siteSettings.featuredPosts.map((p) => (p._id || p.id)?.toString()).filter(Boolean)
