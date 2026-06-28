@@ -36,7 +36,7 @@ async function fetchStrapi(path, params = {}) {
   // Add abort timeout to prevent fetch from hanging SSR indefinitely.
   // Set a longer timeout on the server-side to allow Render's free tier backend to spin up from sleep.
   const isServer = typeof window === 'undefined';
-  const timeoutMs = isServer ? 30000 : 15000;
+  const timeoutMs = isServer ? 90000 : 15000;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
