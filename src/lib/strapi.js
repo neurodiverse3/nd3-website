@@ -3,7 +3,7 @@ import { cache } from 'react';
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 
-let isCmsOffline = false;
+let cmsOfflineUntil = 0;
 
 async function fetchStrapi(path, params = {}) {
   if (!STRAPI_URL) {
@@ -11,7 +11,7 @@ async function fetchStrapi(path, params = {}) {
     return { data: [] };
   }
 
-  if (isCmsOffline) {
+  if (Date.now() < cmsOfflineUntil) {
     console.warn(`[Strapi] Circuit breaker active. Skipping fetch for ${path}.`);
     return { data: [] };
   }
@@ -69,12 +69,16 @@ async function fetchStrapi(path, params = {}) {
     return await res.json();
   } catch (error) {
     clearTimeout(timeoutId);
-    isCmsOffline = true;
+    
+    const isBuild = process.env.NEXT_PHASE === 'phase-production-build';
+    const cooldownMs = isBuild ? 10 * 60 * 1000 : 30 * 1000; // 10 min during build, 30s at runtime
+    cmsOfflineUntil = Date.now() + cooldownMs;
+    
     console.warn(`[Strapi] ${path} connection failed (CMS might be offline):`, error.message);
     
     const isCI = process.env.CI === 'true' || process.env.VERCEL === '1' || process.env.NETLIFY === 'true';
-    if (isCI) {
-      console.warn(`[Strapi] CI environment detected. Suppressing error to allow build to succeed.`);
+    if (isCI && isBuild) {
+      console.warn(`[Strapi] Build environment detected. Suppressing error to allow build to succeed.`);
       return { data: [] };
     }
     throw error;
