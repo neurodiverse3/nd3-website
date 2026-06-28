@@ -566,14 +566,14 @@ export default function CommandCentre() {
 
                 {/* Local Strapi */}
                 <a 
-                  href="http://localhost:1337/admin" 
+                  href="http://localhost:4001" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center justify-between border border-zinc-800 hover:border-zinc-500 bg-[#111115] hover:bg-zinc-800/20 p-3.5 text-xs text-zinc-300 hover:text-zinc-100 transition-all cursor-pointer font-bold uppercase tracking-wider group"
                 >
                   <span className="flex items-center gap-2.5">
-                    <span className="w-1.5 h-1.5 bg-zinc-100 group-hover:bg-zinc-400" />
-                    LOCAL STRAPI ADMIN
+                    <span className="w-1.5 h-1.5 bg-zinc-100 group-hover:bg-[#ffaa00]" />
+                    ND³ LOCAL STUDIO
                   </span>
                   <ExternalLink size={12} className="text-zinc-600 group-hover:text-zinc-300" />
                 </a>
