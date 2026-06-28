@@ -31,68 +31,64 @@ function getEnvVars() {
   return env;
 }
 
+// Secure passcode validation on the server side
+function validatePasscode(request, env) {
+  const passcode = request.headers.get('x-admin-passcode');
+  const securePassword = env.COMMAND_CENTRE_PASSWORD || 'nd3-admin';
+  return passcode === securePassword;
+}
+
 export const dynamic = 'force-dynamic';
 
 export async function GET(request) {
   const env = getEnvVars();
   
-  const localStrapiUrl = 'http://localhost:1337';
+  // 1. Secure Authentication Check
+  if (!validatePasscode(request, env)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   const prodStrapiUrl = 'https://neurodivers3-backend.onrender.com';
   
   const results = {
-    localStrapi: { status: 'checking', url: localStrapiUrl, error: null },
     prodStrapi: { status: 'checking', url: prodStrapiUrl, latencyMs: null, error: null },
     resend: { status: 'checking', error: null, domainsCount: 0 },
     polar: { status: 'checking', error: null, productsCount: 0 },
     vercel: { status: 'checking', deployments: [], error: null },
     stats: {
-      local: { posts: 0, chapters: 0, labs: 0 },
       production: { posts: 0, chapters: 0, labs: 0 }
     }
   };
 
-  // 1. Check Local Strapi
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000);
-    const res = await fetch(`${localStrapiUrl}/api/posts`, { signal: controller.signal });
-    clearTimeout(timeoutId);
-    if (res.ok) {
-      results.localStrapi.status = 'online';
-      // Fetch stats
-      const [postsRes, chaptersRes, labsRes] = await Promise.all([
-        fetch(`${localStrapiUrl}/api/posts`).then(r => r.json()).catch(() => null),
-        fetch(`${localStrapiUrl}/api/memoir-chapters`).then(r => r.json()).catch(() => null),
-        fetch(`${localStrapiUrl}/api/labs`).then(r => r.json()).catch(() => null),
-      ]);
-      results.stats.local.posts = postsRes?.data?.length || 0;
-      results.stats.local.chapters = chaptersRes?.data?.length || 0;
-      results.stats.local.labs = labsRes?.data?.length || 0;
-    } else {
-      results.localStrapi.status = 'error';
-      results.localStrapi.error = `HTTP ${res.status}`;
-    }
-  } catch (err) {
-    results.localStrapi.status = 'offline';
-    results.localStrapi.error = err.message === 'The user aborted a request.' ? 'Timeout' : err.message;
-  }
+  const strapiHeaders = env.STRAPI_API_TOKEN ? {
+    Authorization: `Bearer ${env.STRAPI_API_TOKEN}`
+  } : {};
 
-  // 2. Check Production Strapi (Render)
+  // 2. Check Production Strapi (Render) & Fetch Stats
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+    const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout for cold start check
     const start = Date.now();
-    const res = await fetch(`${prodStrapiUrl}/api/posts`, { signal: controller.signal });
+    
+    // Ping with auth headers
+    const res = await fetch(`${prodStrapiUrl}/api/posts?pagination[limit]=1`, { 
+      headers: strapiHeaders,
+      signal: controller.signal 
+    });
+    
     results.prodStrapi.latencyMs = Date.now() - start;
     clearTimeout(timeoutId);
+
     if (res.ok) {
       results.prodStrapi.status = 'online';
-      // Fetch stats
+      
+      // Fetch stats using proper authentication
       const [postsRes, chaptersRes, labsRes] = await Promise.all([
-        fetch(`${prodStrapiUrl}/api/posts`).then(r => r.json()).catch(() => null),
-        fetch(`${prodStrapiUrl}/api/memoir-chapters`).then(r => r.json()).catch(() => null),
-        fetch(`${prodStrapiUrl}/api/labs`).then(r => r.json()).catch(() => null),
+        fetch(`${prodStrapiUrl}/api/posts`, { headers: strapiHeaders }).then(r => r.json()).catch(() => null),
+        fetch(`${prodStrapiUrl}/api/memoir-chapters`, { headers: strapiHeaders }).then(r => r.json()).catch(() => null),
+        fetch(`${prodStrapiUrl}/api/labs`, { headers: strapiHeaders }).then(r => r.json()).catch(() => null),
       ]);
+      
       results.stats.production.posts = postsRes?.data?.length || 0;
       results.stats.production.chapters = chaptersRes?.data?.length || 0;
       results.stats.production.labs = labsRes?.data?.length || 0;
@@ -101,7 +97,6 @@ export async function GET(request) {
       results.prodStrapi.error = `HTTP ${res.status}`;
     }
   } catch (err) {
-    // If it took a long time and aborted, it is likely sleeping
     if (err.name === 'AbortError' || err.message?.includes('aborted')) {
       results.prodStrapi.status = 'sleeping';
       results.prodStrapi.error = 'Response timeout (Render free tier is likely sleeping)';
@@ -182,13 +177,20 @@ export async function GET(request) {
     }
   } else {
     results.vercel.status = 'online';
-    results.vercel.deployments = []; // In production, we don't run the CLI
+    results.vercel.deployments = [];
   }
 
   return NextResponse.json(results);
 }
 
 export async function POST(request) {
+  const env = getEnvVars();
+
+  // Secure Authentication Check
+  if (!validatePasscode(request, env)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const { action } = body;
@@ -196,13 +198,15 @@ export async function POST(request) {
     if (action === 'wake-up') {
       console.log('[Diagnostics] Triggering Render Strapi wakeup...');
       const prodStrapiUrl = 'https://neurodivers3-backend.onrender.com/api/posts';
+      const strapiHeaders = env.STRAPI_API_TOKEN ? {
+        Authorization: `Bearer ${env.STRAPI_API_TOKEN}`
+      } : {};
       
-      // Fire 5 quick concurrent requests to wake it up
+      // Fire 5 quick concurrent requests with auth headers
       const pings = Array.from({ length: 5 }).map(() => 
-        fetch(prodStrapiUrl).then(r => r.status).catch(() => null)
+        fetch(prodStrapiUrl, { headers: strapiHeaders }).then(r => r.status).catch(() => null)
       );
       
-      // Don't await them fully so we respond quickly, but trigger them
       Promise.all(pings);
 
       return NextResponse.json({ success: true, message: 'Wakeup pings sent to Render!' });
@@ -214,7 +218,6 @@ export async function POST(request) {
       }
       
       console.log('[Diagnostics] Triggering local Vercel redeploy...');
-      // Run Vercel deploy in the background
       exec('npx vercel --prod --yes', (err, stdout, stderr) => {
         if (err) {
           console.error('[Diagnostics] Vercel redeploy failed:', err);
