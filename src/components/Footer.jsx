@@ -216,17 +216,17 @@ export const Footer = () => {
           <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Pillars</h3>
           <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
             <li>
-              <Link href="/blog?pillar=unmasked-life" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog?pillar=unmasked-life" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Unmasked Life
               </Link>
             </li>
             <li>
-              <Link href="/blog?pillar=digital-life" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog?pillar=digital-life" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Digital Life
               </Link>
             </li>
             <li>
-              <Link href="/blog?pillar=tools-templates" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog?pillar=tools-templates" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Tools & Templates
               </Link>
             </li>
@@ -238,22 +238,22 @@ export const Footer = () => {
           <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Explore</h3>
           <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
             <li>
-              <Link href="/blog" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/blog" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Blog
               </Link>
             </li>
             <li>
-              <Link href="/labs" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/labs" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Labs
               </Link>
             </li>
             <li>
-              <Link href="/store" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/store" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Store
               </Link>
             </li>
             <li>
-              <Link href="/memoir" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/memoir" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Memoir
               </Link>
             </li>
@@ -265,17 +265,17 @@ export const Footer = () => {
           <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Connect</h3>
           <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
             <li>
-              <Link href="/about" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/about" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 About
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/contact" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Contact
               </Link>
             </li>
             <li>
-              <Link href="/links" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/links" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Links + socials
               </Link>
             </li>
@@ -287,17 +287,17 @@ export const Footer = () => {
           <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Legal</h3>
           <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
             <li>
-              <Link href="/privacy" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/privacy" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link href="/terms" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/terms" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Terms of Use
               </Link>
             </li>
             <li>
-              <Link href="/accessibility" className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
+              <Link href="/accessibility" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
                 Accessibility
               </Link>
             </li>
@@ -316,6 +316,7 @@ export const Footer = () => {
               <Link
                 key={idx}
                 href={state.path}
+                prefetch={false}
                 className="px-4 py-1.5 rounded-full text-[11px] md:text-xs font-bold font-mono uppercase tracking-wider border transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0 focus-ring flex items-center justify-center min-h-[36px] md:min-h-0"
                 style={{
                   backgroundColor: `rgba(${state.rgb}, 0.08)`,

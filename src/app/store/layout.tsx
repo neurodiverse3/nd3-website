@@ -11,5 +11,10 @@ export default function StoreLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <link rel="preconnect" href="https://buy.polar.sh" crossOrigin="anonymous" />
+      {children}
+    </>
+  );
 }

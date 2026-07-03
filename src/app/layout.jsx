@@ -109,7 +109,6 @@ export default function RootLayout({ children }) {
         {strapiUrl && (
           <link rel="preconnect" href={strapiUrl} crossOrigin="anonymous" />
         )}
-        <link rel="preconnect" href="https://buy.polar.sh" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
