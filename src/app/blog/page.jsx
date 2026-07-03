@@ -9,6 +9,9 @@ import PageHeader from '../../components/PageHeader';
 export const metadata = {
   title: 'Blog - neurodivers³',
   description: 'Honest writing on late diagnosis, burnout, masking, attention, and everyday life with a neurodivergent brain.',
+  alternates: {
+    canonical: 'https://neurodivers3.co.uk/blog',
+  },
   openGraph: {
     title: 'Blog - neurodivers³',
     description: 'Honest writing on late diagnosis, burnout, masking, attention, and everyday life with a neurodivergent brain.',

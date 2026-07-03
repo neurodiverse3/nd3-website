@@ -5,6 +5,9 @@ import PageHeader from '../../components/PageHeader';
 export const metadata = {
   title: 'Terms of Use - neurodivers³',
   description: 'Terms of service and digital download refund guidelines aligned with the UK Consumer Rights Act 2015.',
+  alternates: {
+    canonical: 'https://neurodivers3.co.uk/terms',
+  },
   openGraph: {
     title: 'Terms of Use - neurodivers³',
     description: 'Terms of service and digital download refund guidelines aligned with the UK Consumer Rights Act 2015.',

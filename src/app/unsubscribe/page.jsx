@@ -5,6 +5,10 @@ import { Loader2 } from "lucide-react";
 export const metadata = {
   title: "Unsubscribe - neurodivers³",
   description: "Unsubscribe from the neurodivers³ newsletter.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   openGraph: {
     title: "Unsubscribe - neurodivers³",
     description: "Unsubscribe from the neurodivers³ newsletter.",

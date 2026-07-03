@@ -4,6 +4,9 @@ import PageHeader from '../../components/PageHeader';
 export const metadata = {
   title: 'Accessibility - neurodivers³',
   description: 'Accessibility statement and commitment to building a deeply neuroinclusive and accessible website for all brains.',
+  alternates: {
+    canonical: 'https://neurodivers3.co.uk/accessibility',
+  },
   openGraph: {
     title: 'Accessibility - neurodivers³',
     description: 'Accessibility statement and commitment to building a deeply neuroinclusive and accessible website for all brains.',

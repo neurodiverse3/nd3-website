@@ -29,6 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${product.title} - neurodivers³`,
     description: product.cardBlurb,
+    alternates: {
+      canonical: `https://neurodivers3.co.uk/store/${slug}`,
+    },
     openGraph: {
       title: `${product.title} - neurodivers³`,
       description: product.cardBlurb,

@@ -325,7 +325,23 @@ export default function CommandCentre() {
                       {prodStrapiBadge.label}
                     </span>
                   </div>
-                  <div className="mt-4 flex justify-between items-center text-[10px]">
+
+                  {data?.render && data.render.status === 'online' && (
+                    <div className="mt-3 text-[10px] text-zinc-400 space-y-1 border-t border-zinc-800/60 pt-2">
+                      <div className="flex justify-between">
+                        <span className="text-zinc-600">SERVICE:</span> 
+                        <span className={data.render.serviceStatus === 'active' ? 'text-[#00ff88] font-bold' : 'text-[#ff2e88] font-bold'}>
+                          {data.render.serviceStatus.toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-zinc-600 font-mono">DEPLOY:</span> 
+                        <span className="text-[#00e5ff] font-bold">{data.render.deployStatus.toUpperCase()}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="mt-4 flex justify-between items-center text-[10px] border-t border-zinc-800/40 pt-2">
                     <span className="text-zinc-500 font-mono">
                       {data?.prodStrapi?.latencyMs ? `${data.prodStrapi.latencyMs}ms latency` : 'neurodivers3-backend'}
                     </span>

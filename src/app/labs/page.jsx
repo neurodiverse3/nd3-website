@@ -7,6 +7,9 @@ import PageHeader from '../../components/PageHeader';
 export const metadata = {
   title: 'Labs - neurodivers³',
   description: 'Free, highly tactile, sensory-friendly utilities built for brains that need alternative visual paths: acoustic shields, and dopamine resets.',
+  alternates: {
+    canonical: 'https://neurodivers3.co.uk/labs',
+  },
   openGraph: {
     title: 'Labs - neurodivers³',
     description: 'Free, highly tactile, sensory-friendly utilities built for brains that need alternative visual paths: acoustic shields, and dopamine resets.',

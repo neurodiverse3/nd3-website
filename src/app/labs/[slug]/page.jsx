@@ -209,6 +209,9 @@ export async function generateMetadata({ params }) {
   return {
     title: `${pageTitle} - neurodivers³`,
     description: lab.excerpt || "Alternative visual-spatial paths, sensory-friendly utilities, and resets specifically tailored for neurodivergent brains.",
+    alternates: {
+      canonical: `https://neurodivers3.co.uk/labs/${slug}`,
+    },
     openGraph: {
       title: `${pageTitle} - neurodivers³`,
       description: lab.excerpt || "Alternative visual-spatial paths, sensory-friendly utilities, and resets specifically tailored for neurodivergent brains.",

@@ -6,6 +6,9 @@ import PageHeader from '../../components/PageHeader';
 export const metadata = {
   title: 'Contact - neurodivers³',
   description: 'Get in touch with Ollie - founder of neurodivers3. Collaboration, press, or just saying hi.',
+  alternates: {
+    canonical: 'https://neurodivers3.co.uk/contact',
+  },
   openGraph: {
     title: 'Contact - neurodivers³',
     description: 'Get in touch with Ollie - founder of neurodivers3. Collaboration, press, or just saying hi.',

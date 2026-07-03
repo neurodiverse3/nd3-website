@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Store - neurodivers³",
   description:
     "Small Notion templates and PDFs for specific neurodivergent moments. Not a productivity system. Buy the one tool you need for the moment you're in.",
+  alternates: {
+    canonical: 'https://neurodivers3.co.uk/store',
+  },
 };
 
 export default function StorePage() {

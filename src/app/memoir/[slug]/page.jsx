@@ -44,6 +44,9 @@ export async function generateMetadata({ params }) {
   return {
     title: `${pageTitle} - neurodivers³`,
     description: chapter.excerpt || "A serial memoir chapter from neurodivers3.",
+    alternates: {
+      canonical: `https://neurodivers3.co.uk/memoir/${slug}`,
+    },
     openGraph: {
       title: `${pageTitle} - neurodivers³`,
       description: chapter.excerpt || "A serial memoir chapter from neurodivers3.",

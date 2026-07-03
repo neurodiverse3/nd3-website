@@ -55,6 +55,7 @@ export async function GET(request) {
     resend: { status: 'checking', error: null, domainsCount: 0 },
     polar: { status: 'checking', error: null, productsCount: 0 },
     vercel: { status: 'checking', deployments: [], error: null },
+    render: { status: 'checking', serviceStatus: 'unknown', deployStatus: 'unknown', error: null },
     stats: {
       production: { posts: 0, chapters: 0, labs: 0 }
     }
@@ -150,6 +151,31 @@ export async function GET(request) {
     }
   } else {
     results.polar.status = 'missing_key';
+  }
+
+  // 4b. Check Render Service Status
+  const renderKey = env.RENDER_API_KEY;
+  const renderServiceId = 'srv-d8jp4ok8aovs73d9rbhg';
+  if (renderKey) {
+    try {
+      const [serviceRes, deploysRes] = await Promise.all([
+        fetch(`https://api.render.com/v1/services/${renderServiceId}`, {
+          headers: { Authorization: `Bearer ${renderKey}`, Accept: 'application/json' }
+        }).then(r => r.json()),
+        fetch(`https://api.render.com/v1/services/${renderServiceId}/deploys?limit=1`, {
+          headers: { Authorization: `Bearer ${renderKey}`, Accept: 'application/json' }
+        }).then(r => r.json())
+      ]);
+      
+      results.render.status = 'online';
+      results.render.serviceStatus = serviceRes?.service?.suspended === 'suspended' ? 'suspended' : 'active';
+      results.render.deployStatus = deploysRes?.[0]?.deploy?.status || 'unknown';
+    } catch (err) {
+      results.render.status = 'error';
+      results.render.error = err.message;
+    }
+  } else {
+    results.render.status = 'missing_key';
   }
 
   // 5. Check Vercel Deployments (Local CLI execution in Dev mode)

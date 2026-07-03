@@ -5,6 +5,9 @@ import PageHeader from '../../components/PageHeader';
 export const metadata = {
   title: 'Privacy Policy - neurodivers³',
   description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Polar payments.',
+  alternates: {
+    canonical: 'https://neurodivers3.co.uk/privacy',
+  },
   openGraph: {
     title: 'Privacy Policy - neurodivers³',
     description: 'UK GDPR compliant privacy statement explaining how we handle your data, newsletters, cookies, and Polar payments.',

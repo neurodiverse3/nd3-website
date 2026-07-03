@@ -72,6 +72,21 @@ const nextConfig = {
         destination: '/terms',
         permanent: true,
       },
+      {
+        source: '/blog/rejection-sensitive-dysphoria',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/experiments/particle-flow',
+        destination: '/labs',
+        permanent: true,
+      },
+      {
+        source: '/experiments/:path*',
+        destination: '/labs/:path*',
+        permanent: true,
+      },
     ];
   },
   async headers() {

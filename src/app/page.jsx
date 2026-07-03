@@ -5,6 +5,9 @@ import HomeClient from '../components/HomeClient';
 export const metadata = {
   title: 'neurodivers³ - Neurodivergent life, tools and stories',
   description: 'An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.',
+  alternates: {
+    canonical: 'https://neurodivers3.co.uk',
+  },
   openGraph: {
     title: 'neurodivers³ - Neurodivergent life, tools and stories',
     description: 'An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.',
