@@ -6,22 +6,33 @@ export function StickyBlogHeader({ title, readTime }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    const element = document.getElementById('blog-content');
+    let bodyStart = 0;
+    let bodyEnd = 0;
+
+    const updateCoords = () => {
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        bodyStart = rect.top + scrollTop;
+        bodyEnd = bodyStart + rect.height;
+      }
+    };
+
+    // Calculate initial coordinates
+    updateCoords();
+
     const handleScroll = () => {
-      // 1. Show header after scrolling past ~400px (where main navbar slides out)
+      // 1. Show header after scrolling past ~400px
       if (window.scrollY > 400) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
 
-      // 2. Reading progress calculation through #blog-content container
-      const element = document.getElementById('blog-content');
-      if (element) {
-        const rect = element.getBoundingClientRect();
+      // 2. Reading progress calculation through cached coordinates
+      if (element && bodyEnd > 0) {
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        
-        const bodyStart = rect.top + scrollTop;
-        const bodyEnd = bodyStart + rect.height;
         const viewportHeight = window.innerHeight;
         
         const startOffset = 120; // Sync offset with TOC scroll offset
@@ -41,9 +52,23 @@ export function StickyBlogHeader({ title, readTime }) {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', updateCoords);
+    window.addEventListener('load', updateCoords);
+    
+    // Recalculate coordinates as page resources render
+    const t1 = setTimeout(updateCoords, 1000);
+    const t2 = setTimeout(updateCoords, 3000);
+
     // Run once on load to establish state
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', updateCoords);
+      window.removeEventListener('load', updateCoords);
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, []);
 
   return (

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import QRCode from "qrcode";
 import { 
   Download, 
@@ -209,10 +210,13 @@ END:VCARD`;
         <div className="text-center flex flex-col items-center">
           <div className="w-24 h-24 border-4 border-fg-primary shadow-[4px_4px_0px_var(--accent)] relative overflow-hidden bg-bg-primary flex items-center justify-center mb-5">
             {!imageError ? (
-              <img
+              <Image
                 src="/ollie-profile-v2.jpg"
                 alt="Ollie Clews"
-                className="w-full h-full object-cover transition-all duration-500 filter grayscale-0 hover:grayscale contrast-125"
+                fill
+                sizes="96px"
+                priority
+                className="object-cover transition-all duration-500 filter grayscale-0 hover:grayscale contrast-125"
                 onError={() => setImageError(true)}
               />
             ) : (
