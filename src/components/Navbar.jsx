@@ -272,7 +272,7 @@ export const Navbar = () => {
               {/* Drawer Top */}
               <div className="flex justify-between items-center gap-4">
                 <Link href="/" className="focus-ring flex items-center min-h-[44px] justify-start">
-                  <LogoWordmark className="h-5 text-fg-primary" />
+                  <LogoWordmark className="text-xl text-fg-primary" />
                 </Link>
                 <button 
                   onClick={() => setIsMenuOpen(false)} 

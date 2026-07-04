@@ -662,7 +662,7 @@ export const PostCover = ({
         <div className="flex flex-row justify-between items-center w-full select-none gap-2">
           {/* Logo / Branding on the Left */}
           <div className="flex items-start justify-start select-none">
-            <LogoWordmark className="logo h-5 md:h-6 w-auto opacity-90 text-[var(--pillar-card-text)]" />
+            <LogoWordmark className="logo text-lg md:text-xl opacity-90 text-[var(--pillar-card-text)]" />
           </div>
 
           {/* Coloured Pillar Icon on the Right */}

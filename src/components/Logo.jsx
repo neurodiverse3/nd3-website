@@ -1,55 +1,31 @@
 import React from 'react';
 
 export const LogoWordmark = ({ className = "" }) => {
-  const hasHeight = /\b(h-\d+|h-\[.*?\])\b/.test(className);
-  const defaultHeight = hasHeight ? "" : "h-8 md:h-10";
+  const hasTextSize = /\btext-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl)\b/.test(className);
+  const sizeClass = hasTextSize ? "" : "text-2xl md:text-3xl";
 
   return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      viewBox="0 0 300 70" 
-      className={`${defaultHeight} aspect-[300/70] select-none ${className}`}
+    <span 
+      className={`font-display font-black tracking-tight select-none inline-block ${sizeClass} ${className}`}
       role="img"
       aria-label="neurodivers three"
     >
-      <text 
-        x="0" 
-        y="54" 
-        fontFamily="var(--font-display), system-ui, -apple-system, sans-serif" 
-        fontSize="48" 
-        fontWeight="900" 
-        fill="currentColor" 
-        letterSpacing="-0.02em"
-      >
-        neurodivers<tspan dx="2" dy="-14" fontSize="34" fontWeight="900" fill="var(--accent-label, var(--accent))">3</tspan>
-      </text>
-    </svg>
+      neurodivers<span className="text-accent ml-0.5" style={{ fontSize: '0.65em', verticalAlign: '0.35em', lineHeight: 0 }}>3</span>
+    </span>
   );
 };
 
 export const LogoPrimaryFlat = ({ className = "" }) => {
-  const hasHeight = /\b(h-\d+|h-\[.*?\])\b/.test(className);
-  const defaultHeight = hasHeight ? "" : "h-12";
+  const hasTextSize = /\btext-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl)\b/.test(className);
+  const sizeClass = hasTextSize ? "" : "text-3xl md:text-4xl";
 
   return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      viewBox="0 0 360 80" 
-      className={`${defaultHeight} aspect-[360/80] select-none ${className}`}
+    <span 
+      className={`font-display font-black tracking-tight select-none inline-block ${sizeClass} ${className}`}
       role="img"
       aria-label="neurodivers three"
     >
-      <text 
-        x="0" 
-        y="60" 
-        fontFamily="var(--font-display), system-ui, -apple-system, sans-serif" 
-        fontSize="56" 
-        fontWeight="900" 
-        fill="currentColor" 
-        letterSpacing="-0.02em"
-      >
-        neurodivers<tspan dx="2" dy="-16" fontSize="40" fontWeight="900" fill="var(--accent-label, var(--accent))">3</tspan>
-      </text>
-    </svg>
+      neurodivers<span className="text-accent ml-0.5" style={{ fontSize: '0.65em', verticalAlign: '0.35em', lineHeight: 0 }}>3</span>
+    </span>
   );
 };

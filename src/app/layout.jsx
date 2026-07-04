@@ -106,9 +106,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en-GB">
       <head>
-        {strapiUrl && (
-          <link rel="preconnect" href={strapiUrl} crossOrigin="anonymous" />
-        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
