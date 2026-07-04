@@ -102,12 +102,19 @@ export default function HomeClient({ siteSettings, latestPosts }) {
 
   // Scroll progress handler
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
-      setScrollProgress(progress);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = (window.scrollY / totalHeight) * 100;
+          setScrollProgress(progress);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -269,14 +276,14 @@ export default function HomeClient({ siteSettings, latestPosts }) {
           </div>
 
           <h1 className="text-[2.65rem] sm:text-5xl md:text-[6rem] lg:text-[7rem] xl:text-[7.8rem] font-black leading-[1.05] tracking-[-0.02em] uppercase mb-3 md:mb-3 select-none">
-            <div 
+            <span 
               className="block"
               style={{ opacity: 0, animation: 'fadeInUp 0.6s ease forwards' }}
             >
               <span className="text-fg-primary">UNMASKED</span>
               <span className="text-accent">.</span>
-            </div>
-            <div 
+            </span>
+            <span 
               className="block italic home-hero-gradient"
               style={{ 
                 opacity: 0, 
@@ -285,14 +292,14 @@ export default function HomeClient({ siteSettings, latestPosts }) {
             >
               <span>UNFILTERED</span>
               <span style={{ color: 'var(--accent)' }}>.</span>
-            </div>
-            <div 
+            </span>
+            <span 
               className="block"
               style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.2s forwards' }}
             >
               <span className="text-fg-primary">UNAPOLOGETIC</span>
               <span className="text-accent">.</span>
-            </div>
+            </span>
           </h1>
 
           <p 

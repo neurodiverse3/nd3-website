@@ -43,5 +43,12 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.5.0",
     "typescript": "^6.0.3"
-  }
+  },
+  "browserslist": [
+    "Chrome >= 100",
+    "Safari >= 15",
+    "Edge >= 100",
+    "Firefox >= 100",
+    "iOS >= 15"
+  ]
 }
