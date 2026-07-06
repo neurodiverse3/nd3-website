@@ -432,6 +432,20 @@ export default function CommandCentre() {
                       : 'Triggers a production rebuild on Vercel using local files.'}
                   </span>
                 </button>
+
+                {/* IndexNow Submit */}
+                <button
+                  onClick={() => triggerAction('submit-indexnow')}
+                  disabled={actionLoading === 'submit-indexnow'}
+                  className="flex-1 min-w-[200px] border-2 border-zinc-800 hover:border-[#ffaa00] bg-[#111115] hover:bg-[#ffaa00]/5 px-4 py-3 text-xs font-black uppercase tracking-wider text-left transition-all cursor-pointer disabled:opacity-45 disabled:hover:border-zinc-800 disabled:hover:bg-transparent"
+                >
+                  <span className="block text-[#ffaa00] mb-1">🔍 SUBMIT TO INDEXNOW</span>
+                  <span className="text-[10px] text-zinc-500 normal-case font-normal">
+                    {actionLoading === 'submit-indexnow' 
+                      ? 'Submitting sitemap URLs...' 
+                      : 'Submits all sitemap URLs to Bing/MS IndexNow for instant indexing.'}
+                  </span>
+                </button>
               </div>
 
               {actionMessage && (

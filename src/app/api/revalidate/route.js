@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
+import { submitUrlsToIndexNow } from '../../../lib/indexnow';
 
 export const dynamic = 'force-dynamic';
 
@@ -79,6 +80,20 @@ export async function POST(request) {
       } catch (err) {
         console.error(`[Revalidation] Failed to revalidate path "${path}":`, err.message);
       }
+    }
+
+    // Trigger IndexNow submission for the revalidated pages
+    try {
+      const pagePaths = revalidatedPaths.filter(p => !p.endsWith('.xml') && !p.endsWith('.txt'));
+      if (pagePaths.length > 0) {
+        submitUrlsToIndexNow(pagePaths).then(result => {
+          console.log(`[Revalidation] Auto-submitted to IndexNow:`, result);
+        }).catch(err => {
+          console.error('[Revalidation] Auto-submit to IndexNow failed:', err);
+        });
+      }
+    } catch (indexNowErr) {
+      console.error('[Revalidation] IndexNow submission error:', indexNowErr);
     }
 
     return NextResponse.json({

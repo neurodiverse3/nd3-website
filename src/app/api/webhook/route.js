@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
+import { submitUrlsToIndexNow } from '../../../lib/indexnow';
 
 export async function POST(request) {
   try {
@@ -23,39 +24,61 @@ export async function POST(request) {
 
     const slug = entry.slug?.current || entry.slug || '';
     const normalizedModel = model.toLowerCase();
+    const revalidatedPaths = [];
 
     // Revalidate specific static paths depending on the CMS collection type
     if (normalizedModel === 'post' || normalizedModel === 'posts') {
       revalidatePath('/');
       revalidatePath('/blog');
       revalidatePath('/sitemap.xml');
+      revalidatedPaths.push('/', '/blog');
       if (slug) {
         revalidatePath(`/blog/${slug}`);
+        revalidatedPaths.push(`/blog/${slug}`);
         console.log(`[Webhook] Revalidated /blog/${slug}`);
       }
     } else if (normalizedModel === 'memoir-chapter' || normalizedModel === 'memoir-chapters') {
       revalidatePath('/memoir');
       revalidatePath('/sitemap.xml');
+      revalidatedPaths.push('/memoir');
       if (slug) {
         revalidatePath(`/memoir/${slug}`);
+        revalidatedPaths.push(`/memoir/${slug}`);
         console.log(`[Webhook] Revalidated /memoir/${slug}`);
       }
     } else if (normalizedModel === 'lab' || normalizedModel === 'labs') {
       revalidatePath('/labs');
       revalidatePath('/sitemap.xml');
+      revalidatedPaths.push('/labs');
       if (slug) {
         revalidatePath(`/labs/${slug}`);
+        revalidatedPaths.push(`/labs/${slug}`);
         console.log(`[Webhook] Revalidated /labs/${slug}`);
       }
     } else if (normalizedModel === 'product' || normalizedModel === 'products') {
       revalidatePath('/store');
       revalidatePath('/sitemap.xml');
+      revalidatedPaths.push('/store');
       if (slug) {
         revalidatePath(`/store/${slug}`);
+        revalidatedPaths.push(`/store/${slug}`);
         console.log(`[Webhook] Revalidated /store/${slug}`);
       }
     } else {
       console.log(`[Webhook] Model "${model}" did not match any revalidation rule.`);
+    }
+
+    // Trigger IndexNow submission for the revalidated pages
+    try {
+      if (revalidatedPaths.length > 0) {
+        submitUrlsToIndexNow(revalidatedPaths).then(result => {
+          console.log(`[Webhook] Auto-submitted to IndexNow:`, result);
+        }).catch(err => {
+          console.error('[Webhook] Auto-submit to IndexNow failed:', err);
+        });
+      }
+    } catch (indexNowErr) {
+      console.error('[Webhook] IndexNow submission error:', indexNowErr);
     }
 
     return NextResponse.json({

@@ -3,6 +3,8 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import fs from 'fs';
 import path from 'path';
+import sitemap from '../../../sitemap';
+import { submitUrlsToIndexNow } from '../../../../lib/indexnow';
 
 const execAsync = promisify(exec);
 
@@ -253,6 +255,34 @@ export async function POST(request) {
       });
 
       return NextResponse.json({ success: true, message: 'Vercel redeploy triggered in background!' });
+    }
+
+    if (action === 'submit-indexnow') {
+      console.log('[Diagnostics] Triggering bulk IndexNow submission...');
+      try {
+        const sitemapRoutes = await sitemap();
+        const urls = sitemapRoutes.map(route => route.url).filter(Boolean);
+        
+        if (urls.length === 0) {
+          return NextResponse.json({ success: false, error: 'No URLs found in sitemap.' }, { status: 400 });
+        }
+        
+        const result = await submitUrlsToIndexNow(urls);
+        if (result.success) {
+          return NextResponse.json({ 
+            success: true, 
+            message: `Successfully submitted ${result.count} URLs to IndexNow (Bing/MS).` 
+          });
+        } else {
+          return NextResponse.json({ 
+            success: false, 
+            error: result.error || `Failed with status ${result.status}` 
+          }, { status: 500 });
+        }
+      } catch (err) {
+        console.error('[Diagnostics] IndexNow submission failed:', err);
+        return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+      }
     }
 
     return NextResponse.json({ error: 'Unknown action' }, { status: 400 });
