@@ -4,6 +4,12 @@
  */
 
 import { SITE } from './site';
+import dns from 'dns';
+
+// Force IPv4 first to avoid TLS handshake resets on networks/ISPs with broken IPv6 resolution
+if (typeof dns.setDefaultResultOrder === 'function') {
+  dns.setDefaultResultOrder('ipv4first');
+}
 
 export async function submitUrlsToIndexNow(urls) {
   if (!urls || urls.length === 0) {
