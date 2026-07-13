@@ -381,6 +381,7 @@ async function run() {
     const stateMatch = aside.match(/\*\*Brain state:\*\* (.*)/);
     const readTimeMatch = aside.match(/\*\*Read time:\*\* (.*)/);
     const descMatch = aside.match(/\*\*Blog index description:\*\* (.*)/);
+    const seoTitleMatch = aside.match(/\*\*SEO Title:\*\* (.*)/);
 
     // Extract body content after </aside>
     const bodyStartIndex = postContent.indexOf('</aside>') + 8;
@@ -397,6 +398,7 @@ async function run() {
     const brainState = stateMatch ? mapBrainState(stateMatch[1]) : 'hyperfocus';
     const readTime = readTimeMatch ? cleanReadTime(readTimeMatch[1]) : '5 MIN';
     const excerpt = descMatch ? descMatch[1].trim() : '';
+    const seoTitle = seoTitleMatch ? seoTitleMatch[1].trim() : null;
 
     const bodyBlocks = parsePostBody(bodyText);
 
@@ -407,6 +409,7 @@ async function run() {
       brainState,
       readTime,
       excerpt,
+      seoTitle,
       body: bodyBlocks,
       allowComments: true,
       date: new Date(Date.now() - idx * 4 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] // format YYYY-MM-DD, spread out by 4 days each going back in time

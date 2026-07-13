@@ -92,6 +92,7 @@ function exportBlogPosts() {
     mdContent += '```yaml\n';
     mdContent += `title: "${post.title.replace(/"/g, '\\"')}"\n`;
     mdContent += `slug: "${post.slug}"\n`;
+    mdContent += `seo_title: "${(post.seo_title || '').replace(/"/g, '\\"')}"\n`;
     mdContent += `pillar: "${post.pillar || ''}"\n`;
     mdContent += `brain_state: "${post.brain_state || ''}"\n`;
     mdContent += `read_time: "${post.read_time || ''}"\n`;

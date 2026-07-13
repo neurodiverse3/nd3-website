@@ -15,6 +15,9 @@
       "type": "string",
       "required": true
     },
+    "seoTitle": {
+      "type": "string"
+    },
     "slug": {
       "type": "uid",
       "targetField": "title",
