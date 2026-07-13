@@ -127,6 +127,15 @@ export const getPostBySlug = cache(async (slug) => {
   return response?.data?.[0] ? normalizeData(response.data[0]) : null;
 });
 
+export const getPostByShareSlug = cache(async (shareSlug) => {
+  const response = await fetchStrapi('posts', {
+    'filters[shareSlug][$eq]': shareSlug,
+    fields: 'slug',
+  });
+  return response?.data?.[0] ? normalizeData(response.data[0]) : null;
+});
+
+
 export async function getRelatedPosts(pillar, excludeSlug, limit = 3) {
   const response = await fetchStrapi('posts', {
     'filters[pillar][$eq]': pillar,

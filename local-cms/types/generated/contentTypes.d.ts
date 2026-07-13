@@ -602,6 +602,7 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     readTime: Schema.Attribute.String & Schema.Attribute.Required;
     seoTitle: Schema.Attribute.String;
     series: Schema.Attribute.Relation<'manyToOne', 'api::series.series'>;
+    shareSlug: Schema.Attribute.String & Schema.Attribute.Unique;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;

@@ -74,6 +74,10 @@
       "relation": "manyToOne",
       "target": "api::series.series",
       "inversedBy": "posts"
+    },
+    "shareSlug": {
+      "type": "string",
+      "unique": true
     }
   }
 }
