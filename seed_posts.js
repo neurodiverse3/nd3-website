@@ -10,9 +10,9 @@ let STRAPI_TOKEN = '';
 try {
   const envContent = fs.readFileSync(envPath, 'utf8');
   const urlMatch = envContent.match(/NEXT_PUBLIC_STRAPI_API_URL=(.*)/);
-  if (urlMatch) STRAPI_URL = urlMatch[1].trim();
+  if (urlMatch) STRAPI_URL = urlMatch[1].trim().replace(/^["']|["']$/g, '');
   const tokenMatch = envContent.match(/STRAPI_API_TOKEN=(.*)/);
-  if (tokenMatch) STRAPI_TOKEN = tokenMatch[1].trim();
+  if (tokenMatch) STRAPI_TOKEN = tokenMatch[1].trim().replace(/^["']|["']$/g, '');
 } catch (err) {
   console.warn('⚠️ Could not load .env.local, using defaults. Error:', err.message);
 }
