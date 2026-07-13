@@ -364,13 +364,10 @@ export const BlogArchiveClient = ({ initialPosts }) => {
             const postNumber = post.postNumber || (globalIdx !== -1 ? (initialPosts.length - globalIdx) : 1);
             const btnTheme = getPillarTheme(post.pillar);
             
-            // Check if this is the last orphaned item in an odd list
-            const isOrphaned = idx === paginatedPosts.length - 1 && paginatedPosts.length % 2 !== 0;
-            
             return (
               <div 
                 key={post._id || post.id} 
-                className={`group border-2 border-border-rule hover:border-fg-primary focus-within:border-fg-primary bg-bg-primary flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 focus-within:-translate-y-1.5 shadow-[6px_6px_0px_var(--rule)] hover:shadow-[10px_10px_0px_var(--accent)] focus-within:shadow-[10px_10px_0px_var(--accent)] rounded-none text-left overflow-hidden ${isOrphaned ? 'md:col-span-2' : ''}`}
+                className="group border-2 border-border-rule hover:border-fg-primary focus-within:border-fg-primary bg-bg-primary flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 focus-within:-translate-y-1.5 shadow-[6px_6px_0px_var(--rule)] hover:shadow-[10px_10px_0px_var(--accent)] focus-within:shadow-[10px_10px_0px_var(--accent)] rounded-none text-left overflow-hidden"
                 data-pillar={mapPillarKey(post.pillar)}
               >
                 {/* 4:3 Typographic Cover Header Crop */}

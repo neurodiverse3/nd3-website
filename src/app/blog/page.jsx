@@ -73,10 +73,17 @@ export default async function BlogPage() {
     getPosts(),
     getSiteSettings()
   ]);
-  let featuredPost = siteSettings?.featuredPosts?.[0] || null;
+  
+  // Resolve the rotating featured post (rotates daily)
+  let featuredPost = null;
+  const featuredPool = Array.isArray(siteSettings?.featuredPosts) && siteSettings.featuredPosts.length > 0
+    ? siteSettings.featuredPosts
+    : (posts || []).slice(0, 3);
 
-  if (!featuredPost && posts.length > 0) {
-    featuredPost = posts[0];
+  if (featuredPool.length > 0) {
+    const dayOffset = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+    const rotateIndex = dayOffset % featuredPool.length;
+    featuredPost = featuredPool[rotateIndex];
   }
 
   const featuredDate = featuredPost ? formatDateUK(featuredPost.date || featuredPost._createdAt) : '';
