@@ -1,4 +1,4 @@
-import { getPostByShareSlug } from '../../lib/strapi';
+import { getPostByShareSlug, getShortUrlByCode } from '../../lib/strapi';
 import { redirect, notFound } from 'next/navigation';
 
 export async function GET(request, { params }) {
@@ -9,6 +9,19 @@ export async function GET(request, { params }) {
     return notFound();
   }
 
+  // 1. Check if this is a short URL redirect
+  let shortUrl = null;
+  try {
+    shortUrl = await getShortUrlByCode(slug);
+  } catch (error) {
+    console.error(`[Redirect] Error checking short-url for "${slug}":`, error);
+  }
+
+  if (shortUrl && shortUrl.url) {
+    return redirect(shortUrl.url);
+  }
+
+  // 2. Check if this is a blog post shareSlug
   let post = null;
   try {
     post = await getPostByShareSlug(slug);
@@ -17,7 +30,7 @@ export async function GET(request, { params }) {
   }
 
   if (post && post.slug) {
-    redirect(`/blog/${post.slug}`);
+    return redirect(`/blog/${post.slug}`);
   }
 
   return notFound();

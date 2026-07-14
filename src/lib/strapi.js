@@ -135,6 +135,14 @@ export const getPostByShareSlug = cache(async (shareSlug) => {
   return response?.data?.[0] ? normalizeData(response.data[0]) : null;
 });
 
+export const getShortUrlByCode = cache(async (code) => {
+  const response = await fetchStrapi('short-urls', {
+    'filters[code][$eq]': code,
+    fields: 'url',
+  });
+  return response?.data?.[0] ? normalizeData(response.data[0]) : null;
+});
+
 
 export async function getRelatedPosts(pillar, excludeSlug, limit = 3) {
   const response = await fetchStrapi('posts', {

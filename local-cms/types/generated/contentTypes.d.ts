@@ -674,6 +674,39 @@ export interface ApiSeriesSeries extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiShortUrlShortUrl extends Struct.CollectionTypeSchema {
+  collectionName: 'short_urls';
+  info: {
+    description: 'Short URL redirects managed via CMS';
+    displayName: 'Short URL';
+    pluralName: 'short-urls';
+    singularName: 'short-url';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::short-url.short-url'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ApiSiteSettingSiteSetting extends Struct.SingleTypeSchema {
   collectionName: 'site_settings';
   info: {
@@ -1258,6 +1291,7 @@ declare module '@strapi/strapi' {
       'api::post.post': ApiPostPost;
       'api::product.product': ApiProductProduct;
       'api::series.series': ApiSeriesSeries;
+      'api::short-url.short-url': ApiShortUrlShortUrl;
       'api::site-setting.site-setting': ApiSiteSettingSiteSetting;
       'api::subscriber.subscriber': ApiSubscriberSubscriber;
       'plugin::content-releases.release': PluginContentReleasesRelease;
