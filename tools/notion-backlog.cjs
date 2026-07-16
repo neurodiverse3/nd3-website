@@ -88,6 +88,7 @@ async function listTasks() {
     console.log("  node tools/notion-backlog.cjs list");
     console.log("  node tools/notion-backlog.cjs view <index>");
     console.log("  node tools/notion-backlog.cjs start <index>");
+    console.log("  node tools/notion-backlog.cjs review <index>");
     console.log("  node tools/notion-backlog.cjs complete <index>\n");
   } catch (error) {
     console.error("Error fetching tasks:", error.message);
@@ -187,6 +188,13 @@ async function main() {
       }
       await updateStatus(arg, 'In progress');
       break;
+    case 'review':
+      if (!arg) {
+        console.error("Error: Missing task index. Usage: node tools/notion-backlog.cjs review <index>");
+        process.exit(1);
+      }
+      await updateStatus(arg, 'Ready for review');
+      break;
     case 'complete':
       if (!arg) {
         console.error("Error: Missing task index. Usage: node tools/notion-backlog.cjs complete <index>");
@@ -196,7 +204,7 @@ async function main() {
       break;
     default:
       console.error(`Unknown command: ${command}`);
-      console.log("Available commands: list, view <index>, start <index>, complete <index>");
+      console.log("Available commands: list, view <index>, start <index>, review <index>, complete <index>");
   }
 }
 
