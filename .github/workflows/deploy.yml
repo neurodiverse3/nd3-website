@@ -34,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@32.0.0
+        run: npm install --global vercel@56.2.1
 
       # Production Build & Deploy
       - name: Pull Vercel Environment (Production)
