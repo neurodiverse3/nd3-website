@@ -38,7 +38,7 @@ export default function GlobalError({ error, reset }) {
         </p>
 
         <p className="text-text-muted text-base leading-relaxed mb-8">
-          You can try reloading the page using the button below, or head back to the homepage. If this keeps happening, feel free to email <a href="mailto:ollie@neurodivers3.co.uk" className="text-accent-pink hover:underline font-bold">ollie@neurodivers3.co.uk</a> and I will get it sorted out.
+          You can try reloading the page using the button below, or head back to the homepage. If this keeps happening, feel free to email <a href="mailto:hello@neurodivers3.co.uk" className="text-accent-pink hover:underline font-bold">hello@neurodivers3.co.uk</a> and I will get it sorted out.
         </p>
 
         {/* Action Triggers Stack */}

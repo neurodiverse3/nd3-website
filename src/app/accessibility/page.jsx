@@ -80,7 +80,7 @@ export default function AccessibilityPage() {
           We are committed to continually expanding our neuroinclusive standards. If you encounter any bugs, find specific copy confusing, or have suggestions for new sensory options, we want to know.
         </p>
         <p className="text-text-muted text-lg leading-relaxed font-normal mt-4">
-          Please reach out directly by email: <a href="mailto:ollie@neurodivers3.co.uk" className="text-accent-pink hover:underline font-semibold">ollie@neurodivers3.co.uk</a>.
+          Please reach out directly by email: <a href="mailto:hello@neurodivers3.co.uk" className="text-accent-pink hover:underline font-semibold">hello@neurodivers3.co.uk</a>.
         </p>
 
         <p className="text-text-muted text-sm mt-12 font-mono">

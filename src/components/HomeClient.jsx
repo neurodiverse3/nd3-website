@@ -185,11 +185,11 @@ export default function HomeClient({ siteSettings, latestPosts }) {
         setFirstName('');
       } else {
         setSubscribeStatus('server_error');
-        setErrorMessage(response.error || "Something glitched. Try again in a sec, or email ollie@neurodivers3.co.uk if it keeps happening.");
+        setErrorMessage(response.error || "Something glitched. Try again in a sec, or email hello@neurodivers3.co.uk if it keeps happening.");
       }
     } catch (err) {
       setSubscribeStatus('server_error');
-      setErrorMessage("Something glitched. Try again in a sec, or email ollie@neurodivers3.co.uk if it keeps happening.");
+      setErrorMessage("Something glitched. Try again in a sec, or email hello@neurodivers3.co.uk if it keeps happening.");
     } finally {
       setIsSubmitting(false);
     }

@@ -119,7 +119,7 @@ export const Footer = () => {
     facebook: 'neurodivers3',
     youtube: 'neurodivers3',
     twitter: 'neurodivers3',
-    email: 'ollie@neurodivers3.co.uk'
+    email: 'hello@neurodivers3.co.uk'
   });
 
   if (pathname && pathname.endsWith('/embed')) {

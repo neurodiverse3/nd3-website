@@ -123,7 +123,7 @@ export default function TermsPage() {
                 Did your file fail to download? Don't worry. Contact us and we will manually verify the Polar receipt and email you a fresh copy.
               </p>
               <a 
-                href="mailto:ollie@neurodivers3.co.uk" 
+                href="mailto:hello@neurodivers3.co.uk" 
                 className="w-full inline-block py-3 bg-[var(--accent)] text-bg-primary font-black uppercase tracking-wider text-xs border border-[var(--fg)] text-center shadow-[3px_3px_0px_var(--fg)] hover:shadow-none hover:translate-y-0.5 hover:translate-x-0.5 transition-all"
               >
                 Request Download Support

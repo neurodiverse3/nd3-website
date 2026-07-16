@@ -183,7 +183,7 @@ export default function PrivacyPage() {
                   <li>The right to withdraw consent at any time (e.g., unsubscribing from emails).</li>
                 </ul>
                 <p className="mt-4">
-                  To exercise any of these rights, contact us at <a href="mailto:ollie@neurodivers3.co.uk" className="text-[var(--accent)] hover:underline font-semibold">ollie@neurodivers3.co.uk</a>.
+                  To exercise any of these rights, contact us at <a href="mailto:hello@neurodivers3.co.uk" className="text-[var(--accent)] hover:underline font-semibold">hello@neurodivers3.co.uk</a>.
                 </p>
               </div>
             </div>
@@ -220,7 +220,7 @@ export default function PrivacyPage() {
                 If you have questions about how your personal details are processed, or would like to request a copy of your files, email the founder directly.
               </p>
               <a 
-                href="mailto:ollie@neurodivers3.co.uk" 
+                href="mailto:hello@neurodivers3.co.uk" 
                 className="w-full inline-block py-3 bg-[var(--accent)] text-bg-primary font-black uppercase tracking-wider text-xs border border-[var(--fg)] text-center shadow-[3px_3px_0px_var(--fg)] hover:shadow-none hover:translate-y-0.5 hover:translate-x-0.5 transition-all"
               >
                 Contact Data Protection

@@ -36,11 +36,11 @@ export default function ContactPage() {
     {
       id: 'email',
       label: 'Email',
-      value: 'ollie@neurodivers3.co.uk',
-      href: 'mailto:ollie@neurodivers3.co.uk',
+      value: 'hello@neurodivers3.co.uk',
+      href: 'mailto:hello@neurodivers3.co.uk',
       icon: <Mail size={18} className="shrink-0" />,
       note: 'Best for collabs, press, and thoughtful questions.',
-      ariaLabel: 'Send email to Ollie at ollie@neurodivers3.co.uk',
+      ariaLabel: 'Send email to Ollie at hello@neurodivers3.co.uk',
     },
     {
       id: 'instagram',
