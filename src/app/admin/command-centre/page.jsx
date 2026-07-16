@@ -31,6 +31,7 @@ export default function CommandCentre() {
   const [actionLoading, setActionLoading] = useState(null); // 'wake-up' or 'redeploy'
   const [actionMessage, setActionMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const passcodeInputRef = React.useRef(null);
 
   // Check if we have a saved passcode in localStorage
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function CommandCentre() {
       verifySavedPasscode(savedPasscode);
     } else {
       setLoading(false);
+      setTimeout(() => passcodeInputRef.current?.focus(), 100);
     }
   }, []);
 
@@ -226,12 +228,12 @@ export default function CommandCentre() {
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <input
+                ref={passcodeInputRef}
                 type="password"
                 placeholder="ENTER PASSCODE"
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
                 className={`w-full bg-[#121216] border-2 ${passcodeError ? 'border-[#ff2e88] animate-shake' : 'border-zinc-800 focus:border-[#ff2e88]'} px-4 py-3 text-sm rounded-none outline-none transition-colors font-mono tracking-widest text-center text-zinc-100`}
-                autoFocus
               />
             </div>
             
