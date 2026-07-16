@@ -102,6 +102,36 @@ export default function PrivacyPage() {
                               <td className="p-2">Local Storage (Functional)</td>
                               <td className="p-2">Remembers your Mastodon instance for sharing posts.</td>
                             </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3_admin_passcode</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Remembers the session passcode to authorize access to the admin Command Centre.</td>
+                            </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3-lab-data (IndexedDB)</td>
+                              <td className="p-2">IndexedDB (Functional)</td>
+                              <td className="p-2">Stores user state, settings, and interactive history for lab tools (e.g., Acoustic Shield audio settings).</td>
+                            </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3-coin-label-*</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Remembers custom labels for the Decision Coin lab tool.</td>
+                            </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3-spoon-tracker-*</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Remembers date, max spoons, banked spoons, and tasks for the Spoon Tracker lab tool.</td>
+                            </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3-audit-*</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Remembers permission and recent ratings for the Sensory Audit lab tool.</td>
+                            </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3-visual-*</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Remembers custom filter parameters (grain, wash, color, sitewide settings) for the Visual Snow lab tool.</td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>

@@ -41,7 +41,7 @@ export default function ConsentToggle() {
             Vercel Web Analytics Consent
           </h4>
           <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed font-normal">
-            Toggle whether you want to allow us to gather anonymous page view statistics. We never collect personal data or cookies.
+            Toggle whether you want to allow us to gather anonymous page view statistics. When enabled, Vercel receives request metadata (such as IP address and User Agent) to derive privacy-focused, daily-reset analytics identifiers, but does not store tracking cookies.
           </p>
         </div>
         <button

@@ -11,7 +11,7 @@ test.describe('Privacy and Analytics Consent Banner', () => {
     await page.goto('/');
     // The banner has a small entry delay of 1500ms, so we wait for it
     await page.waitForTimeout(2000);
-    const banner = page.locator('role=status');
+    const banner = page.getByRole('status');
     await expect(banner).toBeVisible();
     await expect(banner).toContainText('Privacy & Preferences');
   });
@@ -24,7 +24,7 @@ test.describe('Privacy and Analytics Consent Banner', () => {
     await declineBtn.click();
     
     // Banner should hide
-    const banner = page.locator('role=status');
+    const banner = page.getByRole('status');
     await expect(banner).not.toBeVisible();
     
     // Check localStorage
@@ -42,7 +42,7 @@ test.describe('Privacy and Analytics Consent Banner', () => {
     await acceptBtn.click();
     
     // Banner should hide
-    const banner = page.locator('role=status');
+    const banner = page.getByRole('status');
     await expect(banner).not.toBeVisible();
     
     // Check localStorage
