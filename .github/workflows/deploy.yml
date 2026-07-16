@@ -1,3 +1,4 @@
+# Trigger rebuild for new Vercel credentials
 name: Vercel Deployment
 
 on:
