@@ -36,7 +36,11 @@ function getEnvVars() {
 // Secure passcode validation on the server side
 function validatePasscode(request, env) {
   const passcode = request.headers.get('x-admin-passcode');
-  const securePassword = env.COMMAND_CENTRE_PASSWORD || 'nd3-admin';
+  const securePassword = env.COMMAND_CENTRE_PASSWORD;
+  if (!securePassword) {
+    console.warn('[Diagnostics] COMMAND_CENTRE_PASSWORD is not configured. Rejecting all requests (fail closed).');
+    return false;
+  }
   return passcode === securePassword;
 }
 

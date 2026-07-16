@@ -58,3 +58,6 @@ tests/
 !README.md
 
 .vercel
+
+# Notion cache
+tools/.notion-cache.json
