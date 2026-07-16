@@ -31,10 +31,12 @@ export default function CommandCentre() {
   const [actionLoading, setActionLoading] = useState(null); // 'wake-up' or 'redeploy'
   const [actionMessage, setActionMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLocal, setIsLocal] = useState(false);
   const passcodeInputRef = React.useRef(null);
 
   // Check if we have a saved passcode in localStorage
   useEffect(() => {
+    setIsLocal(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
     const savedPasscode = localStorage.getItem('nd3_admin_passcode');
     if (savedPasscode) {
       setPasscode(savedPasscode);
@@ -594,7 +596,7 @@ export default function CommandCentre() {
 
                 {/* Git Repo */}
                 <a 
-                  href="https://github.com/ollie-ai/neurodivers3" 
+                  href="https://github.com/neurodiverse3/neurodivers3" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center justify-between border border-zinc-800 hover:border-zinc-500 bg-[#111115] hover:bg-zinc-800/20 p-3.5 text-xs text-zinc-300 hover:text-zinc-100 transition-all cursor-pointer font-bold uppercase tracking-wider group"
@@ -606,19 +608,21 @@ export default function CommandCentre() {
                   <ExternalLink size={12} className="text-zinc-600 group-hover:text-zinc-300" />
                 </a>
 
-                {/* Local Studio */}
-                <a 
-                  href="http://localhost:4001" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between border border-zinc-800 hover:border-zinc-500 bg-[#111115] hover:bg-zinc-800/20 p-3.5 text-xs text-zinc-300 hover:text-zinc-100 transition-all cursor-pointer font-bold uppercase tracking-wider group"
-                >
-                  <span className="flex items-center gap-2.5">
-                    <span className="w-1.5 h-1.5 bg-zinc-100 group-hover:bg-[#ffaa00]" />
-                    ND³ LOCAL STUDIO
-                  </span>
-                  <ExternalLink size={12} className="text-zinc-600 group-hover:text-zinc-300" />
-                </a>
+                {/* Local Studio (Dev Only) */}
+                {isLocal && (
+                  <a 
+                    href="http://localhost:4001" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between border border-zinc-800 hover:border-zinc-500 bg-[#111115] hover:bg-zinc-800/20 p-3.5 text-xs text-zinc-300 hover:text-zinc-100 transition-all cursor-pointer font-bold uppercase tracking-wider group"
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 bg-zinc-100 group-hover:bg-[#ffaa00]" />
+                      ND³ LOCAL STUDIO
+                    </span>
+                    <ExternalLink size={12} className="text-zinc-600 group-hover:text-zinc-300" />
+                  </a>
+                )}
 
                 {/* Render Strapi */}
                 <a 

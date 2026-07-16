@@ -14,13 +14,13 @@ const SpoonIcon = ({ className = "w-5 h-5", glow = false }) => (
 );
 
 export default function SpoonTracker({ noWrapper = false }) {
-  const { value: savedMax, setValue: setSavedMax } = useLabLocalStorage('nd3-spoon-tracker-max', 8);
-  const { value: savedBanked, setValue: setSavedBanked } = useLabLocalStorage('nd3-spoon-tracker-banked', 0);
-  const { value: savedTasks, setValue: setSavedTasks } = useLabLocalStorage('nd3-spoon-tracker-tasks', [
+  const { value: savedMax, setValue: setSavedMax, isLoaded: maxLoaded } = useLabLocalStorage('nd3-spoon-tracker-max', 8);
+  const { value: savedBanked, setValue: setSavedBanked, isLoaded: bankedLoaded } = useLabLocalStorage('nd3-spoon-tracker-banked', 0);
+  const { value: savedTasks, setValue: setSavedTasks, isLoaded: tasksLoaded } = useLabLocalStorage('nd3-spoon-tracker-tasks', [
     { id: '1', title: 'Check administrative email inbox', cost: 1 },
     { id: '2', title: 'Focus code core layout block', cost: 3 }
   ]);
-  const { value: savedDate, setValue: setSavedDate } = useLabLocalStorage('nd3-spoon-tracker-date', null);
+  const { value: savedDate, setValue: setSavedDate, isLoaded: dateLoaded } = useLabLocalStorage('nd3-spoon-tracker-date', null);
 
   const [maxSpoons, setMaxSpoons] = useState(savedMax);
   const [bankedSpoonsCount, setBankedSpoonsCount] = useState(savedBanked);
@@ -65,9 +65,31 @@ export default function SpoonTracker({ noWrapper = false }) {
     return () => clearInterval(interval);
   }, [setSavedDate, setSavedBanked, setSavedTasks, setBankedSpoonsCount, setSpentTasks]);
 
-  useEffect(() => { setSavedMax(maxSpoons); }, [maxSpoons]);
-  useEffect(() => { setSavedBanked(bankedSpoonsCount); }, [bankedSpoonsCount]);
-  useEffect(() => { setSavedTasks(spentTasks); }, [spentTasks]);
+  // Hydration sync: Load saved values when ready
+  useEffect(() => {
+    if (maxLoaded) setMaxSpoons(savedMax);
+  }, [maxLoaded, savedMax]);
+
+  useEffect(() => {
+    if (bankedLoaded) setBankedSpoonsCount(savedBanked);
+  }, [bankedLoaded, savedBanked]);
+
+  useEffect(() => {
+    if (tasksLoaded) setSpentTasks(savedTasks);
+  }, [tasksLoaded, savedTasks]);
+
+  // Persist local state changes when loaded
+  useEffect(() => {
+    if (maxLoaded) setSavedMax(maxSpoons);
+  }, [maxSpoons, maxLoaded, setSavedMax]);
+
+  useEffect(() => {
+    if (bankedLoaded) setSavedBanked(bankedSpoonsCount);
+  }, [bankedSpoonsCount, bankedLoaded, setSavedBanked]);
+
+  useEffect(() => {
+    if (tasksLoaded) setSavedTasks(spentTasks);
+  }, [spentTasks, tasksLoaded, setSavedTasks]);
 
   // A11Y-13: Warn user before leaving with unsaved data. Data IS auto-saved to
   // localStorage on every change, so the only true loss is between typing in
