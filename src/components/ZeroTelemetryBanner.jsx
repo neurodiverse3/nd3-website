@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { ShieldCheck, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 export const ZeroTelemetryBanner = () => {
   const [show, setShow] = useState(false);
@@ -18,8 +19,11 @@ export const ZeroTelemetryBanner = () => {
     }
   }, []);
 
-  const handleAcknowledge = () => {
+  const handleConsent = (allowAnalytics) => {
+    localStorage.setItem('nd3_consent_analytics', allowAnalytics ? 'true' : 'false');
     localStorage.setItem('nd3_telemetry_acknowledged', 'true');
+    // Dispatch a custom event to notify the analytics wrapper
+    window.dispatchEvent(new Event('nd3_consent_changed'));
     setShow(false);
   };
 
@@ -44,21 +48,32 @@ export const ZeroTelemetryBanner = () => {
               <ShieldCheck size={12} />
             </div>
             <span className="text-sm font-black uppercase tracking-[0.1em] text-accent-pink font-mono leading-tight">
-              Private by default - no tracking, ever
+              Privacy & Preferences
             </span>
           </div>
-          <p className="text-xs text-text-muted leading-relaxed font-normal mb-5 font-mono">
-            We don't use tracking scripts, analytics pixels, or cookie consent pop-ups. Your browser only stores what's needed to use the site: your theme preference and your cart. That's it.
+          <p className="text-xs text-text-muted leading-relaxed font-normal mb-3 font-mono">
+            We use lightweight, cookieless analytics to count page views and improve the site. We also use browser local storage to save your theme, accessibility preferences, and cart. No tracking cookies are set.
+          </p>
+          <p className="text-[10px] text-text-muted mb-5 font-mono">
+            Read our <Link href="/privacy" className="underline hover:text-accent-pink transition-colors">Privacy Policy</Link> for details.
           </p>
 
-          {/* Action Trigger Button */}
-          <button
-            onClick={handleAcknowledge}
-            className="w-full py-3 bg-transparent hover:bg-accent-pink-soft border-2 border-border-rule hover:border-accent-pink text-fg-primary hover:text-accent-pink flex items-center justify-center gap-2 font-black uppercase tracking-widest text-xs md:text-sm transition-all focus-ring rounded-none cursor-pointer"
-          >
-            <span>Got it</span>
-            <ArrowRight size={10} />
-          </button>
+          {/* Action Trigger Buttons */}
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => handleConsent(true)}
+              className="w-full py-2.5 bg-accent-pink text-bg-primary hover:bg-transparent hover:text-accent-pink border-2 border-accent-pink flex items-center justify-center gap-2 font-black uppercase tracking-widest text-xs md:text-sm transition-all focus-ring rounded-none cursor-pointer"
+            >
+              <span>Accept Analytics</span>
+              <ArrowRight size={10} />
+            </button>
+            <button
+              onClick={() => handleConsent(false)}
+              className="w-full py-2.5 bg-transparent hover:bg-accent-pink-soft border-2 border-border-rule hover:border-accent-pink text-fg-primary hover:text-accent-pink flex items-center justify-center gap-2 font-black uppercase tracking-widest text-xs md:text-sm transition-all focus-ring rounded-none cursor-pointer"
+            >
+              <span>Necessary Only</span>
+            </button>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

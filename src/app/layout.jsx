@@ -8,8 +8,8 @@ import { BrainStateProvider } from '../context/BrainStateContext';
 import { Inter, Outfit } from 'next/font/google';
 import { PWARegister } from '../components/PWARegister';
 import { ZeroTelemetryBanner } from '../components/ZeroTelemetryBanner';
-import { Analytics } from '@vercel/analytics/react';
 import GlobalVisualSnow from '../components/labs/GlobalVisualSnow';
+import VercelAnalyticsWrapper from '../components/VercelAnalyticsWrapper';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -125,7 +125,7 @@ export default function RootLayout({ children }) {
               </PageTransition>
             </main>
             <Footer />
-            <Analytics />
+            <VercelAnalyticsWrapper />
           </BrainStateProvider>
         </ThemeProvider>
       </body>

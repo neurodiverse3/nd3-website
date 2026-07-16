@@ -51,7 +51,7 @@ public/spotlane-demos/
 public/store/videos/
 public/store-assets/
 scripts/
-tests/
+# tests/
 
 # Local-only markdown documents
 *.md

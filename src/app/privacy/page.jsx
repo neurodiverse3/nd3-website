@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import PageHeader from '../../components/PageHeader';
+import ConsentToggle from '../../components/ConsentToggle';
 
 export const metadata = {
   title: 'Privacy Policy - neurodivers³',
@@ -59,7 +60,65 @@ export default function PrivacyPage() {
                     <strong className="text-[var(--fg)]">Transaction & Billing Data:</strong> Collected when you purchase digital products. We do <strong>not</strong> store or see your raw card details. Billing, checkout, and digital delivery are securely handled through Polar and its payment processors.
                   </li>
                   <li>
-                    <strong className="text-[var(--fg)]">Technical & Cookies Data:</strong> We do not run invasive behavioural tracking, targeted ads, or cross-site tracking. Some accessibility preferences, lab settings, and cart/basket state may be stored locally in your browser to persist your preferred reading theme (Void, Warm Charcoal, or Incubation) and manage your shopping basket state.
+                    <strong className="text-[var(--fg)]">Technical, Cookie & Storage Data:</strong> We do not set any tracking cookies. We only use browser storage to run this site:
+                    <div className="mt-4 space-y-4 font-sans font-medium text-sm">
+                      <div className="overflow-x-auto">
+                        <table className="min-w-full text-xs font-mono text-[var(--muted)] border border-[var(--rule)]">
+                          <thead>
+                            <tr className="border-b border-[var(--rule)] bg-bg-primary text-[var(--fg)]">
+                              <th className="p-2 text-left">Key / Storage</th>
+                              <th className="p-2 text-left">Type / Classification</th>
+                              <th className="p-2 text-left">Purpose</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3_theme_preference</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Remembers your preferred reading theme (Void, Parchment, Incubation).</td>
+                            </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3-a11y-*</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Accessibility overrides (font scale, dyslexic spacing, ruler, motion, contrast).</td>
+                            </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3_telemetry_acknowledged</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Remembers whether you have acknowledged the privacy banner.</td>
+                            </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3_consent_analytics</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Saves your choice to opt-in or opt-out of anonymous page view statistics.</td>
+                            </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3_secured_downloads</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Stores secure links for your digital product purchases.</td>
+                            </tr>
+                            <tr className="border-b border-[var(--rule)]">
+                              <td className="p-2 font-semibold text-[var(--fg)]">nd3_mastodon_instance</td>
+                              <td className="p-2">Local Storage (Functional)</td>
+                              <td className="p-2">Remembers your Mastodon instance for sharing posts.</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      
+                      <div className="border border-[var(--rule)] p-4 bg-bg-primary">
+                        <strong className="text-[var(--fg)] block mb-1 text-sm uppercase font-black">Anonymous Web Analytics</strong>
+                        <p className="text-sm text-[var(--muted)] leading-relaxed">
+                          We use Vercel Web Analytics to count page views and general visitor stats. It is entirely <strong>cookieless</strong> and privacy-focused—it doesn't track you across the web, and only hashes a daily reset of your IP address and User Agent to estimate unique visits. 
+                        </p>
+                        <p className="text-sm text-[var(--muted)] leading-relaxed mt-2">
+                          By default, Vercel Analytics is <strong>disabled</strong> until you explicitly opt-in using our banner or the toggle below. You can change your choice at any time:
+                        </p>
+                        <div className="mt-4">
+                          <ConsentToggle />
+                        </div>
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -75,7 +134,7 @@ export default function PrivacyPage() {
                   <li><strong>Resend:</strong> Secure email infrastructure.</li>
                   <li><strong>Polar:</strong> Secure, PCI-compliant checkout, billing, and digital delivery processor.</li>
                   <li><strong>Sanity CMS:</strong> Back-end database for writing logs and static configurations.</li>
-                  <li><strong>Vercel:</strong> Standard hosting and request routing, processing basic server access logs.</li>
+                  <li><strong>Vercel:</strong> Standard hosting, request routing, server logs, and privacy-focused web analytics (only active if you opt-in).</li>
                 </ul>
               </div>
             </div>
