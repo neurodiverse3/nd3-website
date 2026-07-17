@@ -695,9 +695,9 @@ export default function HomeClient({ siteSettings, latestPosts }) {
                       />
                     </div>
                     <div className="flex-1 relative">
-                      <label htmlFor="email-input" className="sr-only">Email address</label>
+                      <label htmlFor="newsletter-email-input" className="sr-only">Email address</label>
                       <input
-                        id="email-input"
+                        id="newsletter-email-input"
                         type="email"
                         required
                         placeholder="Email address"

@@ -20,7 +20,8 @@ const getEmailHash = (email) => {
 export async function getComments(postSlug) {
   if (!postSlug) return [];
   if (!STRAPI_URL) {
-    throw new Error('Missing NEXT_PUBLIC_STRAPI_API_URL. Configure Strapi before reading comments.');
+    console.warn('[Comments] Missing NEXT_PUBLIC_STRAPI_API_URL. Returning empty response.');
+    return [];
   }
   
   try {

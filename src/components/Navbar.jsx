@@ -309,12 +309,12 @@ export const Navbar = () => {
                 <button
                   onClick={() => {
                     setIsMenuOpen(false);
-                    const element = document.getElementById('email-input');
+                    const element = document.getElementById('newsletter-email-input');
                     if (element) {
                       element.scrollIntoView({ behavior: 'smooth' });
                       element.focus();
                     } else {
-                      router.push('/#email-input');
+                      router.push('/#newsletter-email-input');
                     }
                   }}
                   className="w-full py-4 border border-accent text-accent hover:bg-accent hover:text-bg-primary text-center font-black uppercase tracking-widest text-xs transition-colors"

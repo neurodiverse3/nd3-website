@@ -339,7 +339,7 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
 
             <div className="floating-label-wrap">
               <input
-                id="email-input"
+                id="comment-email-input"
                 type="email"
                 required
                 disabled={isSubmitting}
@@ -348,7 +348,7 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full h-14 bg-bg-primary border-2 border-text-muted/40 focus:border-accent px-4 pt-4 pb-1 outline-none text-fg-primary text-sm font-bold shadow-[2px_2px_0px_var(--rule)] transition-all duration-150 rounded-none"
               />
-              <label htmlFor="email-input" className="floating-label">EMAIL</label>
+              <label htmlFor="comment-email-input" className="floating-label">EMAIL</label>
             </div>
           </div>
 
