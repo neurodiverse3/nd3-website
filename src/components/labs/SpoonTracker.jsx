@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Clock, Plus, Trash2, Battery, RefreshCw, Lock, Sparkles, HelpCircle } from 'lucide-react';
 import { useLabLocalStorage } from '../../lib/useLabStorage';
 
@@ -65,17 +65,30 @@ export default function SpoonTracker({ noWrapper = false }) {
     return () => clearInterval(interval);
   }, [setSavedDate, setSavedBanked, setSavedTasks, setBankedSpoonsCount, setSpentTasks]);
 
-  // Hydration sync: Load saved values when ready
+  const hydratedMaxRef = useRef(false);
+  const hydratedBankedRef = useRef(false);
+  const hydratedTasksRef = useRef(false);
+
+  // Hydration sync: Load saved values precisely once when ready
   useEffect(() => {
-    if (maxLoaded) setMaxSpoons(savedMax);
+    if (maxLoaded && !hydratedMaxRef.current) {
+      setMaxSpoons(savedMax);
+      hydratedMaxRef.current = true;
+    }
   }, [maxLoaded, savedMax]);
 
   useEffect(() => {
-    if (bankedLoaded) setBankedSpoonsCount(savedBanked);
+    if (bankedLoaded && !hydratedBankedRef.current) {
+      setBankedSpoonsCount(savedBanked);
+      hydratedBankedRef.current = true;
+    }
   }, [bankedLoaded, savedBanked]);
 
   useEffect(() => {
-    if (tasksLoaded) setSpentTasks(savedTasks);
+    if (tasksLoaded && !hydratedTasksRef.current) {
+      setSpentTasks(savedTasks);
+      hydratedTasksRef.current = true;
+    }
   }, [tasksLoaded, savedTasks]);
 
   // Persist local state changes when loaded

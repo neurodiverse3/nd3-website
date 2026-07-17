@@ -6,42 +6,42 @@ import path from 'path';
 import sitemap from '../../../sitemap';
 import { submitUrlsToIndexNow } from '../../../../lib/indexnow';
 
+import { getEnvVars, verifySession, signSession } from '../../../../lib/adminAuth';
+
 const execAsync = promisify(exec);
 
-// Helper to load production env vars when running locally in development mode
-function getEnvVars() {
-  const env = { ...process.env };
-  try {
-    const filePath = path.join(process.cwd(), '.env.production.local');
-    if (fs.existsSync(filePath)) {
-      const content = fs.readFileSync(filePath, 'utf-8');
-      content.split('\n').forEach(line => {
-        const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
-        if (match) {
-          const key = match[1];
-          let value = match[2] || '';
-          if (value.startsWith('"') && value.endsWith('"')) {
-            value = value.slice(1, -1);
-          }
-          env[key] = value;
-        }
-      });
-    }
-  } catch (err) {
-    console.error('[Diagnostics] Failed to parse .env.production.local:', err.message);
-  }
-  return env;
-}
-
-// Secure passcode validation on the server side
-function validatePasscode(request, env) {
-  const passcode = request.headers.get('x-admin-passcode');
+// Authenticate session from HTTP cookies
+function getAuthenticatedSession(request, env) {
   const securePassword = env.COMMAND_CENTRE_PASSWORD;
   if (!securePassword) {
-    console.warn('[Diagnostics] COMMAND_CENTRE_PASSWORD is not configured. Rejecting all requests (fail closed).');
-    return false;
+    console.warn('[Diagnostics] COMMAND_CENTRE_PASSWORD is not configured. Rejecting all requests.');
+    return null;
   }
-  return passcode === securePassword;
+  
+  const cookieValue = request.cookies.get('nd3_admin_session')?.value;
+  if (!cookieValue) return null;
+  
+  return verifySession(cookieValue, securePassword);
+}
+
+// Create response and slide session cookie expiry
+function createAuthedResponse(data, status = 200, env) {
+  const response = NextResponse.json(data, { status });
+  const securePassword = env.COMMAND_CENTRE_PASSWORD;
+  if (securePassword) {
+    const expiresAt = Date.now() + 15 * 60 * 1000;
+    const sessionToken = signSession(expiresAt, securePassword);
+    response.cookies.set({
+      name: 'nd3_admin_session',
+      value: sessionToken,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      path: '/',
+      maxAge: 900 // 15 mins
+    });
+  }
+  return response;
 }
 
 export const dynamic = 'force-dynamic';
@@ -50,7 +50,8 @@ export async function GET(request) {
   const env = getEnvVars();
   
   // 1. Secure Authentication Check
-  if (!validatePasscode(request, env)) {
+  const session = getAuthenticatedSession(request, env);
+  if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -212,14 +213,15 @@ export async function GET(request) {
     results.vercel.deployments = [];
   }
 
-  return NextResponse.json(results);
+  return createAuthedResponse(results, 200, env);
 }
 
 export async function POST(request) {
   const env = getEnvVars();
 
   // Secure Authentication Check
-  if (!validatePasscode(request, env)) {
+  const session = getAuthenticatedSession(request, env);
+  if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -241,12 +243,12 @@ export async function POST(request) {
       
       Promise.all(pings);
 
-      return NextResponse.json({ success: true, message: 'Wakeup pings sent to Render!' });
+      return createAuthedResponse({ success: true, message: 'Wakeup pings sent to Render!' }, 200, env);
     }
 
     if (action === 'redeploy') {
       if (process.env.NODE_ENV !== 'development') {
-        return NextResponse.json({ error: 'Redeploy via CLI only supported in local development mode.' }, { status: 400 });
+        return createAuthedResponse({ error: 'Redeploy via CLI only supported in local development mode.' }, 400, env);
       }
       
       console.log('[Diagnostics] Triggering local Vercel redeploy...');
@@ -258,7 +260,7 @@ export async function POST(request) {
         }
       });
 
-      return NextResponse.json({ success: true, message: 'Vercel redeploy triggered in background!' });
+      return createAuthedResponse({ success: true, message: 'Vercel redeploy triggered in background!' }, 200, env);
     }
 
     if (action === 'submit-indexnow') {
@@ -268,29 +270,29 @@ export async function POST(request) {
         const urls = sitemapRoutes.map(route => route.url).filter(Boolean);
         
         if (urls.length === 0) {
-          return NextResponse.json({ success: false, error: 'No URLs found in sitemap.' }, { status: 400 });
+          return createAuthedResponse({ success: false, error: 'No URLs found in sitemap.' }, 400, env);
         }
         
         const result = await submitUrlsToIndexNow(urls);
         if (result.success) {
-          return NextResponse.json({ 
+          return createAuthedResponse({ 
             success: true, 
             message: `Successfully submitted ${result.count} URLs to IndexNow (Bing/MS).` 
-          });
+          }, 200, env);
         } else {
-          return NextResponse.json({ 
+          return createAuthedResponse({ 
             success: false, 
             error: result.error || `Failed with status ${result.status}` 
-          }, { status: 500 });
+          }, 500, env);
         }
       } catch (err) {
         console.error('[Diagnostics] IndexNow submission failed:', err);
-        return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+        return createAuthedResponse({ success: false, error: err.message }, 500, env);
       }
     }
 
-    return NextResponse.json({ error: 'Unknown action' }, { status: 400 });
+    return createAuthedResponse({ error: 'Unknown action' }, 400, env);
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return createAuthedResponse({ error: error.message }, 500, env);
   }
 }

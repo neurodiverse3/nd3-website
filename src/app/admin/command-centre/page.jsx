@@ -34,33 +34,25 @@ export default function CommandCentre() {
   const [isLocal, setIsLocal] = useState(false);
   const passcodeInputRef = React.useRef(null);
 
-  // Check if we have a saved passcode in localStorage
+  // Check if we have an active session on mount
   useEffect(() => {
     setIsLocal(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-    const savedPasscode = localStorage.getItem('nd3_admin_passcode');
-    if (savedPasscode) {
-      setPasscode(savedPasscode);
-      verifySavedPasscode(savedPasscode);
-    } else {
-      setLoading(false);
-      setTimeout(() => passcodeInputRef.current?.focus(), 100);
-    }
+    verifySessionOnMount();
   }, []);
 
-  const verifySavedPasscode = async (code) => {
+  const verifySessionOnMount = async () => {
     try {
-      const res = await fetch('/api/admin/diagnostics', {
-        headers: { 'x-admin-passcode': code }
-      });
+      const res = await fetch('/api/admin/diagnostics');
       if (res.ok) {
         const json = await res.json();
         setData(json);
         setIsAuthenticated(true);
       } else {
-        localStorage.removeItem('nd3_admin_passcode');
+        setIsAuthenticated(false);
+        setTimeout(() => passcodeInputRef.current?.focus(), 100);
       }
     } catch (err) {
-      console.error('Failed to verify saved passcode:', err);
+      console.error('Failed to verify session on mount:', err);
     } finally {
       setLoading(false);
     }
@@ -69,19 +61,24 @@ export default function CommandCentre() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setPasscodeError(false);
+    setErrorMessage('');
     try {
-      const res = await fetch('/api/admin/diagnostics', {
-        headers: { 'x-admin-passcode': passcode }
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ passcode })
       });
+      const json = await res.json();
+      
       if (res.ok) {
-        const json = await res.json();
-        setData(json);
         setIsAuthenticated(true);
-        localStorage.setItem('nd3_admin_passcode', passcode);
         setPasscodeError(false);
+        await fetchDiagnostics();
       } else {
         setPasscodeError(true);
         setIsAuthenticated(false);
+        setErrorMessage(json.error || 'Authentication failed');
         setTimeout(() => setPasscodeError(false), 2000);
       }
     } catch (err) {
@@ -92,25 +89,31 @@ export default function CommandCentre() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('nd3_admin_passcode');
-    setIsAuthenticated(false);
-    setPasscode('');
-    setData(null);
+  const handleLogout = async () => {
+    setLoading(true);
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+    } catch (err) {
+      console.error('Failed to log out cleanly:', err);
+    } finally {
+      setIsAuthenticated(false);
+      setPasscode('');
+      setData(null);
+      setLoading(false);
+    }
   };
 
   const fetchDiagnostics = async (showRefreshIndicator = false) => {
     if (showRefreshIndicator) setRefreshing(true);
-    const activePasscode = passcode || localStorage.getItem('nd3_admin_passcode');
     try {
-      const res = await fetch('/api/admin/diagnostics', {
-        headers: { 'x-admin-passcode': activePasscode }
-      });
+      const res = await fetch('/api/admin/diagnostics');
       if (res.ok) {
         const json = await res.json();
         setData(json);
       } else if (res.status === 401) {
-        handleLogout();
+        setIsAuthenticated(false);
+        setPasscode('');
+        setData(null);
       }
     } catch (err) {
       console.error('Failed to fetch diagnostics:', err);
@@ -130,13 +133,11 @@ export default function CommandCentre() {
   const triggerAction = async (action) => {
     setActionLoading(action);
     setActionMessage('');
-    const activePasscode = passcode || localStorage.getItem('nd3_admin_passcode');
     try {
       const res = await fetch('/api/admin/diagnostics', {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
-          'x-admin-passcode': activePasscode 
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ action })
       });
