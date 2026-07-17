@@ -120,11 +120,16 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isSingleBlogPost]);
 
-  // Periodic logo glitch animation (once every 4s)
+  // Periodic logo glitch animation (once every 4s, respecting reduced motion settings)
   useEffect(() => {
     const interval = setInterval(() => {
-      setGlitch(true);
-      setTimeout(() => setGlitch(false), 200);
+      const isOSReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isSiteReduced = typeof document !== 'undefined' && document.documentElement.classList.contains('prefers-reduced-motion-override');
+      
+      if (!isOSReduced && !isSiteReduced) {
+        setGlitch(true);
+        setTimeout(() => setGlitch(false), 200);
+      }
     }, 4000);
     return () => clearInterval(interval);
   }, []);
