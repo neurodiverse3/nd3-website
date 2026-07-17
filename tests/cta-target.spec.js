@@ -41,4 +41,57 @@ test.describe('Join-the-list CTA and Email Inputs', () => {
     const duplicateInput = page.locator('#email-input');
     await expect(duplicateInput).toHaveCount(0);
   });
+
+  test('should rate limit comment submissions after 5 attempts', async ({ page }) => {
+    page.on('console', msg => console.log('PAGE CONSOLE:', msg.type(), msg.text()));
+    page.on('pageerror', err => console.log('PAGE ERROR:', err.message));
+
+    // Navigate to the test comments route
+    await page.goto('/test-comments');
+    await page.waitForTimeout(500);
+
+    const nameInput = page.locator('#name-input');
+    const emailInput = page.locator('#comment-email-input');
+    const contentInput = page.locator('#content-input');
+    const submitButton = page.locator('button:has-text("Send Reply")');
+
+    // Fill inputs
+    await nameInput.fill('Test Spammer');
+    await emailInput.fill('spammer@example.com');
+    await contentInput.fill('This is a test reflection content spam.');
+
+    // Log input values to verify they are filled
+    console.log('Form Inputs Filled - Name:', await nameInput.inputValue(), 'Email:', await emailInput.inputValue());
+
+    // Submit the form 5 times programmatically via page.evaluate
+    for (let i = 0; i < 5; i++) {
+      console.log(`Submitting form attempt ${i + 1}...`);
+      await page.evaluate(() => {
+        const form = document.querySelector('form');
+        if (form) {
+          form.requestSubmit();
+        } else {
+          console.error('Form not found on page!');
+        }
+      });
+      // Wait for submission to complete and button to be enabled
+      await page.waitForSelector('button:has-text("Send Reply"):not([disabled])');
+      
+      const faultText = await page.locator('text=Submission Fault').isVisible() 
+        ? await page.locator('div:has(span:has-text("Submission Fault")) > span').nth(1).textContent()
+        : 'None';
+      console.log(`Attempt ${i + 1} done. Fault:`, faultText);
+    }
+
+    // The 6th attempt should trigger the rate-limiting error
+    console.log('Submitting 6th attempt (should rate limit)...');
+    await page.evaluate(() => {
+      const form = document.querySelector('form');
+      if (form) form.requestSubmit();
+    });
+    await page.waitForSelector('button:has-text("Send Reply"):not([disabled])');
+
+    const errorMsg = page.locator('text=Too many comments submitted');
+    await expect(errorMsg).toBeVisible();
+  });
 });

@@ -2,6 +2,7 @@
 
 import crypto from 'crypto';
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
@@ -13,6 +14,27 @@ const getEmailHash = (email) => {
     .update(email.toLowerCase().trim())
     .digest('hex');
 };
+
+// Rate-limiting store for comment submissions
+const commentLimits = new Map(); // key: ip, value: array of timestamps (numbers)
+
+function checkCommentRateLimit(ip) {
+  const now = Date.now();
+  const windowMs = 15 * 60 * 1000; // 15 minutes window
+  const maxComments = 5;
+
+  let timestamps = commentLimits.get(ip) || [];
+  // Filter out timestamps older than the window
+  timestamps = timestamps.filter(t => now - t < windowMs);
+
+  if (timestamps.length >= maxComments) {
+    return false; // Limit exceeded
+  }
+
+  timestamps.push(now);
+  commentLimits.set(ip, timestamps);
+  return true; // Allowed
+}
 
 /**
  * Retrieve approved comments for a specific blog post from Strapi.
@@ -62,6 +84,15 @@ export async function getComments(postSlug) {
  * Server Action to submit a new comment.
  */
 export async function addComment(postSlug, prevState, formData) {
+  // 1. IP-based Rate limiting check
+  const clientHeaders = await headers();
+  const forwarded = clientHeaders.get('x-forwarded-for');
+  const ip = forwarded ? forwarded.split(',')[0].trim() : '127.0.0.1';
+
+  if (!checkCommentRateLimit(ip)) {
+    return { success: false, error: 'Too many comments submitted. Please try again in a few minutes.' };
+  }
+
   if (!STRAPI_URL) {
     return { success: false, error: 'Missing NEXT_PUBLIC_STRAPI_API_URL. Configure Strapi before submitting comments.' };
   }
