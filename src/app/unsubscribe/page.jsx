@@ -21,7 +21,7 @@ export const metadata = {
 
 export default function UnsubscribePage() {
   return (
-    <main className="min-h-screen pt-[96px] md:pt-[120px] pb-16 md:pb-24 px-6 flex items-center justify-center">
+    <div className="min-h-screen pt-[96px] md:pt-[120px] pb-16 md:pb-24 px-6 flex items-center justify-center">
       <Suspense
         fallback={
           <div className="w-full max-w-[500px] border-2 border-border-rule p-8 md:p-12 bg-bg-primary/35 relative shadow-[6px_6px_0px_var(--rule)] rounded-none text-center flex flex-col items-center py-20">
@@ -34,6 +34,6 @@ export default function UnsubscribePage() {
       >
         <UnsubscribeForm />
       </Suspense>
-    </main>
+    </div>
   );
 }

@@ -122,9 +122,9 @@ export default function ContactPage() {
         <div
           style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.1s forwards' }}
         >
-          <span className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-text-muted block mb-8">
+          <h2 className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-text-muted block mb-8">
             WHERE TO FIND ME
-          </span>
+          </h2>
 
           <div className="flex flex-col gap-4">
             {channels.map((ch, idx) => (
@@ -166,9 +166,9 @@ export default function ContactPage() {
         <div
           style={{ opacity: 0, animation: 'fadeInUp 0.6s ease 0.2s forwards' }}
         >
-          <span className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-text-muted block mb-8">
+          <h2 className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-text-muted block mb-8">
             COMMON QUESTIONS
-          </span>
+          </h2>
 
           <div className="flex flex-col gap-6">
             {faqs.map((faq, idx) => (

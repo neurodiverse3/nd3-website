@@ -109,9 +109,9 @@ export default function AboutClient() {
 
             {/* Quiet, understated sidebar card */}
             <div className="w-full border-t border-border-rule pt-6 mt-2 space-y-4">
-              <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-accent">
+              <h3 className="text-xs font-mono font-bold uppercase tracking-widest text-accent">
                 What I'm building here
-              </h4>
+              </h3>
               <ul className="space-y-3 text-xs md:text-sm text-muted font-sans leading-relaxed">
                 <li className="flex items-start gap-2.5">
                   <span className="text-accent select-none mt-0.5">•</span>

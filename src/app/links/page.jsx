@@ -204,7 +204,7 @@ END:VCARD`;
   ];
 
   return (
-    <main className="min-h-screen bg-bg-primary text-fg-primary flex flex-col justify-between pt-[96px] md:pt-[120px] pb-12 px-6 select-none">
+    <div className="min-h-screen bg-bg-primary text-fg-primary flex flex-col justify-between pt-[96px] md:pt-[120px] pb-12 px-6 select-none">
       <div className="w-full max-w-md mx-auto flex flex-col justify-start gap-8 pt-4 pb-12">
         {/* Profile Card Header */}
         <div className="text-center flex flex-col items-center">
@@ -372,6 +372,6 @@ END:VCARD`;
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 }

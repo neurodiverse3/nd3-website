@@ -155,15 +155,14 @@ export const Navbar = () => {
 
   return (
     <>
-      {/* A11y: Skip-to-content link */}
-      <a 
-        href="#main" 
-        className="sr-only focus:not-sr-only fixed top-4 left-4 z-[9999] bg-bg-primary text-accent border border-accent px-6 py-4 text-sm font-black uppercase tracking-wider shadow-2xl focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
-      >
-        Skip to content
-      </a>
-
       <header className={`fixed top-0 left-0 right-0 z-50 w-full flex flex-col transition-transform duration-300 ease-in-out ${hideNavbar ? '-translate-y-full' : 'translate-y-0'}`}>
+        {/* A11y: Skip-to-content link */}
+        <a 
+          href="#main" 
+          className="sr-only focus:not-sr-only fixed top-4 left-4 z-[9999] bg-bg-primary text-accent border border-accent px-6 py-4 text-sm font-black uppercase tracking-wider shadow-2xl focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+        >
+          Skip to content
+        </a>
         <nav 
           className={`w-full transition-all duration-300 flex items-center justify-between px-6 lg:px-12 xl:px-24 h-[72px] md:h-[96px] ${
             scrolled 

@@ -110,6 +110,17 @@ export default function CommentSection({ postSlug, postTitle = "Post", initialCo
   }, [particles.length]);
 
   const triggerSubmitSparkles = () => {
+    // A11y motion guard: suppress sparkles burst if reduced motion is preferred or overridden
+    if (typeof window !== 'undefined') {
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const osReduced = mediaQuery.matches;
+      const sitewideReduced = document.documentElement.classList.contains('prefers-reduced-motion-override');
+      if (osReduced || sitewideReduced) {
+        console.log('[Comments] Confetti sparkles suppressed due to reduced-motion preference.');
+        return;
+      }
+    }
+
     if (!submitButtonRef.current) return;
     const rect = submitButtonRef.current.getBoundingClientRect();
     const x = rect.left + rect.width / 2;

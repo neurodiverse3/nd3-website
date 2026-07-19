@@ -220,7 +220,7 @@ export default async function ProductDetailPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <main className="mx-auto max-w-6xl px-6 pb-24 pt-[96px] text-[var(--fg)] md:pt-[120px]">
+      <div className="mx-auto max-w-6xl px-6 pb-24 pt-[96px] text-[var(--fg)] md:pt-[120px]">
       {/* ---- Back button ---- */}
       <nav aria-label="Back" className="mb-6">
         <Link href="/store" className="inline-flex items-center gap-2 font-mono text-sm font-bold uppercase tracking-[0.1em] text-[var(--fg)] transition-all hover:-translate-x-1 hover:text-[var(--accent)]">
@@ -419,7 +419,7 @@ export default async function ProductDetailPage({ params }: Props) {
       </div>
       {/* Spacer so content doesn't hide behind the fixed bar */}
       <div className="min-[920px]:hidden h-28" aria-hidden="true" />
-    </main>
+    </div>
     </>
   );
 }

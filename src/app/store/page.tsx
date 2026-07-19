@@ -21,7 +21,7 @@ export default function StorePage() {
   const free = PRODUCTS.filter((p) => p.tier === "free");
 
   return (
-    <main className="mx-auto max-w-6xl px-6 pb-24 pt-[96px] md:pt-[120px] text-[var(--fg)]">
+    <div className="mx-auto max-w-6xl px-6 pb-24 pt-[96px] md:pt-[120px] text-[var(--fg)]">
       <PageHeader
         variant="section"
         eyebrow="ND3 Resource Hub"
@@ -317,6 +317,6 @@ export default function StorePage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

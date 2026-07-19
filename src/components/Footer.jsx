@@ -213,7 +213,7 @@ export const Footer = () => {
 
         {/* Column 2: Pillars */}
         <div className="flex flex-col gap-2.5 col-span-1 items-center lg:items-start text-center lg:text-left">
-          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Pillars</h3>
+          <div className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Pillars</div>
           <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
             <li>
               <Link href="/blog?pillar=unmasked-life" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
@@ -235,7 +235,7 @@ export const Footer = () => {
 
         {/* Column 3: Explore */}
         <div className="flex flex-col gap-2.5 col-span-1 items-center lg:items-start text-center lg:text-left">
-          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Explore</h3>
+          <div className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Explore</div>
           <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
             <li>
               <Link href="/blog" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
@@ -262,7 +262,7 @@ export const Footer = () => {
 
         {/* Column 4: Connect */}
         <div className="flex flex-col gap-2.5 col-span-1 items-center lg:items-start text-center lg:text-left">
-          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Connect</h3>
+          <div className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Connect</div>
           <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
             <li>
               <Link href="/about" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">
@@ -284,7 +284,7 @@ export const Footer = () => {
 
         {/* Column 5: Legal */}
         <div className="flex flex-col gap-2.5 col-span-1 items-center lg:items-start text-center lg:text-left">
-          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Legal</h3>
+          <div className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-label,var(--accent))] mb-1 lg:mb-3">Legal</div>
           <ul className="flex flex-col gap-1.5 lg:gap-3 text-[14px] font-medium text-text-muted w-full items-center lg:items-start">
             <li>
               <Link href="/privacy" prefetch={false} className="block py-1.5 lg:py-0 hover:text-fg-primary transition-colors focus-ring">

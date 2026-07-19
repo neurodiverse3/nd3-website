@@ -4,7 +4,7 @@ import { Skeleton } from '../../../components/Skeleton';
 
 export default function ProductDetailLoading() {
   return (
-    <main className="mx-auto max-w-6xl px-6 pb-24 pt-[96px] md:pt-[120px] text-left font-sans">
+    <div className="mx-auto max-w-6xl px-6 pb-24 pt-[96px] md:pt-[120px] text-left font-sans">
       {/* Back button */}
       <div className="mb-6">
         <Skeleton className="h-4 w-32" />
@@ -48,6 +48,6 @@ export default function ProductDetailLoading() {
           </div>
         </aside>
       </div>
-    </main>
+    </div>
   );
 }

@@ -93,6 +93,14 @@ export async function addComment(postSlug, prevState, formData) {
     return { success: false, error: 'Too many comments submitted. Please try again in a few minutes.' };
   }
 
+  const honey = formData.get('company')?.toString(); // Spam honeypot
+
+  // 2. Honeypot check: If the hidden honeypot is filled, treat as success but drop silently
+  if (honey) {
+    console.log('🤖 Spam bot caught in honeypot!');
+    return { success: true, message: 'Reflection recorded.' };
+  }
+
   if (!STRAPI_URL) {
     return { success: false, error: 'Missing NEXT_PUBLIC_STRAPI_API_URL. Configure Strapi before submitting comments.' };
   }
@@ -104,13 +112,6 @@ export async function addComment(postSlug, prevState, formData) {
   const name = formData.get('name')?.toString()?.trim();
   const email = formData.get('email')?.toString()?.trim();
   const content = formData.get('content')?.toString()?.trim();
-  const honey = formData.get('company')?.toString(); // Spam honeypot
-
-  // 1. Honeypot check: If the hidden honeypot is filled, treat as success but drop silently
-  if (honey) {
-    console.log('🤖 Spam bot caught in honeypot!');
-    return { success: true, message: 'Reflection recorded.' };
-  }
 
   // 2. Strict Input validation
   if (!name || name.length < 2 || name.length > 50) {

@@ -254,7 +254,7 @@ export default function BannerShowcase() {
           100% { transform: translateY(300%); }
         }
       `}} />
-      <main id="main" className="min-h-screen pt-[96px] md:pt-[120px] pb-24 px-6 md:px-24 max-w-7xl mx-auto flex flex-col justify-start text-left select-none bg-bg-primary text-fg-primary">
+      <div id="banner-showcase-container" className="min-h-screen pt-[96px] md:pt-[120px] pb-24 px-6 md:px-24 max-w-7xl mx-auto flex flex-col justify-start text-left select-none bg-bg-primary text-fg-primary">
         
         <div className="mb-12 border-b-4 border-fg-primary pb-8 pt-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 w-full mt-4">
           <div>
@@ -532,7 +532,7 @@ export default function BannerShowcase() {
             </ul>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

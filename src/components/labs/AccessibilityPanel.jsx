@@ -510,7 +510,7 @@ export default function AccessibilityPanel({ mobile }) {
           ref={triggerRef}
           onClick={() => setIsOpen(!isOpen)}
           className={mobile 
-            ? `relative h-11 w-11 flex items-center justify-center text-fg-primary hover:text-accent cursor-pointer p-0 ${isOpen ? 'text-accent' : ''}`
+            ? `relative h-11 w-11 flex items-center justify-center text-fg-primary hover:text-accent cursor-pointer p-0 focus-ring rounded-none ${isOpen ? 'text-accent' : ''}`
             : `relative p-2.5 text-fg-primary hover:text-accent bg-transparent transition-all group cursor-pointer focus-ring rounded-none flex items-center gap-1.5 border border-transparent hover:border-border-rule px-3 shrink-0 ${isOpen ? 'text-accent border-border-rule' : ''}`
           }
           title="Open Sensory & Site Accessibility Controls"
