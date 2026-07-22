@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "test": "playwright test",
     "test:a11y": "playwright test tests/accessibility.spec.js",
-    "bing": "node scripts/bing-webmaster.js"
+    "bing": "node scripts/bing-webmaster.js",
+    "scan-secrets": "node scripts/scan-secrets.js"
   },
   "dependencies": {
     "@napi-rs/canvas": "^1.0.0",
