@@ -5,6 +5,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || '';
 const isDev = process.env.NODE_ENV === 'development';
 
+// Re-trigger Vercel build after Git repository integration reconnection
+
+
 function getStrapiOrigin(url) {
   if (!url) return null;
   try {
