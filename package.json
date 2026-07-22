@@ -1,0 +1,55 @@
+{
+  "name": "nd3-website",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "playwright test",
+    "test:a11y": "playwright test tests/accessibility.spec.js",
+    "bing": "node scripts/bing-webmaster.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.0",
+    "@portabletext/react": "^6.2.0",
+    "@strapi/blocks-react-renderer": "^1.0.2",
+    "@tailwindcss/postcss": "^4.3.0",
+    "@vercel/analytics": "^2.0.1",
+    "autoprefixer": "^10.5.0",
+    "cloudinary": "^2.10.0",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.14.0",
+    "next": "^16.2.6",
+    "pdf-lib": "^1.17.1",
+    "postcss": "^8.5.14",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "resend": "^6.12.3",
+    "tailwindcss": "^4.2.4"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
+    "@axe-core/react": "^4.11.3",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.2.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.5.0",
+    "typescript": "^6.0.3"
+  },
+  "browserslist": [
+    "Chrome >= 100",
+    "Safari >= 15",
+    "Edge >= 100",
+    "Firefox >= 100",
+    "iOS >= 15"
+  ]
+}

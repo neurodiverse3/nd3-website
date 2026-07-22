@@ -1,0 +1,27 @@
+# neurodivers³
+
+> neurodivers³ is a serial memoir and practical toolkit platform about late-diagnosed ADHD/Autism (AuDHD) life, burnout, unmasking, and building gentle systems for everyday life.
+
+## Core Navigation & Routes
+
+- [Homepage](https://neurodivers3.co.uk/) — Main entry point featuring mode-based readings, topic pillars, and memoir highlights.
+- [Blog Archive](https://neurodivers3.co.uk/blog) — Full directory of posts filtering by pillar (Unmasked Life, Tools & Templates, Digital Life) or brain state.
+- [Memoir](https://neurodivers3.co.uk/memoir) — Episodic serial memoir about late-diagnosed neurodivergence and unmasking.
+- [Labs](https://neurodivers3.co.uk/labs) — Interactive, sensory-friendly experiments and web utilities (e.g., Acoustic Shield, Visual Snow Shield).
+- [Store](https://neurodivers3.co.uk/store) — Digital tools, ADHD menus, executive function dashboards, and sensory templates.
+- [About](https://neurodivers3.co.uk/about) — Ollie's story, founder bio, and the mission of neurodivers³.
+- [Contact](https://neurodivers3.co.uk/contact) — Secure email forms and channels to reach out.
+- [RSS Feed](https://neurodivers3.co.uk/rss.xml) — Full-text RSS feed for blog posts.
+- [Sitemap](https://neurodivers3.co.uk/sitemap.xml) — Full sitemap of all pages.
+
+## Key Visual Themes
+Supports three real-time CSS custom-property color modes:
+1. **Void (Dark)**: Charcoal backgrounds with bright pink accents.
+2. **Parchment (Cream)**: Soft warm cream with deep crimson text.
+3. **Incubation (Dark Green)**: Dark sage green with light sage labels.
+
+## Technology Stack
+- Next.js 16
+- React 19
+- Tailwind CSS 4
+- Strapi CMS (headless backend integration)

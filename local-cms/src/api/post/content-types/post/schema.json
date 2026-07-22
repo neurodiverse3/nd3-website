@@ -1,0 +1,83 @@
+{
+  "kind": "collectionType",
+  "collectionName": "posts",
+  "info": {
+    "singularName": "post",
+    "pluralName": "posts",
+    "displayName": "Post",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "seoTitle": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "pillar": {
+      "type": "enumeration",
+      "enum": [
+        "digital-life",
+        "tools-templates",
+        "unmasked-life"
+      ],
+      "required": true
+    },
+    "brainState": {
+      "type": "enumeration",
+      "enum": [
+        "burned-out",
+        "hyperfocus",
+        "masking",
+        "spiraling",
+        "on-a-roll"
+      ],
+      "required": true
+    },
+    "readTime": {
+      "type": "string",
+      "required": true
+    },
+    "excerpt": {
+      "type": "text",
+      "required": true
+    },
+    "body": {
+      "type": "blocks",
+      "required": true
+    },
+    "allowComments": {
+      "type": "boolean",
+      "default": true
+    },
+    "date": {
+      "type": "date"
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "series": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::series.series",
+      "inversedBy": "posts"
+    },
+    "shareSlug": {
+      "type": "string",
+      "unique": true
+    }
+  }
+}

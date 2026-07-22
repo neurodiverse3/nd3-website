@@ -1,0 +1,69 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Next.js build and cache
+.next
+.next/
+*.tsbuildinfo
+out/
+build/
+coverage/
+playwright-report/
+test-results/
+
+# Local JSON DB databases
+src/data/*.json
+
+# Local env files
+.env*.local
+.env
+
+# Local-only workspace assets
+workspace/*
+!workspace/README.md
+
+# Local screenshots and video recordings
+screenshots/
+public/demos/*.webm
+public/store/covers/*.png.bak
+public/spotlane-demos/
+public/store/videos/
+public/store-assets/
+# Local-only assets
+# tests/
+
+# Local-only markdown documents
+*.md
+!README.md
+
+.vercel
+
+# Notion cache
+tools/.notion-cache.json
+
+# Test screenshots and report outputs
+Mobile Screenshots/
+axe_results.txt
+
