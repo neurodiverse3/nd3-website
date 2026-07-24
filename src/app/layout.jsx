@@ -9,6 +9,7 @@ import { Inter, Outfit } from 'next/font/google';
 import { PWARegister } from '../components/PWARegister';
 import dynamic from 'next/dynamic';
 import VercelAnalyticsWrapper from '../components/VercelAnalyticsWrapper';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const GlobalVisualSnow = dynamic(() => import('../components/labs/GlobalVisualSnow'));
 const ZeroTelemetryBanner = dynamic(() => import('../components/ZeroTelemetryBanner').then((mod) => mod.ZeroTelemetryBanner));
@@ -133,6 +134,7 @@ export default function RootLayout({ children }) {
             </main>
             <Footer />
             <VercelAnalyticsWrapper />
+            <SpeedInsights />
           </BrainStateProvider>
         </ThemeProvider>
       </body>
