@@ -19,6 +19,7 @@
     "@strapi/blocks-react-renderer": "^1.0.2",
     "@tailwindcss/postcss": "^4.3.0",
     "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "autoprefixer": "^10.5.0",
     "cloudinary": "^2.10.0",
     "framer-motion": "^12.38.0",
