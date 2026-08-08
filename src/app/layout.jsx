@@ -113,6 +113,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <head>
+        <meta name="p:domain_verify" content="f0f313e0ed26c6b9817e2d7b3adb7082" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
