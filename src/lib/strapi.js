@@ -3,7 +3,12 @@ import { cache } from 'react';
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 
+// Keep the circuit short, but never turn a CMS outage into a successful empty
+// response: an empty response would be eligible to replace a healthy ISR page.
 let cmsOfflineUntil = 0;
+const SERVER_REVALIDATE_SECONDS = 900;
+const SERVER_TIMEOUT_MS = 10000;
+const CLIENT_TIMEOUT_MS = 15000;
 
 async function fetchStrapi(path, params = {}) {
   if (!STRAPI_URL) {
@@ -11,21 +16,13 @@ async function fetchStrapi(path, params = {}) {
     return { data: [] };
   }
 
-  if (Date.now() < cmsOfflineUntil) {
-    console.warn(`[Strapi] Circuit breaker active. Skipping fetch for ${path}.`);
-    return { data: [] };
-  }
-
   const searchParams = new URLSearchParams();
 
   for (const [key, value] of Object.entries(params)) {
-    if (value === undefined || value === null || value === '') {
-      continue;
-    }
+    if (value === undefined || value === null || value === '') continue;
 
     if (typeof value === 'string' && value.includes(',')) {
-      const parts = value.split(',');
-      parts.forEach((part, index) => {
+      value.split(',').forEach((part, index) => {
         searchParams.append(`${key}[${index}]`, part.trim());
       });
     } else {
@@ -40,48 +37,45 @@ async function fetchStrapi(path, params = {}) {
     ...(STRAPI_TOKEN ? { Authorization: `Bearer ${STRAPI_TOKEN}` } : {}),
   };
 
-  // Add abort timeout to prevent fetch from hanging SSR indefinitely.
-  // Set a longer timeout on the server-side to allow Render's free tier backend to spin up from sleep.
-  // Use 45 seconds to stay safely under Next.js's 60-second static generation worker timeout.
+  // Explicit force-cache is important here. A transient Strapi error must not
+  // convert these requests into uncached dynamic work during an ISR render.
   const isServer = typeof window === 'undefined';
-  const timeoutMs = isServer ? 45000 : 15000;
+  const timeoutMs = isServer ? SERVER_TIMEOUT_MS : CLIENT_TIMEOUT_MS;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-
   const requestOptions = {
     headers,
     signal: controller.signal,
-    ...(typeof window === 'undefined' ? { next: { revalidate: 60 } } : {}),
+    ...(isServer
+      ? { cache: 'force-cache', next: { revalidate: SERVER_REVALIDATE_SECONDS } }
+      : {}),
   };
 
   try {
+    if (Date.now() < cmsOfflineUntil) {
+      throw new Error('[Strapi] Circuit breaker active');
+    }
+
     const res = await fetch(url, requestOptions);
-    clearTimeout(timeoutId);
     if (!res.ok) {
-      if (res.status === 404 || res.status === 403 || res.status === 401) {
-        console.warn(`[Strapi] ${path} endpoint returned ${res.status}. Returning empty response.`);
-        return { data: [] };
-      }
       const body = await res.text().catch(() => '');
       throw new Error(`[Strapi] ${path} failed (${res.status} ${res.statusText})${body ? `: ${body}` : ''}`);
     }
 
     return await res.json();
   } catch (error) {
-    clearTimeout(timeoutId);
-    
+    cmsOfflineUntil = Date.now() + 30 * 1000;
     const isBuild = process.env.NEXT_PHASE === 'phase-production-build';
-    const cooldownMs = isBuild ? 10 * 60 * 1000 : 30 * 1000; // 10 min during build, 30s at runtime
-    cmsOfflineUntil = Date.now() + cooldownMs;
-    
-    console.warn(`[Strapi] ${path} connection failed (CMS might be offline):`, error.message);
-    
-    const isCI = process.env.CI === 'true' || process.env.VERCEL === '1' || process.env.NETLIFY === 'true';
-    if (isCI && isBuild) {
-      console.warn(`[Strapi] Build environment detected. Suppressing error to allow build to succeed.`);
-      return { data: [] };
-    }
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(`[Strapi] ${path} unavailable; preserving the previous ISR result when possible: ${message}`);
+
+    // Build-time fallback keeps deploys possible when Render is asleep. At
+    // runtime, throw instead of returning { data: [] }: Next can then retain
+    // the previous ISR artifact rather than writing an empty/error page.
+    if (isBuild) return { data: [] };
     throw error;
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 
@@ -95,9 +89,7 @@ export function urlFor(source) {
   const url = attributes?.url || '';
   const fullUrl = url.startsWith('/') ? `${STRAPI_URL}${url}` : url;
 
-  return {
-    url: () => fullUrl,
-  };
+  return { url: () => fullUrl };
 }
 
 function normalizeData(item) {
@@ -112,9 +104,9 @@ function normalizeData(item) {
 }
 
 export async function getPosts() {
-  const response = await fetchStrapi('posts', { 
+  const response = await fetchStrapi('posts', {
     populate: 'coverImage',
-    'pagination[limit]': '100'
+    'pagination[limit]': '100',
   });
   return (response?.data || []).map(normalizeData);
 }
@@ -143,7 +135,6 @@ export const getShortUrlByCode = cache(async (code) => {
   return response?.data?.[0] ? normalizeData(response.data[0]) : null;
 });
 
-
 export async function getRelatedPosts(pillar, excludeSlug, limit = 3) {
   const response = await fetchStrapi('posts', {
     'filters[pillar][$eq]': pillar,
@@ -163,9 +154,9 @@ export async function getSeriesPosts(seriesName) {
 }
 
 export async function getAllPostSlugs() {
-  const response = await fetchStrapi('posts', { 
+  const response = await fetchStrapi('posts', {
     fields: 'slug',
-    'pagination[limit]': '100'
+    'pagination[limit]': '100',
   });
   return (response?.data || []).map((item) => normalizeData(item).slug).filter(Boolean);
 }
@@ -181,25 +172,19 @@ export async function getSiteSettings() {
   if (settings?.featuredPosts?.data) {
     settings.featuredPosts = settings.featuredPosts.data.map(normalizeData);
   }
-
-  if (!Array.isArray(settings.featuredPosts)) {
-    settings.featuredPosts = [];
-  }
+  if (!Array.isArray(settings.featuredPosts)) settings.featuredPosts = [];
 
   return settings;
 }
 
-
 export async function getLabs() {
-  const response = await fetchStrapi('labs', { 
+  const response = await fetchStrapi('labs', {
     populate: 'category',
-    'pagination[limit]': '100'
+    'pagination[limit]': '100',
   });
   return (response?.data || []).map((item) => {
     const lab = normalizeData(item);
-    if (lab.category?.data) {
-      lab.category = normalizeData(lab.category.data);
-    }
+    if (lab.category?.data) lab.category = normalizeData(lab.category.data);
     return lab;
   });
 }
@@ -209,15 +194,10 @@ export const getLabBySlug = cache(async (slug) => {
     'filters[slug][$eq]': slug,
     populate: 'category',
   });
-
-  if (!response?.data?.length) {
-    return null;
-  }
+  if (!response?.data?.length) return null;
 
   const lab = normalizeData(response.data[0]);
-  if (lab.category?.data) {
-    lab.category = normalizeData(lab.category.data);
-  }
+  if (lab.category?.data) lab.category = normalizeData(lab.category.data);
   return lab;
 });
 
@@ -229,7 +209,7 @@ export async function getLabCategories() {
 export async function getMemoirChapters() {
   const response = await fetchStrapi('memoir-chapters', {
     sort: 'chapterNumber:asc',
-    'pagination[limit]': '100'
+    'pagination[limit]': '100',
   });
   return (response?.data || []).map(normalizeData);
 }
@@ -242,9 +222,7 @@ export const getMemoirChapterBySlug = cache(async (slug) => {
 });
 
 export async function getProducts() {
-  const response = await fetchStrapi('products', {
-    'pagination[limit]': '100'
-  });
+  const response = await fetchStrapi('products', { 'pagination[limit]': '100' });
   return (response?.data || []).map(normalizeData);
 }
 
