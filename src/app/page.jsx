@@ -18,7 +18,9 @@ export const metadata = {
   }
 };
 
-export const revalidate = 60; // Cache for 1 minute, revalidated on-demand
+// Content is editorial; a 15-minute ISR window avoids hammering Strapi and
+// gives a transient CMS outage a much larger chance of serving the old page.
+export const revalidate = 900;
 
 export default async function Page() {
   const [siteSettings, allPosts] = await Promise.all([
