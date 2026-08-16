@@ -52,20 +52,11 @@ export const metadata = {
     siteName: 'neurodivers³',
     locale: 'en_GB',
     type: 'website',
-    images: [
-      {
-        url: '/ollie-profile-v2.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'neurodivers³ - Neurodivergent life, tools and stories',
-      }
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'neurodivers³ - Neurodivergent life, tools and stories',
     description: 'An honest blog and slow-burn memoir about late-diagnosed ADHD, burnout, and building tiny systems for an unmasked life.',
-    images: ['/ollie-profile-v2.jpg'],
   },
 };
 
